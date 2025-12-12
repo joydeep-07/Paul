@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/* ROOT – LIGHT MODE */
+:root {
+  /* Backgrounds */
+  --bg-main: #ffffff;
+  --bg-secondary: #f5f5f5;
+
+  /* Text */
+  --text-main: #0f9d58; /* Google Green style */
+  --text-secondary: #4caf50;
+
+  /* Accent Colors */
+  --accent-primary: #0f9d58;
+  --accent-secondary: #66bb6a;
+
+  /* Borders */
+  --border-light: #e0e0e0;
+}
+
+/* DARK MODE */
+.dark {
+  /* Backgrounds */
+  --bg-main: #0b0b0b;       /* blackish */
+  --bg-secondary: #181818;
+
+  /* Text */
+  --text-main: #4caf50;     /* lighter green for dark mode */
+  --text-secondary: #81c784;
+
+  /* Accent Colors */
+  --accent-primary: #43a047;
+  --accent-secondary: #66bb6a;
+
+  /* Borders */
+  --border-light: #2c2c2c;
+}
+
+
+/* Smooth transition for all theme-dependent properties */
+* {
+  transition: background-color 0.4s ease, 
+              color 0.4s ease, 
+              border-color 0.4s ease;
+}
