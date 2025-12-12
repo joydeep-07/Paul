@@ -46,6 +46,17 @@ const Navbar = () => {
         >
           Contact
         </NavLink>
+
+        <NavLink
+          to="/projects"
+          className={({ isActive }) =>
+            `hover:opacity-70 transition ${
+              isActive ? "opacity-100" : "opacity-80"
+            }`
+          }
+        >
+          Project
+        </NavLink>
       </div>
 
       {/* THEME TOGGLE BUTTON */}

@@ -5,6 +5,7 @@ import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Projects from "./Pages/Projects";
 
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
@@ -24,8 +25,9 @@ const App = () => {
       element: <Root />,
       children: [
         { index: true, element: <Home /> },
-        { path: "about", element: <About /> },
-        { path: "contact", element: <Contact /> },
+        { path: "/about", element: <About /> },
+        { path: "/contact", element: <Contact /> },
+        { path: "/projects", element: <Projects /> },
       ],
     },
   ]);
