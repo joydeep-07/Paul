@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav className="h-14 w-full bg-[var(--bg-main)] text-[var(--text-main)] flex items-center justify-between px-6 shadow-sm transition-all duration-500">
       {/* LOGO / BRAND */}
-      <h1 className="text-lg font-bold">MySite</h1>
+      <h1 className="text-lg font-bold">PAUL HERE</h1>
 
       {/* NAV LINKS */}
       <div className="flex gap-6 text-sm font-medium">
