@@ -1,19 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../slices/themeSlice";
+import ThemeToggle from "../Components/ThemeToggle";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  const { mode } = useSelector((state) => state.theme);
-
   return (
-    <nav className="h-14 w-full bg-[var(--bg-main)] text-[var(--text-main)] flex items-center justify-between px-6 shadow-sm transition-all duration-500">
-      {/* LOGO / BRAND */}
+    <nav
+      className="h-14 w-full bg-[var(--bg-main)] text-[var(--text-main)] 
+    flex items-center justify-between px-6 shadow-sm transition-all duration-500"
+    >
+      {/* LOGO */}
       <h1 className="text-lg font-bold">PAUL HERE</h1>
 
       {/* NAV LINKS */}
-      <div className="flex gap-6 text-sm font-medium">
+      <div className="flex gap-6 text-sm font-medium items-center">
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -57,15 +56,10 @@ const Navbar = () => {
         >
           Project
         </NavLink>
-      </div>
 
-      {/* THEME TOGGLE BUTTON */}
-      <button
-        onClick={() => dispatch(toggleTheme())}
-        className="px-3 py-1 rounded bg-[var(--accent-primary)] text-white text-sm transition-all duration-300 hover:opacity-90"
-      >
-        {mode === "light" ? "Dark Mode" : "Light Mode"}
-      </button>
+        {/* THEME TOGGLE COMPONENT */}
+        <ThemeToggle />
+      </div>
     </nav>
   );
 };
