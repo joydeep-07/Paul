@@ -43,3 +43,12 @@
               color 0.4s ease, 
               border-color 0.4s ease;
 }
+
+
+
+@font-face {
+  font-family: "Oswald";
+  src: url("./assets/font/Oswald.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
