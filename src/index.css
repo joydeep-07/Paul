@@ -21,11 +21,11 @@
 /* DARK MODE */
 .dark {
   /* Backgrounds */
-  --bg-main: #0b0b0b;       /* blackish */
+  --bg-main: #0b0b0b; /* blackish */
   --bg-secondary: #181818;
 
   /* Text */
-  --text-main: #d4d4d4;     /* lighter green for dark mode */
+  --text-main: #d4d4d4; /* lighter green for dark mode */
   --text-secondary: #81c784;
 
   /* Accent Colors */
@@ -36,19 +36,20 @@
   --border-light: #2c2c2c;
 }
 
-
 /* Smooth transition for all theme-dependent properties */
 * {
-  transition: background-color 0.4s ease, 
-              color 0.4s ease, 
-              border-color 0.4s ease;
+  transition: background-color 0.4s ease, color 0.4s ease,
+    border-color 0.4s ease;
 }
 
-
-
 @font-face {
-  font-family: "Oswald";
-  src: url("./assets/font/Oswald.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+  font-family: "Heading";
+  src: url("./assets/fonts/Marcellus.ttf") format("truetype");
+  font-display: swap;
+}
+
+.heading-font {
+  font-family: "Heading", sans-serif;
+  font-weight: 550;
+  font: italic;
 }

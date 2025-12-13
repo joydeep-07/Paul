@@ -8,8 +8,8 @@ const Hero = () => {
           Hey! It's me Paul,
         </h3>
         <h1
-          style={{ fontFamily: "Oswald" }}
-          className="text-7xl font-semibold text-[var(--text-main)]"
+          
+          className="text-7xl heading-font font-semibold text-[var(--text-main)]"
         >
           Crafting{" "}
           <span className="text-[var(--accent-primary)]">
