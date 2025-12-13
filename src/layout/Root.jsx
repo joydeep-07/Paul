@@ -12,7 +12,7 @@ const Root = () => {
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="pt-14 flex justify-center items-center">
+      <div className="pt-25 flex justify-center items-center">
         <Outlet />
       </div>
 

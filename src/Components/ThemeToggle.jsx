@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../slices/themeSlice";
-import { FaMoon, FaSun } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaRegMoon } from "react-icons/fa";
 import { IoSunnyOutline } from "react-icons/io5";
@@ -19,8 +18,6 @@ const ThemeToggle = () => {
         h-9 w-9
         rounded-full
         flex items-center justify-center
-
-       
         backdrop-blur-xl
       "
     >
