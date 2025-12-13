@@ -11,7 +11,7 @@
   --text-secondary: #212121;
 
   /* Accent Colors */
-  --accent-primary: #0f9d58;
+  --accent-primary: rgb(26, 124, 26);
   --accent-secondary: #66bb6a;
 
   /* Borders */
@@ -29,7 +29,7 @@
   --text-secondary: #81c784;
 
   /* Accent Colors */
-  --accent-primary: #43a047;
+  --accent-primary: #66bb6a;
   --accent-secondary: #66bb6a;
 
   /* Borders */
@@ -50,6 +50,11 @@
 
 .heading-font {
   font-family: "Heading", sans-serif;
-  font-weight: 550;
+  
   font: italic;
+}
+
+
+::-webkit-scrollbar{
+  display: none;
 }
