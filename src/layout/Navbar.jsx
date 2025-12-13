@@ -28,7 +28,6 @@ useEffect(() => {
       // ✅ NO DARK BACKGROUND
       backgroundColor: "rgba(255,255,255,0.05)",
       backdropFilter: "blur(10px)",
-      border: "1px solid rgba(255,255,255,0.18)",
 
       ease: "power2.out",
       scrollTrigger: {
