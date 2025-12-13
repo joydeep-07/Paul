@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import ThemeToggle from "../Components/ThemeToggle";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const links = [
   { name: "Home", path: "/" },
@@ -10,18 +14,52 @@ const links = [
 ];
 
 const Navbar = () => {
+  const navRef = useRef(null);
+useEffect(() => {
+  if (window.innerWidth < 768) return;
+
+  const ctx = gsap.context(() => {
+    gsap.to(navRef.current, {
+      width: "75%",
+      height: "60px",
+      borderRadius: "999px",
+      marginTop: "12px",
+
+      // ✅ NO DARK BACKGROUND
+      backgroundColor: "rgba(255,255,255,0.05)",
+      backdropFilter: "blur(10px)",
+      border: "1px solid rgba(255,255,255,0.18)",
+
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: document.body,
+        start: "top top",
+        end: "+=120",
+        scrub: true,
+      },
+    });
+  }, navRef);
+
+  return () => ctx.revert();
+}, []);
+
+
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] md:w-[75%]">
+    <nav
+      ref={navRef}
+      className="
+        fixed top-4 left-1/2 -translate-x-1/2 z-50
+        w-[92%]
+        transition-all
+      "
+    >
       <div
         className="
           h-16 px-6 md:px-10
           flex items-center justify-between
           rounded-full
-          border border-white/10
-          bg-[var(--bg-main)]/70
-          backdrop-blur-xl
+          bg-[var(--bg-main)]/80
           shadow-lg
-          transition-all duration-500
         "
       >
         {/* LOGO */}
@@ -37,7 +75,7 @@ const Navbar = () => {
                 to={link.path}
                 className={({ isActive }) =>
                   `block transition-transform duration-500 ease-out
-                   ${isActive ? "text-[var(--accent-primary)]" : ""}`
+                  ${isActive ? "text-[var(--accent-primary)]" : ""}`
                 }
               >
                 <span className="block group-hover:-translate-y-full transition-transform duration-500">
@@ -56,10 +94,8 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* RIGHT SIDE */}
-        <div className="flex items-center gap-4">
-          <ThemeToggle />
-        </div>
+        {/* RIGHT */}
+        <ThemeToggle />
       </div>
     </nav>
   );
