@@ -33,7 +33,7 @@ const Hero = () => {
       </div>
 
       <div
-        className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 sm:px-8 md:px-12 py-10 lg:px-[100px] gap-6 sm:gap-0"
+        className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 sm:px-8 md:px-12 py-15 lg:px-[100px] gap-6 sm:gap-0"
         data-aos="fade-up"
         data-aos-delay="450"
       >

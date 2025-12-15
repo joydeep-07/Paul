@@ -20,8 +20,8 @@ useEffect(() => {
 
   const ctx = gsap.context(() => {
     gsap.to(navRef.current, {
-      width: "75%",
-      height: "60px",
+      width: "50%",
+      height: "50px",
       borderRadius: "999px",
       marginTop: "12px",
 
@@ -54,9 +54,10 @@ useEffect(() => {
     >
       <div
         className="
-          h-16 px-6 md:px-10
+          h-[50px] px-6 md:px-10
           flex items-center justify-between
           rounded-full
+          border border-[var(--border-light)]
           bg-[var(--bg-main)]/80
           shadow-lg
         "
