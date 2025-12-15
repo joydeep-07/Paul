@@ -1,5 +1,4 @@
-import { div } from 'framer-motion/client';
-import React from 'react'
+import { ArrowUp } from "lucide-react";
 
 const Hero = () => {
   return (

@@ -6,7 +6,7 @@ const savedTheme = localStorage.getItem("theme") || "light";
 const themeSlice = createSlice({
   name: "theme",
   initialState: {
-    mode: "light",
+    mode: "theme" in localStorage ? savedTheme : "light",
   },
   reducers: {
     toggleTheme: (state) => {
