@@ -8,10 +8,9 @@ const Root = () => {
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-all duration-300">
       <Navbar />
       <div className="pt-25">
-        {" "}
         <Outlet />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

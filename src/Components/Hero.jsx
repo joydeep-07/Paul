@@ -7,6 +7,7 @@ import {
   SiFramer,
 } from "react-icons/si";
 import { FaReact, FaNodeJs } from "react-icons/fa";
+import AboutMe from "./AboutMe";
 
 const Hero = () => {
   const skills = [
@@ -104,6 +105,8 @@ const Hero = () => {
       <div className="py-10">
         <Slide items={skills} speed={20} />
       </div>
+
+      <AboutMe/>
     </>
   );
 };
