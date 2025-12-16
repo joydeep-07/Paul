@@ -3,6 +3,10 @@ import { reviews } from "../Utils/Reviews";
 import { ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const SLIDE_DURATION = 5000;
+const RADIUS = 36;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+
 const slideVariants = {
   enter: (direction) => ({
     x: direction > 0 ? 300 : -400,
@@ -22,11 +26,11 @@ const Reviews = () => {
   const [[index, direction], setIndex] = useState([0, 1]);
   const [expandedId, setExpandedId] = useState(null);
 
-  // 🔁 Auto slide every 2s
+  // 🔁 Auto slide every 5000ms (SYNCED)
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex(([prev]) => [(prev + 1) % reviews.length, 1]);
-    }, 2000);
+    }, SLIDE_DURATION);
 
     return () => clearInterval(interval);
   }, []);
@@ -57,12 +61,12 @@ const Reviews = () => {
           </h1>
 
           <p className="text-sm opacity-80 max-w-sm">
-            I’ve worked with some amazing people over the years here’s what they
-            have to say about me.
+            I’ve worked with some amazing people over the years — here’s what
+            they have to say about me.
           </p>
         </div>
 
-        {/* RIGHT (SLIDER) */}
+        {/* RIGHT */}
         <div className="w-full md:w-2/3 p-4 overflow-hidden">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
@@ -79,11 +83,43 @@ const Reviews = () => {
               className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl"
             >
               <div className="flex items-center">
-                <div className="p-2 border-2 border-[var(--accent-primary)] rounded-full m-4">
+                {/* TIMER AVATAR */}
+                <div className="relative m-4 w-[88px] h-[88px] flex items-center justify-center">
+                  <svg className="absolute w-full h-full rotate-[-90deg]">
+                    {/* Base ring */}
+                    <circle
+                      cx="44"
+                      cy="44"
+                      r={RADIUS}
+                      fill="none"
+                      stroke="var(--bg-main)"
+                      strokeWidth="3"
+                    />
+
+                    {/* Countdown ring */}
+                    <motion.circle
+                      key={index}
+                      cx="44"
+                      cy="44"
+                      r={RADIUS}
+                      fill="none"
+                      stroke="var(--accent-primary)"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeDasharray={CIRCUMFERENCE}
+                      initial={{ strokeDashoffset: CIRCUMFERENCE }}
+                      animate={{ strokeDashoffset: 0 }}
+                      transition={{
+                        duration: SLIDE_DURATION / 1000,
+                        ease: "linear",
+                      }}
+                    />
+                  </svg>
+
                   <img
-                    className="h-16 w-16 rounded-full object-cover"
                     src={item.photo}
                     alt={item.name}
+                    className="h-16 w-16 rounded-full object-cover z-10"
                   />
                 </div>
 
