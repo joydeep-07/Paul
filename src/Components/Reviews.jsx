@@ -15,7 +15,7 @@ const Reviews = () => {
 
             {/* Main heading */}
             <h1 className="heading-font text-4xl md:text-5xl leading-tight mb-4 text-[var(--text-heading)]">
-              What others{" "}
+              What others {" "}
               <span className="text-[var(--accent-primary)]">Say</span>
             </h1>
 
