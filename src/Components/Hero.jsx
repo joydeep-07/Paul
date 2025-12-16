@@ -1,6 +1,23 @@
 import { ArrowUp } from "lucide-react";
+import Slide from "./Slide";
+import {
+  SiMongodb,
+  SiExpress,
+  SiTailwindcss,
+  SiFramer,
+} from "react-icons/si";
+import { FaReact, FaNodeJs } from "react-icons/fa";
 
 const Hero = () => {
+  const skills = [
+    { name: "React", icon: <FaReact /> },
+    { name: "Node.js", icon: <FaNodeJs /> },
+    { name: "MongoDB", icon: <SiMongodb /> },
+    { name: "Express", icon: <SiExpress /> },
+    { name: "Tailwind", icon: <SiTailwindcss /> },
+    { name: "Framer Motion", icon: <SiFramer /> },
+  ];
+
   return (
     <>
       <div className="flex flex-col  justify-center items-center">
@@ -83,8 +100,12 @@ const Hero = () => {
           </button>
         </div>
       </div>
+
+      <div className="py-10">
+        <Slide items={skills} speed={20} />
+      </div>
     </>
   );
-}
+};
 
-export default Hero
+export default Hero;
