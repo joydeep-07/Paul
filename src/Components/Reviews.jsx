@@ -34,6 +34,8 @@ const Reviews = () => {
 
           {/* Right */}
           <div className="w-full md:w-2/3 p-4 space-y-6">
+
+          {/* Slide  */}
             {reviews.map((item) => {
               const words = item.review.split(" ");
               const shortText = words.slice(0, 40).join(" ");
