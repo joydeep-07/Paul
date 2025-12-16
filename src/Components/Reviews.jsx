@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import dp from "../assets/images/dp1.jpg";
+import { reviews } from "../Utils/Reviews";
 import { ArrowUp } from "lucide-react";
+
 const Reviews = () => {
-  const [readMore, setReadMore] = useState(false);
+  const [expandedId, setExpandedId] = useState(null);
 
-  const text =
-    "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti modi ratione obcaecati! Eligendi excepturi assumenda cumque temporibus recusandae, animi, ducimus repudiandae dignissimos quas enim velit praesentium perspiciatis quisquam dicta. Exercitationem magni aliquam veritatis mollitia modi voluptas numquam dolor? Laborum ratione, debitis non ad quibusdam quaerat neque a laboriosam, animi, fugiat doloribus accusamus ipsam provident sint mollitia enim. Quasi veniam, optio natus illum distinctio facilis reprehenderit blanditiis placeat eos, minus ullam. Nemo officiis qui sunt nam recusandae reprehenderit magnam voluptatibus quasi laboriosam exercitationem ea architecto voluptatem, temporibus doloribus, vitae tenetur molestias illum repudiandae vero. Asperiores debitis libero doloremque quasi velit dolores!";
-
-  const words = text.split(" ");
-  const shortText = words.slice(0, 40).join(" ");
+  const toggleReadMore = (id) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
 
   return (
     <>
       <div className="py-15 bg-[var(--bg-main)] flex justify-center items-center">
-        <div className="w-7xl flex">
+        <div className="max-w-7xl w-full flex flex-col md:flex-row">
           {/* Left */}
           <div className="w-full md:w-1/3 px-4">
             <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-main)] opacity-70 mb-2">
@@ -34,55 +33,65 @@ const Reviews = () => {
           </div>
 
           {/* Right */}
-          <div className=" w-2/3 p-4 ">
-            <div className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl">
-              <div className="flex items-center">
-                <div className="p-2 border-2 border-[var(--accent-primary)] rounded-full m-4">
-                  <img
-                    className="h-16 w-16 rounded-full object-cover"
-                    src={dp}
-                    alt=""
-                  />
-                </div>
+          <div className="w-full md:w-2/3 p-4 space-y-6">
+            {reviews.map((item) => {
+              const words = item.review.split(" ");
+              const shortText = words.slice(0, 40).join(" ");
+              const isExpanded = expandedId === item.id;
 
-                <div>
-                  <h1 className="font-semibold text-[var(--text-main)]">
-                    Debashis Roy
-                  </h1>
-                  <p className="text-sm text-[var(--text-secondary)]">
-                    Senior Software Engineer
+              return (
+                <div
+                  key={item.id}
+                  className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl"
+                >
+                  <div className="flex items-center">
+                    <div className="p-2 border-2 border-[var(--accent-primary)] rounded-full m-4">
+                      <img
+                        className="h-16 w-16 rounded-full object-cover"
+                        src={item.photo}
+                        alt={item.name}
+                      />
+                    </div>
+
+                    <div>
+                      <h1 className="font-semibold text-[var(--text-main)]">
+                        {item.name}
+                      </h1>
+                      <p className="text-sm text-[var(--text-secondary)]">
+                        {item.position}
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="text-justify p-4 text-[var(--text-main)] max-w-3xl">
+                    {isExpanded ? item.review : shortText}
+                    {words.length > 40 && (
+                      <span
+                        onClick={() => toggleReadMore(item.id)}
+                        className="cursor-pointer text-[var(--accent-primary)] font-medium"
+                      >
+                        {isExpanded ? " read less" : " ...read more"}
+                      </span>
+                    )}
                   </p>
                 </div>
-              </div>
+              );
+            })}
 
-              <p className="text-justify p-4 text-[var(--text-main)] max-w-3xl">
-                {readMore ? text : shortText}
-                {words.length > 40 && (
-                  <span
-                    onClick={() => setReadMore(!readMore)}
-                    className="cursor-pointer text-[var(--accent-primary)] font-medium"
-                  >
-                    {readMore ? " read less" : " ...read more"}
-                  </span>
-                )}
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3 sm:gap-5 py-2 sm:py-5 w-full sm:w-fit px-2 sm:px-3 group justify-center sm:justify-start">
-              {[
-                {
-                  name: "Check it out on LinkedIn",
-                  url: "https://www.linkedin.com/in/joydeep-paul-06b37926a",
-                },
-              ].map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => window.open(item.url, "_blank")}
-                  className="flex pb-2  border-b border-[var(--border-light)] items-center gap-2 text-[var(--text-main)] text-[10px] sm:text-xs md:text-sm font-medium transition-opacity duration-300 hover:text-[var(--accent-primary)] flex-shrink-0"
-                >
-                  <span>{item.name}</span>
-                  <ArrowUp className="w-3 h-3 sm:w-4 sm:h-4 rotate-45 flex-shrink-0" />
-                </button>
-              ))}
+            {/* CTA */}
+            <div className="flex flex-wrap gap-3 sm:gap-5 py-2 sm:py-0 px-2 sm:px-3">
+              <button
+                onClick={() =>
+                  window.open(
+                    "https://www.linkedin.com/in/joydeep-paul-06b37926a",
+                    "_blank"
+                  )
+                }
+                className="flex pb-2 border-b border-[var(--border-light)] items-center gap-2 text-[var(--text-main)] text-xs md:text-sm font-medium hover:text-[var(--accent-primary)]"
+              >
+                <span>Check it out on LinkedIn</span>
+                <ArrowUp className="w-4 h-4 rotate-45" />
+              </button>
             </div>
           </div>
         </div>
