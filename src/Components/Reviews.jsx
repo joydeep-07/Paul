@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import dp from "../assets/images/dp1.jpg";
-
+import { ArrowUp } from "lucide-react";
 const Reviews = () => {
   const [readMore, setReadMore] = useState(false);
 
@@ -34,8 +34,8 @@ const Reviews = () => {
           </div>
 
           {/* Right */}
-          <div className=" w-2/3 p-4 border ">
-            <div className="border border-[var(--border-light)] rounded-xl">
+          <div className=" w-2/3 p-4 ">
+            <div className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl">
               <div className="flex items-center">
                 <div className="p-2 border-2 border-[var(--accent-primary)] rounded-full m-4">
                   <img
@@ -67,7 +67,23 @@ const Reviews = () => {
                 )}
               </p>
             </div>
-            Linked in link
+            <div className="flex flex-wrap gap-3 sm:gap-5 py-2 sm:py-5 w-full sm:w-fit px-2 sm:px-3 group justify-center sm:justify-start">
+              {[
+                {
+                  name: "Check it out on LinkedIn",
+                  url: "https://www.linkedin.com/in/joydeep-paul-06b37926a",
+                },
+              ].map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => window.open(item.url, "_blank")}
+                  className="flex pb-2  border-b border-[var(--border-light)] items-center gap-2 text-[var(--text-main)] text-[10px] sm:text-xs md:text-sm font-medium transition-opacity duration-300 hover:text-[var(--accent-primary)] flex-shrink-0"
+                >
+                  <span>{item.name}</span>
+                  <ArrowUp className="w-3 h-3 sm:w-4 sm:h-4 rotate-45 flex-shrink-0" />
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
