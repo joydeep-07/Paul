@@ -8,6 +8,7 @@ import {
 } from "react-icons/si";
 import { FaReact, FaNodeJs } from "react-icons/fa";
 import AboutMe from "./AboutMe";
+import Reviews from "./Reviews";
 
 const Hero = () => {
   const skills = [
@@ -107,6 +108,7 @@ const Hero = () => {
       </div>
 
       <AboutMe/>
+      <Reviews/>
     </>
   );
 };

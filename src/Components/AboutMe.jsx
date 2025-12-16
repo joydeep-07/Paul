@@ -73,14 +73,7 @@ const AboutMe = () => {
         ${mode === "dark" ? "bg-[var(--bg-main)]" : "bg-white"}
       `}
     >
-      {/* Glow */}
-      <div className="absolute inset-0">
-        <div
-          className={`absolute top-2/3 left-1/4 w-96 h-32 rounded-full blur-[160px]
-            ${mode === "dark" ? "bg-blue-500/20" : "bg-blue-300/30"}
-          `}
-        />
-      </div>
+     
 
       <div className="relative flex flex-col justify-center items-center gap-16 py-28 px-4 max-w-7xl mx-auto">
         {/* Header */}
