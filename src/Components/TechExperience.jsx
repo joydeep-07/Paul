@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import { libraries } from "../Utils/TechExperience";
 import { IoChevronUp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUp } from "lucide-react";
 
 const TechExperience = () => {
   const [openIndex, setOpenIndex] = useState(null);
+  const [showAll, setShowAll] = useState(false);
 
   const toggleFaq = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const visibleLibraries = showAll ? libraries : libraries.slice(0, 4);
+
   return (
     <div className="w-full flex justify-center items-start py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10">
         {/* LEFT */}
-        <div className="lg:w-1/3 lg:sticky lg:top-20 pt-8 h-fit self-start">
+        <div className="lg:w-1/3 lg:sticky lg:top-20 pt-8 pb-25 h-fit self-start">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-0.5 bg-[var(--accent-primary)]" />
             <h2 className="text-xs uppercase tracking-widest text-[var(--accent-primary)]">
@@ -30,7 +34,7 @@ const TechExperience = () => {
 
         {/* RIGHT */}
         <div className="lg:w-2/3 flex flex-col gap-4 pt-8">
-          {libraries.map((item, index) => {
+          {visibleLibraries.map((item, index) => {
             const isOpen = openIndex === index;
 
             return (
@@ -44,9 +48,9 @@ const TechExperience = () => {
                   <div className="flex items-center gap-3">
                     <motion.div
                       className="w-9 h-9 flex items-center justify-center rounded-full
-               bg-[var(--accent-primary)]/10
-               border border-[var(--accent-primary)]/30
-               text-[var(--accent-primary)]"
+                      bg-[var(--accent-primary)]/10
+                      border border-[var(--accent-primary)]/30
+                      text-[var(--accent-primary)]"
                       animate={{ scale: isOpen ? 1.1 : 1 }}
                       transition={{ duration: 0.25 }}
                     >
@@ -70,7 +74,6 @@ const TechExperience = () => {
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
-                      key="content"
                       initial={{ height: 0, opacity: 0, y: -6 }}
                       animate={{ height: "auto", opacity: 1, y: 0 }}
                       exit={{ height: 0, opacity: 0, y: -6 }}
@@ -106,6 +109,25 @@ const TechExperience = () => {
               </div>
             );
           })}
+
+          {/* SEE MORE / LESS */}
+          {libraries.length > 4 && (
+            <button
+              onClick={() => {
+                setShowAll(!showAll);
+                setOpenIndex(null);
+              }}
+              className="mt-2 flex items-center gap-2 w-fit border-b pb-1 text-sm hover:text-[var(--accent-primary)]"
+            >
+              {showAll ? "See less" : "See more"}
+              <motion.span
+                animate={{ rotate: showAll ? 180 : 45 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ArrowUp className="w-4 h-4" />
+              </motion.span>
+            </button>
+          )}
         </div>
       </div>
     </div>
