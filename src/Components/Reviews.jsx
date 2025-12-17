@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { reviews } from "../Utils/Reviews";
 import { ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { FaArrowLeftLong, FaArrowRight } from "react-icons/fa6";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 const SLIDE_DURATION = 5000;
 const RADIUS = 36;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
@@ -144,7 +145,7 @@ const Reviews = () => {
           </AnimatePresence>
 
           {/* CTA */}
-          <div className="mt-6">
+          <div className="mt-6 flex justify-between px-5">
             <button
               onClick={() =>
                 window.open(
@@ -157,6 +158,30 @@ const Reviews = () => {
               Check it out on LinkedIn
               <ArrowUp className="w-4 h-4 rotate-45" />
             </button>
+
+            <div>
+              <button
+                onClick={() =>
+                  setIndex(([prev]) =>
+                    prev === 0
+                      ? [reviews.length - 1, -1]
+                      : [(prev - 1) % reviews.length, -1]
+                  )
+                }
+                className="px-3 py-1 hover:text-[var(--accent-primary)]"
+              >
+                <IoIosArrowBack className="text-2xl" />
+              </button>
+
+              <button
+                onClick={() =>
+                  setIndex(([prev]) => [(prev + 1) % reviews.length, 1])
+                }
+                className="px-3 py-1 hover:text-[var(--accent-primary)]"
+              >
+                <IoIosArrowForward className="text-2xl" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
