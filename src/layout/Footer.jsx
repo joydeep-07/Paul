@@ -1,90 +1,70 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { FaInstagram, FaXTwitter, FaLinkedin, FaGithub } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
-    <footer className="w-full bg-[var(--bg-main)] text-[var(--text-main)] border-t border-[var(--border-light)] py-10 px-6 transition-all duration-500">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-        {/* Brand */}
-        <div>
-          <h2 className="text-xl font-bold mb-3">YourBrand</h2>
-          <p className="text-sm opacity-80">
-            Creating smooth experiences with clean design and modern UI.
+    <>
+      <footer className="bg-[var(--bg-main)] text-[var(--text-main)] flex flex-col items-center justify-center pb-6 sm:pb-4 px-4 xs:px-6 space-y-8 sm:space-y-10">
+        <div className="w-full max-w-7xl flex flex-col sm:flex-row items-center justify-between border-t border-[var(--border-light)] pt-4 sm:pt-4">
+          <p className="text-xs xs:text-sm text-[var(--text-main)] text-center sm:text-left mb-3 sm:m-1 order-2 sm:order-1">
+            © {new Date().getFullYear()} All Rights Reserved.
           </p>
-        </div>
 
-        {/* Quick Links */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
-          <ul className="space-y-2 text-sm">
+          <ul className="hidden sm:flex gap-4 xs:gap-5 sm:gap-5 text-base xs:text-lg order-1 sm:order-2">
             <li>
-              <Link to="/" className="hover:opacity-70">
-                Home
-              </Link>
+              <a
+                href="https://www.instagram.com/mr.paul_16"
+                target="_blank"
+                rel="noopener noreferrer"
+                className=" transition-colors duration-300 block p-1"
+                aria-label="Instagram"
+              >
+                <FaInstagram className="w-5 h-5 xs:w-6 xs:h-6" />
+              </a>
             </li>
-            <li>
-              <Link to="/about" className="hover:opacity-70">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" className="hover:opacity-70">
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </div>
 
-        {/* Resources */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Resources</h3>
-          <ul className="space-y-2 text-sm">
             <li>
-              <a href="#" className="hover:opacity-70">
-                Blog
+              <a
+                href="https://x.com/Paul__here"
+                target="_blank"
+                rel="noopener noreferrer"
+                className=" transition-colors duration-300 block p-1"
+                aria-label="Twitter"
+              >
+                <FaXTwitter className="w-5 h-5 xs:w-6 xs:h-6" />
               </a>
             </li>
-            <li>
-              <a href="#" className="hover:opacity-70">
-                Projects
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:opacity-70">
-                Documentation
-              </a>
-            </li>
-          </ul>
-        </div>
 
-        {/* Social */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Social</h3>
-          <ul className="space-y-2 text-sm">
             <li>
-              <a href="#" className="hover:opacity-70">
-                Instagram
+              <a
+                href="https://www.linkedin.com/in/joydeep-paul-06b37926a"
+                target="_blank"
+                rel="noopener noreferrer"
+                className=" transition-colors duration-300 block p-1"
+                aria-label="LinkedIn"
+              >
+                <FaLinkedin className="w-5 h-5 xs:w-6 xs:h-6" />
               </a>
             </li>
+
             <li>
-              <a href="#" className="hover:opacity-70">
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:opacity-70">
-                GitHub
+              <a
+                href="https://github.com/joydeep-07"
+                target="_blank"
+                rel="noopener noreferrer"
+                className=" transition-colors duration-300 block p-1"
+                aria-label="GitHub"
+              >
+                <FaGithub className="w-5 h-5 xs:w-6 xs:h-6" />
               </a>
             </li>
           </ul>
         </div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div className="mt-10 pt-6 border-t border-[var(--border-light)] text-center text-sm opacity-80">
-        © {new Date().getFullYear()} YourBrand — All rights reserved.
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 };
 
