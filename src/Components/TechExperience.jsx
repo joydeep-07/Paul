@@ -87,6 +87,12 @@ const TechExperience = () => {
                           {item.description}
                         </p>
 
+                        <ul className="list-disc pl-5 space-y-1 text-[var(--text-secondary)] text-sm">
+                          {item.points.map((point, i) => (
+                            <li key={i}>{point}</li>
+                          ))}
+                        </ul>
+
                         <a
                           href={item.url}
                           target="_blank"
