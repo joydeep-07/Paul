@@ -69,8 +69,10 @@ const DesignProcess = () => {
           </div>
 
           <h1 className="heading-font text-4xl md:text-5xl leading-tight">
-            My Design{" "}
-            <span className="text-[var(--accent-primary)]">Process</span>
+            What My{" "}
+            <span className="text-[var(--accent-primary)]">
+              Design  process include
+            </span> {" "} 
           </h1>
           <p className="mt-4 text-[var(--text-secondary)] text-sm opacity-80 max-w-sm">
             Each project is unique, and I follow a structured approach to turn
@@ -93,7 +95,9 @@ const DesignProcess = () => {
                 {step.icon}
               </div> */}
               <h1 className="text-xl heading-font flex items-center gap-2">
-                <span className="pr-2 text-[var(--text-secondary)] ">{step.icon}</span>
+                <span className="pr-2 text-[var(--text-secondary)] ">
+                  {step.icon}
+                </span>
                 <span className="text-[var(--accent-primary)]">
                   {step.title}
                 </span>
