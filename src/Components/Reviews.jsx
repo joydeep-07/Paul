@@ -65,6 +65,31 @@ const Reviews = () => {
             I’ve worked with some amazing people over the years — here’s what
             they have to say about me.
           </p>
+
+          {/* Leave your Review button */}
+          <div className=" pt-7">
+            <div className="w-full sm:w-auto flex">
+              <button className="px-8 sm:px-5 py-3 sm:py-4 bg-transparent border-2 border-[var(--border-light)] text-[var(--text-main)] font-medium tracking-widest rounded-full transition-all duration-500 group relative overflow-hidden w-full sm:w-auto max-w-xs sm:max-w-none hover:border-[var(--text-main)]">
+                {/* Shimmer effect layer */}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -translate-x-full group-hover:translate-x-full group-hover:duration-1000"></span>
+
+                {/* Background glow */}
+                <span className="absolute inset-0 bg-white/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-0 group-hover:scale-100"></span>
+
+                <span className="relative w-full sm:w-36 md:w-40 flex items-center justify-center z-10">
+                  <span className="opacity-100 group-hover:opacity-0 transition-all duration-300 flex items-center space-x-3">
+                    <span className="text-xs">Leave Your Review</span>
+                  </span>
+
+                  <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center space-x-3">
+                    <span className="text-xs animate-pulse">
+                      Leave Your Review
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* RIGHT */}
