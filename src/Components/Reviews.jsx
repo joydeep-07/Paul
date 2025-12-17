@@ -6,7 +6,6 @@ import { FaArrowLeftLong, FaArrowRight } from "react-icons/fa6";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-
 const SLIDE_DURATION = 5000;
 const RADIUS = 36;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
@@ -30,7 +29,7 @@ const Reviews = () => {
   const [open, setOpen] = useState(false);
   const [[index, direction], setIndex] = useState([0, 1]);
   const [expandedId, setExpandedId] = useState(null);
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // 🔁 Auto slide every 5000ms (SYNCED)
   useEffect(() => {
@@ -72,16 +71,14 @@ const navigate = useNavigate();
           </p>
 
           {/* Leave your Review button */}
-          <div className=" pt-7">
+          {/* <div className=" pt-7">
             <div className="w-full sm:w-auto flex">
               <button
                 onClick={() => navigate("/review/form")}
                 className="px-8 sm:px-5 py-3 sm:py-4 bg-transparent border-2 border-[var(--border-light)] text-[var(--text-main)] font-medium tracking-widest rounded-full transition-all duration-500 group relative overflow-hidden w-full sm:w-auto max-w-xs sm:max-w-none hover:border-[var(--text-main)]"
               >
-                {/* Shimmer effect layer */}
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -translate-x-full group-hover:translate-x-full group-hover:duration-1000"></span>
 
-                {/* Background glow */}
                 <span className="absolute inset-0 bg-white/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-0 group-hover:scale-100"></span>
 
                 <span className="relative w-full sm:w-36 md:w-40 flex items-center justify-center z-10">
@@ -97,7 +94,7 @@ const navigate = useNavigate();
                 </span>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* RIGHT */}
