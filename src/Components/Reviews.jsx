@@ -211,7 +211,7 @@ const Reviews = () => {
           >
             <div
               onClick={() => setOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/10 backdrop-blur-sm"
             />
 
             <motion.div
