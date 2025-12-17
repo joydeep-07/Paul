@@ -18,7 +18,7 @@ const TechExperience = () => {
     <div className="w-full flex justify-center items-start py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10">
         {/* LEFT */}
-        <div className="lg:w-1/3 lg:sticky lg:top-20 pt-8 pb-25 h-fit self-start">
+        <div className="lg:w-1/3 pt-8 pb-25 h-fit self-start">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-0.5 bg-[var(--accent-primary)]" />
             <h2 className="text-xs uppercase tracking-widest text-[var(--accent-primary)]">
