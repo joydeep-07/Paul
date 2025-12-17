@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { reviews } from "../Utils/Reviews";
 import { ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaArrowLeftLong, FaArrowRight } from "react-icons/fa6";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import ReviewForm from "./ReviewForm";
+
 const SLIDE_DURATION = 5000;
 const RADIUS = 36;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
@@ -24,17 +25,25 @@ const slideVariants = {
 };
 
 const Reviews = () => {
+  const [open, setOpen] = useState(false);
   const [[index, direction], setIndex] = useState([0, 1]);
   const [expandedId, setExpandedId] = useState(null);
 
-  // 🔁 Auto slide every 5000ms (SYNCED)
+  /* 🔁 Auto slide (paused when popup open) */
   useEffect(() => {
+    if (open) return;
+
     const interval = setInterval(() => {
       setIndex(([prev]) => [(prev + 1) % reviews.length, 1]);
     }, SLIDE_DURATION);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [open]);
+
+  /* 🔒 Lock background scroll */
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "auto";
+  }, [open]);
 
   const toggleReadMore = (id) => {
     setExpandedId(expandedId === id ? null : id);
@@ -46,171 +55,185 @@ const Reviews = () => {
   const isExpanded = expandedId === item.id;
 
   return (
-    <div className="py-16 bg-[var(--bg-main)] flex justify-center">
-      <div className="max-w-7xl w-full flex flex-col md:flex-row">
-        {/* LEFT */}
-        <div className="w-full md:w-1/3 px-4">
-          <h3 className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
-            Testimonials
-          </h3>
+    <>
+      <div className="py-16 bg-[var(--bg-main)] flex justify-center">
+        <div className="max-w-7xl w-full flex flex-col md:flex-row">
+          {/* LEFT */}
+          <div className="w-full md:w-1/3 px-4">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
+              Testimonials
+            </h3>
 
-          <div className="mt-2 mb-6 h-[2px] w-16 bg-[var(--accent-primary)] rounded-full" />
+            <div className="mt-2 mb-6 h-[2px] w-16 bg-[var(--accent-primary)] rounded-full" />
 
-          <h1 className="heading-font text-4xl md:text-5xl leading-tight mb-4">
-            What others{" "}
-            <span className="text-[var(--accent-primary)]">Say</span>
-          </h1>
+            <h1 className="heading-font text-4xl md:text-5xl leading-tight mb-4">
+              What others{" "}
+              <span className="text-[var(--accent-primary)]">Say</span>
+            </h1>
 
-          <p className="text-sm opacity-80 max-w-sm">
-            I’ve worked with some amazing people over the years — here’s what
-            they have to say about me.
-          </p>
+            <p className="text-sm opacity-80 max-w-sm">
+              I’ve worked with some amazing people over the years — here’s what
+              they have to say about me.
+            </p>
 
-          {/* Leave your Review button */}
-          <div className=" pt-7">
-            <div className="w-full sm:w-auto flex">
-              <button className="px-8 sm:px-5 py-3 sm:py-4 bg-transparent border-2 border-[var(--border-light)] text-[var(--text-main)] font-medium tracking-widest rounded-full transition-all duration-500 group relative overflow-hidden w-full sm:w-auto max-w-xs sm:max-w-none hover:border-[var(--text-main)]">
-                {/* Shimmer effect layer */}
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -translate-x-full group-hover:translate-x-full group-hover:duration-1000"></span>
-
-                {/* Background glow */}
-                <span className="absolute inset-0 bg-white/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-0 group-hover:scale-100"></span>
-
-                <span className="relative w-full sm:w-36 md:w-40 flex items-center justify-center z-10">
-                  <span className="opacity-100 group-hover:opacity-0 transition-all duration-300 flex items-center space-x-3">
-                    <span className="text-xs">Leave Your Review</span>
-                  </span>
-
-                  <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center space-x-3">
-                    <span className="text-xs animate-pulse">
-                      Leave Your Review
-                    </span>
-                  </span>
-                </span>
+            {/* Leave Review Button */}
+            <div className="pt-7">
+              <button
+                onClick={() => setOpen(true)}
+                className="px-8 py-3 border-2 border-[var(--border-light)] rounded-full tracking-widest relative overflow-hidden group hover:border-[var(--text-main)] transition"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 -translate-x-full group-hover:translate-x-full transition-all duration-1000" />
+                <span className="relative text-xs">Leave Your Review</span>
               </button>
             </div>
           </div>
-        </div>
 
-        {/* RIGHT */}
-        <div className="w-full md:w-2/3 p-4 overflow-hidden">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={item.id}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 120, damping: 20 },
-                opacity: { duration: 0.3 },
-              }}
-              className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl"
-            >
-              <div className="flex items-center">
-                {/* TIMER AVATAR */}
-                <div className="relative m-4 w-[88px] h-[88px] flex items-center justify-center">
-                  <svg className="absolute w-full h-full rotate-[-90deg]">
-                    {/* Base ring */}
-                    <circle
-                      cx="44"
-                      cy="44"
-                      r={RADIUS}
-                      fill="none"
-                      stroke="var(--bg-main)"
-                      strokeWidth="3"
+          {/* RIGHT */}
+          <div className="w-full md:w-2/3 p-4 overflow-hidden">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={item.id}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 120, damping: 20 },
+                  opacity: { duration: 0.3 },
+                }}
+                className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl"
+              >
+                <div className="flex items-center">
+                  {/* TIMER AVATAR */}
+                  <div className="relative m-4 w-[88px] h-[88px]">
+                    <svg className="absolute w-full h-full rotate-[-90deg]">
+                      <circle
+                        cx="44"
+                        cy="44"
+                        r={RADIUS}
+                        fill="none"
+                        stroke="var(--bg-main)"
+                        strokeWidth="3"
+                      />
+                      <motion.circle
+                        key={index}
+                        cx="44"
+                        cy="44"
+                        r={RADIUS}
+                        fill="none"
+                        stroke="var(--accent-primary)"
+                        strokeWidth="3"
+                        strokeDasharray={CIRCUMFERENCE}
+                        initial={{ strokeDashoffset: CIRCUMFERENCE }}
+                        animate={{ strokeDashoffset: 0 }}
+                        transition={{
+                          duration: SLIDE_DURATION / 1000,
+                          ease: "linear",
+                        }}
+                      />
+                    </svg>
+                    <img
+                      src={item.photo}
+                      alt={item.name}
+                      className="h-16 w-16 rounded-full object-cover absolute inset-0 m-auto"
                     />
+                  </div>
 
-                    {/* Countdown ring */}
-                    <motion.circle
-                      key={index}
-                      cx="44"
-                      cy="44"
-                      r={RADIUS}
-                      fill="none"
-                      stroke="var(--accent-primary)"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeDasharray={CIRCUMFERENCE}
-                      initial={{ strokeDashoffset: CIRCUMFERENCE }}
-                      animate={{ strokeDashoffset: 0 }}
-                      transition={{
-                        duration: SLIDE_DURATION / 1000,
-                        ease: "linear",
-                      }}
-                    />
-                  </svg>
-
-                  <img
-                    src={item.photo}
-                    alt={item.name}
-                    className="h-16 w-16 rounded-full object-cover z-10"
-                  />
+                  <div>
+                    <h1 className="font-semibold">{item.name}</h1>
+                    <p className="text-sm opacity-70">{item.position}</p>
+                  </div>
                 </div>
 
-                <div>
-                  <h1 className="font-semibold">{item.name}</h1>
-                  <p className="text-sm opacity-70">{item.position}</p>
-                </div>
-              </div>
+                <p className="p-4 text-justify">
+                  {isExpanded ? item.review : shortText}
+                  {words.length > 40 && (
+                    <span
+                      onClick={() => toggleReadMore(item.id)}
+                      className="cursor-pointer text-[var(--accent-primary)] font-medium"
+                    >
+                      {isExpanded ? " read less" : " ...read more"}
+                    </span>
+                  )}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
-              <p className="p-4 text-justify">
-                {isExpanded ? item.review : shortText}
-                {words.length > 40 && (
-                  <span
-                    onClick={() => toggleReadMore(item.id)}
-                    className="cursor-pointer text-[var(--accent-primary)] font-medium"
-                  >
-                    {isExpanded ? " read less" : " ...read more"}
-                  </span>
-                )}
-              </p>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* CTA */}
-          <div className="mt-6 flex justify-between px-5">
-            <button
-              onClick={() =>
-                window.open(
-                  "https://www.linkedin.com/in/joydeep-paul-06b37926a",
-                  "_blank"
-                )
-              }
-              className="flex items-center gap-2 border-b pb-1 text-sm hover:text-[var(--accent-primary)]"
-            >
-              Check it out on LinkedIn
-              <ArrowUp className="w-4 h-4 rotate-45" />
-            </button>
-
-            <div>
+            {/* CTA */}
+            <div className="mt-6 flex justify-between px-5">
               <button
                 onClick={() =>
-                  setIndex(([prev]) =>
-                    prev === 0
-                      ? [reviews.length - 1, -1]
-                      : [(prev - 1) % reviews.length, -1]
+                  window.open(
+                    "https://www.linkedin.com/in/joydeep-paul-06b37926a",
+                    "_blank"
                   )
                 }
-                className="px-3 py-1 hover:text-[var(--accent-primary)]"
+                className="flex items-center gap-2 border-b pb-1 text-sm"
               >
-                <IoIosArrowBack className="text-2xl" />
+                Check it out on LinkedIn
+                <ArrowUp className="w-4 h-4 rotate-45" />
               </button>
 
-              <button
-                onClick={() =>
-                  setIndex(([prev]) => [(prev + 1) % reviews.length, 1])
-                }
-                className="px-3 py-1 hover:text-[var(--accent-primary)]"
-              >
-                <IoIosArrowForward className="text-2xl" />
-              </button>
+              <div>
+                <button
+                  onClick={() =>
+                    setIndex(([prev]) => [
+                      prev === 0 ? reviews.length - 1 : prev - 1,
+                      -1,
+                    ])
+                  }
+                >
+                  <IoIosArrowBack className="text-2xl" />
+                </button>
+
+                <button
+                  onClick={() =>
+                    setIndex(([prev]) => [(prev + 1) % reviews.length, 1])
+                  }
+                >
+                  <IoIosArrowForward className="text-2xl" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* ================= MODAL ================= */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div
+              onClick={() => setOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="relative z-10 h-[500px] w-[700px] bg-[var(--bg-main)] rounded-2xl shadow-2xl p-6"
+            >
+              <button
+                onClick={() => setOpen(false)}
+                className="absolute top-4 right-4 text-xl"
+              >
+                ✕
+              </button>
+
+              <ReviewForm />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
