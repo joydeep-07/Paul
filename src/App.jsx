@@ -6,6 +6,8 @@ import Contact from "./Pages/Contact";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Projects from "./Pages/Projects";
+import ReviewForm from "./Pages/ReviewForm";
+
 
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
@@ -28,6 +30,7 @@ const App = () => {
         { path: "/about", element: <About /> },
         { path: "/contact", element: <Contact /> },
         { path: "/projects", element: <Projects /> },
+        { path: "/review/form", element: <ReviewForm /> },
       ],
     },
   ]);
