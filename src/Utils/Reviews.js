@@ -14,7 +14,7 @@ export const reviews = [
   {
     id: 2,
     name: "Samrat Kundu",
-    position: "Sineor Software Engineer",
+    position: "Assistant Professor, BB College",
     photo: dp2,
     review:
       "Really impressive portfolio! The design is clean, user-friendly, and visually appealing. Each section clearly communicates your skills and experience, making it easy to understand your strengths at a glance. I particularly liked the smooth transitions and attention to detail in the layout. It’s evident that a lot of thought has gone into both the functionality and presentation of this portfolio.",
@@ -22,7 +22,7 @@ export const reviews = [
   {
     id: 3,
     name: "Prosenjit Chatterjee",
-    position: "Sineor Software Engineer",
+    position: "Head of Department BCA, BB College",
     photo: dp3,
     review:
       "This is a very well-crafted portfolio with a clean and professional design. The structure is intuitive, and the content flows naturally from one section to the next. I appreciate how clearly the projects are explained and how effectively your technical skills are highlighted. Overall, it’s a strong representation of your work and reflects a solid understanding of both design and development principles.",
