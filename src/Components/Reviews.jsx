@@ -219,7 +219,7 @@ const Reviews = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="relative z-10 h-[500px] w-[700px] bg-[var(--bg-main)] rounded-2xl shadow-2xl p-6"
+              className="relative z-10  w-[850px] bg-[var(--bg-main)] rounded-2xl shadow-2xl p-6"
             >
               <button
                 onClick={() => setOpen(false)}
