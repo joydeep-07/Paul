@@ -91,12 +91,12 @@ const ReviewForm = () => {
       newErrors.review = "Review should be at least 10 words";
     }
 
-    if (!formData.photo) {
-      newErrors.photo = "Profile photo is required";
-    }
+    // REMOVE photo required check
+    // Photo is OPTIONAL now
 
     return newErrors;
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -184,7 +184,8 @@ const ReviewForm = () => {
                   {/* Profile Photo Upload */}
                   <div>
                     <label className="block text-sm font-medium mb-3 opacity-90">
-                      Profile Photo *
+                      Profile Photo{" "}
+                      <span className="text-xs opacity-60">(Optional)</span>
                     </label>
 
                     <div className="flex flex-col items-center space-y-4">
@@ -358,8 +359,8 @@ const ReviewForm = () => {
           </motion.div>
         </div>
       </div>
-      <WorkBadge/>
-      <Footer/>
+      <WorkBadge />
+      <Footer />
     </>
   );
 };
