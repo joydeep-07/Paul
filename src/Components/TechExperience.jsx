@@ -35,14 +35,12 @@ const TechExperience = () => {
 
             return (
               <div
+                onClick={() => toggleFaq(index)}
                 key={item.id}
                 className="border border-[var(--border-light)] rounded-2xl bg-[var(--bg-secondary)] overflow-hidden"
               >
                 {/* Header */}
-                <button
-                  onClick={() => toggleFaq(index)}
-                  className="w-full flex justify-between items-center p-5 text-left"
-                >
+                <button className="w-full flex justify-between items-center p-5 text-left">
                   <div className="flex items-center gap-3">
                     <motion.div
                       className="w-9 h-9 flex items-center justify-center rounded-full
