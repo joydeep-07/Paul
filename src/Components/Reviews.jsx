@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { reviews } from "../Utils/Reviews";
 import { ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,19 +29,50 @@ const Reviews = () => {
   const [open, setOpen] = useState(false);
   const [[index, direction], setIndex] = useState([0, 1]);
   const [expandedId, setExpandedId] = useState(null);
+  const [isPaused, setIsPaused] = useState(false);
   const navigate = useNavigate();
 
-  // 🔁 Auto slide every 5000ms (SYNCED)
+  /* 🟢 refs for double-click + hold */
+  const holdTimeoutRef = useRef(null);
+  const isHoldingRef = useRef(false);
+
+  // 🔁 Auto slide every 5000ms
   useEffect(() => {
+    if (isPaused) return;
+
     const interval = setInterval(() => {
       setIndex(([prev]) => [(prev + 1) % reviews.length, 1]);
     }, SLIDE_DURATION);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isPaused]);
 
+  /* 📖 Read more / less */
   const toggleReadMore = (id) => {
-    setExpandedId(expandedId === id ? null : id);
+    if (expandedId === id) {
+      setExpandedId(null);
+      setIsPaused(false);
+    } else {
+      setExpandedId(id);
+      setIsPaused(true);
+    }
+  };
+
+  /* 🖱️ Double click + hold pause */
+  const handleDoubleClick = () => {
+    holdTimeoutRef.current = setTimeout(() => {
+      isHoldingRef.current = true;
+      setIsPaused(true);
+    }, 120);
+  };
+
+  const handleHoldRelease = () => {
+    clearTimeout(holdTimeoutRef.current);
+
+    if (isHoldingRef.current) {
+      isHoldingRef.current = false;
+      setIsPaused(false);
+    }
   };
 
   const item = reviews[index];
@@ -69,55 +100,34 @@ const Reviews = () => {
             I’ve worked with some amazing people over the years — here’s what
             they have to say about me.
           </p>
-
-          {/* Leave your Review button */}
-          {/* <div className=" pt-7">
-            <div className="w-full sm:w-auto flex">
-              <button
-                onClick={() => navigate("/review/form")}
-                className="px-8 sm:px-5 py-3 sm:py-4 bg-transparent border-2 border-[var(--border-light)] text-[var(--text-main)] font-medium tracking-widest rounded-full transition-all duration-500 group relative overflow-hidden w-full sm:w-auto max-w-xs sm:max-w-none hover:border-[var(--text-main)]"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -translate-x-full group-hover:translate-x-full group-hover:duration-1000"></span>
-
-                <span className="absolute inset-0 bg-white/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-0 group-hover:scale-100"></span>
-
-                <span className="relative w-full sm:w-36 md:w-40 flex items-center justify-center z-10">
-                  <span className="opacity-100 group-hover:opacity-0 transition-all duration-300 flex items-center space-x-3">
-                    <span className="text-xs">Leave Your Review</span>
-                  </span>
-
-                  <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center space-x-3">
-                    <span className="text-xs animate-pulse">
-                      Leave Your Review
-                    </span>
-                  </span>
-                </span>
-              </button>
-            </div>
-          </div> */}
         </div>
 
         {/* RIGHT */}
         <div className="w-full md:w-2/3 p-4 overflow-hidden">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
+              layout
               key={item.id}
               custom={direction}
               variants={slideVariants}
               initial="enter"
               animate="center"
               exit="exit"
+              onDoubleClick={handleDoubleClick}
+              onMouseUp={handleHoldRelease}
+              onMouseLeave={handleHoldRelease}
+              onTouchEnd={handleHoldRelease}
               transition={{
+                layout: { duration: 0.45, ease: "easeInOut" },
                 x: { type: "spring", stiffness: 120, damping: 20 },
                 opacity: { duration: 0.3 },
               }}
-              className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl"
+              className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none"
             >
               <div className="flex items-center">
                 {/* TIMER AVATAR */}
                 <div className="relative m-4 w-[88px] h-[88px] flex items-center justify-center">
                   <svg className="absolute w-full h-full rotate-[-90deg]">
-                    {/* Base ring */}
                     <circle
                       cx="44"
                       cy="44"
@@ -127,7 +137,6 @@ const Reviews = () => {
                       strokeWidth="3"
                     />
 
-                    {/* Countdown ring */}
                     <motion.circle
                       key={index}
                       cx="44"
@@ -139,9 +148,11 @@ const Reviews = () => {
                       strokeLinecap="round"
                       strokeDasharray={CIRCUMFERENCE}
                       initial={{ strokeDashoffset: CIRCUMFERENCE }}
-                      animate={{ strokeDashoffset: 0 }}
+                      animate={{
+                        strokeDashoffset: isPaused ? CIRCUMFERENCE : 0,
+                      }}
                       transition={{
-                        duration: SLIDE_DURATION / 1000,
+                        duration: isPaused ? 0 : SLIDE_DURATION / 1000,
                         ease: "linear",
                       }}
                     />
@@ -160,7 +171,7 @@ const Reviews = () => {
                 </div>
               </div>
 
-              <p className="p-4 text-justify">
+              <motion.p layout className="p-4 text-justify">
                 {isExpanded ? item.review : shortText}
                 {words.length > 40 && (
                   <span
@@ -170,7 +181,7 @@ const Reviews = () => {
                     {isExpanded ? " read less" : " ...read more"}
                   </span>
                 )}
-              </p>
+              </motion.p>
             </motion.div>
           </AnimatePresence>
 
