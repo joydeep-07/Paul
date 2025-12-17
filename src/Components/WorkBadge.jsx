@@ -19,13 +19,18 @@ const WorkBadge = () => {
 
         {/* Heading */}
         <h1 className="text-2xl heading-font xs:text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(-text--main)] leading-tight px-2 sm:px-0">
-          Let'screate your <br /> next big idea.
+          Let's{" "}
+          <span className="text-[var(--accent-primary)]">
+            {" "}
+            create your <br /> next big
+          </span>{" "}
+          idea.
         </h1>
 
         {/* Contact button */}
-       <button
-  onClick={handleContactClick}
-  className="
+        <button
+          onClick={handleContactClick}
+          className="
     px-1 sm:px-5 mt-5 sm:mt-6 py-3 sm:py-4
     bg-transparent
     border-2 border-[var(--text-main)]
@@ -36,10 +41,10 @@ const WorkBadge = () => {
     group relative overflow-hidden
     w-fit min-w-32 sm:min-w-36
   "
->
-  {/* Sliding overlay */}
-  <span
-    className="
+        >
+          {/* Sliding overlay */}
+          <span
+            className="
       absolute inset-0
       bg-[var(--text-main)]
       opacity-0
@@ -48,26 +53,26 @@ const WorkBadge = () => {
       -translate-x-full
       group-hover:translate-x-0
     "
-  />
+          />
 
-  {/* Text wrapper */}
-  <span className="relative w-32 sm:w-36 md:w-40 flex items-center justify-center">
-    {/* Initial text */}
-    <span
-      className="
+          {/* Text wrapper */}
+          <span className="relative w-32 sm:w-36 md:w-40 flex items-center justify-center">
+            {/* Initial text */}
+            <span
+              className="
         opacity-100 group-hover:opacity-0
         translate-y-0 group-hover:-translate-y-2
         transition-all duration-500
         text-[var(--text-main)]
         text-xs
       "
-    >
-      CONTACT
-    </span>
+            >
+              CONTACT
+            </span>
 
-    {/* Hover text */}
-    <span
-      className="
+            {/* Hover text */}
+            <span
+              className="
         absolute inset-0
         opacity-0 group-hover:opacity-100
         translate-y-2 group-hover:translate-y-0
@@ -76,12 +81,11 @@ const WorkBadge = () => {
         text-[var(--text-main)]
         text-xs
       "
-    >
-      ME
-    </span>
-  </span>
-</button>
-
+            >
+              ME
+            </span>
+          </span>
+        </button>
       </div>
     </div>
   );
