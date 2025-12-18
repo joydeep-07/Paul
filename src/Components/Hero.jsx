@@ -30,7 +30,7 @@ const Hero = () => {
           </h2>
           <h1 className="text-7xl heading-font font-medium text-[var(--text-main)]">
             Crafting{" "}
-            <span className="text-[var(--accent-primary)]">
+            <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
               purpose driven <br /> experiences
             </span>{" "}
             that inspire <br /> & engage.
@@ -106,8 +106,6 @@ const Hero = () => {
       <div className="py-10">
         <Slide items={skills} speed={20} />
       </div>
-
-     
     </>
   );
 };
