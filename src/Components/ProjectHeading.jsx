@@ -12,17 +12,17 @@ const ProjectHeading = () => {
         <div className="flex items-center gap-3 mb-6">
           <div className="w-12 h-1 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] rounded-full" />
           <span className="text-xs uppercase tracking-[0.2em] text-[var(--accent-primary)] font-medium">
-            Portfolio Showcase
+            Project Showcase
           </span>
         </div>
 
         <div className="mb-8">
           <h1 className="text-3xl heading-font md:text-5xl lg:text-6xl leading-tight mb-2">
-            Creating{" "}
+            Selected{" "}
             <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
-              Next level
+             Projects
             </span>{" "}
-            digital products
+            
           </h1>
 
           <p className="text-[var(--text-secondary)] text-base md:text-sm max-w-sm opacity-90 max-w-xl leading-relaxed">
