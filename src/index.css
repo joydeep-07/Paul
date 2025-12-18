@@ -5,6 +5,12 @@
   /* Backgrounds */
   --bg-main: #ffffff;
   --bg-secondary: #f7f7f7;
+  --bg-gradient: linear-gradient(
+  135deg,
+  #ecfdf5,
+  #d1fae5,
+  #a7f3d0
+);
 
   /* Text */
   --text-main: #191919; /* Google Green style */
@@ -23,6 +29,14 @@
   /* Backgrounds */
   --bg-main: #0b0b0b; /* blackish */
   --bg-secondary: #0f0f0f;
+--bg-gradient: linear-gradient(
+  135deg,
+  #022c17,
+  #064e2e,
+  #065f2b
+);
+
+
 
   /* Text */
   --text-main: #d4d4d4; /* lighter green for dark mode */
@@ -50,12 +64,11 @@
 
 .heading-font {
   font-family: "Heading", sans-serif;
-  
+
   font: italic;
 }
 
-
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 
@@ -72,22 +85,20 @@
   animation: marquee linear infinite;
 }
 
-
 /* ==================================== SELECTION ====================================  */
 
 ::selection {
   background: #16a34a;
-  color: #ffffff;     
+  color: #ffffff;
 }
 
-::-moz-selection {    
+::-moz-selection {
   background: #16a34a;
   color: #ffffff;
 }
 
-
 .my-text::selection {
-  background: #10b981; 
+  background: #10b981;
   color: #ffffff;
 }
 .my-text::-moz-selection {
@@ -105,6 +116,5 @@ textarea::-moz-selection {
   background: #16a34a;
   color: #ffffff;
 }
-
 
 /* ==================================== SELECTION ====================================  */

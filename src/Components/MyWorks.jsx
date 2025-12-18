@@ -14,7 +14,6 @@ const MyWorks = () => {
       <div className="min-h-screen bg-[var(--bg-main)] transition-colors duration-300">
         <div className="container mx-auto px-4 py-16 md:px-6 lg:px-8 max-w-7xl">
           {/* PREMIUM HEADER SECTION */}
-         
 
           {/* PREMIUM PROJECT GRID */}
           <div
@@ -29,7 +28,7 @@ const MyWorks = () => {
                 className="group relative bg-gradient-to-b from-[var(--bg-secondary)] to-[var(--bg-main)] border border-[var(--border-light)] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 hover:bg-[var(--bg-secondary)] "
               >
                 {/* IMAGE CONTAINER - Full image display */}
-                <div className="relative h-[400px]  overflow-hidden bg-[#b7e4c7] mb-5 rounded-2xl">
+                <div className="relative h-[400px] overflow-hidden [background:var(--bg-gradient)] mb-5 rounded-2xl">
                   <div className="absolute inset-0 flex items-center justify-center p-7 ">
                     <img
                       src={project.thumbnail}
@@ -74,7 +73,6 @@ const MyWorks = () => {
           </div>
         </div>
       </div>
-     
     </>
   );
 };

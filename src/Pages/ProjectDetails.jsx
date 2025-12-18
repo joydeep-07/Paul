@@ -1,18 +1,24 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { projects } from "../Utils/Projects";
+import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import WorkBadge from "../Components/WorkBadge";
+import Footer from "../layout/Footer";
 
 const ProjectDetails = () => {
   const { id } = useParams();
-
-  // Find the project based on the URL ID
   const project = projects.find((item) => item.id.toString() === id);
 
   if (!project) {
     return (
-      <div className="p-10 text-center">
-        <h2 className="text-xl font-semibold">Project not found</h2>
-        <Link to="/" className="text-blue-500 hover:underline">
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4">
+        <h2 className="text-2xl font-semibold text-[var(--text-main)]">
+          Project not found
+        </h2>
+        <Link
+          to="/projects"
+          className="text-sm text-[var(--accent-primary)] hover:underline"
+        >
           Back to Home
         </Link>
       </div>
@@ -20,111 +26,154 @@ const ProjectDetails = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6 space-y-8">
-      {/* Header Section */}
-      <header>
-        <div className="flex justify-between items-center mb-2">
-          <span className="px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-blue-100 text-blue-800 rounded-full">
-            {project.category}
-          </span>
-          <span className="text-gray-500 text-sm">{project.year}</span>
-        </div>
-        <h1 className="text-4xl font-bold text-gray-900">{project.title}</h1>
-        <p className="text-xl text-gray-600 mt-2">{project.shortDescription}</p>
-      </header>
+    <>
+      <section className="relative">
+        {/* HERO */}
+        <div className="relative overflow-hidden rounded-3xl bg-[var(--bg-gradient)]">
+          <div className="absolute inset-0 " />
 
-      {/* Hero Image */}
-      <div className="overflow-hidden rounded-2xl shadow-lg">
-        <img
-          src={project.thumbnail}
-          alt={project.title}
-          className="w-full h-auto object-cover"
-        />
-      </div>
-
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        {/* Left Column: Description & Features */}
-        <div className="md:col-span-2 space-y-6">
-          <section>
-            <h2 className="text-2xl font-semibold mb-3">About Project</h2>
-            <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-              {project.description}
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold mb-3">Key Features</h2>
-            <ul className="list-disc pl-5 space-y-2 text-gray-700">
-              {project.features.map((feature, index) => (
-                <li key={index}>{feature}</li>
-              ))}
-            </ul>
-          </section>
-        </div>
-
-        {/* Right Column: Project Info & Links */}
-        <div className="space-y-6">
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <h3 className="text-lg font-bold mb-4">Project Details</h3>
-
-            <div className="space-y-4">
-              <div>
-                <p className="text-sm text-gray-500">Role</p>
-                <p className="font-medium">{project.role}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Status</p>
-                <p
-                  className={`font-medium ${
-                    project.status === "Live"
-                      ? "text-green-600"
-                      : "text-blue-600"
-                  }`}
-                >
-                  {project.status}
-                </p>
-              </div>
-            </div>
-
-            <hr className="my-6" />
-
-            <h3 className="text-md font-bold mb-3">Technologies</h3>
-            <div className="flex flex-wrap gap-2">
-              {project.techStack.map((tech, i) => (
-                <span
-                  key={i}
-                  className="px-3 py-1 text-xs bg-white border border-gray-300 rounded-md shadow-sm"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            <div className="mt-8 flex flex-col gap-3">
-              {project.liveLink && (
-                <a
-                  href={project.liveLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-full text-center bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition"
-                >
-                  View Live Site
-                </a>
-              )}
-              <a
-                href={project.githubLink}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full text-center border border-gray-900 py-2 rounded-lg hover:bg-gray-100 transition"
+          <div className="relative max-w-7xl mx-auto px-6 py-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* LEFT */}
+            <div className="space-y-6">
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition"
               >
-                GitHub Repository
-              </a>
+                <ArrowLeft size={16} />
+                Back to projects
+              </Link>
+
+              <div className="flex items-center gap-3">
+                <span className="px-3 py-1 text-xs rounded-full bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] font-medium">
+                  {project.category}
+                </span>
+                <span className="text-sm text-[var(--text-secondary)]">
+                  {project.year}
+                </span>
+              </div>
+
+              <h1 className="text-4xl heading-font md:text-5xl font-bold text-[var(--accent-primary)] leading-tight">
+                {project.title}
+              </h1>
+
+              <p className="text-lg text-[var(--text-secondary)] max-w-xl">
+                {project.shortDescription}
+              </p>
+
+              <div className="flex flex-wrap gap-3 pt-4">
+                {project.techStack.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="px-4 py-1.5 text-xs rounded-full border border-[var(--border-light)] bg-[var(--bg-main)]/60 backdrop-blur text-[var(--text-main)]"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT IMAGE */}
+            <div className=" p-5 [background:var(--bg-gradient)] rounded-2xl ">
+              <div className="relative rounded-2xl h-[350px] overflow-hidden">
+                <img
+                  src={project.thumbnail}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+
+        {/* CONTENT */}
+        <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* MAIN */}
+          <div className="lg:col-span-2 space-y-12">
+            <section>
+              <h2 className="text-2xl font-semibold text-[var(--text-main)] mb-4">
+                Overview
+              </h2>
+              <p className="text-[var(--text-secondary)] leading-relaxed">
+                {project.description}
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-[var(--text-main)] mb-4">
+                Key Features
+              </h2>
+              <ul className="grid sm:grid-cols-2 gap-4">
+                {project.features.map((feature, index) => (
+                  <li
+                    key={index}
+                    className="p-4 rounded-xl border border-[var(--border-light)] bg-[var(--bg-secondary)] text-[var(--text-secondary)]"
+                  >
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+
+          {/* SIDEBAR */}
+          <aside className="h-fit sticky top-24">
+            <div className="rounded-2xl border border-[var(--border-light)] bg-[var(--bg-secondary)] p-6 space-y-6">
+              <h3 className="text-lg font-semibold text-[var(--text-main)]">
+                Project Info
+              </h3>
+
+              <div className="space-y-4 text-sm">
+                <div>
+                  <p className="text-[var(--text-secondary)]">Role</p>
+                  <p className="font-medium text-[var(--text-main)]">
+                    {project.role}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-[var(--text-secondary)]">Status</p>
+                  <p
+                    className={`font-medium ${
+                      project.status === "Live"
+                        ? "text-[var(--accent-primary)]"
+                        : "text-[var(--text-main)]"
+                    }`}
+                  >
+                    {project.status}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-3 pt-4">
+                {project.liveLink && (
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--accent-primary)] text-white py-3 text-sm font-medium hover:opacity-90 transition"
+                  >
+                    <ExternalLink size={16} />
+                    Live Preview
+                  </a>
+                )}
+
+                <a
+                  href={project.githubLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border-light)] py-3 text-sm font-medium text-[var(--text-main)] hover:bg-[var(--bg-main)] transition"
+                >
+                  <Github size={16} />
+                  GitHub Repository
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <WorkBadge />
+      <Footer />
+    </>
   );
 };
 
