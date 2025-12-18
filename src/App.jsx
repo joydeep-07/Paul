@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Projects from "./Pages/Projects";
 import ReviewForm from "./Pages/ReviewForm";
+import ProjectDetails from "./Pages/ProjectDetails";
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
         { path: "/contact", element: <Contact /> },
         { path: "/projects", element: <Projects /> },
         { path: "/review/form", element: <ReviewForm /> },
+        { path: "project/:id", element: <ProjectDetails /> },
       ],
     },
   ]);
