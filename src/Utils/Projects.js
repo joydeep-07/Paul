@@ -1,4 +1,5 @@
 import portfolio from '../assets/thumbnail/portfolio.png'
+import medcare from "../assets/thumbnail/medcare.png";
 export const projects = [
   {
     id: 1,
@@ -26,10 +27,9 @@ export const projects = [
     category: "Web Application",
     status: "Completed",
     year: 2024,
-    liveLink: "https://example.com",
+    liveLink: "https://medcare-book-appointments.netlify.app/",
     githubLink: "https://github.com/username/medical-appointment",
-    thumbnail:
-      "https://i.pinimg.com/1200x/25/8b/dd/258bdd389d81babe34c65e3a1a5462d0.jpg",
+    thumbnail: medcare,
   },
   {
     id: 2,
@@ -48,7 +48,7 @@ export const projects = [
     category: "Portfolio",
     status: "Live",
     year: 2024,
-    liveLink: "https://example.com",
+    liveLink: "https://paulhere.netlify.app/",
     githubLink: "https://github.com/username/portfolio",
     thumbnail: portfolio,
   },
@@ -69,7 +69,7 @@ export const projects = [
     category: "Authentication",
     status: "Completed",
     year: 2023,
-    liveLink: "",
+    liveLink: "https://example.com",
     githubLink: "https://github.com/username/auth-system",
     thumbnail:
       "https://i.pinimg.com/736x/6c/39/c2/6c39c2a0c6c5501420bf6a6284fa1b92.jpg",
