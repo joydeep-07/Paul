@@ -57,7 +57,7 @@ const cardVariants = {
 
 const DesignProcess = () => {
   return (
-    <div className="justify-center p-5 items-center flex">
+    <div className="justify-center p-6 items-center flex">
       <div className="w-7xl flex flex-col gap-6 sm:gap-8 lg:gap-10">
         {/* LEFT */}
         <div className="pt-8 h-fit self-start">

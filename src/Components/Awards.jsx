@@ -1,11 +1,9 @@
 import React from 'react'
 import { ArrowUp } from "lucide-react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { awards } from '../Utils/Awards';
 const Awards = () => {
-    const awards = [
-      { id: 1, title: "Best Project Award", year: "Nov  2024" },
-      { id: 2, title: "Hackathon Finalist", year: "Aug  2025" },
-    ];
+    
 
   return (
     <div>
