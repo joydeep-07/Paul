@@ -1,4 +1,4 @@
-
+import portfolio from '../assets/thumbnail/portfolio.png'
 export const projects = [
   {
     id: 1,
@@ -29,7 +29,7 @@ export const projects = [
     liveLink: "https://example.com",
     githubLink: "https://github.com/username/medical-appointment",
     thumbnail:
-      "https://i.pinimg.com/736x/52/72/0d/52720d6dd4b71d25de61004f65e33109.jpg",
+      "https://i.pinimg.com/1200x/25/8b/dd/258bdd389d81babe34c65e3a1a5462d0.jpg",
   },
   {
     id: 2,
@@ -50,8 +50,7 @@ export const projects = [
     year: 2024,
     liveLink: "https://example.com",
     githubLink: "https://github.com/username/portfolio",
-    thumbnail:
-      "https://i.pinimg.com/1200x/e0/8b/25/e08b253e3732cf41d7118419e70e6f0b.jpg",
+    thumbnail: portfolio,
   },
   {
     id: 3,

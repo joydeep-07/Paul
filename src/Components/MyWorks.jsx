@@ -67,11 +67,11 @@ const MyWorks = () => {
               >
                 {/* IMAGE CONTAINER - Full image display */}
                 <div className="relative h-[400px]  overflow-hidden bg-[#b7e4c7] ">
-                  <div className="absolute inset-0 flex items-center justify-center p-4">
+                  <div className="absolute inset-0 flex items-center justify-center p-7 ">
                     <img
                       src={project.thumbnail}
                       alt={project.title}
-                      className="w-full h-full object-contain rounded-xl transition-all duration-700"
+                      className="w-full h-full object-cover rounded-xl transition-all duration-700"
                       loading="lazy"
                     />
                   </div>
