@@ -107,8 +107,7 @@ const Hero = () => {
         <Slide items={skills} speed={20} />
       </div>
 
-      <AboutMe/>
-      <Reviews/>
+     
     </>
   );
 };

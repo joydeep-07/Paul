@@ -1,11 +1,8 @@
-import React from "react";
-import MyWorks from "../Components/MyWorks";
-import { projects } from "../Utils/Projects";
-import WorkBadge from "../Components/WorkBadge";
-import Footer from "../layout/Footer";
-const Projects = () => {
+import React from 'react'
+import { projects } from '../Utils/Projects';
+const ProjectHeading = () => {
   return (
-    <div className=" flex justify-center flex-col items-center">
+    <div className=" flex justify-center flex-col items-center bg-[var(--bg-main)]">
       <div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -42,13 +39,8 @@ const Projects = () => {
           <span>Updated Recently</span>
         </div>
       </div>
-      <div className="w-full">
-        <MyWorks />
-        <WorkBadge/>
-        <Footer/>
-      </div>
     </div>
   );
-};
+}
 
-export default Projects;
+export default ProjectHeading
