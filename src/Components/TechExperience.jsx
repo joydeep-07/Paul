@@ -33,7 +33,7 @@ const TechExperience = () => {
         </div>
 
         {/* RIGHT */}
-        <div className="lg:w-2/3 flex flex-col gap-4 pt-8">
+        <div className="lg:w-2/3 flex flex-col gap-0 pt-8">
           {visibleLibraries.map((item, index) => {
             const isOpen = openIndex === index;
 
@@ -41,7 +41,7 @@ const TechExperience = () => {
               <div
                 onClick={() => toggleFaq(index)}
                 key={item.id}
-                className="border border-[var(--border-light)] rounded-2xl bg-[var(--bg-secondary)] overflow-hidden"
+                className="border-b border-[var(--border-light)] overflow-hidden"
               >
                 {/* Header */}
                 <button className="w-full flex justify-between items-center p-5 text-left">
