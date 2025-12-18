@@ -2,41 +2,19 @@ import React from "react";
 import { projects } from "../Utils/Projects";
 import { useNavigate } from "react-router-dom";
 import { FaCalendarAlt, FaArrowRight } from "react-icons/fa";
-import { motion } from "framer-motion";
 import WorkBadge from "./WorkBadge";
 import Footer from "../layout/Footer";
 
 const MyWorks = () => {
   const navigate = useNavigate();
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
 
   return (
     <>
       <div className="min-h-screen bg-gradient-to-b from-[var(--bg-main)] via-[var(--bg-main)] to-[var(--bg-secondary)/20] transition-colors duration-300">
         <div className="container mx-auto px-4 py-16 md:px-6 lg:px-8 max-w-7xl">
           {/* PREMIUM HEADER SECTION */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -71,19 +49,19 @@ const MyWorks = () => {
               <div className="w-1 h-1 bg-[var(--border-light)] rounded-full" />
               <span>Updated Recently</span>
             </div>
-          </motion.div>
+          </div>
 
           {/* PREMIUM PROJECT GRID */}
-          <motion.div
-            variants={containerVariants}
+          <div
+            
             initial="hidden"
             animate="visible"
             className="grid gap-8 md:grid-cols-2 lg:grid-cols-2"
           >
             {projects.map((project, index) => (
-              <motion.div
+              <div
                 key={project.id}
-                variants={itemVariants}
+                
                 onClick={() => navigate(`/project/${project.id}`)}
                 className="group relative bg-gradient-to-b from-[var(--bg-secondary)] to-[var(--bg-main)] border border-[var(--border-light)] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 hover:bg-[var(--bg-secondary)] "
               >
@@ -155,12 +133,12 @@ const MyWorks = () => {
 
                 {/* HOVER EFFECT BACKGROUND GLOW */}
                 <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-[var(--accent-primary)/5] via-transparent to-[var(--accent-secondary)/5] pointer-events-none" />
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
           {/* FOOTER NOTE */}
-          <motion.div
+          <div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -175,7 +153,7 @@ const MyWorks = () => {
                 Let's discuss your next project
               </a>
             </p>
-          </motion.div>
+          </div>
         </div>
       </div>
       <WorkBadge />
