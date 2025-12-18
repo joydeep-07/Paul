@@ -53,7 +53,6 @@ const MyWorks = () => {
 
           {/* PREMIUM PROJECT GRID */}
           <div
-            
             initial="hidden"
             animate="visible"
             className="grid gap-8 md:grid-cols-2 lg:grid-cols-2"
@@ -61,12 +60,11 @@ const MyWorks = () => {
             {projects.map((project, index) => (
               <div
                 key={project.id}
-                
                 onClick={() => navigate(`/project/${project.id}`)}
                 className="group relative bg-gradient-to-b from-[var(--bg-secondary)] to-[var(--bg-main)] border border-[var(--border-light)] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 hover:bg-[var(--bg-secondary)] "
               >
                 {/* IMAGE CONTAINER - Full image display */}
-                <div className="relative h-[400px]  overflow-hidden bg-[#b7e4c7] ">
+                <div className="relative h-[400px]  overflow-hidden bg-[#b7e4c7] mb-5 rounded-2xl">
                   <div className="absolute inset-0 flex items-center justify-center p-7 ">
                     <img
                       src={project.thumbnail}
@@ -77,62 +75,17 @@ const MyWorks = () => {
                   </div>
                 </div>
 
-                {/* CARD CONTENT */}
-                <div className="p-6 md:p-8">
-                  {/* TITLE & CATEGORY */}
-                  <div className="mb-4">
-                    <span className="text-xs uppercase tracking-widest text-[var(--accent-primary)] font-medium mb-2 block">
-                      {project.category || "Web Development"}
-                    </span>
-                    <h3 className="text-2xl font-bold text-[var(--text-main)] leading-tight group-hover:text-[var(--accent-primary)] transition-colors duration-300">
+                <div className="p-4 flex justify-between">
+                  <div>
+                    <h1 className="text-[var(--text-main)] pb-2 text-2xl heading-font">
                       {project.title}
-                    </h3>
+                    </h1>
+                    <p className="text-[var(--text-secondary)]/80 pb-2 text-sm">
+                      {project.shortDescription}
+                    </p>
                   </div>
-
-                  {/* SHORT DESCRIPTION */}
-                  <p className="text-[var(--text-secondary)] opacity-90 leading-relaxed mb-6 line-clamp-2 min-h-[3.5rem]">
-                    {project.shortDescription}
-                  </p>
-
-                  {/* TECH STACK */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.techStack.slice(0, 5).map((tech, index) => (
-                      <span
-                        key={index}
-                        className="text-xs px-3 py-1.5 rounded-full bg-[var(--bg-main)] border border-[var(--border-light)] text-[var(--text-secondary)] font-medium hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)] transition-all duration-200"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.techStack.length > 5 && (
-                      <span className="text-xs px-3 py-1.5 rounded-full bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] text-white font-medium">
-                        +{project.techStack.length - 5}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* VIEW PROJECT CTA */}
-                  <div className="pt-6 border-t border-[var(--border-light)] flex items-center justify-between">
-                    <button className="group/btn text-[var(--accent-primary)] text-sm font-semibold flex items-center gap-3 transition-all duration-300 hover:gap-4">
-                      Explore Case Study
-                    </button>
-
-                    {/* PROJECT METADATA */}
-                    <div className="flex items-center gap-4 text-xs text-[var(--text-secondary)]">
-                      {project.duration && (
-                        <span className="px-2 py-1 rounded-md bg-[var(--bg-main)]">
-                          {project.duration}
-                        </span>
-                      )}
-                      <span className="text-[var(--accent-primary)] font-medium">
-                        {project.year}
-                      </span>
-                    </div>
-                  </div>
+                  <h2> {project.year}</h2>
                 </div>
-
-                {/* HOVER EFFECT BACKGROUND GLOW */}
-                <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-[var(--accent-primary)/5] via-transparent to-[var(--accent-secondary)/5] pointer-events-none" />
               </div>
             ))}
           </div>
