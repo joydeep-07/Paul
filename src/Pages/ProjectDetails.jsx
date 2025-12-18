@@ -70,6 +70,21 @@ const ProjectDetails = () => {
                   </span>
                 ))}
               </div>
+              <button>
+                <div className="flex flex-col gap-3 pt-4">
+                  {project.liveLink && (
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex px-5 items-center justify-center gap-2 rounded-full text-[var(--accent-primary)] border border-[var(--border-light)]  py-3 text-sm font-medium hover:opacity-90 transition"
+                    >
+                      <ExternalLink size={16} />
+                      Live Preview
+                    </a>
+                  )}
+                </div>
+              </button>
             </div>
 
             {/* RIGHT IMAGE */}
@@ -86,89 +101,60 @@ const ProjectDetails = () => {
         </div>
 
         {/* CONTENT */}
-        <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* MAIN */}
-          <div className="lg:col-span-2 space-y-12">
-            <section>
-              <h2 className="text-2xl font-semibold text-[var(--text-main)] mb-4">
-                Overview
-              </h2>
-              <p className="text-[var(--text-secondary)] leading-relaxed">
-                {project.description}
-              </p>
-            </section>
+        <div className="max-w-7xl mx-auto px-6 py-20">
+          <div className="grid gap-12">
+            {/* MAIN CONTENT */}
+            <div className=" space-y-14">
+              {/* OVERVIEW */}
+              <section className="relative">
+                <h2 className="text-5xl heading-font font-medium text-[var(--text-main)] mb-4">
+                  At a{" "}
+                  <span className="text-[var(--accent-primary)]">Glance</span>
+                </h2>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-[var(--text-main)] mb-4">
-                Key Features
-              </h2>
-              <ul className="grid sm:grid-cols-2 gap-4">
-                {project.features.map((feature, index) => (
-                  <li
-                    key={index}
-                    className="p-4 rounded-xl border border-[var(--border-light)] bg-[var(--bg-secondary)] text-[var(--text-secondary)]"
-                  >
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </div>
+                <div className="w-14 h-[2px] bg-[var(--accent-primary)] mb-6" />
 
-          {/* SIDEBAR */}
-          <aside className="h-fit sticky top-24">
-            <div className="rounded-2xl border border-[var(--border-light)] bg-[var(--bg-secondary)] p-6 space-y-6">
-              <h3 className="text-lg font-semibold text-[var(--text-main)]">
-                Project Info
-              </h3>
+                <p className="text-[var(--text-secondary)] text-justify leading-relaxed text-base">
+                  {project.description}
+                </p>
+              </section>
 
-              <div className="space-y-4 text-sm">
-                <div>
-                  <p className="text-[var(--text-secondary)]">Role</p>
-                  <p className="font-medium text-[var(--text-main)]">
-                    {project.role}
-                  </p>
+              {/* FEATURES */}
+              <section className="space-y-6 flex w-7xl justify-between ">
+                <div className="w-1/4">
+                  <h2 className="text-5xl heading-font font-medium pb-2 text-[var(--text-main)]">
+                    Core <span className="text-[var(--accent-primary)]">Functionality</span>
+                  </h2>
+
+                  <div className="w-14 h-[2px] bg-[var(--accent-primary)]" />
                 </div>
 
-                <div>
-                  <p className="text-[var(--text-secondary)]">Status</p>
-                  <p
-                    className={`font-medium ${
-                      project.status === "Live"
-                        ? "text-[var(--accent-primary)]"
-                        : "text-[var(--text-main)]"
-                    }`}
-                  >
-                    {project.status}
-                  </p>
+                <div className="w-3/4">
+                  <ul className=" gap-5">
+                    {project.features.map((feature, index) => (
+                      <li
+                        key={index}
+                        className="
+                group
+                p-5
+              
+                
+                border-b border-[var(--border-light)]
+                text-[var(--text-secondary)]
+                transition-all
+                duration-300
+                
+          
+              "
+                      >
+                        <span className="leading-relaxed">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-
-              <div className="flex flex-col gap-3 pt-4">
-                {project.liveLink && (
-                  <a
-                    href={project.liveLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--accent-primary)] text-white py-3 text-sm font-medium hover:opacity-90 transition"
-                  >
-                    <ExternalLink size={16} />
-                    Live Preview
-                  </a>
-                )}
-
-                <a
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border-light)] py-3 text-sm font-medium text-[var(--text-main)] hover:bg-[var(--bg-main)] transition"
-                >
-                  <Github size={16} />
-                  GitHub Repository
-                </a>
-              </div>
+              </section>
             </div>
-          </aside>
+          </div>
         </div>
       </section>
       <WorkBadge />
