@@ -3,9 +3,8 @@ import { ArrowUp } from "lucide-react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 const Awards = () => {
     const awards = [
-      { id: 1, title: "Best MERN Project Award", year: "2024" },
-      { id: 2, title: "Top Performer – MCA", year: "2023" },
-      { id: 3, title: "Hackathon Finalist", year: "2022" },
+      { id: 1, title: "Best Project Award", year: "Nov  2024" },
+      { id: 2, title: "Hackathon Finalist", year: "Aug  2025" },
     ];
 
   return (
@@ -36,13 +35,13 @@ const Awards = () => {
             {awards.map((award) => (
               <div
                 key={award.id}
-                className="flex items-center justify-between border p-4 overflow-hidden"
+                className="flex items-center justify-between border-b border-[var(--border-light)] p-4 overflow-hidden"
               >
                 {/* Left: Award Name */}
-                <h3 className="text-base text-[var(--text-secondary)] font-medium">{award.title}</h3>
+                <h3 className="text-base text-[var(--text-secondary)]/80 font-medium">{award.title}</h3>
 
                 {/* Right: Year */}
-                <span className="text-sm text-[var(--text-secondary)]/80 font-medium">{award.year}</span>
+                <span className="text-sm text-[var(--text-secondary)]/70 font-medium uppercase">{award.year}</span>
               </div>
             ))}
           </div>
