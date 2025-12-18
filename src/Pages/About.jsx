@@ -7,6 +7,7 @@ import { SiMongodb, SiExpress, SiTailwindcss, SiFramer } from "react-icons/si";
 import { FaReact, FaNodeJs } from "react-icons/fa";
 import TechExperience from '../Components/TechExperience';
 import DesignProcess from '../Components/DesignProcess';
+import Awards from '../Components/Awards';
 const About = () => {
 
   const skills = [
@@ -25,6 +26,7 @@ const About = () => {
         <Slide items={skills} speed={20} />
       </div>
       <TechExperience/>
+      <Awards/>
       <DesignProcess/>
       <WorkBadge />
       <Footer />
