@@ -12,8 +12,7 @@ import ProjectDetails from "./Pages/ProjectDetails";
 
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
-
-  // Add/remove dark class on body
+  
   useEffect(() => {
     if (mode === "dark") {
       document.documentElement.classList.add("dark");
