@@ -9,10 +9,9 @@ import Projects from "./Pages/Projects";
 import ReviewForm from "./Pages/ReviewForm";
 import ProjectDetails from "./Pages/ProjectDetails";
 
-
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
-  
+
   useEffect(() => {
     if (mode === "dark") {
       document.documentElement.classList.add("dark");
