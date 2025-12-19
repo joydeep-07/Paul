@@ -9,7 +9,8 @@ import {
   SiScrollreveal,
 } from "react-icons/si";
 import { MdAnimation } from "react-icons/md";
-
+import react from '../assets/logo/react.jpg'
+import { IoCheckmarkDone } from "react-icons/io5";
 export const libraries = [
   {
     id: 1,
@@ -60,42 +61,43 @@ export const libraries = [
       "Industry standard for professional animations",
     ],
     url: "https://gsap.com/",
-    icon: SiGreensock,
-  },
-  {
-    id: 4,
-    name: "GSAP ScrollTrigger",
-    description:
-      "A GSAP plugin that allows animations to be precisely controlled based on scroll position.",
-    points: [
-      "Scroll-based animation triggering",
-      "Pin elements during scroll",
-      "Scrub animations tied to scroll position",
-      "Create immersive parallax effects",
-      "Works perfectly with GSAP timelines",
-      "Fine-grained control over animation timing",
-      "Ideal for storytelling and portfolio websites",
-    ],
-    url: "https://gsap.com/scrolltrigger/",
     icon: SiScrollreveal,
   },
-  {
-    id: 5,
-    name: "AOS (Animate On Scroll)",
-    description:
-      "A lightweight animation library that triggers smooth entrance animations when elements scroll into view.",
-    points: [
-      "Very easy to set up and use",
-      "Scroll-triggered entrance animations",
-      "Lightweight and performance-friendly",
-      "Minimal configuration required",
-      "Supports fade, zoom, slide animations",
-      "Good for simple UI animations",
-      "Perfect for landing pages",
-    ],
-    url: "https://michalsnik.github.io/aos/",
-    icon: MdAnimation,
-  },
+  // {
+  //   id: 4,
+  //   name: "GSAP ScrollTrigger",
+  //   description:
+  //     "A GSAP plugin that allows animations to be precisely controlled based on scroll position.",
+  //   points: [
+  //     "Scroll-based animation triggering",
+  //     "Pin elements during scroll",
+  //     "Scrub animations tied to scroll position",
+  //     "Create immersive parallax effects",
+  //     "Works perfectly with GSAP timelines",
+  //     "Fine-grained control over animation timing",
+  //     "Ideal for storytelling and portfolio websites",
+  //   ],
+  //   url: "https://gsap.com/scrolltrigger/",
+  //   icon: SiScrollreveal,
+  // },
+  
+  // {
+  //   id: 5,
+  //   name: "AOS (Animate On Scroll)",
+  //   description:
+  //     "A lightweight animation library that triggers smooth entrance animations when elements scroll into view.",
+  //   points: [
+  //     "Very easy to set up and use",
+  //     "Scroll-triggered entrance animations",
+  //     "Lightweight and performance-friendly",
+  //     "Minimal configuration required",
+  //     "Supports fade, zoom, slide animations",
+  //     "Good for simple UI animations",
+  //     "Perfect for landing pages",
+  //   ],
+  //   url: "https://michalsnik.github.io/aos/",
+  //   icon: MdAnimation,
+  // },
   {
     id: 6,
     name: "Axios",
@@ -115,7 +117,7 @@ export const libraries = [
   },
   {
     id: 7,
-    name: "TanStack Query (React Query)",
+    name: "TanStack Query",
     description:
       "A powerful data-fetching and state management library for server-state handling.",
     points: [
