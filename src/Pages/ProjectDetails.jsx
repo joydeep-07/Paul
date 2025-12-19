@@ -123,7 +123,10 @@ const ProjectDetails = () => {
               <section className="space-y-6 flex w-7xl justify-between ">
                 <div className="w-1/4">
                   <h2 className="text-5xl heading-font font-medium pb-2 text-[var(--text-main)]">
-                    Core <span className="text-[var(--accent-primary)]">Functionality</span>
+                    Core{" "}
+                    <span className="text-[var(--accent-primary)]">
+                      Functionality
+                    </span>
                   </h2>
 
                   <div className="w-14 h-[2px] bg-[var(--accent-primary)]" />
@@ -134,18 +137,7 @@ const ProjectDetails = () => {
                     {project.features.map((feature, index) => (
                       <li
                         key={index}
-                        className="
-                group
-                p-5
-              
-                
-                border-b border-[var(--border-light)]
-                text-[var(--text-secondary)]
-                transition-all
-                duration-300
-                
-          
-              "
+                        className="group p-5 border-b border-[var(--border-light)] text-[var(--text-secondary)] transition-all duration-300"
                       >
                         <span className="leading-relaxed">{feature}</span>
                       </li>
