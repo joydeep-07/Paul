@@ -13,7 +13,7 @@
 );
 
   /* Text */
-  --text-main: #191919; /* Google Green style */
+  --text-main: #191919; 
   --text-secondary: #212121;
 
   /* Accent Colors */
@@ -27,7 +27,7 @@
 /* DARK MODE */
 .dark {
   /* Backgrounds */
-  --bg-main: #0b0b0b; /* blackish */
+  --bg-main: #0b0b0b; 
   --bg-secondary: #0f0f0f;
 --bg-gradient: linear-gradient(
   135deg,
@@ -36,10 +36,8 @@
   #065f2b
 );
 
-
-
   /* Text */
-  --text-main: #d4d4d4; /* lighter green for dark mode */
+  --text-main: #d4d4d4;
   --text-secondary: #d4d4d4;
 
   /* Accent Colors */
