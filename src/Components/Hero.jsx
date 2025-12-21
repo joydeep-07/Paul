@@ -1,6 +1,11 @@
 import { ArrowUp } from "lucide-react";
 import Slide from "./Slide";
-import { SiMongodb, SiExpress, SiTailwindcss, SiFramer } from "react-icons/si";
+import {
+  SiMongodb,
+  SiExpress,
+  SiTailwindcss,
+  SiFramer,
+} from "react-icons/si";
 import { FaReact, FaNodeJs } from "react-icons/fa";
 import AboutMe from "./AboutMe";
 import Reviews from "./Reviews";
@@ -18,12 +23,12 @@ const Hero = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center w-full px-4 sm:px-6 lg:px-8">
-        <div className="main flex flex-col w-full max-w-7xl mx-auto">
+        <div className="main flex flex-col gap-5 w-full max-w-7xl mx-auto">
           <h2 className="text-xs sm:text-sm py-4 sm:py-5 px-3 sm:px-4 uppercase flex items-center gap-2 sm:gap-3 w-full">
             <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-green-500 animate-pulse flex-shrink-0"></span>
             Hey, it's me Paul
           </h2>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)] leading-tight sm:leading-snug lg:leading-normal">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)] ">
             Crafting{" "}
             <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
               purpose driven <br className="hidden sm:block" /> experiences
@@ -32,7 +37,7 @@ const Hero = () => {
           </h1>
         </div>
       </div>
-
+      
       {/* Description Section */}
       <div className="flex flex-col sm:flex-row items-center justify-center mt-4 sm:mt-6 md:mt-8 gap-3 px-4 sm:px-6 lg:px-8">
         {/* Line */}

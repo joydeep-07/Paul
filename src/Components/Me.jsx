@@ -1,5 +1,5 @@
 import React from "react";
-import me from "../assets/images/dp1.jpg";
+import me from "../assets/images/me1.jpg";
 import CircularText from "./CircularText";
 
 const Me = () => {
