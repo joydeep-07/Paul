@@ -8,7 +8,7 @@ import LoadingBar from "../Components/LoadingBar";
 const Root = () => {
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-all duration-300">
-      <LoadingBar/>
+      {/* <LoadingBar/> */}
       <Navbar />
       <ScrollToTop/>
       <div className="pt-25">
