@@ -8,9 +8,6 @@ import {
   SiNextdotjs,
   SiScrollreveal,
 } from "react-icons/si";
-import { MdAnimation } from "react-icons/md";
-import react from '../assets/logo/react.jpg'
-import { IoCheckmarkDone } from "react-icons/io5";
 export const libraries = [
   {
     id: 1,
