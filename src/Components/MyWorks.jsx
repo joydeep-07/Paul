@@ -8,13 +8,10 @@ import Footer from "../layout/Footer";
 const MyWorks = () => {
   const navigate = useNavigate();
 
-
   return (
     <>
       <div className="min-h-screen bg-[var(--bg-main)] transition-colors duration-300">
         <div className="container mx-auto px-4 py-16 md:px-6 lg:px-8 max-w-7xl">
-          {/* PREMIUM HEADER SECTION */}
-
           {/* PREMIUM PROJECT GRID */}
           <div
             initial="hidden"
@@ -52,6 +49,18 @@ const MyWorks = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="flex justify-center items-center mt-10">
+            <button 
+              onClick={() => navigate("/projects")}
+              className=" relative overflow-hidden px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group w-full sm:w-auto
+"
+            >
+              <span className="flex items-center space-x-2 text-[10px] sm:text-xs opacity-100 translate-y-0 uppercase">
+                Watch More
+              </span>
+            </button>
           </div>
 
           {/* FOOTER NOTE */}

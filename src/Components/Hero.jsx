@@ -2,6 +2,7 @@ import { ArrowUp } from "lucide-react";
 import Slide from "./Slide";
 import { SiMongodb, SiExpress, SiTailwindcss, SiFramer } from "react-icons/si";
 import { FaReact, FaNodeJs } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const skills = [
@@ -12,6 +13,8 @@ const Hero = () => {
     { name: "Tailwind", icon: <SiTailwindcss /> },
     { name: "Framer Motion", icon: <SiFramer /> },
   ];
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -80,6 +83,7 @@ const Hero = () => {
         {/* About Me Button */}
         <div className="w-full sm:w-auto flex justify-center sm:justify-end">
           <button
+          onClick={() => navigate("/about")}
             className=" relative overflow-hidden px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group w-full sm:w-auto
 "
           >
