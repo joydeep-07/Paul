@@ -61,18 +61,19 @@ const DesignProcess = () => {
       <div className="w-7xl flex flex-col gap-6 sm:gap-8 lg:gap-10">
         {/* LEFT */}
         <div className="pt-8 h-fit self-start">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-0.5 bg-[var(--accent-primary)]" />
-            <h2 className="text-xs uppercase tracking-widest text-[var(--accent-primary)]">
+          <div className="mb-4">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
               Steps I follow
-            </h2>
+            </h3>
+
+            <div className="mt-2 mb-6 h-[2px] w-24 bg-[var(--accent-primary)] rounded-full" />
           </div>
 
           <h1 className="heading-font text-4xl md:text-5xl leading-tight">
             What My{" "}
             <span className="text-[var(--accent-primary)]">
-              Design  process include
-            </span> {" "} 
+              Design process include
+            </span>{" "}
           </h1>
           <p className="mt-4 text-[var(--text-secondary)] text-sm opacity-80 max-w-sm">
             Each project is unique, and I follow a structured approach to turn

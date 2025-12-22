@@ -10,11 +10,12 @@ const ProjectHeading = () => {
         transition={{ duration: 0.6 }}
         className="mb-8 px-4 w-full max-w-7xl md:mb-16 lg:mb-5 sm:px-6 md:px-8 lg:px-0"
       >
-        <div className="flex items-center gap-3 mb-4 sm:mb-5 md:mb-6">
-          <div className="w-8 h-1 sm:w-10 md:w-12 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] rounded-full" />
-          <span className="text-xs uppercase tracking-[0.2em] text-[var(--accent-primary)] font-medium">
+        <div className="mb-4">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
             Project Showcase
-          </span>
+          </h3>
+
+          <div className="mt-2 mb-6 h-[2px] w-24 bg-[var(--accent-primary)] rounded-full" />
         </div>
 
         <div className="mb-6 sm:mb-7 md:mb-8">

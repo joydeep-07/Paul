@@ -10,12 +10,12 @@ const Awards = () => {
       <div className="py-16 bg-[var(--bg-main)] flex justify-center">
         <div className="max-w-7xl w-full flex flex-col md:flex-row">
           {/* LEFT */}
-          <div className="w-full md:w-1/3 px-4">
+          <div className="w-full md:w-1/3">
             <h3 className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
               Awards
             </h3>
 
-            <div className="mt-2 mb-6 h-[2px] w-16 bg-[var(--accent-primary)] rounded-full" />
+            <div className="mt-2 mb-6 h-[2px] w-12 bg-[var(--accent-primary)] rounded-full" />
 
             <h1 className="heading-font text-4xl md:text-5xl leading-tight mb-4">
               Awards &{" "}

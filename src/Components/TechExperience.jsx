@@ -19,11 +19,12 @@ const TechExperience = () => {
       <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10">
         {/* LEFT */}
         <div className="lg:w-1/3 pt-8 pb-25 h-fit self-start">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-0.5 bg-[var(--accent-primary)]" />
-            <h2 className="text-xs uppercase tracking-widest text-[var(--accent-primary)]">
+          <div className="mb-4">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
               Experience
-            </h2>
+            </h3>
+
+            <div className="mt-2 mb-6 h-[2px] w-18 bg-[var(--accent-primary)] rounded-full" />
           </div>
 
           <h1 className="heading-font text-4xl md:text-5xl leading-tight">
