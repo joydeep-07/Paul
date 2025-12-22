@@ -1,11 +1,6 @@
 import { ArrowUp } from "lucide-react";
 import Slide from "./Slide";
-import {
-  SiMongodb,
-  SiExpress,
-  SiTailwindcss,
-  SiFramer,
-} from "react-icons/si";
+import { SiMongodb, SiExpress, SiTailwindcss, SiFramer } from "react-icons/si";
 import { FaReact, FaNodeJs } from "react-icons/fa";
 
 const Hero = () => {
@@ -84,21 +79,12 @@ const Hero = () => {
 
         {/* About Me Button */}
         <div className="w-full sm:w-auto flex justify-center sm:justify-end">
-          <button className="px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-4 bg-transparent border-2 border-[var(--border-light)] text-[var(--text-main)] font-medium tracking-widest rounded-full transition-all duration-700 group relative overflow-hidden w-full sm:w-auto max-w-xs sm:max-w-none">
-            {/* Sliding gradient overlay */}
-            <span className="absolute inset-0 bg-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -translate-x-full group-hover:translate-x-0"></span>
-
-            {/* Text wrapper */}
-            <span className="relative w-full flex items-center justify-center">
-              {/* Initial text */}
-              <span className="opacity-100 group-hover:opacity-0 text-[var(--text-main)] translate-y-0 group-hover:-translate-y-2 transition-all duration-500 flex items-center space-x-2 sm:space-x-3">
-                <span className="text-[10px] sm:text-xs">ABOUT ME &</span>
-              </span>
-
-              {/* Hover text */}
-              <span className="absolute inset-0 text-[var(--text-main)] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 flex items-center justify-center space-x-2 sm:space-x-3">
-                <span className="text-[10px] sm:text-xs">MY WORKS</span>
-              </span>
+          <button
+            className=" relative overflow-hidden px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group w-full sm:w-auto
+"
+          >
+            <span className="flex items-center space-x-2 text-[10px] sm:text-xs opacity-100 translate-y-0 ">
+              ABOUT ME
             </span>
           </button>
         </div>
