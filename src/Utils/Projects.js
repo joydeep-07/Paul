@@ -1,5 +1,6 @@
 import portfolio from '../assets/thumbnail/portfolio.png'
 import medcare from "../assets/thumbnail/medcare.png";
+import lightloom from "../assets/thumbnail/lightloom.png";
 export const projects = [
   {
     id: 1,
@@ -54,24 +55,18 @@ export const projects = [
   },
   {
     id: 3,
-    title: "Authentication System",
-    shortDescription: "Secure login & signup system",
+    title: "LightLoom",
+    shortDescription: "Just a design using WebGl",
     description:
-      "Authentication system with JWT, protected routes, and password encryption for modern web applications.",
-    techStack: ["React", "Node.js", "Express.js", "MongoDB", "JWT", "Bcrypt"],
-    features: [
-      "JWT-based authentication",
-      "Protected routes",
-      "Password hashing",
-      "Session handling",
-    ],
-    role: "Backend + Frontend Developer",
-    category: "Authentication",
+      "Light Loom is a minimalist, design-driven web experience created to explore the intersection of modern frontend development and real-time graphics rendering in a clean and lightweight environment. The project is built using Vite and React, leveraging Vite’s fast build system and development workflow to maintain high performance and rapid iteration, while React provides a structured and component-based approach to managing the user interface. At its core, Light Loom is not focused on complex application logic or feature-heavy functionality; instead, it emphasizes visual clarity, motion, and the subtle use of WebGL to create engaging graphical effects that enhance the overall aesthetic without overwhelming the user. WebGL is used as the primary rendering layer to experiment with light, depth, and shader-based visuals, allowing the browser to harness GPU acceleration for smooth and efficient real-time rendering. The design philosophy behind Light Loom centers on simplicity and intention, where every visual element exists for a reason and unnecessary distractions are deliberately avoided. The layout is minimal, ensuring that the graphics remain the focal point of the experience while maintaining usability and responsiveness across different screen sizes. By integrating WebGL within a React-based architecture, the project demonstrates how low-level graphics rendering can coexist with high-level UI frameworks, balancing performance with maintainability. The application structure is kept lightweight, with a clear separation between rendering logic and interface components, making the codebase easy to understand and extend if needed. Light Loom also reflects an appreciation for modern web performance practices, such as optimized asset loading, efficient render cycles, and smooth transitions, all of which contribute to a seamless user experience. Rather than attempting to solve a specific business problem, the project serves as a creative and technical exploration, showcasing how emerging web technologies can be used to craft visually expressive experiences directly in the browser. It highlights an understanding of both design sensibility and technical execution, proving that impactful digital experiences do not always require complex features or heavy backend systems. Through its restrained design, thoughtful use of WebGL, and modern tooling, Light Loom stands as a demonstration of how simplicity, performance, and visual experimentation can come together to form a cohesive and elegant frontend project.",
+    techStack: ["React", "Tailwind CSS", "Web Gl"],
+    features: [],
+    role: "Frontend Developer",
+    category: "Design",
     status: "Completed",
-    year: 2023,
-    liveLink: "https://example.com",
-    githubLink: "https://github.com/username/auth-system",
-    thumbnail:
-      "https://i.pinimg.com/736x/6c/39/c2/6c39c2a0c6c5501420bf6a6284fa1b92.jpg",
+    year: 2024,
+    liveLink: "https://lightloom.netlify.app/",
+    githubLink: "",
+    thumbnail: lightloom,
   },
 ];
