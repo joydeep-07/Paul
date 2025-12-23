@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 import ScrollToTop from "../Components/ScrollToTop";
 import LoadingBar from "../Components/LoadingBar";
+import AnimatedOutlet from "../Components/AnimatedOutlet";
 
 const Root = () => {
   return (
@@ -13,6 +14,7 @@ const Root = () => {
       <ScrollToTop/>
       <div className="pt-25">
         <Outlet />
+        {/* <AnimatedOutlet/> */}
       </div>
       {/* <Footer /> */}
     </div>
