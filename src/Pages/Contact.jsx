@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import me from "../assets/images/dp1.jpg";
+import me from "../assets/images/dp.jpg";
 import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { supabase } from "../supabaseClient";
