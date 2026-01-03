@@ -6,6 +6,7 @@ import { FaArrowLeftLong, FaArrowRight } from "react-icons/fa6";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import ReviewSkeleton from "./ReviewSkeleton";
+import LeaveReview from "./LeaveReview";
 
 const SLIDE_DURATION = 5000;
 const RADIUS = 36;
@@ -108,6 +109,8 @@ const Reviews = () => {
             I’ve worked with some amazing people over the years — here’s what
             they have to say about me.
           </p>
+
+          <LeaveReview/>
         </div>
 
         {/* RIGHT */}
