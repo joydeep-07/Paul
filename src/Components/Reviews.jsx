@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowLeftLong, FaArrowRight } from "react-icons/fa6";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import ReviewSkeleton from "./ReviewSkeleton";
 
 const SLIDE_DURATION = 5000;
 const RADIUS = 36;
@@ -31,10 +32,17 @@ const Reviews = () => {
   const [expandedId, setExpandedId] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   /* 🟢 refs for double-click + hold */
   const holdTimeoutRef = useRef(null);
   const isHoldingRef = useRef(false);
+
+  useEffect(() => {
+    // simulate loading or replace with real fetch
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
 
   // 🔁 Auto slide every 5000ms
   useEffect(() => {
@@ -103,127 +111,134 @@ const Reviews = () => {
         </div>
 
         {/* RIGHT */}
+
         <div className="w-full md:w-2/3 p-4 overflow-hidden">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              layout
-              key={item.id}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              onDoubleClick={handleDoubleClick}
-              onMouseUp={handleHoldRelease}
-              onMouseLeave={handleHoldRelease}
-              onTouchEnd={handleHoldRelease}
-              transition={{
-                layout: { duration: 0.45, ease: "easeInOut" },
-                x: { type: "spring", stiffness: 120, damping: 20 },
-                opacity: { duration: 0.3 },
-              }}
-              className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none"
-            >
-              <div className="flex items-center">
-                {/* TIMER AVATAR */}
-                <div className="relative m-4 w-[88px] h-[88px] flex items-center justify-center">
-                  <svg className="absolute w-full h-full rotate-[-90deg]">
-                    <circle
-                      cx="44"
-                      cy="44"
-                      r={RADIUS}
-                      fill="none"
-                      stroke="var(--bg-main)"
-                      strokeWidth="3"
-                    />
+          {loading ? (
+            <ReviewSkeleton />
+          ) : (
+            <>
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  layout
+                  key={item.id}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  onDoubleClick={handleDoubleClick}
+                  onMouseUp={handleHoldRelease}
+                  onMouseLeave={handleHoldRelease}
+                  onTouchEnd={handleHoldRelease}
+                  transition={{
+                    layout: { duration: 0.45, ease: "easeInOut" },
+                    x: { type: "spring", stiffness: 120, damping: 20 },
+                    opacity: { duration: 0.3 },
+                  }}
+                  className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none"
+                >
+                  <div className="flex items-center">
+                    {/* TIMER AVATAR */}
+                    <div className="relative m-4 w-[88px] h-[88px] flex items-center justify-center">
+                      <svg className="absolute w-full h-full rotate-[-90deg]">
+                        <circle
+                          cx="44"
+                          cy="44"
+                          r={RADIUS}
+                          fill="none"
+                          stroke="var(--bg-main)"
+                          strokeWidth="3"
+                        />
 
-                    <motion.circle
-                      key={index}
-                      cx="44"
-                      cy="44"
-                      r={RADIUS}
-                      fill="none"
-                      stroke="var(--accent-primary)"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeDasharray={CIRCUMFERENCE}
-                      initial={{ strokeDashoffset: CIRCUMFERENCE }}
-                      animate={{
-                        strokeDashoffset: isPaused ? CIRCUMFERENCE : 0,
-                      }}
-                      transition={{
-                        duration: isPaused ? 0 : SLIDE_DURATION / 1000,
-                        ease: "linear",
-                      }}
-                    />
-                  </svg>
+                        <motion.circle
+                          key={index}
+                          cx="44"
+                          cy="44"
+                          r={RADIUS}
+                          fill="none"
+                          stroke="var(--accent-primary)"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeDasharray={CIRCUMFERENCE}
+                          initial={{ strokeDashoffset: CIRCUMFERENCE }}
+                          animate={{
+                            strokeDashoffset: isPaused ? CIRCUMFERENCE : 0,
+                          }}
+                          transition={{
+                            duration: isPaused ? 0 : SLIDE_DURATION / 1000,
+                            ease: "linear",
+                          }}
+                        />
+                      </svg>
 
-                  <img
-                    src={item.photo}
-                    alt={item.name}
-                    className="h-16 w-16 rounded-full object-cover z-10"
-                  />
-                </div>
+                      <img
+                        src={item.photo}
+                        alt={item.name}
+                        className="h-16 w-16 rounded-full object-cover z-10"
+                      />
+                    </div>
+
+                    <div>
+                      <h1 className="font-semibold">{item.name}</h1>
+                      <p className="text-sm opacity-70">{item.position}</p>
+                    </div>
+                  </div>
+
+                  <motion.p layout className="p-4 text-justify">
+                    {isExpanded ? item.review : shortText}
+                    {words.length > 40 && (
+                      <span
+                        onClick={() => toggleReadMore(item.id)}
+                        className="cursor-pointer text-[var(--accent-primary)] font-medium"
+                      >
+                        {isExpanded ? " read less" : " ...read more"}
+                      </span>
+                    )}
+                  </motion.p>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* CTA */}
+              <div className="mt-6 flex justify-between px-5">
+                <button
+                  onClick={() =>
+                    window.open(
+                      "https://www.linkedin.com/in/joydeep-paul-06b37926a",
+                      "_blank"
+                    )
+                  }
+                  className="flex items-center gap-2 border-b pb-1 text-sm hover:text-[var(--accent-primary)]"
+                >
+                  Check it out on LinkedIn
+                  <ArrowUp className="w-4 h-4 rotate-45" />
+                </button>
 
                 <div>
-                  <h1 className="font-semibold">{item.name}</h1>
-                  <p className="text-sm opacity-70">{item.position}</p>
+                  <button
+                    onClick={() =>
+                      setIndex(([prev]) =>
+                        prev === 0
+                          ? [reviews.length - 1, -1]
+                          : [(prev - 1) % reviews.length, -1]
+                      )
+                    }
+                    className="px-3 py-1 hover:text-[var(--accent-primary)]"
+                  >
+                    <IoIosArrowBack className="text-2xl" />
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      setIndex(([prev]) => [(prev + 1) % reviews.length, 1])
+                    }
+                    className="px-3 py-1 hover:text-[var(--accent-primary)]"
+                  >
+                    <IoIosArrowForward className="text-2xl" />
+                  </button>
                 </div>
               </div>
-
-              <motion.p layout className="p-4 text-justify">
-                {isExpanded ? item.review : shortText}
-                {words.length > 40 && (
-                  <span
-                    onClick={() => toggleReadMore(item.id)}
-                    className="cursor-pointer text-[var(--accent-primary)] font-medium"
-                  >
-                    {isExpanded ? " read less" : " ...read more"}
-                  </span>
-                )}
-              </motion.p>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* CTA */}
-          <div className="mt-6 flex justify-between px-5">
-            <button
-              onClick={() =>
-                window.open(
-                  "https://www.linkedin.com/in/joydeep-paul-06b37926a",
-                  "_blank"
-                )
-              }
-              className="flex items-center gap-2 border-b pb-1 text-sm hover:text-[var(--accent-primary)]"
-            >
-              Check it out on LinkedIn
-              <ArrowUp className="w-4 h-4 rotate-45" />
-            </button>
-
-            <div>
-              <button
-                onClick={() =>
-                  setIndex(([prev]) =>
-                    prev === 0
-                      ? [reviews.length - 1, -1]
-                      : [(prev - 1) % reviews.length, -1]
-                  )
-                }
-                className="px-3 py-1 hover:text-[var(--accent-primary)]"
-              >
-                <IoIosArrowBack className="text-2xl" />
-              </button>
-
-              <button
-                onClick={() =>
-                  setIndex(([prev]) => [(prev + 1) % reviews.length, 1])
-                }
-                className="px-3 py-1 hover:text-[var(--accent-primary)]"
-              >
-                <IoIosArrowForward className="text-2xl" />
-              </button>
-            </div>
-          </div>
+            </>
+          )}
         </div>
       </div>
     </div>
