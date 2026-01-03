@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { reviews } from "../Utils/Reviews";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowLeftLong, FaArrowRight } from "react-icons/fa6";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -171,11 +171,20 @@ const Reviews = () => {
                         />
                       </svg>
 
-                      <img
-                        src={item.photo}
-                        alt={item.name}
-                        className="h-16 w-16 rounded-full object-cover z-10"
-                      />
+                      {item.photo ? (
+                        <img
+                          src={item.photo}
+                          alt={item.name}
+                          className="h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)]"
+                        />
+                      ) : (
+                        <div className="relative h-16 w-16 flex items-center justify-center rounded-full bg-[var(--accent-primary)]/15 border border-[var(--accent-primary)]/30">
+                          <User
+                            size={26}
+                            className="text-[var(--accent-primary)]"
+                          />
+                        </div>
+                      )}
                     </div>
 
                     <div>
