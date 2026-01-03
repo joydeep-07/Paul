@@ -8,6 +8,9 @@ import { useSelector } from "react-redux";
 import Projects from "./Pages/Projects";
 import ReviewForm from "./Pages/ReviewForm";
 import ProjectDetails from "./Pages/ProjectDetails";
+import KeepNotes from "./Project/KeepNotes";
+import Lightloom from "./Project/Lightloom";
+import Medcare from "./Project/Medcare";
 
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
@@ -31,6 +34,11 @@ const App = () => {
         { path: "/projects", element: <Projects /> },
         { path: "/review/form", element: <ReviewForm /> },
         { path: "project/:id", element: <ProjectDetails /> },
+
+        // PROJECT ROUTES
+        { path: "project/keep/notes", element: <KeepNotes /> },
+        { path: "project/medcare", element: <Medcare /> },
+        { path: "project/lightloom", element: <Lightloom /> },
       ],
     },
   ]);

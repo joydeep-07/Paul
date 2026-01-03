@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaCalendarAlt, FaArrowRight } from "react-icons/fa";
 import WorkBadge from "./WorkBadge";
 import Footer from "../layout/Footer";
-
+import img1 from '../assets/thumbnail/lightloom.png'
 const MyWorks = () => {
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const MyWorks = () => {
             {projects.map((project, index) => (
               <div
                 key={project.id}
-                onClick={() => navigate(`/project/${project.id}`)}
+                onClick={() => navigate(`/project/${project.navigate}`)}
                 className="group relative bg-gradient-to-b from-[var(--bg-secondary)] to-[var(--bg-main)] border border-[var(--border-light)] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 hover:bg-[var(--bg-secondary)] "
               >
                 {/* IMAGE CONTAINER - Full image display */}
@@ -52,7 +52,7 @@ const MyWorks = () => {
           </div>
 
           <div className="flex justify-center items-center mt-10">
-            <button 
+            <button
               onClick={() => navigate("/projects")}
               className=" relative overflow-hidden px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group w-full sm:w-auto
 "
