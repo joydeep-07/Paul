@@ -91,11 +91,6 @@ const Reviews = () => {
     }
   };
 
-  // 🛡️ SAFETY GUARD
-  if (!loading && reviews.length === 0) {
-    return null;
-  }
-
   const item = reviews[index] || {};
   const words = item.review ? item.review.split(" ") : [];
   const shortText = words.slice(0, 40).join(" ");
@@ -126,9 +121,16 @@ const Reviews = () => {
         </div>
 
         {/* RIGHT */}
+
         <div className="w-full md:w-2/3 p-4 overflow-hidden">
           {loading ? (
             <ReviewSkeleton />
+          ) : reviews.length === 0 ? (
+            <div className="h-full flex items-center justify-center border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl">
+              <p className="text-sm opacity-70 tracking-wide">
+                No Reviews found
+              </p>
+            </div>
           ) : (
             <>
               <AnimatePresence mode="wait" custom={direction}>
