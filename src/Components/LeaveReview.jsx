@@ -106,7 +106,7 @@ const LeaveReview = () => {
                   placeholder="Enter your name"
                   className="w-full border-b border-[var(--border-light)]
                   bg-transparent px-4 py-3 text-sm
-                  focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                 outline-none"
                 />
               </div>
 
@@ -123,7 +123,7 @@ const LeaveReview = () => {
                   placeholder="Senior Software Developer"
                   className="w-full border-b border-[var(--border-light)]
                   bg-transparent px-4 py-3 text-sm
-                  focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                  outline-none"
                 />
               </div>
 
@@ -141,7 +141,7 @@ const LeaveReview = () => {
                   placeholder="Enter your profile image link"
                   className="w-full border-b border-[var(--border-light)]
                   bg-transparent px-4 py-3 text-sm
-                  focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                  outline-none"
                 />
                 <p className="text-[10px] text-[var(--text-secondary)]/50 py-2">
                   This image will be displayed on the website
@@ -161,7 +161,7 @@ const LeaveReview = () => {
                   placeholder="Write your experience..."
                   className="w-full rounded-xl border border-[var(--border-light)]
                   bg-transparent px-4 py-3 text-sm resize-none
-                  focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                 outline-none"
                 />
               </div>
             </div>
