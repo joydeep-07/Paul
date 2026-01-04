@@ -26,7 +26,7 @@ const Hero = () => {
               Hey, Its me Paul
             </p>
           </h2>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)] ">
+          <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)] ">
             Crafting{" "}
             <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
               purpose driven <br className="hidden sm:block" /> experiences
@@ -37,12 +37,12 @@ const Hero = () => {
       </div>
 
       {/* Description Section */}
-      <div className="flex flex-col sm:flex-row items-center justify-center mt-4 sm:mt-6 md:mt-8 gap-3 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col sm:flex-row items-center justify-center mt-10 sm:mt-6 md:mt-8 gap-3 px-4 sm:px-6 lg:px-8">
         {/* Line */}
         <div className="hidden sm:block border-b border-[var(--border-light)] w-full max-w-2xl mr-4 sm:mr-7"></div>
 
         {/* Text */}
-        <p className="text-[var(--text-main)] text-xs sm:text-sm md:text-base leading-snug max-w-4xl text-center sm:text-left">
+        <p className="text-[var(--text-main)] text-sm sm:text-sm md:text-base leading-snug max-w-4xl text-left sm:text-left">
           I work with brands globally to build pixel-perfect, engaging, and
           accessible digital
           <br className="hidden sm:block" />
@@ -56,7 +56,7 @@ const Hero = () => {
         data-aos-delay="450"
       >
         {/* Social Links */}
-        <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-3 md:gap-5 py-2 sm:py-5 w-full sm:w-auto px-1 sm:px-3 group">
+        <div className="flex flex-wrap justify-start sm:justify-start gap-2 sm:gap-3 md:gap-5 py-2 sm:py-5 w-full sm:w-auto px-1 sm:px-3 group">
           {[
             {
               name: "LinkedIn",
@@ -69,25 +69,27 @@ const Hero = () => {
             },
             { name: "Gmail", url: "mailto:joydeeprnp8821@gmail.com" },
           ].map((item) => (
-            <button
-              key={item.name}
-              onClick={() => window.open(item.url, "_blank")}
-              className="flex items-center gap-1 sm:gap-2 text-[var(--text-main)] text-[9px] xs:text-[10px] sm:text-xs md:text-sm font-medium uppercase transition-opacity duration-300 hover:opacity-100 group-hover:opacity-50 flex-shrink-0 px-1 sm:px-0"
-            >
-              <ArrowUp className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 rotate-45 flex-shrink-0" />
-              <span className="whitespace-nowrap">{item.name}</span>
-            </button>
+            <>
+              <button
+                key={item.name}
+                onClick={() => window.open(item.url, "_blank")}
+                className="flex items-center gap-1 sm:gap-2 text-[var(--text-main)] text-[9px] xs:text-[10px] sm:text-xs md:text-sm font-medium uppercase transition-opacity duration-300 hover:opacity-100 group-hover:opacity-50 flex-shrink-0 px-1 sm:px-0"
+              >
+                <ArrowUp className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 rotate-45 flex-shrink-0" />
+                <span className="whitespace-nowrap">{item.name}</span>
+              </button>
+            </>
           ))}
         </div>
 
         {/* About Me Button */}
-        <div className="w-full sm:w-auto flex justify-center sm:justify-end">
+        <div className=" pt-4 md:pt-0 flex justify-center sm:justify-end">
           <button
-          onClick={() => navigate("/about")}
+            onClick={() => navigate("/about")}
             className=" relative overflow-hidden px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group w-full sm:w-auto
 "
           >
-            <span className="flex items-center space-x-2 text-[10px] sm:text-xs opacity-100 translate-y-0 ">
+            <span className="flex items-center text-sm justify-center gap-2">
               ABOUT ME
             </span>
           </button>
@@ -96,6 +98,14 @@ const Hero = () => {
 
       <div className="py-6 sm:py-8 md:py-10">
         <Slide items={skills} speed={20} />
+      </div>
+
+      {/* MOBILE ONLY – Quick Hint */}
+      <div className="sm:hidden w-full flex flex-col items-center gap-3 pt-7">
+        <div className="flex items-center gap-2 text-xs opacity-70 tracking-wide">
+          <ArrowUp className="w-3 h-3 rotate-180 animate-bounce" />
+          <span>Swipe to explore</span>
+        </div>
       </div>
     </>
   );

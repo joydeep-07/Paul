@@ -11,7 +11,7 @@ const Slide = ({ items = [], speed = 20 }) => {
           (item, index) => (
             <div
               key={index}
-              className="px-8 flex items-center gap-3 flex-shrink-0 whitespace-nowrap text-lg font-medium text-[var(--text-main)]"
+              className="px-8 flex items-center gap-3 flex-shrink-0 whitespace-nowrap text-sm md:text-lg font-medium text-[var(--text-main)]"
             >
               {/* Icon */}
               <span className="text-xl text-[var(--accent-primary)]">
