@@ -4,7 +4,7 @@ import UnderConstruction from './UnderConstruction'
 const KeepNotes = () => {
   return (
     <div>
-        <UnderConstruction note='Keep Notes will be live soon, Its almost done' />
+        <UnderConstruction note='Keep Notes will be live soon, Its almost done' progress={80} />
     </div>
   )
 }

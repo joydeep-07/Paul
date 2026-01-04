@@ -4,7 +4,7 @@ import UnderConstruction from './UnderConstruction'
 const Medcare = () => {
   return (
     <div>
-        <UnderConstruction note='MedCare is done, just coding for the Resposniveness' />
+        <UnderConstruction note='MedCare is done, just coding for the Resposniveness' progress={90} />
     </div>
   )
 }

@@ -4,7 +4,7 @@ import UnderConstruction from './UnderConstruction'
 const Lightloom = () => {
   return (
     <div>
-      <UnderConstruction note="We're working hard to bring you something amazing." />
+      <UnderConstruction note="We're working hard to bring you something amazing." progress={15} />
     </div>
   );
 }
