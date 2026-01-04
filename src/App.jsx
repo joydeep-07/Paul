@@ -11,7 +11,7 @@ import ProjectDetails from "./Pages/ProjectDetails";
 import KeepNotes from "./Project/KeepNotes";
 import Lightloom from "./Project/Lightloom";
 import Medcare from "./Project/Medcare";
-
+import { Toaster, toast } from "sonner";
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
 
@@ -43,7 +43,12 @@ const App = () => {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster position="top-right" richColors />
+    </>
+  );
 };
 
 export default App;

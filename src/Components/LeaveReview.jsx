@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { supabase } from "../supabaseClient";
+import { toast } from "sonner";
 
 const LeaveReview = () => {
   const [open, setOpen] = useState(false);
@@ -35,7 +36,7 @@ const LeaveReview = () => {
   // submit to supabase
   const handleSubmit = async () => {
     if (!formData.name || !formData.role || !formData.review) {
-      alert("Please fill all required fields");
+      toast.error("Please fill all required fields");
       return;
     }
 
@@ -54,9 +55,9 @@ const LeaveReview = () => {
 
     if (error) {
       console.error(error);
-      alert("Failed to submit review");
+      toast.error("Failed to submit review");
     } else {
-      alert("Review submitted successfully 🎉");
+      toast.success("Review submitted successfully 🎉");
       setFormData({
         name: "",
         role: "",
