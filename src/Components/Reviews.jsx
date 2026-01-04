@@ -5,7 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import ReviewSkeleton from "./ReviewSkeleton";
 import LeaveReview from "./LeaveReview";
-import { supabase } from "../supabaseClient"; 
+import { supabase } from "../supabaseClient";
 
 const SLIDE_DURATION = 5000;
 const RADIUS = 36;
@@ -31,7 +31,7 @@ const Reviews = () => {
   const [expandedId, setExpandedId] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [reviews, setReviews] = useState([]); 
+  const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
 
   const holdTimeoutRef = useRef(null);
@@ -97,37 +97,36 @@ const Reviews = () => {
   const isExpanded = expandedId === item.id;
 
   return (
-    <div className="py-16 bg-[var(--bg-main)] flex justify-center">
-      <div className="max-w-7xl w-full flex flex-col md:flex-row">
+    <div className="py-8 md:py-12 lg:py-16 bg-[var(--bg-main)] flex justify-center px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl w-full flex flex-col lg:flex-row gap-8 lg:gap-12">
         {/* LEFT */}
-        <div className="w-full md:w-1/3 px-4">
+        <div className="w-full lg:w-1/3 px-2 sm:px-4">
           <h3 className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
             Testimonials
           </h3>
 
           <div className="mt-2 mb-6 h-[2px] w-16 bg-[var(--accent-primary)] rounded-full" />
 
-          <h1 className="heading-font text-4xl md:text-5xl leading-tight mb-4">
+          <h1 className="heading-font text-3xl sm:text-4xl md:text-5xl leading-tight mb-4">
             What others{" "}
             <span className="text-[var(--accent-primary)]">Say</span>
           </h1>
 
-          <p className="text-sm opacity-80 max-w-sm">
-            I’ve worked with some amazing people over the years here’s what
-            they have to say about me.
+          <p className="text-sm opacity-80 max-w-sm mb-6 lg:mb-0">
+            I've worked with some amazing people over the years here's what they
+            have to say about me.
           </p>
 
           <LeaveReview />
         </div>
 
         {/* RIGHT */}
-
-        <div className="w-full md:w-2/3 p-4 overflow-hidden">
+        <div className="w-full lg:w-2/3 px-2 sm:px-4 overflow-hidden">
           {loading ? (
             <ReviewSkeleton />
           ) : reviews.length === 0 ? (
-            <div className="h-full flex items-center justify-center border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl">
-              <p className="text-sm opacity-70 tracking-wide">
+            <div className="h-64 sm:h-72 md:h-80 flex items-center justify-center border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl">
+              <p className="text-sm opacity-70 tracking-wide px-4 text-center">
                 No Reviews found
               </p>
             </div>
@@ -153,8 +152,8 @@ const Reviews = () => {
                   }}
                   className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none"
                 >
-                  <div className="flex items-center">
-                    <div className="relative m-4 w-[88px] h-[88px] flex items-center justify-center">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center p-4 sm:p-6">
+                    <div className="relative mb-4 sm:mb-0 sm:mr-6 w-[88px] h-[88px] flex-shrink-0">
                       <svg className="absolute w-full h-full rotate-[-90deg]">
                         <circle
                           cx="44"
@@ -189,10 +188,10 @@ const Reviews = () => {
                         <img
                           src={item.image_url}
                           alt={item.name}
-                          className="h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)]"
+                          className="h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                         />
                       ) : (
-                        <div className="h-16 w-16 flex items-center justify-center rounded-full bg-[var(--accent-primary)]/15 border border-[var(--accent-primary)]/30">
+                        <div className="h-16 w-16 flex items-center justify-center rounded-full bg-[var(--accent-primary)]/15 border border-[var(--accent-primary)]/30 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                           <User
                             size={26}
                             className="text-[var(--accent-primary)]"
@@ -201,18 +200,23 @@ const Reviews = () => {
                       )}
                     </div>
 
-                    <div>
-                      <h1 className="font-semibold">{item.name}</h1>
-                      <p className="text-sm opacity-70">{item.role}</p>
+                    <div className="flex-1">
+                      <h1 className="font-semibold text-lg sm:text-xl">
+                        {item.name}
+                      </h1>
+                      <p className="text-sm opacity-70 mt-1">{item.role}</p>
                     </div>
                   </div>
 
-                  <motion.p layout className="p-4 text-justify">
+                  <motion.p
+                    layout
+                    className="px-4 sm:px-6 pb-4 sm:pb-6 text-justify"
+                  >
                     {isExpanded ? item.review : shortText}
                     {words.length > 40 && (
                       <span
                         onClick={() => toggleReadMore(item.id)}
-                        className="cursor-pointer text-[var(--accent-primary)] font-medium"
+                        className="cursor-pointer text-[var(--accent-primary)] font-medium ml-1"
                       >
                         {isExpanded ? " read less" : " ...read more"}
                       </span>
@@ -221,7 +225,7 @@ const Reviews = () => {
                 </motion.div>
               </AnimatePresence>
 
-              <div className="mt-6 flex justify-between px-5">
+              <div className="mt-6 flex justify-between items-start sm:items-center gap-4 px-2 sm:px-4">
                 <button
                   onClick={() =>
                     window.open(
@@ -229,13 +233,13 @@ const Reviews = () => {
                       "_blank"
                     )
                   }
-                  className="flex items-center gap-2 border-b pb-1 text-sm hover:text-[var(--accent-primary)]"
+                  className="flex items-center gap-2 border-b pb-1 text-sm hover:text-[var(--accent-primary)] text-[var(--text-secondary)]/70 whitespace-nowrap"
                 >
                   Check it out on LinkedIn
                   <ArrowUp className="w-4 h-4 rotate-45" />
                 </button>
 
-                <div>
+                <div className="flex items-center gap-10">
                   <button
                     onClick={() =>
                       setIndex(([prev]) => [
@@ -243,18 +247,18 @@ const Reviews = () => {
                         -1,
                       ])
                     }
-                    className="px-3 py-1 hover:text-[var(--accent-primary)]"
+                    className="px-3 py-1 text-[var(--text-secondary)]/70 cursor-pointer hover:text-[var(--accent-primary)]"
                   >
-                    <IoIosArrowBack className="text-2xl" />
+                    <IoIosArrowBack size={15} />
                   </button>
 
                   <button
                     onClick={() =>
                       setIndex(([prev]) => [(prev + 1) % reviews.length, 1])
                     }
-                    className="px-3 py-1 hover:text-[var(--accent-primary)]"
+                    className="px-3 py-1 text-[var(--text-secondary)]/70 cursor-pointer hover:text-[var(--accent-primary)]"
                   >
-                    <IoIosArrowForward className="text-2xl" />
+                    <IoIosArrowForward size={15} />
                   </button>
                 </div>
               </div>
