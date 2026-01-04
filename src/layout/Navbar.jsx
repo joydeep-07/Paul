@@ -47,16 +47,11 @@ const Navbar = () => {
       {/* ================= TOP NAV (DESKTOP & MOBILE) ================= */}
       <nav
         ref={navRef}
-        className="
-    fixed top-4 z-50 transition-all
-
-    w-full left-0 px-4
-    md:w-[92%] md:left-1/2 md:-translate-x-1/2 md:px-0
-  "
+        className=" fixed top-4 z-50 transition-all w-full left-0 px-4 md:w-[92%] md:left-1/2 md:-translate-x-1/2 md:px-0"
       >
         <div
           className="
-            h-[50px] px-6 md:px-10
+            h-[50px] backdrop-blur-[5px] px-6 md:px-10
             flex items-center justify-between
             rounded-full
             border border-[var(--border-light)]
@@ -65,7 +60,7 @@ const Navbar = () => {
           "
         >
           {/* LOGO */}
-          <Link to='/'>
+          <Link to="/">
             <h1 className="text-sm md:text-base font-semibold tracking-wide cursor-pointer">
               PAUL HERE
             </h1>
