@@ -170,9 +170,9 @@ const LeaveReview = () => {
             <div className="px-8 py-6 flex justify-end gap-4">
               <button
                 onClick={() => setOpen(false)}
-                className="px-5 py-2.5 rounded-full text-sm
-                border border-[var(--border-light)]
-                hover:bg-[var(--bg-secondary)] transition"
+                className="px-6 py-2.5 rounded-full text-sm font-medium
+                bg-[var(--bg-secondary)]/85 border border-[var(--border-light)]
+                hover:opacity-90 transition disabled:opacity-50 cursor-pointer"
               >
                 Cancel
               </button>
@@ -181,8 +181,8 @@ const LeaveReview = () => {
                 onClick={handleSubmit}
                 disabled={loading}
                 className="px-6 py-2.5 rounded-full text-sm font-medium
-                bg-[var(--accent)] text-white
-                hover:opacity-90 transition disabled:opacity-50"
+                bg-[var(--accent-primary)]/85 text-white
+                hover:opacity-90 transition disabled:opacity-50 cursor-pointer"
               >
                 {loading ? "Submitting..." : "Submit Review"}
               </button>
