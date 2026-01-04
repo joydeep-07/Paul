@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import { reviews } from "../Utils/Reviews";
 import { ArrowUp, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaArrowLeftLong, FaArrowRight } from "react-icons/fa6";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import ReviewSkeleton from "./ReviewSkeleton";
 import LeaveReview from "./LeaveReview";
+import { supabase } from "../supabaseClient"; // ✅ SUPABASE
 
 const SLIDE_DURATION = 5000;
 const RADIUS = 36;
@@ -28,35 +27,45 @@ const slideVariants = {
 };
 
 const Reviews = () => {
-  const [open, setOpen] = useState(false);
   const [[index, direction], setIndex] = useState([0, 1]);
   const [expandedId, setExpandedId] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState([]); // ✅ dynamic reviews
+  const navigate = useNavigate();
 
-  /* 🟢 refs for double-click + hold */
   const holdTimeoutRef = useRef(null);
   const isHoldingRef = useRef(false);
 
+  // ✅ FETCH REVIEWS FROM SUPABASE
   useEffect(() => {
-    // simulate loading or replace with real fetch
-    const timer = setTimeout(() => setLoading(false), 1200);
-    return () => clearTimeout(timer);
+    const fetchReviews = async () => {
+      const { data, error } = await supabase
+        .from("reviews")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (!error && data) {
+        setReviews(data);
+      }
+
+      setLoading(false);
+    };
+
+    fetchReviews();
   }, []);
 
-  // 🔁 Auto slide every 5000ms
+  // 🔁 Auto slide
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || reviews.length === 0) return;
 
     const interval = setInterval(() => {
       setIndex(([prev]) => [(prev + 1) % reviews.length, 1]);
     }, SLIDE_DURATION);
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, reviews]);
 
-  /* 📖 Read more / less */
   const toggleReadMore = (id) => {
     if (expandedId === id) {
       setExpandedId(null);
@@ -67,7 +76,6 @@ const Reviews = () => {
     }
   };
 
-  /* 🖱️ Double click + hold pause */
   const handleDoubleClick = () => {
     holdTimeoutRef.current = setTimeout(() => {
       isHoldingRef.current = true;
@@ -77,15 +85,19 @@ const Reviews = () => {
 
   const handleHoldRelease = () => {
     clearTimeout(holdTimeoutRef.current);
-
     if (isHoldingRef.current) {
       isHoldingRef.current = false;
       setIsPaused(false);
     }
   };
 
-  const item = reviews[index];
-  const words = item.review.split(" ");
+  // 🛡️ SAFETY GUARD
+  if (!loading && reviews.length === 0) {
+    return null;
+  }
+
+  const item = reviews[index] || {};
+  const words = item.review ? item.review.split(" ") : [];
   const shortText = words.slice(0, 40).join(" ");
   const isExpanded = expandedId === item.id;
 
@@ -110,11 +122,10 @@ const Reviews = () => {
             they have to say about me.
           </p>
 
-          <LeaveReview/>
+          <LeaveReview />
         </div>
 
         {/* RIGHT */}
-
         <div className="w-full md:w-2/3 p-4 overflow-hidden">
           {loading ? (
             <ReviewSkeleton />
@@ -122,8 +133,8 @@ const Reviews = () => {
             <>
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
-                  layout
                   key={item.id}
+                  layout
                   custom={direction}
                   variants={slideVariants}
                   initial="enter"
@@ -141,7 +152,6 @@ const Reviews = () => {
                   className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none"
                 >
                   <div className="flex items-center">
-                    {/* TIMER AVATAR */}
                     <div className="relative m-4 w-[88px] h-[88px] flex items-center justify-center">
                       <svg className="absolute w-full h-full rotate-[-90deg]">
                         <circle
@@ -152,7 +162,6 @@ const Reviews = () => {
                           stroke="var(--bg-main)"
                           strokeWidth="3"
                         />
-
                         <motion.circle
                           key={index}
                           cx="44"
@@ -174,14 +183,14 @@ const Reviews = () => {
                         />
                       </svg>
 
-                      {item.photo ? (
+                      {item.image_url && item.image_url.startsWith("http") ? (
                         <img
-                          src={item.photo}
+                          src={item.image_url}
                           alt={item.name}
                           className="h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)]"
                         />
                       ) : (
-                        <div className="relative h-16 w-16 flex items-center justify-center rounded-full bg-[var(--accent-primary)]/15 border border-[var(--accent-primary)]/30">
+                        <div className="h-16 w-16 flex items-center justify-center rounded-full bg-[var(--accent-primary)]/15 border border-[var(--accent-primary)]/30">
                           <User
                             size={26}
                             className="text-[var(--accent-primary)]"
@@ -192,7 +201,7 @@ const Reviews = () => {
 
                     <div>
                       <h1 className="font-semibold">{item.name}</h1>
-                      <p className="text-sm opacity-70">{item.position}</p>
+                      <p className="text-sm opacity-70">{item.role}</p>
                     </div>
                   </div>
 
@@ -210,7 +219,6 @@ const Reviews = () => {
                 </motion.div>
               </AnimatePresence>
 
-              {/* CTA */}
               <div className="mt-6 flex justify-between px-5">
                 <button
                   onClick={() =>
@@ -228,11 +236,10 @@ const Reviews = () => {
                 <div>
                   <button
                     onClick={() =>
-                      setIndex(([prev]) =>
-                        prev === 0
-                          ? [reviews.length - 1, -1]
-                          : [(prev - 1) % reviews.length, -1]
-                      )
+                      setIndex(([prev]) => [
+                        prev === 0 ? reviews.length - 1 : prev - 1,
+                        -1,
+                      ])
                     }
                     className="px-3 py-1 hover:text-[var(--accent-primary)]"
                   >

@@ -1,7 +1,59 @@
 import React, { useState } from "react";
+import { supabase } from "../supabaseClient";
 
 const LeaveReview = () => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    role: "",
+    image_url: "",
+    review: "",
+  });
+
+  // handle input change
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // submit to supabase
+  const handleSubmit = async () => {
+    if (!formData.name || !formData.role || !formData.review) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    setLoading(true);
+
+    const { error } = await supabase.from("reviews").insert([
+      {
+        name: formData.name,
+        role: formData.role,
+        image_url: formData.image_url || null,
+        review: formData.review,
+      },
+    ]);
+
+    setLoading(false);
+
+    if (error) {
+      console.error(error);
+      alert("Failed to submit review");
+    } else {
+      alert("Review submitted successfully 🎉");
+      setFormData({
+        name: "",
+        role: "",
+        image_url: "",
+        review: "",
+      });
+      setOpen(false);
+    }
+  };
 
   return (
     <>
@@ -28,7 +80,7 @@ const LeaveReview = () => {
             shadow-[0_20px_60px_rgba(0,0,0,0.25)]"
           >
             {/* Header */}
-            <div className="px-8 pt-8 pb-6 ">
+            <div className="px-8 pt-8 pb-6">
               <h2 className="text-3xl heading-font font-semibold text-[var(--accent-primary)]">
                 Share Your Experience
               </h2>
@@ -45,7 +97,10 @@ const LeaveReview = () => {
                   Name
                 </label>
                 <input
+                  name="name"
                   type="text"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Enter your name"
                   className="w-full border-b border-[var(--border-light)]
                   bg-transparent px-4 py-3 text-sm
@@ -59,8 +114,11 @@ const LeaveReview = () => {
                   Job Role
                 </label>
                 <input
+                  name="role"
                   type="text"
-                  placeholder="Sineor Software Developer"
+                  value={formData.role}
+                  onChange={handleChange}
+                  placeholder="Senior Software Developer"
                   className="w-full border-b border-[var(--border-light)]
                   bg-transparent px-4 py-3 text-sm
                   focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
@@ -74,15 +132,17 @@ const LeaveReview = () => {
                 </label>
 
                 <input
+                  name="image_url"
                   type="text"
-                  placeholder="Enter Your Profile image link"
+                  value={formData.image_url}
+                  onChange={handleChange}
+                  placeholder="Enter your profile image link"
                   className="w-full border-b border-[var(--border-light)]
                   bg-transparent px-4 py-3 text-sm
                   focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                 />
                 <p className="text-[10px] text-[var(--text-secondary)]/50 py-2">
-                  This image will be diaplayed in the website as your Profile
-                  image
+                  This image will be displayed on the website
                 </p>
               </div>
 
@@ -92,7 +152,10 @@ const LeaveReview = () => {
                   Review
                 </label>
                 <textarea
+                  name="review"
                   rows="5"
+                  value={formData.review}
+                  onChange={handleChange}
                   placeholder="Write your experience..."
                   className="w-full rounded-xl border border-[var(--border-light)]
                   bg-transparent px-4 py-3 text-sm resize-none
@@ -113,11 +176,13 @@ const LeaveReview = () => {
               </button>
 
               <button
+                onClick={handleSubmit}
+                disabled={loading}
                 className="px-6 py-2.5 rounded-full text-sm font-medium
                 bg-[var(--accent)] text-white
-                hover:opacity-90 transition"
+                hover:opacity-90 transition disabled:opacity-50"
               >
-                Submit Review
+                {loading ? "Submitting..." : "Submit Review"}
               </button>
             </div>
           </div>
