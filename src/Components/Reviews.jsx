@@ -113,7 +113,7 @@ const Reviews = () => {
           </h1>
 
           <p className="text-sm opacity-80 max-w-sm">
-            I’ve worked with some amazing people over the years — here’s what
+            I’ve worked with some amazing people over the years here’s what
             they have to say about me.
           </p>
 

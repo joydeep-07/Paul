@@ -60,10 +60,12 @@ const LeaveReview = () => {
       {/* Trigger Button */}
       <button
         onClick={() => setOpen(true)}
-        className="border border-[var(--border-light)] px-6 py-2.5 mt-4 rounded-full 
-        bg-[var(--bg-secondary)] text-sm tracking-wide hover:opacity-90 transition"
+        className="mt-7 relative overflow-hidden px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group w-full sm:w-auto
+"
       >
-        Leave your Review
+        <span className="flex items-center space-x-2 text-[10px] sm:text-xs opacity-100 translate-y-0 ">
+          LEAVE REVIEW
+        </span>
       </button>
 
       {/* Modal */}
@@ -127,8 +129,8 @@ const LeaveReview = () => {
 
               {/* Image Link */}
               <div className="md:col-span-2">
-                <label className="block mb-1 text-xs uppercase tracking-wider text-[var(--text-muted)]">
-                  Profile Image (optional)
+                <label className="block mb-1 text-xs tracking-wider text-[var(--text-muted)]">
+                  <span className="uppercase"> Profile Image </span>(optional)
                 </label>
 
                 <input
