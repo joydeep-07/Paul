@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ThemeToggle from "../Components/ThemeToggle";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -65,9 +65,11 @@ const Navbar = () => {
           "
         >
           {/* LOGO */}
-          <h1 className="text-sm md:text-base font-semibold tracking-wide cursor-pointer">
-            PAUL HERE
-          </h1>
+          <Link to='/'>
+            <h1 className="text-sm md:text-base font-semibold tracking-wide cursor-pointer">
+              PAUL HERE
+            </h1>
+          </Link>
 
           {/* DESKTOP NAV LINKS */}
           <ul className="hidden md:flex items-center gap-10 text-sm font-medium">
