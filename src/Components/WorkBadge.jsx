@@ -30,60 +30,11 @@ const WorkBadge = () => {
         {/* Contact button */}
         <button
           onClick={handleContactClick}
-          className="
-    px-1 sm:px-5 mt-5 sm:mt-6 py-3 sm:py-4
-    bg-transparent
-    border-2 border-[var(--text-main)]
-    text-[var(--text-main)]
-    font-medium tracking-widest
-    rounded-full
-    transition-all duration-700
-    group relative overflow-hidden
-    w-fit min-w-32 sm:min-w-36
-  "
+          className="mt-7 cursor-pointer relative overflow-hidden px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group w-full sm:w-auto
+"
         >
-          {/* Sliding overlay */}
-          <span
-            className="
-      absolute inset-0
-      bg-[var(--text-main)]
-      opacity-0
-      group-hover:opacity-10
-      transition-all duration-700
-      -translate-x-full
-      group-hover:translate-x-0
-    "
-          />
-
-          {/* Text wrapper */}
-          <span className="relative w-32 sm:w-36 md:w-40 flex items-center justify-center">
-            {/* Initial text */}
-            <span
-              className="
-        opacity-100 group-hover:opacity-0
-        translate-y-0 group-hover:-translate-y-2
-        transition-all duration-500
-        text-[var(--text-main)]
-        text-xs
-      "
-            >
-              CONTACT
-            </span>
-
-            {/* Hover text */}
-            <span
-              className="
-        absolute inset-0
-        opacity-0 group-hover:opacity-100
-        translate-y-2 group-hover:translate-y-0
-        transition-all duration-500
-        flex items-center justify-center
-        text-[var(--text-main)]
-        text-xs
-      "
-            >
-              ME
-            </span>
+          <span className="flex items-center space-x-2 text-[10px] sm:text-xs opacity-100 translate-y-0 ">
+            CONTACT
           </span>
         </button>
       </div>
