@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { supabase } from "../supabaseClient";
 
 const LeaveReview = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const formRef = useRef(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -18,6 +20,16 @@ const LeaveReview = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  // scroll input above keyboard on mobile
+  const handleFocus = (e) => {
+    setTimeout(() => {
+      e.target.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }, 300);
   };
 
   // submit to supabase
@@ -60,10 +72,9 @@ const LeaveReview = () => {
       {/* Trigger Button */}
       <button
         onClick={() => setOpen(true)}
-        className="my-7 cursor-pointer relative overflow-hidden px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group  sm:w-auto
-"
+        className="my-7 cursor-pointer relative overflow-hidden px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group sm:w-auto"
       >
-        <span className="flex items-center space-x-2 text-[10px] sm:text-xs opacity-100 translate-y-0 ">
+        <span className="flex items-center space-x-2 text-[10px] sm:text-xs">
           LEAVE REVIEW
         </span>
       </button>
@@ -76,6 +87,7 @@ const LeaveReview = () => {
         >
           {/* Card */}
           <div
+            ref={formRef}
             onClick={(e) => e.stopPropagation()}
             className="w-full max-w-4xl rounded-2xl 
             bg-[var(--bg-main)] border border-[var(--border-light)]
@@ -103,10 +115,10 @@ const LeaveReview = () => {
                   type="text"
                   value={formData.name}
                   onChange={handleChange}
+                  onFocus={handleFocus}
                   placeholder="Enter your name"
                   className="w-full border-b border-[var(--border-light)]
-                  bg-transparent px-4 py-3 text-sm
-                 outline-none"
+                  bg-transparent px-4 py-3 text-sm outline-none"
                 />
               </div>
 
@@ -120,10 +132,10 @@ const LeaveReview = () => {
                   type="text"
                   value={formData.role}
                   onChange={handleChange}
+                  onFocus={handleFocus}
                   placeholder="Senior Software Developer"
                   className="w-full border-b border-[var(--border-light)]
-                  bg-transparent px-4 py-3 text-sm
-                  outline-none"
+                  bg-transparent px-4 py-3 text-sm outline-none"
                 />
               </div>
 
@@ -132,16 +144,15 @@ const LeaveReview = () => {
                 <label className="block mb-1 text-xs tracking-wider text-[var(--text-muted)]">
                   <span className="uppercase"> Profile Image </span>(optional)
                 </label>
-
                 <input
                   name="image_url"
                   type="text"
                   value={formData.image_url}
                   onChange={handleChange}
+                  onFocus={handleFocus}
                   placeholder="Enter your profile image link"
                   className="w-full border-b border-[var(--border-light)]
-                  bg-transparent px-4 py-3 text-sm
-                  outline-none"
+                  bg-transparent px-4 py-3 text-sm outline-none"
                 />
                 <p className="text-[10px] text-[var(--text-secondary)]/50 py-2">
                   This image will be displayed on the website
@@ -158,10 +169,10 @@ const LeaveReview = () => {
                   rows="5"
                   value={formData.review}
                   onChange={handleChange}
+                  onFocus={handleFocus}
                   placeholder="Write your experience..."
                   className="w-full rounded-xl border border-[var(--border-light)]
-                  bg-transparent px-4 py-3 text-sm resize-none
-                 outline-none"
+                  bg-transparent px-4 py-3 text-sm resize-none outline-none"
                 />
               </div>
             </div>
@@ -172,7 +183,7 @@ const LeaveReview = () => {
                 onClick={() => setOpen(false)}
                 className="px-6 py-2.5 rounded-full text-sm font-medium
                 bg-[var(--bg-secondary)]/85 border border-[var(--border-light)]
-                hover:opacity-90 transition disabled:opacity-50 cursor-pointer"
+                hover:opacity-90 transition cursor-pointer"
               >
                 Cancel
               </button>
