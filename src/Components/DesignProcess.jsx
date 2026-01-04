@@ -11,35 +11,35 @@ import { motion } from "framer-motion";
 const steps = [
   {
     id: 1,
-    icon: <FaSearch size={20} />,
+    icon: <FaSearch size={18} />,
     title: "Research",
     description:
       "Understanding the problem space, gathering requirements, and analyzing user needs to ensure a strong foundation.",
   },
   {
     id: 2,
-    icon: <FaPenNib size={20} />,
+    icon: <FaPenNib size={18} />,
     title: "Wireframing",
     description:
       "Sketching layouts and structuring content to visualize user flows and interactions before diving into design.",
   },
   {
     id: 3,
-    icon: <FaPalette size={20} />,
+    icon: <FaPalette size={18} />,
     title: "Design",
     description:
       "Bringing wireframes to life with colors, typography, and visual hierarchy for an appealing user interface.",
   },
   {
     id: 4,
-    icon: <FaProjectDiagram size={20} />,
+    icon: <FaProjectDiagram size={18} />,
     title: "Prototyping",
     description:
       "Creating interactive prototypes to test usability and validate the design with real users before development.",
   },
   {
     id: 5,
-    icon: <FaHandshake size={20} />,
+    icon: <FaHandshake size={18} />,
     title: "Quality Assurance",
     description:
       "Delivering design assets to developers and iterating based on feedback to ensure the final product exceeds expectations.",
@@ -47,71 +47,67 @@ const steps = [
 ];
 
 const cardVariants = {
-  offscreen: { x: 100, opacity: 0 },
+  offscreen: { y: 40, opacity: 0 },
   onscreen: {
-    x: 0,
+    y: 0,
     opacity: 1,
-    transition: { type: "spring", bounce: 0.3, duration: 0.8 },
+    transition: { type: "spring", bounce: 0.25, duration: 0.7 },
   },
 };
 
 const DesignProcess = () => {
   return (
-    <div className="justify-center p-6 items-center flex">
-      <div className="w-7xl flex flex-col gap-6 sm:gap-8 lg:gap-10">
-        {/* LEFT */}
-        <div className="pt-8 h-fit self-start">
-          <div className="mb-4">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
-              Steps I follow
-            </h3>
+    <section className="w-full bg-[var(--bg-main)] py-10 sm:py-14 md:py-20 px-4 sm:px-6 lg:px-10">
+      <div className="max-w-7xl mx-auto flex flex-col gap-10">
+        {/* TOP / LEFT */}
+        <div className="max-w-xl">
+          <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
+            Steps I follow
+          </h3>
 
-            <div className="mt-2 mb-6 h-[2px] w-24 bg-[var(--accent-primary)] rounded-full" />
-          </div>
+          <div className="mt-2 mb-6 h-[2px] w-24 bg-[var(--accent-primary)] rounded-full" />
 
-          <h1 className="heading-font text-4xl md:text-5xl leading-tight">
+          <h1 className="heading-font text-3xl sm:text-4xl md:text-5xl leading-snug">
             What My{" "}
             <span className="text-[var(--accent-primary)]">
               Design process include
-            </span>{" "}
+            </span>
           </h1>
-          <p className="mt-4 text-[var(--text-secondary)] text-sm opacity-80 max-w-sm">
+
+          <p className="mt-4 text-xs sm:text-sm text-[var(--text-secondary)]/80 max-w-md">
             Each project is unique, and I follow a structured approach to turn
             ideas into seamless user experiences.
           </p>
         </div>
 
-        {/* RIGHT */}
-        <div className="flex justify-center gap-4 items-stretch flex-wrap">
+        {/* CARDS */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {steps.map((step) => (
             <motion.div
               key={step.id}
-              className="border border-[var(--border-light)] bg-[var(--bg-secondary)] p-5 rounded-lg flex-1 min-w-[220px] max-w-[250px] flex flex-col justify-start"
+              className="border border-[var(--border-light)] bg-[var(--bg-secondary)] p-5 sm:p-6 rounded-xl flex flex-col"
               initial="offscreen"
               whileInView="onscreen"
               viewport={{ once: true, amount: 0.2 }}
               variants={cardVariants}
             >
-              {/* <div className="icon mb-4 h-10 w-10 flex justify-center items-center rounded-full border border-[var(--border-light)] text-[var(--accent-primary)]">
-                {step.icon}
-              </div> */}
-              <h1 className="text-xl heading-font flex items-center gap-2">
-                <span className="pr-2 text-[var(--text-secondary)] ">
+              <h2 className="text-lg sm:text-xl heading-font flex items-center gap-3">
+                <span className="text-[var(--text-secondary)]">
                   {step.icon}
                 </span>
                 <span className="text-[var(--accent-primary)]">
                   {step.title}
                 </span>
-              </h1>
+              </h2>
 
-              <p className="text-xs text-[var(--text-secondary)]/80 pt-3 font-medium">
+              <p className="mt-3 text-xs sm:text-sm text-[var(--text-secondary)]/80 font-medium leading-relaxed">
                 {step.description}
               </p>
             </motion.div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
