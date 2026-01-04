@@ -15,11 +15,7 @@ const ThemeToggle = () => {
       onClick={() => dispatch(toggleTheme())}
       aria-label="Toggle theme"
       className="
-        h-9 w-9
-        rounded-full
-        flex items-center justify-center
-        backdrop-blur-xl
-      "
+        h-9 w-9 rounded-full flex items-center justify-center cursor-pointer"
     >
       <AnimatePresence mode="wait" initial={false}>
         {isDark ? (
