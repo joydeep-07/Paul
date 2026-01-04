@@ -5,7 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import ReviewSkeleton from "./ReviewSkeleton";
 import LeaveReview from "./LeaveReview";
-import { supabase } from "../supabaseClient"; // ✅ SUPABASE
+import { supabase } from "../supabaseClient"; 
 
 const SLIDE_DURATION = 5000;
 const RADIUS = 36;
@@ -31,13 +31,13 @@ const Reviews = () => {
   const [expandedId, setExpandedId] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [reviews, setReviews] = useState([]); // ✅ dynamic reviews
+  const [reviews, setReviews] = useState([]); 
   const navigate = useNavigate();
 
   const holdTimeoutRef = useRef(null);
   const isHoldingRef = useRef(false);
 
-  // ✅ FETCH REVIEWS FROM SUPABASE
+  // FETCH REVIEWS FROM SUPABASE
   useEffect(() => {
     const fetchReviews = async () => {
       const { data, error } = await supabase
@@ -55,7 +55,7 @@ const Reviews = () => {
     fetchReviews();
   }, []);
 
-  // 🔁 Auto slide
+  //  Auto slide
   useEffect(() => {
     if (isPaused || reviews.length === 0) return;
 
