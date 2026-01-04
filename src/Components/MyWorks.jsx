@@ -60,7 +60,7 @@ const MyWorks = () => {
           <button
             onClick={() => navigate("/projects")}
             className="
-              w-full sm:w-auto
+             sm:w-auto
               px-8 sm:px-10 md:px-12
               py-3 sm:py-3.5 md:py-4
               min-h-[44px]
