@@ -9,14 +9,14 @@ import { projects } from "../Utils/Projects";
 import ProjectHeading from "../Components/ProjectHeading";
 const Home = () => {
   return (
-    <div className="h-screen w-full">
+    <div className="min-h-screen w-full">
       <Hero />
       <AboutMe />
       <ProjectHeading />
       <MyWorks />
       <Reviews />
       <WorkBadge />
-      <Footer />
+     <Footer/>
       {/* <AboutMe/> */}
     </div>
   );
