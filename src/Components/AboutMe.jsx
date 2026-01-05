@@ -7,13 +7,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 const AboutMe = () => {
   const textRef = useRef(null);
-  const headingRef = useRef(null);
 
-  // ✅ Get current theme
   const { mode } = useSelector((state) => state.theme);
 
-  const splitTextToSpans = (text) => {
-    return text.split("").map((char, i) => (
+  const splitTextToSpans = (text) =>
+    text.split("").map((char, i) => (
       <span
         key={i}
         className="inline-block opacity-60 hover:opacity-100 transition-opacity duration-200"
@@ -21,89 +19,56 @@ const AboutMe = () => {
         {char === " " ? "\u00A0" : char}
       </span>
     ));
-  };
 
   useEffect(() => {
-    const textColor = mode === "dark" ? "var(--text-main)" : "var(--text-dark)";
+    const textColor = "var(--text-main)";
 
     const ctx = gsap.context(() => {
-      /* Heading animation */
-      gsap.fromTo(
-        headingRef.current,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      /* Letter animation */
       const letters = textRef.current.querySelectorAll("span");
 
       gsap.to(letters, {
         color: textColor,
         opacity: 1,
-        // y: -5,
         stagger: 0.015,
         ease: "power2.out",
         scrollTrigger: {
           trigger: textRef.current,
-          start: "top 75%",
-          end: "bottom 25%",
-          scrub: 1.5,
+          start: "top 80%",
+          end: "bottom 30%",
+          scrub: 1.2,
         },
       });
-
-      
     });
 
     return () => ctx.revert();
-  }, [mode]); // ✅ Re-run animation on theme change
+  }, [mode]);
 
   return (
-    <section
-      className={`relative py-10 overflow-hidden transition-colors duration-500
-        ${mode === "dark" ? "bg-[var(--bg-main)]" : "bg-white"}
-      `}
-    >
-     
-
-      <div className="relative flex flex-col justify-center items-center gap-16 py-28 px-4 max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center w-full">
-          <div ref={headingRef} className="opacity-0">
-            <h2
-              className={`text-sm font-semibold uppercase tracking-widest mb-3
-                ${mode === "dark" ? "text-gray-300" : "text-gray-600"}
-              `}
-            >
-              About Me
-            </h2>
-            <div className="w-16 h-0.5 bg-[var(--accent-primary)] mx-auto" />
-          </div>
+    <section className="bg-[var(--bg-main)] transition-colors duration-500">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 md:py-28 flex flex-col gap-12 sm:gap-16">
+        {/* Header (NO animation) */}
+        <div className="text-center">
+          <h2
+            className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-3
+                       text-[var(--text-secondary)]"
+          >
+            About Me
+          </h2>
+          <div className="w-14 sm:w-16 h-0.5 bg-[var(--accent-primary)] mx-auto" />
         </div>
 
         {/* Text */}
-        <div className="w-full">
-          <div
-            ref={textRef}
-            className={`text-lg sm:text-xl font-medium  md:text-2xl text-center
-              max-w-6xl mx-auto leading-relaxed md:leading-loose
-              transition-colors duration-500
-              ${mode === "dark" ? "text-gray-400" : "text-neutral-700"}
-            `}
-          >
-            {splitTextToSpans(
-              "I'm Joydeep Paul, a passionate developer and designer with over 5+ years of experience in crafting seamless user-centric digital experiences. My expertise spans across modern web design, full-stack development, and interactive user interfaces, with a strong focus on delivering high-quality, scalable, and impactful products. I've collaborated with some of the most innovative industry leaders to help bring their visions to life and build top-notch digital solutions that truly make a difference."
-            )}
-          </div>
+        <div
+          ref={textRef}
+          className="mx-auto max-w-5xl text-center font-medium
+                     text-base sm:text-lg md:text-xl lg:text-2xl
+                     leading-relaxed sm:leading-loose
+                     text-[var(--text-secondary)]
+                     transition-colors duration-500"
+        >
+          {splitTextToSpans(
+            "I'm Joydeep Paul, a passionate developer and designer with over 5+ years of experience in crafting seamless user-centric digital experiences. My expertise spans across modern web design, full-stack development, and interactive user interfaces, with a strong focus on delivering high-quality, scalable, and impactful products. I've collaborated with some of the most innovative industry leaders to help bring their visions to life and build top-notch digital solutions that truly make a difference."
+          )}
         </div>
       </div>
     </section>

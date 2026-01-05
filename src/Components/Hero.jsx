@@ -63,22 +63,21 @@ const Hero = () => {
               url: "https://www.linkedin.com/in/joydeep-paul-06b37926a",
             },
             { name: "Github", url: "https://github.com/joydeep-07" },
-            {
-              name: "Instagram",
-              url: "https://www.instagram.com/mr.paul_16",
-            },
+            { name: "Instagram", url: "https://www.instagram.com/mr.paul_16" },
             { name: "Gmail", url: "mailto:joydeeprnp8821@gmail.com" },
           ].map((item) => (
-            <>
-              <button
-                key={item.name}
-                onClick={() => window.open(item.url, "_blank")}
-                className="flex items-center gap-1 sm:gap-2 text-[var(--text-main)] text-[9px] xs:text-[10px] sm:text-xs md:text-sm font-medium uppercase transition-opacity duration-300 hover:opacity-100 group-hover:opacity-50 flex-shrink-0 px-1 sm:px-0"
-              >
-                <ArrowUp className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 rotate-45 flex-shrink-0" />
-                <span className="whitespace-nowrap">{item.name}</span>
-              </button>
-            </>
+            <button
+              key={item.name}
+              onClick={() => window.open(item.url, "_blank")}
+              className="flex items-center gap-1 sm:gap-2 text-[var(--text-main)] 
+               text-[9px] xs:text-[10px] sm:text-xs md:text-sm 
+               font-medium uppercase transition-opacity duration-300 
+               hover:opacity-100 group-hover:opacity-50 
+               flex-shrink-0 px-1 sm:px-0"
+            >
+              <ArrowUp className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 rotate-45 flex-shrink-0" />
+              <span className="whitespace-nowrap">{item.name}</span>
+            </button>
           ))}
         </div>
 
