@@ -1,8 +1,10 @@
 import React from "react";
-import me from "../assets/images/full.jpg";
+import me from "../assets/images/main2.png";
 import CircularText from "./CircularText";
 
 const Me = () => {
+
+  
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = "../Resume.pdf";
@@ -17,7 +19,10 @@ const Me = () => {
         <div className="flex relative w-full lg:w-auto">
           <div className="relative group mx-auto lg:mx-0">
             <img
-              className="h-80 xs:h-96 sm:h-110 md:h-120 lg:h-130 w-70 xs:w-80 sm:w-90 md:w-95 lg:w-100 object-cover rounded-b-full transition-all duration-500"
+              className="h-80 xs:h-96 sm:h-110 md:h-120 lg:h-130 
+             w-70 xs:w-80 sm:w-90 md:w-95 lg:w-100 
+             object-contain object-top 
+             rounded-b-full transition-all duration-500"
               src={me}
               alt="Joydeep Paul"
             />
