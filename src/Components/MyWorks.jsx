@@ -6,7 +6,7 @@ const MyWorks = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] transition-colors duration-300">
+    <div className=" bg-[var(--bg-main)] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* PROJECT GRID */}
         <div className="grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-2">
