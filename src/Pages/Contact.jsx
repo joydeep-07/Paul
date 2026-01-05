@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import me from "../assets/images/dp.jpg";
+import me from "../assets/images/dp2.png";
 import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { supabase } from "../supabaseClient";
@@ -19,22 +19,20 @@ const Contact = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   /* -------------------- Mobile Focus Scroll -------------------- */
-const isMobile = () => window.innerWidth < 768;
+  const isMobile = () => window.innerWidth < 768;
 
+  const handleFocus = (e) => {
+    if (!isMobile()) return;
 
- const handleFocus = (e) => {
-   if (!isMobile()) return;
-
-   requestAnimationFrame(() => {
-     setTimeout(() => {
-       e.target.scrollIntoView({
-         behavior: "smooth",
-         block: "center",
-       });
-     }, 250);
-   });
- };
-
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        e.target.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 250);
+    });
+  };
 
   /* -------------------- Handle Change -------------------- */
   const handleChange = (e) => {
@@ -140,6 +138,7 @@ const isMobile = () => window.innerWidth < 768;
               </div>
 
               <img
+                loading="lazy"
                 src={me}
                 alt="Profile"
                 className="h-24 w-24 p-1.5 rounded-full object-cover border-2 border-[var(--accent-primary)]"

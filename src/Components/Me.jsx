@@ -4,7 +4,7 @@ import CircularText from "./CircularText";
 
 const Me = () => {
 
-  
+
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = "../Resume.pdf";
@@ -25,6 +25,7 @@ const Me = () => {
              rounded-b-full transition-all duration-500"
               src={me}
               alt="Joydeep Paul"
+              loading="lazy"
             />
 
             {/* CIRCULAR TEXT */}

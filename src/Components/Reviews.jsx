@@ -186,6 +186,7 @@ const Reviews = () => {
 
                       {item.image_url && item.image_url.startsWith("http") ? (
                         <img
+                          loading="lazy"
                           src={item.image_url}
                           alt={item.name}
                           className="h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
