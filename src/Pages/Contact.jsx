@@ -18,6 +18,24 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
+  /* -------------------- Mobile Focus Scroll -------------------- */
+const isMobile = () => window.innerWidth < 768;
+
+
+ const handleFocus = (e) => {
+   if (!isMobile()) return;
+
+   requestAnimationFrame(() => {
+     setTimeout(() => {
+       e.target.scrollIntoView({
+         behavior: "smooth",
+         block: "center",
+       });
+     }, 250);
+   });
+ };
+
+
   /* -------------------- Handle Change -------------------- */
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,9 +54,7 @@ const Contact = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-    }
+    if (!formData.name.trim()) newErrors.name = "Name is required";
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -93,7 +109,7 @@ const Contact = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-[var(--bg-main)] py-5">
+      <div className="min-h-screen bg-[var(--bg-main)] py-6">
         <div className="max-w-7xl mx-auto px-4">
           {/* Header */}
           <div className="mb-12">
@@ -115,19 +131,50 @@ const Contact = () => {
           </div>
 
           {/* Main Section */}
-          <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Right - Info */}
+            <div className="w-full lg:w-1/2 rounded-2xl p-6 flex flex-col gap-5">
+              <div className="flex items-center gap-2 bg-[var(--accent-primary)]/10 px-4 py-2 rounded-full w-fit">
+                <span className="h-2 w-2 bg-[var(--accent-primary)] rounded-full animate-pulse" />
+                <span className="text-xs">Available to work</span>
+              </div>
+
+              <img
+                src={me}
+                alt="Profile"
+                className="h-24 w-24 p-1.5 rounded-full object-cover border-2 border-[var(--accent-primary)]"
+              />
+
+              <p className="text-sm opacity-70 leading-relaxed">
+                My inbox is always open, Whether you have a project or just want
+                to say Hi. I would love to hear from you. Feel free to contact
+                me and I'll get back to you.
+              </p>
+
+              <div className="flex gap-4 text-lg opacity-80">
+                <FaInstagram className="hover:opacity-100 transition" />
+                <FaLinkedin className="hover:opacity-100 transition" />
+                <FaGithub className="hover:opacity-100 transition" />
+                <HiOutlineMail className="hover:opacity-100 transition" />
+              </div>
+            </div>
+
             {/* Left - Form */}
-            <div className="w-full lg:w-1/2 rounded-2xl p-6 ">
-              <form className="space-y-5" onSubmit={handleSubmit}>
+            <div className="w-full lg:w-1/2 rounded-2xl p-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 {/* Name */}
                 <div>
-                  <label className="block text-sm mb-2">Name</label>
+                  <label className="block text-xs uppercase tracking-wide mb-2 opacity-70">
+                    Name
+                  </label>
                   <input
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    onFocus={handleFocus}
                     placeholder="Your name"
-                    className="w-full bg-transparent border-b border-[var(--border-light)] focus:border-[var(--accent-secondary)] outline-none py-2"
+                    className="w-full bg-transparent border-b border-[var(--border-light)]
+                    focus:border-[var(--accent-primary)] outline-none py-2.5 text-sm transition"
                   />
                   {errors.name && (
                     <p className="text-xs text-red-400 mt-1">{errors.name}</p>
@@ -136,14 +183,18 @@ const Contact = () => {
 
                 {/* Email */}
                 <div>
-                  <label className="block text-sm mb-2">Email</label>
+                  <label className="block text-xs uppercase tracking-wide mb-2 opacity-70">
+                    Email
+                  </label>
                   <input
                     name="email"
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
+                    onFocus={handleFocus}
                     placeholder="Enter your email"
-                    className="w-full bg-transparent border-b border-[var(--border-light)] focus:border-[var(--accent-secondary)] outline-none py-2"
+                    className="w-full bg-transparent border-b border-[var(--border-light)]
+                    focus:border-[var(--accent-primary)] outline-none py-2.5 text-sm transition"
                   />
                   {errors.email && (
                     <p className="text-xs text-red-400 mt-1">{errors.email}</p>
@@ -152,14 +203,19 @@ const Contact = () => {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-sm mb-2">Message</label>
+                  <label className="block text-xs uppercase tracking-wide mb-2 opacity-70">
+                    Message
+                  </label>
                   <textarea
                     name="message"
                     rows="4"
                     value={formData.message}
                     onChange={handleChange}
+                    onFocus={handleFocus}
                     placeholder="Your message..."
-                    className="w-full bg-transparent border border-[var(--border-light)] focus:border-[var(--accent-secondary)] outline-none rounded-lg p-3"
+                    className="w-full bg-transparent border border-[var(--border-light)]
+                    focus:border-[var(--accent-primary)] outline-none rounded-xl
+                    p-3.5 text-sm resize-none transition"
                   />
                   {errors.message && (
                     <p className="text-xs text-red-400 mt-1">
@@ -172,12 +228,12 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`px-5 py-3 text-sm rounded-full border-1 border-[var(--border-light)] transition-all duration-500
-                    ${
-                      isSubmitting
-                        ? "opacity-50 cursor-not-allowed"
-                        : " text-[var(--text-main)] hover:text-[var(--text-secondary)]"
-                    }`}
+                  className={`px-6 py-3 text-sm rounded-full border border-[var(--border-light)]
+                  transition-all duration-500 ${
+                    isSubmitting
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
+                  }`}
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
@@ -188,32 +244,6 @@ const Contact = () => {
                   </p>
                 )}
               </form>
-            </div>
-
-            {/* Right - Info */}
-            <div className="w-full lg:w-1/2 rounded-2xl p-6 flex flex-col gap-4">
-              <div className="flex items-center gap-2 bg-[var(--accent-primary)]/10 px-4 py-2 rounded-full w-fit">
-                <span className="h-2 w-2 bg-[var(--accent-primary)] rounded-full animate-pulse" />
-                <span className="text-xs">Available to work</span>
-              </div>
-
-              <img
-                src={me}
-                alt="Profile"
-                className="h-24 w-24 p-1.5 rounded-full object-cover border-3 border-[var(--accent-primary)]"
-              />
-
-              <p className="text-sm opacity-70">
-                My inbox is always open. Whether you have a project or just want
-                to say hi, I’d love to hear from you.
-              </p>
-
-              <div className="flex gap-4">
-                <FaInstagram />
-                <FaLinkedin />
-                <FaGithub />
-                <HiOutlineMail />
-              </div>
             </div>
           </div>
         </div>
