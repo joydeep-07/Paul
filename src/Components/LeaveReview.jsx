@@ -13,8 +13,11 @@ const LeaveReview = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm();
+
+  const imageFile = watch("image");
 
   /* -------------------- Mobile Focus Only -------------------- */
   const handleFocus = (e) => {
@@ -34,24 +37,53 @@ const LeaveReview = () => {
   const onSubmit = async (data) => {
     setLoading(true);
 
-    const { error } = await supabase.from("reviews").insert([
-      {
-        name: data.name,
-        role: data.role,
-        image_url: data.image_url || null,
-        review: data.review,
-      },
-    ]);
+    let imageUrl = null;
 
-    setLoading(false);
+    try {
+      /* ---------- Upload Image if provided ---------- */
+      if (data.image?.[0]) {
+        const file = data.image[0];
+        const fileExt = file.name.split(".").pop();
+        const fileName = `${Date.now()}-${Math.random()
+          .toString(36)
+          .substring(2)}.${fileExt}`;
 
-    if (error) {
-      console.error(error);
-      toast.error("Failed to submit review");
-    } else {
+        const { error: uploadError } = await supabase.storage
+          .from("review-images")
+          .upload(fileName, file, {
+            cacheControl: "3600",
+            upsert: false,
+          });
+
+        if (uploadError) throw uploadError;
+
+        const { data: publicUrlData } = supabase.storage
+          .from("review-images")
+          .getPublicUrl(fileName);
+
+        imageUrl = publicUrlData.publicUrl;
+      }
+
+      /* ---------- Insert Review ---------- */
+      const { error } = await supabase.from("reviews").insert([
+        {
+          name: data.name,
+          role: data.role,
+          image_url: imageUrl,
+          review: data.review,
+        },
+      ]);
+
+      if (error) throw error;
+
       toast.success("Review submitted successfully 🎉");
       reset();
       setOpen(false);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to submit review");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,12 +92,11 @@ const LeaveReview = () => {
       {/* Trigger Button */}
       <button
         onClick={() => setOpen(true)}
-        className="my-7 cursor-pointer relative overflow-hidden px-8 sm:px-10 md:px-9 py-3 sm:py-3.5 md:py-3 rounded-full font-medium tracking-[0.1em]
+        className="my-7 cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em]
         text-[var(--text-main)] hover:text-[var(--accent-primary)]
-        hover:bg-[var(--accent-primary)]/5 backdrop-blur-md
+        hover:bg-[var(--accent-primary)]/5
         border border-[var(--border-light)]
-        hover:border-[var(--accent-primary)]/20
-        shadow-sm transition-all duration-500 ease-out"
+        shadow-sm transition-all duration-500"
       >
         <span className="text-[10px] sm:text-xs">LEAVE REVIEW</span>
       </button>
@@ -85,7 +116,7 @@ const LeaveReview = () => {
           >
             {/* Header */}
             <div className="px-8 pt-8 pb-6">
-              <h2 className="text-3xl heading-font font-semibold text-[var(--accent-primary)]">
+              <h2 className="text-3xl font-semibold text-[var(--accent-primary)]">
                 Share Your Experience
               </h2>
               <p className="mt-1 text-sm text-[var(--text-secondary)]">
@@ -98,27 +129,64 @@ const LeaveReview = () => {
               onSubmit={handleSubmit(onSubmit)}
               className="px-8 py-6 grid grid-cols-1 md:grid-cols-2 gap-6"
             >
-              {/* Name */}
-              <div>
-                <label className="block mb-1 text-xs uppercase tracking-wider text-[var(--text-muted)]">
-                  Name
-                </label>
-                <input
-                  {...register("name", { required: "Name is required" })}
-                  onFocus={handleFocus}
-                  placeholder="Enter your name"
-                  className="w-full border-b border-[var(--border-light)]
-                  bg-transparent px-4 py-3 text-sm outline-none"
-                />
-                {errors.name && (
-                  <p className="text-xs text-red-400 mt-1">
-                    {errors.name.message}
+              {/* Name + Image */}
+              <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+                {/* Name */}
+                <div>
+                  <label className="block mb-2 text-xs uppercase tracking-wider text-[var(--text-muted)]">
+                    Name
+                  </label>
+                  <input
+                    {...register("name", { required: "Name is required" })}
+                    onFocus={handleFocus}
+                    placeholder="Enter your name"
+                    className="w-full border-b border-[var(--border-light)]
+                    bg-transparent px-4 py-3 text-sm outline-none
+                    focus:border-[var(--accent-primary)]/50 transition-colors"
+                  />
+                  {errors.name && (
+                    <p className="text-xs text-red-400 mt-1">
+                      {errors.name.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Image Upload */}
+                <label
+                  htmlFor="profile-image-upload"
+                  className="cursor-pointer border border-dashed border-[var(--border-light)]
+                  rounded-xl px-6 py-3 flex flex-col items-center justify-center
+                  text-center bg-[var(--bg-secondary)]/40
+                  hover:bg-[var(--bg-secondary)]/70
+                  hover:border-[var(--accent-primary)]/60
+                  transition-all"
+                >
+                  {imageFile?.length ? (
+                    <p className="mt-1 text-sm text-[var(--accent-primary)] font-medium truncate max-w-full">
+                      {imageFile[0].name}
+                    </p>
+                  ) : (
+                    <p className="text-sm font-medium uppercase text-[var(--text-main)]">
+                      Profile Photo
+                    </p>
+                  )}
+
+                  <p className="mt-1 text-[11px] text-[var(--text-secondary)]/70">
+                    Optional : This image will be displayed on the website
                   </p>
-                )}
+
+                  <input
+                    id="profile-image-upload"
+                    type="file"
+                    accept="image/*"
+                    {...register("image")}
+                    className="hidden"
+                  />
+                </label>
               </div>
 
-              {/* Role */}
-              <div>
+              {/* Job Role */}
+              <div className="md:col-span-2">
                 <label className="block mb-1 text-xs uppercase tracking-wider text-[var(--text-muted)]">
                   Job Role
                 </label>
@@ -127,7 +195,7 @@ const LeaveReview = () => {
                   onFocus={handleFocus}
                   placeholder="Senior Software Developer"
                   className="w-full border-b border-[var(--border-light)]
-                  bg-transparent px-4 py-3 text-sm outline-none"
+                  bg-transparent px-4 py-3 text-sm outline-none  focus:border-[var(--accent-primary)]/50"
                 />
                 {errors.role && (
                   <p className="text-xs text-red-400 mt-1">
@@ -136,41 +204,18 @@ const LeaveReview = () => {
                 )}
               </div>
 
-              {/* Image Link (Optional) */}
-              <div className="md:col-span-2">
-                <label className="block mb-1 text-xs tracking-wider text-[var(--text-muted)]">
-                  <span className="uppercase">Profile Image</span> (optional)
-                </label>
-                <input
-                  {...register("image_url")}
-                  onFocus={handleFocus}
-                  placeholder="Enter your profile image link"
-                  className="w-full border-b border-[var(--border-light)]
-                  bg-transparent px-4 py-3 text-sm outline-none"
-                />
-                <p className="text-[10px] text-[var(--text-secondary)]/50 py-2">
-                  This image will be displayed on the website
-                </p>
-              </div>
-
               {/* Review */}
               <div className="md:col-span-2">
                 <label className="block mb-1 text-xs uppercase tracking-wider text-[var(--text-muted)]">
                   Review
                 </label>
                 <textarea
-                  {...register("review", {
-                    required: "Review is required",
-                    minLength: {
-                      value: 10,
-                      message: "Review must be at least 10 characters",
-                    },
-                  })}
+                  {...register("review", { required: "Review is required" })}
                   onFocus={handleFocus}
                   rows="5"
                   placeholder="Write your experience..."
                   className="w-full rounded-xl border border-[var(--border-light)]
-                  bg-transparent px-4 py-3 text-sm resize-none outline-none"
+                  bg-transparent px-4 py-3 text-sm resize-none outline-none  focus:border-[var(--accent-primary)]/50"
                 />
                 {errors.review && (
                   <p className="text-xs text-red-400 mt-1">
@@ -184,9 +229,8 @@ const LeaveReview = () => {
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="px-6 py-2.5 rounded-full text-sm font-medium
-                  bg-[var(--bg-secondary)]/85 border border-[var(--border-light)]
-                  hover:opacity-90 transition"
+                  className="px-6 py-2.5 rounded-full text-sm
+                  bg-[var(--bg-secondary)] border border-[var(--border-light)]"
                 >
                   Cancel
                 </button>
@@ -194,9 +238,8 @@ const LeaveReview = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-6 py-2.5 rounded-full text-sm font-medium
-                  bg-[var(--accent-primary)]/85 text-white
-                  hover:opacity-90 transition disabled:opacity-50"
+                  className="px-6 py-2.5 rounded-full text-sm
+                  bg-[var(--accent-primary)] text-white disabled:opacity-50"
                 >
                   {loading ? "Submitting..." : "Submit Review"}
                 </button>
