@@ -7,7 +7,7 @@ import ReviewSkeleton from "./ReviewSkeleton";
 import LeaveReview from "./LeaveReview";
 import { supabase } from "../supabaseClient";
 
-const SLIDE_DURATION = 5000;
+const SLIDE_DURATION = 10000;
 const RADIUS = 36;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
