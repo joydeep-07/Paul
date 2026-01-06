@@ -5,9 +5,6 @@ const ProjectHeading = () => {
   return (
     <div className="flex justify-center flex-col items-center bg-[var(--bg-main)] w-full">
       <div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
         className="mb-8 px-4 w-full max-w-7xl md:mb-16 lg:mb-5 sm:px-6 md:px-8 lg:px-0"
       >
         <div className="mb-4">
