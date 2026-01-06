@@ -116,8 +116,9 @@ const LeaveReview = () => {
           >
             {/* Header */}
             <div className="px-8 pt-8 pb-6">
-              <h2 className="text-3xl font-semibold text-[var(--accent-primary)]">
-                Share Your Experience
+              <h2 className="text-3xl heading-font font-medium ">
+                Share Your{" "}
+                <span className="text-[var(--accent-primary)]">Experience</span>
               </h2>
               <p className="mt-1 text-sm text-[var(--text-secondary)]">
                 Your feedback helps us grow and improve.
