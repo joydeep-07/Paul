@@ -54,7 +54,7 @@ const AboutMe = () => {
             <ul className="space-y-3">
               <li className="flex justify-between">
                 <span className="text-xs  text-[var(--text-secondary)] uppercase font-medium">
-                  Experience
+                 Tech Experience
                 </span>
                 <span className="text-[var(--text-main)]/95 uppercase text-xs font-medium">
                   2+ Years
