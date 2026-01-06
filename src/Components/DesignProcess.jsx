@@ -46,15 +46,6 @@ const steps = [
   },
 ];
 
-const cardVariants = {
-  offscreen: { y: 40, opacity: 0 },
-  onscreen: {
-    y: 0,
-    opacity: 1,
-    transition: { type: "spring", bounce: 0.25, duration: 0.7 },
-  },
-};
-
 const DesignProcess = () => {
   return (
     <section className="w-full bg-[var(--bg-main)] py-10 sm:py-14 md:py-20 px-4 sm:px-6 lg:px-10">
@@ -86,10 +77,7 @@ const DesignProcess = () => {
             <motion.div
               key={step.id}
               className="border border-[var(--border-light)] bg-[var(--bg-secondary)] p-5 sm:p-6 rounded-xl flex flex-col"
-              initial="offscreen"
-              whileInView="onscreen"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={cardVariants}
+             
             >
               <h2 className="text-lg sm:text-xl heading-font flex items-center gap-3">
                 <span className="text-[var(--text-secondary)]">
