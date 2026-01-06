@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { ArrowUp, User } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import ReviewSkeleton from "./ReviewSkeleton";
@@ -176,9 +176,9 @@ const Reviews = () => {
                   onMouseLeave={handleHoldRelease}
                   onTouchEnd={handleHoldRelease}
                   transition={{
-                    layout: { duration: 0.45, ease: "easeInOut" },
-                    x: { type: "spring", stiffness: 120, damping: 20 },
-                    opacity: { duration: 0.3 },
+                    layout: { duration: 0.45, ease: easeInOut },
+                    // x: { type: "spring", stiffness: 120, damping: 20 },
+                    // opacity: { duration: 0.3 },
                   }}
                   className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none cursor-grab active:cursor-grabbing"
                 >
