@@ -46,7 +46,8 @@ const Me = () => {
         <div className="flex-1 flex flex-col justify-center text-center lg:text-left space-y-4 sm:space-y-5 lg:space-y-6 w-full">
           <h1 className="text-3xl heading-font xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-tight px-2 xs:px-0">
             A creative{" "}
-            <span className="text-[var(--accent-primary)]">developer</span> &{" "} <br />
+            <span className="text-[var(--accent-primary)]">developer</span> &{" "}
+            <br />
             digital designer
           </h1>
 
@@ -59,24 +60,10 @@ const Me = () => {
           <div className="flex justify-center lg:justify-start">
             <button
               onClick={handleDownload}
-              className="px-8 xs:px-10 sm:px-12 py-3 xs:py-4 bg-transparent 
-              border-2 border-[var(--border-light)] 
-              text-[var(--text-main)] font-medium tracking-widest rounded-full 
-              hover:border-[var(--accent-primary)] 
-              transition-all duration-700 group relative overflow-hidden min-w-32 xs:min-w-36"
+              className=" relative overflow-hidden px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group w-full sm:w-auto"
             >
-              {/* Sliding overlay */}
-              <span className="absolute inset-0 bg-[var(--accent-primary)] opacity-0 group-hover:opacity-10 transition-opacity duration-1000 -translate-x-full group-hover:translate-x-0"></span>
-
-              {/* Text wrapper */}
-              <span className="relative w-full flex items-center justify-center">
-                <span className="opacity-100 group-hover:opacity-0 translate-y-0 group-hover:-translate-y-2 transition-all duration-500 flex items-center space-x-3">
-                  <span className="text-xs">RESUME</span>
-                </span>
-
-                <span className="absolute inset-0 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 flex items-center justify-center space-x-3">
-                  <span className="text-xs">DOWNLOAD</span>
-                </span>
+              <span className="flex items-center text-xs justify-center gap-2">
+               RESUME
               </span>
             </button>
           </div>
