@@ -66,6 +66,11 @@ const Reviews = () => {
     return () => clearInterval(interval);
   }, [isPaused, reviews]);
 
+  const swipeConfidenceThreshold = 100;
+  const swipePower = (offset, velocity) => {
+    return Math.abs(offset) * velocity;
+  };
+
   const toggleReadMore = (id) => {
     if (expandedId === id) {
       setExpandedId(null);
@@ -90,6 +95,10 @@ const Reviews = () => {
       setIsPaused(false);
     }
   };
+
+  const totalSlides = reviews.length;
+  const currentSlide = totalSlides > 0 ? index + 1 : 0;
+
 
   const item = reviews[index] || {};
   const words = item.review ? item.review.split(" ") : [];
@@ -141,6 +150,27 @@ const Reviews = () => {
                   initial="enter"
                   animate="center"
                   exit="exit"
+                  /* 👉 DRAG SUPPORT */
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.15}
+                  onDragStart={() => setIsPaused(true)}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    const swipe = swipePower(offset.x, velocity.x);
+
+                    if (swipe < -swipeConfidenceThreshold) {
+                      // Swipe Left → Next
+                      setIndex(([prev]) => [(prev + 1) % reviews.length, 1]);
+                    } else if (swipe > swipeConfidenceThreshold) {
+                      // Swipe Right → Previous
+                      setIndex(([prev]) => [
+                        prev === 0 ? reviews.length - 1 : prev - 1,
+                        -1,
+                      ]);
+                    }
+
+                    setIsPaused(false);
+                  }}
                   onDoubleClick={handleDoubleClick}
                   onMouseUp={handleHoldRelease}
                   onMouseLeave={handleHoldRelease}
@@ -150,7 +180,7 @@ const Reviews = () => {
                     x: { type: "spring", stiffness: 120, damping: 20 },
                     opacity: { duration: 0.3 },
                   }}
-                  className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none"
+                  className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none cursor-grab active:cursor-grabbing"
                 >
                   <div className="flex flex-col sm:flex-row items-start sm:items-center p-4 sm:p-6">
                     <div className="relative mb-4 sm:mb-0 sm:mr-6 w-[88px] h-[88px] flex-shrink-0">
@@ -241,26 +271,13 @@ const Reviews = () => {
                 </button>
 
                 <div className="flex items-center gap-10">
-                  <button
-                    onClick={() =>
-                      setIndex(([prev]) => [
-                        prev === 0 ? reviews.length - 1 : prev - 1,
-                        -1,
-                      ])
-                    }
-                    className="px-3 py-1 text-[var(--text-secondary)]/70 cursor-pointer hover:text-[var(--accent-primary)]"
-                  >
-                    <IoIosArrowBack size={15} />
-                  </button>
-
-                  <button
-                    onClick={() =>
-                      setIndex(([prev]) => [(prev + 1) % reviews.length, 1])
-                    }
-                    className="px-3 py-1 text-[var(--text-secondary)]/70 cursor-pointer hover:text-[var(--accent-primary)]"
-                  >
-                    <IoIosArrowForward size={15} />
-                  </button>
+                  <div className="text-sm tracking-wider text-[var(--text-secondary)]/70">
+                    <span className="font-medium text-[var(--text-main)]">
+                      {String(currentSlide).padStart(2, "0")}
+                    </span>
+                    {" / "}
+                    <span>{String(totalSlides).padStart(2, "0")}</span>
+                  </div>
                 </div>
               </div>
             </>
