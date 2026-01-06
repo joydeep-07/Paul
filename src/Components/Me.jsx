@@ -44,13 +44,13 @@ const Me = () => {
 
         {/* TEXT SIDE */}
         <div className="flex-1 flex flex-col justify-center text-center lg:text-left space-y-4 sm:space-y-5 lg:space-y-6 w-full">
-          <h1 className="text-2xl heading-font xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-tight px-2 xs:px-0">
+          <h1 className="text-3xl heading-font xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-tight px-2 xs:px-0">
             A creative{" "}
-            <span className="text-[var(--accent-primary)]">developer</span> &{" "}
+            <span className="text-[var(--accent-primary)]">developer</span> &{" "} <br />
             digital designer
           </h1>
 
-          <p className="text-[var(--text-secondary)] text-sm xs:text-base sm:text-sm max-w-xl mx-auto lg:mx-0 px-4 xs:px-0">
+          <p className="text-[var(--text-secondary)] text-xs xs:text-base sm:text-sm max-w-xl mx-auto lg:mx-0 px-4 xs:px-0">
             I collaborate with brands globally to design impactful,
             mission-focused websites that drive results and achieve business
             goals.
