@@ -26,7 +26,7 @@ const AboutMe = () => {
         {/* Two columns */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
           {/* Left content */}
-          <div className="lg:col-span-2 bg-[var(--bg-secondary)]/80 border border-[var(--border-light)] rounded-2xl p-6 sm:p-8 shadow-xs">
+          <div className="lg:col-span-2 bg-[var(--bg-secondary)]/80 border border-[var(--border-light)]/70 rounded-2xl p-6 sm:p-8 shadow-xs">
             <p className="text-[var(--text-main)] text-sm sm:text-base leading-relaxed text-justify">
               I'm{" "}
               <span className="font-semibold text-[var(--accent-primary)]">
@@ -46,7 +46,7 @@ const AboutMe = () => {
           </div>
 
           {/* Right card */}
-          <div className="bg-[var(--bg-secondary)] border border-[var(--border-light)] rounded-2xl p-6 flex flex-col justify-center shadow-xs">
+          <div className="bg-[var(--bg-secondary)]/80 border border-[var(--border-light)]/70 rounded-2xl p-6 flex flex-col justify-center shadow-xs">
             <h4 className="text-lg font-semibold text-[var(--accent-primary)] uppercase mb-4">
               Quick Info
             </h4>
