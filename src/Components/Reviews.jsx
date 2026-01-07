@@ -126,7 +126,9 @@ const Reviews = () => {
             have to say about me.
           </p>
 
-          <LeaveReview />
+          <div className="hidden md:flex">
+            <LeaveReview />
+          </div>
         </div>
 
         {/* RIGHT */}
@@ -282,6 +284,9 @@ const Reviews = () => {
               </div>
             </>
           )}
+        </div>
+        <div className="md:hidden justify-center flex">
+          <LeaveReview />
         </div>
       </div>
     </div>
