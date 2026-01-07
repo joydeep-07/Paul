@@ -27,6 +27,7 @@ const slideVariants = {
 };
 
 const Reviews = () => {
+  const [loadedImages, setLoadedImages] = useState({});
   const [[index, direction], setIndex] = useState([0, 1]);
   const [expandedId, setExpandedId] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -104,6 +105,11 @@ const Reviews = () => {
   const words = item.review ? item.review.split(" ") : [];
   const shortText = words.slice(0, 40).join(" ");
   const isExpanded = expandedId === item.id;
+
+  const handleImageLoad = (id) => {
+    setLoadedImages((prev) => ({ ...prev, [id]: true }));
+  };
+
 
   return (
     <div className="py-8 md:py-12 lg:py-16 bg-[var(--bg-main)] flex justify-center px-4 sm:px-6 lg:px-8">
@@ -217,12 +223,21 @@ const Reviews = () => {
                       </svg>
 
                       {item.image_url && item.image_url.startsWith("http") ? (
-                        <img
-                          loading="lazy"
-                          src={item.image_url}
-                          alt={item.name}
-                          className="h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                        />
+                        <div className="relative h-16 w-16 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                          {/* Skeleton */}
+                          {!loadedImages[item.id] && (
+                            <div className="absolute inset-0 rounded-full bg-[var(--border-light)] animate-pulse" />
+                          )}
+
+                          {/* Image */}
+                          <img
+                            loading="lazy"
+                            src={item.image_url}
+                            alt={item.name}
+                            onLoad={() => handleImageLoad(item.id)}
+                            className={` h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)] transition-opacity duration-500 ${loadedImages[item.id] ? "opacity-100" : "opacity-0"}`}
+                          />
+                        </div>
                       ) : (
                         <div className="h-16 w-16 flex items-center justify-center rounded-full bg-[var(--accent-primary)]/15 border border-[var(--accent-primary)]/30 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                           <User
