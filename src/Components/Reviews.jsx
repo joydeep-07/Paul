@@ -188,7 +188,9 @@ const Reviews = () => {
                     // x: { type: "spring", stiffness: 120, damping: 20 },
                     // opacity: { duration: 0.3 },
                   }}
-                  className="border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none cursor-grab active:cursor-grabbing"
+                  className={`border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none cursor-grab active:cursor-grabbing ${
+                    isExpanded ? "h-auto" : "h-[400px] md:h-auto "
+                  } `}
                 >
                   <div className="flex flex-col sm:flex-row items-start sm:items-center p-4 sm:p-6">
                     <div className="relative mb-4 sm:mb-0 sm:mr-6 w-[88px] h-[88px] flex-shrink-0">
@@ -235,7 +237,11 @@ const Reviews = () => {
                             src={item.image_url}
                             alt={item.name}
                             onLoad={() => handleImageLoad(item.id)}
-                            className={` h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)] transition-opacity duration-500 ${loadedImages[item.id] ? "opacity-100" : "opacity-0"}`}
+                            className={` h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)] transition-opacity duration-500 ${
+                              loadedImages[item.id]
+                                ? "opacity-100"
+                                : "opacity-0"
+                            }`}
                           />
                         </div>
                       ) : (
