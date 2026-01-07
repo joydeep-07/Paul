@@ -8,6 +8,8 @@ import ContactFaq from "../Components/ContactFaq";
 import Footer from "../layout/Footer";
 
 const Contact = () => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -131,18 +133,27 @@ const Contact = () => {
           {/* Main Section */}
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Right - Info */}
-            <div className="w-full lg:w-1/2 rounded-2xl p-6 flex flex-col gap-5">
+            <div className="w-full lg:w-1/2 rounded-2xl p-4 flex flex-col gap-5">
               <div className="flex items-center gap-2 bg-[var(--accent-primary)]/10 px-4 py-2 rounded-full w-fit">
                 <span className="h-2 w-2 bg-[var(--accent-primary)] rounded-full animate-pulse" />
                 <span className="text-xs">Available to work</span>
               </div>
 
-              <img
-                loading="lazy"
-                src={me}
-                alt="Profile"
-                className="h-24 w-24 p-1.5 rounded-full object-cover border-2 border-[var(--accent-primary)]"
-              />
+              <div className="relative h-24 w-24">
+                {/* Skeleton */}
+                {!imageLoaded && (
+                  <div className="absolute inset-0 rounded-full p-1 bg-[var(--bg-secondary)]  border-2 border-[var(--accent-primary)] animate-pulse"></div>
+                )}
+
+                {/* Image */}
+                <img
+                  loading="lazy"
+                  src={me}
+                  alt="Profile"
+                  onLoad={() => setImageLoaded(true)}
+                  className={`h-24 w-24 p-1.5 rounded-full object-cover border-2 border-[var(--accent-primary)] transition-opacity duration-500  ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+                />
+              </div>
 
               <p className="text-sm opacity-70 leading-relaxed">
                 My inbox is always open, Whether you have a project or just want
