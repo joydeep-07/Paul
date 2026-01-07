@@ -1,3 +1,4 @@
+import { LocateFixed, LocateIcon } from "lucide-react";
 import React from "react";
 
 const AboutMe = () => {
@@ -26,7 +27,7 @@ const AboutMe = () => {
         {/* Two columns */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
           {/* Left content */}
-          <div className="lg:col-span-2 bg-[var(--bg-secondary)]/80 border border-[var(--border-light)]/70 rounded-2xl p-6 sm:p-8 shadow-xs">
+          <div className="lg:col-span-2 bg-[var(--bg-secondary)]/90 border border-[var(--border-light)]/90 rounded-xl p-4 sm:p-8 shadow-xs">
             <p className="text-[var(--text-main)] text-sm sm:text-base leading-relaxed text-justify">
               I'm{" "}
               <span className="font-semibold text-[var(--accent-primary)]">
@@ -46,46 +47,45 @@ const AboutMe = () => {
           </div>
 
           {/* Right card */}
-          <div className="bg-[var(--bg-secondary)]/80 border border-[var(--border-light)]/70 rounded-2xl p-6 flex flex-col justify-center shadow-xs">
-            <h4 className="text-lg font-semibold text-[var(--accent-primary)] uppercase mb-4">
-              Quick Info
-            </h4>
+          <div className="p-2 md:p-6 pt-0 flex flex-col justify-center">
+            <h1 className="heading-font text-2xl sm:text-3xl md:text-4xl leading-tight mb-2">
+              Quick <span className="text-[var(--accent-primary)]">info</span>
+            </h1>
+            <p className="mb-10 text-xs text-[var(--text-secondary)] opacity-80">
+              Driven by clean design, performance, and meaningful user
+              experiences.
+            </p>
 
             <ul className="space-y-3">
               <li className="flex justify-between">
                 <span className="text-xs  text-[var(--text-secondary)] uppercase font-medium">
-                 Tech Experience
+                 Bachelors in Computer Applications
                 </span>
                 <span className="text-[var(--text-main)]/95 uppercase text-xs font-medium">
-                  2+ Years
+                  2022 - 25
                 </span>
               </li>
 
               <li className="flex justify-between">
                 <span className="text-xs uppercase  text-[var(--text-secondary)] font-medium">
-                  Role
+                  Mern Development 
                 </span>
                 <span className="text-[var(--text-main)]/95 uppercase text-xs font-medium">
-                  Full-Stack Developer
+                  2024  KOLKATA
                 </span>
               </li>
 
               <li className="flex justify-between">
                 <span className="text-xs uppercase  text-[var(--text-secondary)] font-medium">
-                  Focus
+                 Matric & Higher Secondary
                 </span>
                 <span className="text-[var(--text-main)]/95 uppercase text-xs font-medium">
-                  UI • UX • MERN
+                  DAV 2020 / 2022
                 </span>
               </li>
             </ul>
 
-            <div className="mt-6 h-[1px] w-full bg-[var(--border-light)]" />
-
-            <p className="mt-4 text-xs text-[var(--text-secondary)] opacity-80">
-              Driven by clean design, performance, and meaningful user
-              experiences.
-            </p>
+           
           </div>
         </div>
       </div>
