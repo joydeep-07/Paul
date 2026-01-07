@@ -29,7 +29,7 @@ const Me = () => {
                 }}
               >
                 <User className="text-[var(--text-secondary)]/50 " size={100} />
-                 </div>
+              </div>
             )}
 
             {/* Actual Image */}
@@ -75,12 +75,14 @@ const Me = () => {
             goals.
           </p>
 
-          <div className="flex justify-center lg:justify-start">
+          <div className="flex justify-center mt-5 lg:justify-start">
             <button
               onClick={handleDownload}
-              className="px-8 py-3 rounded-full border border-[var(--border-light)] transition-all"
+              className=" relative overflow-hidden px-8 sm:px-8 md:px-8 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group sm:w-auto"
             >
-              RESUME
+              <span className="flex items-center text-xs justify-center gap-2">
+                DOWNLOAD RESUME
+              </span>
             </button>
           </div>
         </div>
