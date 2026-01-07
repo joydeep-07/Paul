@@ -189,7 +189,7 @@ const Reviews = () => {
                     // opacity: { duration: 0.3 },
                   }}
                   className={`border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none cursor-grab active:cursor-grabbing ${
-                    isExpanded ? "h-auto" : "h-[370px] md:h-auto "
+                    isExpanded ? "h-auto" : "min-h-[400px] md:h-auto "
                   } `}
                 >
                   <div className="flex flex-col sm:flex-row items-start sm:items-center p-4 sm:p-6">
