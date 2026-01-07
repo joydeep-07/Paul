@@ -185,10 +185,8 @@ const Reviews = () => {
                   onTouchEnd={handleHoldRelease}
                   transition={{
                     layout: { duration: 0.45, ease: easeInOut },
-                    // x: { type: "spring", stiffness: 120, damping: 20 },
-                    // opacity: { duration: 0.3 },
                   }}
-                  className=" border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none cursor-grab active:cursor-grabbing min-h-[400px]  sm:min-h-[unset]   "
+                  className=" border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none cursor-grab active:cursor-grabbing "
                 >
                   <div className="flex flex-col sm:flex-row items-start sm:items-center p-4 sm:p-6">
                     <div className="relative mb-4 sm:mb-0 sm:mr-6 w-[88px] h-[88px] flex-shrink-0">
