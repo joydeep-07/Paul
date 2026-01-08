@@ -12,6 +12,7 @@ import KeepNotes from "./Project/KeepNotes";
 import Lightloom from "./Project/Lightloom";
 import Medcare from "./Project/Medcare";
 import { Toaster, toast } from "sonner";
+import BookMyTicket from "./Project/BookMyTicket";
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
 
@@ -38,7 +39,7 @@ const App = () => {
         // PROJECT ROUTES
         { path: "project/keep/notes", element: <KeepNotes /> },
         { path: "project/medcare", element: <Medcare /> },
-        { path: "project/lightloom", element: <Lightloom /> },
+        { path: "project/bookmyticket", element: <BookMyTicket /> },
       ],
     },
   ]);
