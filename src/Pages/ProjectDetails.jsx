@@ -32,7 +32,7 @@ const ProjectDetails = () => {
       <section className="bg-[var(--bg-main)] transition-colors duration-300">
         {/* ================= HERO ================= */}
         <div className="relative overflow-hidden rounded-3xl bg-[var(--bg-gradient)]">
-          <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-12 sm:py-16 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-0 sm:py-16 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             {/* LEFT CONTENT */}
             <div className="space-y-6">
               <Link
@@ -90,15 +90,15 @@ const ProjectDetails = () => {
           </div>
         </div>
 
-        <div className="flex justify-center lg:justify-end">
-          <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-full rounded-2xl bg-[var(--bg-gradient)] overflow-hidden">
+        <div className="flex pt-10 justify-center items-center lg:justify-end">
+          <div className="relative w-full max-w-md px-4 sm:max-w-lg lg:max-w-full overflow-hidden">
             {!loaded && (
               <div className="absolute inset-0 bg-[var(--border-light)]/30 animate-pulse rounded-2xl" />
             )}
             <img
               src={project.thumbnail}
               alt={project.title}
-              className={`w-full h-[240px] sm:h-[320px] md:h-[380px] lg:h-[440px] object-contain object-top rounded-2xl transition-opacity duration-500 ${
+              className={`w-full h-auto sm:h-[320px] md:h-[380px] lg:h-[440px] object-contain object-top rounded-xl transition-opacity duration-500 ${
                 loaded ? "opacity-100" : "opacity-0"
               }`}
               onLoad={() => setLoaded(true)}
