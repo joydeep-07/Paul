@@ -91,7 +91,7 @@ const ProjectDetails = () => {
         </div>
 
         <div className="flex justify-center lg:justify-end">
-          <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-full rounded-2xl bg-[var(--bg-gradient)] shadow-lg overflow-hidden">
+          <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-full rounded-2xl bg-[var(--bg-gradient)] overflow-hidden">
             {!loaded && (
               <div className="absolute inset-0 bg-[var(--border-light)]/30 animate-pulse rounded-2xl" />
             )}
@@ -114,7 +114,7 @@ const ProjectDetails = () => {
               <span className="text-[var(--accent-primary)]">Overview</span>
             </h2>
             <div className="w-16 h-[2px] bg-[var(--accent-primary)] mb-6" />
-            <p className="text-sm sm:text-base md:text-lg text-[var(--text-secondary)] leading-relaxed text-justify max-w-3xl">
+            <p className="text-sm sm:text-base md:text-lg text-[var(--text-secondary)] leading-relaxed text-justify max-w-7xl">
               {project.description}
             </p>
           </section>
