@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { projects } from "../Utils/Projects";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import WorkBadge from "../Components/WorkBadge";
 import Footer from "../layout/Footer";
 
@@ -19,7 +19,7 @@ const ProjectDetails = () => {
           to="/projects"
           className="text-sm text-[var(--accent-primary)] hover:underline"
         >
-          Back to Home
+          Back to Projects
         </Link>
       </div>
     );
@@ -28,12 +28,10 @@ const ProjectDetails = () => {
   return (
     <>
       <section className="relative">
-        {/* HERO */}
+        {/* ================= HERO ================= */}
         <div className="relative overflow-hidden rounded-3xl bg-[var(--bg-gradient)]">
-          <div className="absolute inset-0 " />
-
-          <div className="relative max-w-7xl mx-auto px-6 py-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* LEFT */}
+          <div className="relative max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-2 gap-14 items-center">
+            {/* LEFT CONTENT */}
             <div className="space-y-6">
               <Link
                 to="/projects"
@@ -43,7 +41,7 @@ const ProjectDetails = () => {
                 Back to projects
               </Link>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
                 <span className="px-3 py-1 text-xs rounded-full bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] font-medium">
                   {project.category}
                 </span>
@@ -52,7 +50,7 @@ const ProjectDetails = () => {
                 </span>
               </div>
 
-              <h1 className="text-4xl heading-font md:text-5xl font-bold text-[var(--accent-primary)] leading-tight">
+              <h1 className="text-4xl md:text-5xl heading-font font-bold leading-tight text-[var(--text-main)]">
                 {project.title}
               </h1>
 
@@ -60,36 +58,35 @@ const ProjectDetails = () => {
                 {project.shortDescription}
               </p>
 
+              {/* TECH STACK */}
               <div className="flex flex-wrap gap-3 pt-4">
-                {project.techStack.map((tech, i) => (
+                {project.techStack.map((tech, index) => (
                   <span
-                    key={i}
+                    key={index}
                     className="px-4 py-1.5 text-xs rounded-full border border-[var(--border-light)] bg-[var(--bg-main)]/60 backdrop-blur text-[var(--text-main)]"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
-              <button>
-                <div className="flex flex-col gap-3 pt-4">
-                  {project.liveLink && (
-                    <a
-                      href={project.liveLink}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex px-5 items-center justify-center gap-2 rounded-full text-[var(--accent-primary)] border border-[var(--border-light)]  py-3 text-sm font-medium hover:opacity-90 transition"
-                    >
-                      <ExternalLink size={16} />
-                      Live Preview
-                    </a>
-                  )}
-                </div>
-              </button>
+
+              {/* CTA */}
+              {project.liveLink && (
+                <a
+                  href={project.liveLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-2 mt-6 px-6 py-3 rounded-full border border-[var(--border-light)] text-sm font-medium text-[var(--accent-primary)] hover:opacity-90 transition"
+                >
+                  <ExternalLink size={16} />
+                  Live Preview
+                </a>
+              )}
             </div>
 
             {/* RIGHT IMAGE */}
-            <div className=" p-5 [background:var(--bg-gradient)] rounded-2xl ">
-              <div className="relative rounded-2xl h-[350px] overflow-hidden">
+            <div className="p-5 rounded-2xl bg-[var(--bg-gradient)]">
+              <div className="relative rounded-2xl h-[360px] overflow-hidden">
                 <img
                   src={project.thumbnail}
                   alt={project.title}
@@ -100,55 +97,85 @@ const ProjectDetails = () => {
           </div>
         </div>
 
-        {/* CONTENT */}
-        <div className="max-w-7xl mx-auto px-6 py-20">
-          <div className="grid gap-12">
-            {/* MAIN CONTENT */}
-            <div className=" space-y-14">
-              {/* OVERVIEW */}
-              <section className="relative">
-                <h2 className="text-5xl heading-font font-medium text-[var(--text-main)] mb-4">
-                  At a{" "}
-                  <span className="text-[var(--accent-primary)]">Glance</span>
-                </h2>
+        {/* ================= CONTENT ================= */}
+        <div className="max-w-7xl mx-auto px-6 py-20 space-y-20">
+          {/* OVERVIEW */}
+          <section>
+            <h2 className="text-5xl heading-font font-medium mb-4">
+              Project{" "}
+              <span className="text-[var(--accent-primary)]">Overview</span>
+            </h2>
+            <div className="w-16 h-[2px] bg-[var(--accent-primary)] mb-6" />
+            <p className="text-[var(--text-secondary)] leading-relaxed text-justify max-w-3xl">
+              {project.description}
+            </p>
+          </section>
 
-                <div className="w-14 h-[2px] bg-[var(--accent-primary)] mb-6" />
-
-                <p className="text-[var(--text-secondary)] text-justify leading-relaxed text-base">
-                  {project.description}
-                </p>
-              </section>
-
-              {/* FEATURES */}
-              <section className="space-y-6 flex w-7xl justify-between ">
-                <div className="w-1/4">
-                  <h2 className="text-5xl heading-font font-medium pb-2 text-[var(--text-main)]">
-                    Core{" "}
-                    <span className="text-[var(--accent-primary)]">
-                      Functionality
-                    </span>
-                  </h2>
-
-                  <div className="w-14 h-[2px] bg-[var(--accent-primary)]" />
-                </div>
-
-                <div className="w-3/4">
-                  <ul className=" gap-5">
-                    {project.features.map((feature, index) => (
-                      <li
-                        key={index}
-                        className="group p-5 border-b border-[var(--border-light)] text-[var(--text-secondary)] transition-all duration-300"
-                      >
-                        <span className="leading-relaxed">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
+          {/* CORE FUNCTIONALITY */}
+          <section className="grid lg:grid-cols-4 gap-10">
+            <div>
+              <h2 className="text-4xl heading-font font-medium">
+                Core{" "}
+                <span className="text-[var(--accent-primary)]">
+                  Functionality
+                </span>
+              </h2>
+              <div className="w-14 h-[2px] bg-[var(--accent-primary)] mt-3" />
             </div>
-          </div>
+
+            <ul className="lg:col-span-3 space-y-4">
+              {project.features.map((feature, index) => (
+                <li
+                  key={index}
+                  className="p-5 border-b border-[var(--border-light)] text-[var(--text-secondary)] leading-relaxed"
+                >
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* PROBLEM & SOLUTION */}
+          <section className="grid md:grid-cols-2 gap-12">
+            <div>
+              <h3 className="text-3xl heading-font mb-3 text-[var(--text-main)]">
+                Problem Statement
+              </h3>
+              <p className="text-[var(--text-secondary)] leading-relaxed">
+                The goal was to design a modern, scalable project with clean UI,
+                reusable components, and smooth user experience while keeping
+                performance and maintainability in mind.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl heading-font mb-3 text-[var(--text-main)]">
+                Solution Approach
+              </h3>
+              <p className="text-[var(--text-secondary)] leading-relaxed">
+                I implemented a component-driven architecture using React and
+                Vite, leveraged Tailwind CSS for rapid UI development, and
+                focused on clean separation of concerns for scalability.
+              </p>
+            </div>
+          </section>
+
+          {/* LEARNINGS */}
+          <section>
+            <h3 className="text-3xl heading-font mb-4">
+              Key{" "}
+              <span className="text-[var(--accent-primary)]">Learnings</span>
+            </h3>
+            <p className="text-[var(--text-secondary)] leading-relaxed max-w-3xl">
+              This project strengthened my understanding of reusable component
+              design, responsive layouts, UI consistency using CSS variables,
+              and real-world project structuring suitable for production-ready
+              applications.
+            </p>
+          </section>
         </div>
       </section>
+
       <WorkBadge />
       <Footer />
     </>

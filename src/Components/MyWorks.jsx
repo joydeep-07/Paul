@@ -18,7 +18,7 @@ const MyWorks = () => {
           {projects.map((project) => (
             <div
               key={project.id}
-              onClick={() => navigate(`/project/${project.navigate}`)}
+              onClick={() => navigate(`/project/${project.id}`)}
               className="
                 group cursor-pointer
                 rounded-3xl border border-[var(--border-light)]/50
