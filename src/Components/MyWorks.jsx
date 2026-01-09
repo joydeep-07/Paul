@@ -2,18 +2,25 @@ import React, { useState } from "react";
 import { projects } from "../Utils/Projects";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const MyWorks = ({ limit }) => {
+const MyWorks = () => {
   const [loadedImages, setLoadedImages] = useState({});
+  const [showAll, setShowAll] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
+
+  const isHomePage = location.pathname === "/";
 
   const handleImageLoad = (id) => {
     setLoadedImages((prev) => ({ ...prev, [id]: true }));
   };
 
-  const visibleProjects = limit ? projects.slice(0, limit) : projects;
-
-  const isHomePage = location.pathname === "/";
+  // 👇 Logic
+  const visibleProjects = isHomePage
+    ? projects.slice(0, 4)
+    : showAll
+    ? projects
+    : projects.slice(0, 4);
 
   return (
     <div className="bg-[var(--bg-main)] transition-colors duration-300">
@@ -73,7 +80,7 @@ const MyWorks = ({ limit }) => {
           ))}
         </div>
 
-        {/* WATCH MORE — ONLY ON HOME PAGE */}
+        {/* HOME PAGE → WATCH MORE */}
         {isHomePage && (
           <div className="flex justify-center mt-10 sm:mt-12">
             <button
@@ -93,6 +100,31 @@ const MyWorks = ({ limit }) => {
               "
             >
               Watch More
+            </button>
+          </div>
+        )}
+
+        {/* PROJECTS PAGE → LOAD MORE */}
+        {/* PROJECTS PAGE → LOAD MORE (only if more than 4 projects) */}
+        {!isHomePage && projects.length >= 4 && !showAll && (
+          <div className="flex justify-center mt-10 sm:mt-12">
+            <button
+              onClick={() => setShowAll(true)}
+              className="
+        px-8 sm:px-10 md:px-12
+        py-3 sm:py-3.5 md:py-4
+        rounded-full
+        tracking-[0.12em]
+        text-[10px] sm:text-xs uppercase
+        border border-[var(--border-light)]
+        backdrop-blur-md
+        hover:bg-[var(--accent-primary)]/5
+        hover:border-[var(--accent-primary)]/20
+        transition-all duration-500
+        active:scale-[0.98]
+      "
+            >
+              Load More
             </button>
           </div>
         )}

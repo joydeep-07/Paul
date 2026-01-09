@@ -64,6 +64,9 @@ const Projects = () => {
       {/* CONTENT */}
       <div className="w-full">
         <MyWorks />
+
+        
+
         <WorkBadge />
         <Footer />
       </div>

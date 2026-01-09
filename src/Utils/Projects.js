@@ -79,7 +79,7 @@ export const projects = [
     year: 2024,
     thumbnail: medcare,
     navigate: "/medcare",
-    liveLink: "https://medcare-book-appointments.netlify.app/",
+    liveLink: "",
 
     shortDescription:
       "A medical appointment booking system with real-time slot management and email notifications.",
