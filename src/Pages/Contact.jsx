@@ -109,7 +109,7 @@ const Contact = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-[var(--bg-main)] py-6">
+      <div className=" bg-[var(--bg-main)] py-6">
         <div className="max-w-7xl mx-auto px-4">
           {/* Header */}
           <div className="mb-12">
