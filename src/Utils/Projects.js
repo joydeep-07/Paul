@@ -1,4 +1,4 @@
-import portfolio from "../assets/thumbnail/portfolio.png";
+import lightloom from "../assets/thumbnail/lightloom.png";
 import medcare from "../assets/thumbnail/medcare.png";
 import movie from "../assets/thumbnail/movie.png";
 import img2 from "../assets/thumbnail/keepnotes.png";
@@ -103,6 +103,40 @@ export const projects = [
       "Secure authentication and authorization",
       "Scalable backend architecture using MERN stack",
       "Responsive and user-friendly interface",
+    ],
+  },
+
+  {
+    id: "lightloom",
+    title: "LightLoom",
+    category: "WebGL Creative Experience",
+    year: 2025,
+    thumbnail: lightloom,
+    navigate: "/lightloom",
+    liveLink: "",
+
+    shortDescription:
+      "A visually immersive WebGL-based design experience focused on lighting, depth, and interactive motion.",
+
+    description:
+      "LightLoom is a creative WebGL-powered web experience designed to explore modern visual storytelling through lighting, depth, and smooth interactions. The project focuses on GPU-accelerated rendering, fluid animations, and immersive design principles rather than traditional application logic. It demonstrates strong frontend creativity, performance-aware rendering, and an understanding of modern 3D web technologies.",
+
+    techStack: [
+      "WebGL",
+      "Three.js",
+      "React.js",
+      "GLSL Shaders",
+      "GSAP Animations",
+      "Responsive Canvas Design",
+    ],
+
+    features: [
+      "Interactive WebGL scene with real-time lighting effects",
+      "Smooth camera movement and animated transitions",
+      "Custom shaders for enhanced visual depth and glow",
+      "Performance-optimized rendering using GPU acceleration",
+      "Responsive canvas adapting to different screen sizes",
+      "Creative UI blending traditional DOM with 3D elements",
     ],
   },
 ];

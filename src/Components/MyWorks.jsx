@@ -106,7 +106,7 @@ const MyWorks = () => {
 
         {/* PROJECTS PAGE → LOAD MORE */}
         {/* PROJECTS PAGE → LOAD MORE (only if more than 4 projects) */}
-        {!isHomePage && projects.length >= 4 && !showAll && (
+        {!isHomePage && projects.length > 4 && !showAll && (
           <div className="flex justify-center mt-10 sm:mt-12">
             <button
               onClick={() => setShowAll(true)}
