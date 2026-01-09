@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { projects } from "../Utils/Projects";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const MyWorks = () => {
   const [loadedImages, setLoadedImages] = useState({});
@@ -133,12 +133,12 @@ const MyWorks = () => {
         <div className="mt-14 sm:mt-16 pt-8 border-t border-[var(--border-light)] text-center">
           <p className="text-xs sm:text-sm text-[var(--text-secondary)] opacity-80">
             Interested in collaboration?{" "}
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="text-[var(--accent-primary)] font-medium hover:underline"
             >
               Let&apos;s discuss your next project
-            </a>
+            </Link>
           </p>
         </div>
       </div>
