@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 import { projects } from "../Utils/Projects";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const MyWorks = () => {
+const MyWorks = ({ limit }) => {
   const [loadedImages, setLoadedImages] = useState({});
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleImageLoad = (id) => {
     setLoadedImages((prev) => ({ ...prev, [id]: true }));
   };
+
+  const visibleProjects = limit ? projects.slice(0, limit) : projects;
+
+  const isHomePage = location.pathname === "/";
 
   return (
     <div className="bg-[var(--bg-main)] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* PROJECT GRID */}
         <div className="grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-2">
-          {projects.map((project) => (
+          {visibleProjects.map((project) => (
             <div
               key={project.id}
               onClick={() => navigate(`/project/${project.id}`)}
@@ -32,12 +37,10 @@ const MyWorks = () => {
                 className="relative overflow-hidden rounded-2xl m-4
                 h-[220px] sm:h-[280px] md:h-[320px] lg:h-[380px]"
               >
-                {/* Skeleton */}
                 {!loadedImages[project.id] && (
                   <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse" />
                 )}
 
-                {/* Image */}
                 <img
                   src={project.thumbnail}
                   alt={project.title}
@@ -70,27 +73,29 @@ const MyWorks = () => {
           ))}
         </div>
 
-        {/* CTA BUTTON */}
-        <div className="flex justify-center mt-10 sm:mt-12">
-          <button
-            onClick={() => navigate("/projects")}
-            className="
-              px-8 sm:px-10 md:px-12
-              py-3 sm:py-3.5 md:py-4
-              rounded-full
-              tracking-[0.12em]
-              text-[10px] sm:text-xs uppercase
-              border border-[var(--border-light)]
-              backdrop-blur-md
-              hover:bg-[var(--accent-primary)]/5
-              hover:border-[var(--accent-primary)]/20
-              transition-all duration-500
-              active:scale-[0.98]
-            "
-          >
-            Watch More
-          </button>
-        </div>
+        {/* WATCH MORE — ONLY ON HOME PAGE */}
+        {isHomePage && (
+          <div className="flex justify-center mt-10 sm:mt-12">
+            <button
+              onClick={() => navigate("/projects")}
+              className="
+                px-8 sm:px-10 md:px-12
+                py-3 sm:py-3.5 md:py-4
+                rounded-full
+                tracking-[0.12em]
+                text-[10px] sm:text-xs uppercase
+                border border-[var(--border-light)]
+                backdrop-blur-md
+                hover:bg-[var(--accent-primary)]/5
+                hover:border-[var(--accent-primary)]/20
+                transition-all duration-500
+                active:scale-[0.98]
+              "
+            >
+              Watch More
+            </button>
+          </div>
+        )}
 
         {/* FOOTER NOTE */}
         <div className="mt-14 sm:mt-16 pt-8 border-t border-[var(--border-light)] text-center">
