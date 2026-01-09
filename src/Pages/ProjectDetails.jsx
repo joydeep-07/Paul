@@ -43,7 +43,7 @@ const ProjectDetails = () => {
                 Back to Projects
               </Link>
 
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-1">
                 <span className="px-3 py-1 text-xs sm:text-sm rounded-full bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] font-medium">
                   {project.category}
                 </span>
@@ -56,7 +56,7 @@ const ProjectDetails = () => {
                 {project.title}
               </h1>
 
-              <p className="text-sm sm:text-base md:text-lg text-[var(--text-secondary)] max-w-xl">
+              <p className="text-xs sm:text-xs md:text-sm text-[var(--text-secondary)] max-w-xl">
                 {project.shortDescription}
               </p>
 
@@ -85,11 +85,9 @@ const ProjectDetails = () => {
                 </a>
               )}
             </div>
-
-            {/* RIGHT IMAGE */}
           </div>
         </div>
-
+        {/* RIGHT IMAGE */}
         <div className="flex pt-10 justify-center items-center lg:justify-end">
           <div className="relative w-full max-w-md px-4 sm:max-w-lg lg:max-w-full overflow-hidden">
             {!loaded && (
@@ -131,7 +129,7 @@ const ProjectDetails = () => {
               <div className="w-14 h-[2px] bg-[var(--accent-primary)] mt-3" />
             </div>
 
-            <ul className="lg:col-span-3 space-y-4">
+            <ul className="lg:col-span-3 space-y-0">
               {project.features.map((feature, index) => (
                 <li
                   key={index}

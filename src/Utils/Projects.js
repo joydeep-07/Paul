@@ -5,7 +5,7 @@ import img2 from "../assets/thumbnail/keepnotes.png";
 
 export const projects = [
   {
-    id: 1,
+    id: "book-my-ticket",
     title: "Book My Ticket",
     category: "Frontend Application",
     year: 2024,
@@ -39,7 +39,7 @@ export const projects = [
   },
 
   {
-    id: 2,
+    id: "keep-notes",
     title: "Keep Notes",
     category: "Full Stack Application",
     year: 2024,
@@ -73,13 +73,13 @@ export const projects = [
   },
 
   {
-    id: 3,
+    id: "medcare",
     title: "MedCare",
     category: "MERN Web Application",
     year: 2024,
     thumbnail: medcare,
     navigate: "/medcare",
-    liveLink: "",
+    liveLink: "https://medcare-book-appointments.netlify.app/",
 
     shortDescription:
       "A medical appointment booking system with real-time slot management and email notifications.",
