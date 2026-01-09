@@ -32,7 +32,7 @@ const ProjectDetails = () => {
       <section className="bg-[var(--bg-main)] transition-colors duration-300">
         {/* ================= HERO ================= */}
         <div className="relative overflow-hidden rounded-3xl bg-[var(--bg-gradient)]">
-          <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-0 sm:py-16 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-0 sm:py-0 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             {/* LEFT CONTENT */}
             <div className="space-y-6">
               <Link
