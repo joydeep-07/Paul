@@ -100,7 +100,6 @@ const Reviews = () => {
   const totalSlides = reviews.length;
   const currentSlide = totalSlides > 0 ? index + 1 : 0;
 
-
   const item = reviews[index] || {};
   const words = item.review ? item.review.split(" ") : [];
   const shortText = words.slice(0, 40).join(" ");
@@ -109,7 +108,6 @@ const Reviews = () => {
   const handleImageLoad = (id) => {
     setLoadedImages((prev) => ({ ...prev, [id]: true }));
   };
-
 
   return (
     <div className="py-8 md:py-12 lg:py-16 bg-[var(--bg-main)] flex justify-center px-4 sm:px-6 lg:px-8">
@@ -224,7 +222,9 @@ const Reviews = () => {
                         <div className="relative h-16 w-16 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                           {/* Skeleton */}
                           {!loadedImages[item.id] && (
-                            <div className="absolute inset-0 rounded-full bg-[var(--border-light)] animate-pulse" />
+                            <div className="absolute inset-0 rounded-full p-1 bg-[var(--bg-secondary)] text-[var(--text-secondary)] border-2 border-[var(--accent-primary)] animate-pulse flex justify-center items-center">
+                              <User />
+                            </div>
                           )}
 
                           {/* Image */}
