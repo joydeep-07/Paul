@@ -6,6 +6,7 @@ import { supabase } from "../supabaseClient";
 import { toast } from "sonner";
 import ContactFaq from "../Components/ContactFaq";
 import Footer from "../layout/Footer";
+import { User } from "lucide-react";
 
 const Contact = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -142,7 +143,9 @@ const Contact = () => {
               <div className="relative h-24 w-24">
                 {/* Skeleton */}
                 {!imageLoaded && (
-                  <div className="absolute inset-0 rounded-full p-1 bg-[var(--bg-secondary)]  border-2 border-[var(--accent-primary)] animate-pulse"></div>
+                  <div className="absolute inset-0 rounded-full p-1 bg-[var(--bg-secondary)] text-[var(--text-secondary)] border-2 border-[var(--accent-primary)] animate-pulse flex justify-center items-center">
+                    <User/>
+                  </div>
                 )}
 
                 {/* Image */}
