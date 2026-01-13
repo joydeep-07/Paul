@@ -94,14 +94,14 @@ const Contact = () => {
 
       if (error) throw error;
 
-      toast.success("Message sent successfully 🚀");
+      toast.success("Message sent");
       setSubmitSuccess(true);
       setFormData({ name: "", email: "", message: "" });
 
       setTimeout(() => setSubmitSuccess(false), 5000);
     } catch (err) {
       console.error(err);
-      toast.error("Failed to send message ❌");
+      toast.error("Failed to send message ");
     } finally {
       setIsSubmitting(false);
     }

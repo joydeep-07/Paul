@@ -22,7 +22,7 @@ const About = () => {
   return (
     <div>
       <Me />
-      <div className='py-20'>
+      <div className='py-10'>
         <Slide items={skills} speed={20} />
       </div>
       <TechExperience/>
