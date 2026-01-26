@@ -38,7 +38,7 @@ const Reviews = () => {
   const holdTimeoutRef = useRef(null);
   const isHoldingRef = useRef(false);
 
-  // FETCH REVIEWS FROM SUPABASE
+  // FETCH REVIEWS -- SUPABASE
   useEffect(() => {
     const fetchReviews = async () => {
       const { data, error } = await supabase
