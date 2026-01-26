@@ -14,8 +14,6 @@ const themeSlice = createSlice({
 
     setTheme: (state, action) => {
       state.mode = action.payload;
-
-      // Save to localStorage
       localStorage.setItem("theme", action.payload);
     },
   },
