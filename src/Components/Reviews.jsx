@@ -156,7 +156,7 @@ const Reviews = () => {
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  /* 👉 DRAG SUPPORT */
+                  /* DRAG SUPPORT */
                   drag="x"
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.15}
