@@ -112,23 +112,23 @@ export const libraries = [
     url: "https://axios-http.com/",
     icon: SiAxios,
   },
-  {
-    id: 7,
-    name: "TanStack Query",
-    description:
-      "A powerful data-fetching and state management library for server-state handling.",
-    points: [
-      "Automatic caching and cache invalidation",
-      "Background data refetching",
-      "Optimistic UI updates",
-      "Reduces API-related boilerplate",
-      "Built-in loading and error states",
-      "Improves app performance",
-      "Perfect for scalable React apps",
-    ],
-    url: "https://tanstack.com/query/latest",
-    icon: SiReactquery,
-  },
+  // {
+  //   id: 7,
+  //   name: "TanStack Query",
+  //   description:
+  //     "A powerful data-fetching and state management library for server-state handling.",
+  //   points: [
+  //     "Automatic caching and cache invalidation",
+  //     "Background data refetching",
+  //     "Optimistic UI updates",
+  //     "Reduces API-related boilerplate",
+  //     "Built-in loading and error states",
+  //     "Improves app performance",
+  //     "Perfect for scalable React apps",
+  //   ],
+  //   url: "https://tanstack.com/query/latest",
+  //   icon: SiReactquery,
+  // },
   {
     id: 8,
     name: "TypeScript",
@@ -146,21 +146,21 @@ export const libraries = [
     url: "https://www.typescriptlang.org/",
     icon: SiTypescript,
   },
-  {
-    id: 9,
-    name: "Next.js",
-    description:
-      "A React framework for building production-grade applications with performance optimizations.",
-    points: [
-      "Server-side rendering for better SEO",
-      "Static site generation support",
-      "File-based routing system",
-      "Built-in API routes",
-      "Automatic code splitting",
-      "Optimized image handling",
-      "Ideal for full-stack React apps",
-    ],
-    url: "https://nextjs.org/",
-    icon: SiNextdotjs,
-  },
+  // {
+  //   id: 9,
+  //   name: "Next.js",
+  //   description:
+  //     "A React framework for building production-grade applications with performance optimizations.",
+  //   points: [
+  //     "Server-side rendering for better SEO",
+  //     "Static site generation support",
+  //     "File-based routing system",
+  //     "Built-in API routes",
+  //     "Automatic code splitting",
+  //     "Optimized image handling",
+  //     "Ideal for full-stack React apps",
+  //   ],
+  //   url: "https://nextjs.org/",
+  //   icon: SiNextdotjs,
+  // },
 ];
