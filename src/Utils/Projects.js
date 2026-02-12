@@ -2,8 +2,46 @@ import lightloom from "../assets/thumbnail/lightloom.png";
 import medcare from "../assets/thumbnail/medcare.png";
 import movie from "../assets/thumbnail/movie.png";
 import img2 from "../assets/thumbnail/keepnotes.png";
+import wtsp from '../assets/thumbnail/wtsp.png'
 
 export const projects = [
+  {
+    id: "whatsapp-clone",
+    title: "WhatsApp Clone",
+    category: "Full Stack Application",
+    year: 2025,
+    thumbnail: wtsp, 
+    navigate: "/whatsapp",
+    liveLink: "",
+
+    shortDescription:
+      "A real-time MERN WhatsApp clone with authentication, contact management, and integrated META AI chatbot.",
+
+    description:
+      "FullStack WhatsApp Clone is a real-time messaging application built using the MERN stack. The project replicates core WhatsApp functionalities including one-to-one chat, contact management, profile customization, and secure authentication. It uses Socket.io for instant message delivery and MongoDB for persistent storage. A fully functional META AI chatbot is integrated into the system, allowing users to interact with AI directly within the chat interface. The application focuses on real-time communication, scalable backend architecture, and clean, responsive UI design.",
+
+    techStack: [
+      "MongoDB",
+      "Express.js",
+      "React.js",
+      "Node.js",
+      "Socket.io",
+      "JWT Authentication",
+      "Redux Toolkit",
+      "REST APIs",
+    ],
+
+    features: [
+      "Real-time one-to-one messaging using Socket.io",
+      "Secure JWT-based authentication and protected routes",
+      "Contact management system with add/view functionality",
+      "Profile update with image upload stored in MongoDB",
+      "Message persistence with conversation history",
+      "Integrated working META AI chatbot inside chat interface",
+      "Responsive UI with smooth animations and modern design",
+    ],
+  },
+
   {
     id: "book-my-ticket",
     title: "Book My Ticket",
