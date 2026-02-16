@@ -62,7 +62,7 @@ const TopProject = () => {
               <span className="text-[var(--accent-primary)] ">Stands Out</span>
             </h3>
 
-            <p className="text-[var(--text-secondary)] text-jus leading-relaxed">
+            <p className="text-[var(--text-secondary)] text-justify leading-relaxed">
               This platform allows patients to book appointments in real-time,
               receive automated email confirmations, and manage their medical
               history securely. The system includes role-based authentication,
