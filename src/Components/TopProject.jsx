@@ -20,14 +20,7 @@ const TopProject = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* LEFT → FEATURED CARD */}
-          <div
-            className="
-              group cursor-pointer
-              rounded-3xl border border-[var(--border-light)]/50
-              bg-[var(--bg-secondary)]/80
-              transition-all duration-500
-            "
-          >
+          <div className=" group cursor-pointer rounded-3xl border border-[var(--border-light)]/50 bg-[var(--bg-secondary)]/80 transition-all duration-500">
             {/* IMAGE */}
             <div
               className="
@@ -44,11 +37,7 @@ const TopProject = () => {
                 alt={project.title}
                 loading="lazy"
                 onLoad={() => setLoaded(true)}
-                className={`
-                  w-full h-full object-contain rounded-xl
-                  transition-all duration-700
-                  ${loaded ? "opacity-100" : "opacity-0"}
-                `}
+                className={` w-full h-full object-contain rounded-xl transition-all duration-700 ${loaded ? "opacity-100" : "opacity-0"}`}
               />
             </div>
 
@@ -56,12 +45,7 @@ const TopProject = () => {
             <div className="px-6 pb-6 flex justify-between items-start gap-6">
               <div>
                 <h2
-                  className="
-                  heading-font text-2xl sm:text-3xl
-                  text-[var(--text-main)]
-                  group-hover:text-[var(--accent-primary)]
-                  transition-colors duration-300
-                "
+                  className=" heading-font text-2xl sm:text-3xl text-[var(--text-main)] group-hover:text-[var(--accent-primary)] transition-colors duration-300"
                 >
                   {project.title}
                 </h2>
@@ -95,9 +79,7 @@ const TopProject = () => {
             </ul>
 
             <div className=" py-5 flex justify-center md:justify-start ">
-              <button
-                className="cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 border border-[var(--border-light)] shadow-sm transition-all duration-500"
-              >
+              <button className="cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 border border-[var(--border-light)] shadow-sm transition-all duration-500">
                 <span className="text-[10px] sm:text-xs">
                   READ FULL CASESTUDY
                 </span>
