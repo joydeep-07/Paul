@@ -26,10 +26,7 @@ const TopProject = () => {
     rounded-3xl border border-[var(--border-light)]/50
     bg-[var(--bg-secondary)]/80
     shadow-sm
-    transition-all duration-500 ease-out
-    hover:-translate-y-2
     hover:shadow-xl
-    hover:border-[var(--accent-primary)]/20
   "
           >
             {/* IMAGE */}
@@ -51,7 +48,6 @@ const TopProject = () => {
                 className={`
         w-full h-full object-contain rounded-xl
         transition-all duration-700 ease-out
-        group-hover:scale-105
         ${loaded ? "opacity-100" : "opacity-0"}
       `}
               />
@@ -63,7 +59,7 @@ const TopProject = () => {
             {/* CONTENT */}
             <div className="px-6 pb-6 flex items-start justify-between gap-4">
               <div>
-                <h2 className="heading-font text-lg sm:text-xl lg:text-2xl text-[var(--text-main)] group-hover:text-[var(--accent-primary)] transition-colors duration-300">
+                <h2 className="heading-font text-lg sm:text-xl lg:text-2xl text-[var(--text-main)] transition-colors duration-300">
                   {project.title}
                 </h2>
 
