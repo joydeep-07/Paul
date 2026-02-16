@@ -17,7 +17,7 @@ const ProjectHeading = () => {
 
         <div className="mb-6 sm:mb-7 md:mb-8">
           <h1 className="text-2xl heading-font sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight mb-2">
-            Selected{" "}
+            Top{" "}
             <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
               Projects
             </span>

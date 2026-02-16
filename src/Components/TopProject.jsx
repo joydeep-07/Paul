@@ -44,9 +44,7 @@ const TopProject = () => {
             {/* CONTENT */}
             <div className="px-6 pb-6 flex justify-between items-start gap-6">
               <div>
-                <h2
-                  className=" heading-font text-2xl sm:text-3xl text-[var(--text-main)] group-hover:text-[var(--accent-primary)] transition-colors duration-300"
-                >
+                <h2 className=" heading-font text-2xl sm:text-3xl text-[var(--text-main)] group-hover:text-[var(--accent-primary)] transition-colors duration-300">
                   {project.title}
                 </h2>
 
@@ -64,7 +62,7 @@ const TopProject = () => {
               <span className="text-[var(--accent-primary)] ">Stands Out</span>
             </h3>
 
-            <p className="text-[var(--text-secondary)] leading-relaxed">
+            <p className="text-[var(--text-secondary)] text-jus leading-relaxed">
               This platform allows patients to book appointments in real-time,
               receive automated email confirmations, and manage their medical
               history securely. The system includes role-based authentication,
@@ -72,10 +70,10 @@ const TopProject = () => {
             </p>
 
             <ul className="space-y-3 text-[var(--text-secondary)]">
-              <li>• Real-time slot updates</li>
-              <li>• Secure JWT authentication</li>
-              <li>• Email notifications via Nodemailer</li>
-              <li>• Fully responsive UI</li>
+              <li> <span className= " text-[var(--accent-primary)] mr-2 font-bold " >✓</span> Real-time slot updates</li>
+              <li> <span className= " text-[var(--accent-primary)] mr-2 font-bold " >✓</span> Secure JWT authentication</li>
+              <li> <span className= " text-[var(--accent-primary)] mr-2 font-bold " >✓</span> Email notifications via Nodemailer</li>
+              <li> <span className= " text-[var(--accent-primary)] mr-2 font-bold " >✓</span> Fully responsive UI</li>
             </ul>
 
             <div className=" py-5 flex justify-center md:justify-start ">
