@@ -7,13 +7,15 @@ import Reviews from "../Components/Reviews";
 import MyWorks from "../Components/MyWorks";
 import { projects } from "../Utils/Projects";
 import ProjectHeading from "../Components/ProjectHeading";
+import TopProject from "../Components/TopProject";
 const Home = () => {
   return (
     <div className="min-h-screen w-full">
       <Hero />
       <AboutMe />
-      <ProjectHeading />
-      <MyWorks limit={2} />
+      {/* <ProjectHeading /> */}
+      {/* <MyWorks limit={2} /> */}
+      <TopProject/>
       <Reviews />
       <WorkBadge />
      <Footer/>
