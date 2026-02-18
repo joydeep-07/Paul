@@ -4,7 +4,7 @@ import ui2 from '../assets/blog/ui2.jpg'
 export const blogs = [
   {
     id: 1,
-    slug: "scalable-mern-architecture",
+    slug: "mern-architecture",
     title: "Designing Scalable MERN Architecture for Production Apps",
     img: ui1,
     shortDescription:
@@ -26,7 +26,7 @@ middlewares, and services for long-term maintainability.
 
   {
     id: 2,
-    slug: "jwt-authentication-guide",
+    slug: "advance-tailwind",
     title: "JWT Authentication Explained for MERN Developers",
     img: ui2,
     shortDescription:
@@ -45,6 +45,4 @@ are also covered.
     date: "Jan 2026",
     featured: false,
   },
-
- 
 ];
