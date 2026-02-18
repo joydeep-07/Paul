@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import blogImage from "../assets/blog/ui.jpg"; // change image
-import { Link } from "react-router-dom";
+import { Link, Links } from "react-router-dom";
 
 const BlogBanner = () => {
   const [loaded, setLoaded] = useState(false);
@@ -28,7 +28,8 @@ const BlogBanner = () => {
               transition-all duration-500
             "
           >
-            <div
+            <Link
+              to="/blog/mern-architecture"
               className="
                 relative overflow-hidden rounded-2xl m-5
                 h-[240px] sm:h-[280px] md:h-[300px] lg:h-[320px]
@@ -44,14 +45,12 @@ const BlogBanner = () => {
                 loading="lazy"
                 onLoad={() => setLoaded(true)}
                 className={`
-                  w-full h-full object-cover rounded-xl
+                  w-full h-full object-contain rounded-xl
                   transition-all duration-700 ease-out
                   ${loaded ? "opacity-100" : "opacity-0"}
                 `}
               />
-
-              
-            </div>
+            </Link>
 
             {/* BLOG META */}
             <div className="px-6 pb-6 flex items-center justify-between text-xs sm:text-sm text-[var(--text-secondary)] opacity-70">
@@ -99,8 +98,6 @@ const BlogBanner = () => {
             </div>
           </div>
         </div>
-
-       
       </div>
     </div>
   );
