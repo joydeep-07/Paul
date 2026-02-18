@@ -62,7 +62,7 @@ const BlogBanner = () => {
 
           {/* RIGHT → BLOG CONTENT */}
           <div className="space-y-6 p-2">
-            <h3 className="heading-font text-3xl tracking-tight sm:text-[45px] text-[var(--text-main)] leading-tight">
+            <h3 className="heading-font text-2xl tracking-tight sm:text-[45px] text-[var(--text-main)] leading-tight">
               Latest Insights on{" "}
               <span className="text-[var(--accent-primary)]">
                 MERN Architecture
