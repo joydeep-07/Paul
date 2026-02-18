@@ -35,32 +35,17 @@ const Blogs = () => {
             {blogs.map((blog) => (
               <Link key={blog.id} to={`/blog/${blog.slug}`} className="w-full">
                 <div
-                  className="
-          group cursor-pointer
-          rounded-3xl
-          border border-[var(--border-light)]/50
-          bg-[var(--bg-secondary)]/80
-          shadow-sm hover:shadow-xl
-          transition-all duration-500
-        "
+                  className=" group cursor-pointer rounded-3xl border border-[var(--border-light)]/50 bg-[var(--bg-secondary)]/80 shadow-sm hover:shadow-xl transition-all duration-500 "
                 >
                   {/* IMAGE */}
                   <div
-                    className="
-    relative overflow-hidden rounded-2xl m-5
-                h-[240px] sm:h-[280px] md:h-[300px] lg:h-[320px]
-   
-    bg-[var(--bg-secondary)]
-  "
+                    className=" relative overflow-hidden rounded-2xl m-5 h-[240px] sm:h-[280px] md:h-[300px] lg:h-[320px] bg-[var(--bg-secondary)]"
                   >
                     {blog.img ? (
                       <img
                         src={blog.img}
                         alt={blog.title}
-                        className="
-        w-full h-full object-cover rounded-xl
-        transition-all duration-700
-      "
+                        className=" w-full h-full object-cover rounded-xl transition-all duration-700"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
