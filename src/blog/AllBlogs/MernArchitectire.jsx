@@ -24,7 +24,7 @@ const MernArchitecture = () => {
         {/* Main Content – now in paragraph style */}
         <main className="container mx-auto px-6 py-16 md:py-24">
           <div className="max-w-7xl text-justify mx-auto prose prose-lg prose-headings:font-bold prose-headings:text-[var(--text-main)] prose-p:text-[var(--text-secondary)] prose-a:text-[var(--accent-primary)] hover:prose-a:underline">
-            <h2 className="heading-font text-4xl md:text-5xl font-bold mb-8 text-left">
+            <h2 className="heading-font text-3xl md:text-5xl font-bold mb-8 text-left">
               Why <span className="text-[var(--accent-primary)] ">MERN</span>{" "}
               Remains a{" "}
               <span className="text-[var(--accent-primary)] ">
@@ -32,7 +32,7 @@ const MernArchitecture = () => {
               </span>
             </h2>
 
-            <p className="pt-4 leading-relaxed text-xs sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
+            <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
               In 2026, the MERN stack MongoDB, Express.js, React, and
               Node.js continues to thrive as one of the most versatile and
               productive full-stack JavaScript ecosystems. Far from being just a
@@ -45,7 +45,7 @@ const MernArchitecture = () => {
               projects.
             </p>
 
-            <p className="pt-4 leading-relaxed text-xs sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
+            <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
               TypeScript has become the de facto standard rather than an
               optional enhancement. End-to-end type safety from MongoDB schemas
               through Express APIs to React components eliminates a huge portion
@@ -58,7 +58,7 @@ const MernArchitecture = () => {
               client-side JavaScript.
             </p>
 
-            <p className="pt-4 leading-relaxed text-xs sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
+            <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
               AI integration stands out as perhaps the most transformative
               evolution. MongoDB Atlas Vector Search empowers MERN apps to serve
               as the long-term memory and retrieval backbone for LLMs and
@@ -69,7 +69,7 @@ const MernArchitecture = () => {
               purpose-built for the intelligent application era.
             </p>
 
-            <p className="pt-4 leading-relaxed text-xs sm:text-sm lg:text-sm md:text-sm text-[var(--text-secondary)]  ">
+            <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm text-[var(--text-secondary)]  ">
               Performance and distribution patterns have shifted toward
               "edge-first" and serverless architectures. Rather than relying on
               traditional centralized servers, modern MERN deployments push
@@ -80,7 +80,7 @@ const MernArchitecture = () => {
               JavaScript shipped to the browser.
             </p>
 
-            <p className="pt-4 leading-relaxed text-xs sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
+            <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
               Best practices in 2026 emphasize clean, scalable structure:
               feature-based organization, service and controller layers, strong
               custom hooks, API-first design with OpenAPI tools, immediate
@@ -91,7 +91,7 @@ const MernArchitecture = () => {
               capabilities for offline-first experiences.
             </p>
 
-            <h2 className="heading-font text-4xl md:text-5xl font-bold mt-16 mb-8 text-left">
+            <h2 className="heading-font text-3xl md:text-5xl font-bold mt-16 mb-8 text-left">
               The{" "}
               <span className="text-[var(--accent-primary)] ">
                 Future Looks Bright
