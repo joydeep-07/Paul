@@ -15,7 +15,7 @@ const links = [
   { name: "About", path: "/about", icon: <FiUser /> },
   { name: "Projects", path: "/projects", icon: <FiGrid /> },
   { name: "Contact", path: "/contact", icon: <FiMail /> },
-  { name: "Blogs", path: "/blogs", icon: <PiCardsThreeLight /> },
+  // { name: "Blogs", path: "/blogs", icon: <PiCardsThreeLight /> },
 ];
 
 const Navbar = () => {
