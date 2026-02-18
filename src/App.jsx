@@ -9,6 +9,7 @@ import Projects from "./Pages/Projects";
 import ReviewForm from "./Pages/ReviewForm";
 import ProjectDetails from "./Pages/ProjectDetails";
 import { Toaster, toast } from "sonner";
+import Blogs from "./Pages/Blogs";
 
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
@@ -30,6 +31,7 @@ const App = () => {
         { path: "/about", element: <About /> },
         { path: "/contact", element: <Contact /> },
         { path: "/projects", element: <Projects /> },
+        { path: "/blogs", element: <Blogs /> },
         { path: "/review/form", element: <ReviewForm /> },
         { path: "project/:id", element: <ProjectDetails /> },
       ],
