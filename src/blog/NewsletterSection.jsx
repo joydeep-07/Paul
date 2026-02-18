@@ -28,7 +28,7 @@ const NewsletterSection = () => {
                 </span>
               </h3>
 
-              <p className="text-[var(--text-secondary)] leading-relaxed max-w-xl text-justify lg:mx-0">
+              <p className="text-[var(--text-secondary)] leading-relaxed max-w-xl text-xs md:text-sm lg:text-sm text-justify lg:mx-0">
                 Get insights on MERN architecture, UI design patterns,
                 performance optimization, and real-world project breakdowns
                 delivered straight to your inbox.
