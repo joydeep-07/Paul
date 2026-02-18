@@ -19,7 +19,7 @@ const TopProject = () => {
       <ProjectHeading
         small={"Project Showcase"}
         heading={
-          <h1 className="text-2xl heading-font sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight mb-2">
+          <h1 className="text-3xl heading-font sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight mb-2">
             Featured{" "}
             <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
               Projects
