@@ -8,6 +8,8 @@ import MyWorks from "../Components/MyWorks";
 import { projects } from "../Utils/Projects";
 import ProjectHeading from "../Components/ProjectHeading";
 import TopProject from "../Components/TopProject";
+import BlogBanner from "../blog/BlogBanner";
+import NewsletterSection from "../blog/NewsletterSection";
 const Home = () => {
   return (
     <div className="min-h-screen w-full">
@@ -15,10 +17,12 @@ const Home = () => {
       <AboutMe />
       {/* <ProjectHeading /> */}
       {/* <MyWorks limit={2} /> */}
-      <TopProject/>
+      <TopProject />
       <Reviews />
+      <BlogBanner />
+      <NewsletterSection />
       <WorkBadge />
-     <Footer/>
+      <Footer />
       {/* <AboutMe/> */}
     </div>
   );
