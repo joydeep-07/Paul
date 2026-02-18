@@ -46,13 +46,12 @@ const NewsletterSection = () => {
                     w-full
                     px-6 py-4
                     rounded-sm
-                    bg-white/8 dark:bg-white/5
-                    border border-white/15 dark:border-white/10
+                   bg-[var(--bg-main)]
+                    border border-[var(--border-light)] 
                     text-[var(--text-main)]
                     placeholder:text-[var(--text-secondary)]/70
                     focus:outline-none
                     focus:border-[var(--accent-primary)]/70
-                    focus:ring-2 focus:ring-[var(--accent-primary)]/25
                     transition-all duration-300
                   "
                 />
