@@ -8,13 +8,7 @@ const NewsletterSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-0 lg:px-0">
         <div
           className="
-            relative overflow-hidden
-            rounded-2xl
-            border border-[var(--border-light)]/50
-            bg-[var(--bg-secondary)]/80
-            shadow-sm hover:shadow-xl
-            transition-all duration-500
-            px-6 sm:px-10 py-12
+           
           "
         >
           {/* FLEX CONTAINER */}

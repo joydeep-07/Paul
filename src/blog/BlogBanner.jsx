@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import blogImage from "../assets/blog/ui.jpg"; // change image
 import { Link, Links } from "react-router-dom";
+import ProjectHeading from "../Components/ProjectHeading";
 
 const BlogBanner = () => {
   const [loaded, setLoaded] = useState(false);
@@ -17,23 +18,38 @@ const BlogBanner = () => {
   return (
     <div className="bg-[var(--bg-main)] transition-colors duration-300 pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-0 lg:px-0">
+        <ProjectHeading
+          small="Blog Section"
+          heading={
+            <h1 className="text-3xl heading-font sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight mb-2">
+              Latest{" "}
+              <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
+                Articles
+              </span>
+            </h1>
+          }
+          desc="Explore my latest thoughts on development, design, modern web technologies, and the lessons I learn while building real-world projects."
+        />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* LEFT → BLOG IMAGE */}
+          {/* LEFT → FEATURED BLOG CARD */}
           <div
             className="
-              group cursor-pointer
-              rounded-3xl border border-[var(--border-light)]/50
-              bg-[var(--bg-secondary)]/80
-              shadow-sm hover:shadow-xl
-              transition-all duration-500
-            "
+    group cursor-pointer
+    rounded-3xl border border-[var(--border-light)]/50
+    bg-[var(--bg-secondary)]/80
+    shadow-sm
+    transition-all duration-500
+  "
           >
+            {/* IMAGE */}
             <Link
               to="/blog/mern-architecture"
               className="
-                relative overflow-hidden rounded-2xl m-5
-                h-[240px] sm:h-[280px] md:h-[300px] lg:h-[320px]
-              "
+      relative overflow-hidden rounded-2xl m-5
+      h-[240px] sm:h-[280px] md:h-[280px] lg:h-[320px]
+      block
+    "
             >
               {!loaded && (
                 <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse" />
@@ -45,17 +61,30 @@ const BlogBanner = () => {
                 loading="lazy"
                 onLoad={() => setLoaded(true)}
                 className={`
-                  w-full h-full object-contain rounded-xl
-                  transition-all duration-700 ease-out
-                  ${loaded ? "opacity-100" : "opacity-0"}
-                `}
+        w-full h-full object-contain rounded-xl
+        transition-all duration-700 ease-out
+        ${loaded ? "opacity-100" : "opacity-0"}
+      `}
               />
+
+             
             </Link>
 
-            {/* BLOG META */}
-            <div className="px-6 pb-6 flex items-center justify-between text-xs sm:text-sm text-[var(--text-secondary)] opacity-70">
-              <span>{blog.date}</span>
-              <span>{blog.readTime}</span>
+            {/* CONTENT */}
+            <div className="px-6 pb-6 flex items-start justify-between gap-4">
+              <div>
+                <h2 className="heading-font text-lg sm:text-xl lg:text-2xl text-[var(--text-main)] transition-colors duration-300">
+                  {blog.title}
+                </h2>
+
+                {/* <p className="mt-2 text-xs sm:text-sm text-[var(--text-secondary)]/80 leading-relaxed">
+                  {blog.description.substring(0, 110)}...
+                </p> */}
+              </div>
+
+              <span className="text-xs p-1 sm:text-sm opacity-50 whitespace-nowrap font-medium tracking-wide">
+                {blog.date}
+              </span>
             </div>
           </div>
 

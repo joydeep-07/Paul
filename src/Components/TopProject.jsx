@@ -39,8 +39,8 @@ const TopProject = () => {
     group cursor-pointer
     rounded-3xl border border-[var(--border-light)]/50
     bg-[var(--bg-secondary)]/80
+   
     shadow-sm
-    hover:shadow-xl
   "
           >
             {/* IMAGE */}
@@ -66,8 +66,7 @@ const TopProject = () => {
       `}
               />
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500 rounded-xl" />
+             
             </div>
 
             {/* CONTENT */}
