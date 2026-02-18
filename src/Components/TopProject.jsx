@@ -16,7 +16,20 @@ const TopProject = () => {
 
   return (
     <div className="bg-[var(--bg-main)] transition-colors duration-300 py-20">
-      <ProjectHeading />
+      <ProjectHeading
+        small={"Project Showcase"}
+        heading={
+          <h1 className="text-2xl heading-font sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight mb-2">
+            Featured{" "}
+            <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
+              Projects
+            </span>
+          </h1>
+        }
+        desc={
+          "Each project is unique, and I follow a structured approach to turn ideas into seamless user experiences."
+        }
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-0 lg:px-0 mt-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

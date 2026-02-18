@@ -17,7 +17,18 @@ const Blogs = () => {
     <>
       <div className="bg-[var(--bg-main)] min-h-screen transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-0 lg:px-0">
-          <ProjectHeading />
+          <ProjectHeading
+            small="Blog Section"
+            heading={
+              <h1 className="text-2xl heading-font sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight mb-2">
+                Latest{" "}
+                <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
+                  Articles
+                </span>
+              </h1>
+            }
+            desc="Explore my latest thoughts on development and design, covering modern web technologies, performance optimization, clean architecture, and the creative process behind building scalable applications."
+          />
 
           {/* Cards Wrapper */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-12">
