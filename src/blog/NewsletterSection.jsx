@@ -21,7 +21,7 @@ const NewsletterSection = () => {
           <div className="relative flex flex-col lg:flex-row items-start justify-between gap-12">
             {/* LEFT → TEXT */}
             <div className="flex-1 space-y-6">
-              <h3 className="heading-font text-3xl sm:text-[45px] tracking-tight text-[var(--text-main)] leading-tight">
+              <h3 className="heading-font text-2xl sm:text-[45px] tracking-tight text-[var(--text-main)] leading-tight">
                 Join My{" "}
                 <span className="text-[var(--accent-primary)]">
                   Developer Newsletter
