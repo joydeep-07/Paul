@@ -27,7 +27,7 @@ const Blogs = () => {
                 </span>
               </h1>
             }
-            desc="Explore my latest thoughts on development and design, covering modern web technologies, performance optimization, clean architecture, and the creative process behind building scalable applications."
+            desc="Explore my latest thoughts on development, design, modern web technologies, and the lessons I learn while building real-world projects."
           />
 
           {/* Cards Wrapper */}
