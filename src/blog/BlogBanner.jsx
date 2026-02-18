@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import blogImage from "../assets/thumbnail/wtsp.png"; // change image
+import blogImage from "../assets/blog/ui.jpg"; // change image
 import { Link } from "react-router-dom";
 
 const BlogBanner = () => {
@@ -46,12 +46,11 @@ const BlogBanner = () => {
                 className={`
                   w-full h-full object-cover rounded-xl
                   transition-all duration-700 ease-out
-                  group-hover:scale-105
                   ${loaded ? "opacity-100" : "opacity-0"}
                 `}
               />
 
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500 rounded-xl" />
+              
             </div>
 
             {/* BLOG META */}
