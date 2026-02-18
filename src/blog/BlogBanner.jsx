@@ -69,7 +69,7 @@ const BlogBanner = () => {
               </span>
             </h3>
 
-            <p className="text-[var(--text-secondary)] text-justify leading-relaxed">
+            <p className="text-[var(--text-secondary)] text-xs lg:text-sm text-justify leading-relaxed">
               {blog.description}
             </p>
 
