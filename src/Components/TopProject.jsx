@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import second from "../assets/thumbnail/medcare.png";
 import ProjectHeading from "./ProjectHeading";
+import { Link } from "react-router-dom";
 
 const TopProject = () => {
   const [loaded, setLoaded] = useState(false);
@@ -127,6 +128,18 @@ const TopProject = () => {
               </button>
             </div>
           </div>
+        </div>
+
+        <div className="mt-14 sm:mt-16 pt-8 border-t border-[var(--border-light)] text-center">
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] opacity-80">
+            Interested in collaboration?{" "}
+            <Link
+              to="/contact"
+              className="text-[var(--accent-primary)] font-medium hover:underline"
+            >
+              Let&apos;s discuss your next project
+            </Link>
+          </p>
         </div>
       </div>
     </div>
