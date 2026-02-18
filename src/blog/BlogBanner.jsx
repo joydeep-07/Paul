@@ -16,7 +16,7 @@ const BlogBanner = () => {
 
   return (
     <div className="bg-[var(--bg-main)] transition-colors duration-300 pt-20">
-      <div className="max-w-7xl mx-auto ">
+      <div className="max-w-7xl mx-auto px-4 sm:px-0 lg:px-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* LEFT → BLOG IMAGE */}
           <div
@@ -101,18 +101,7 @@ const BlogBanner = () => {
           </div>
         </div>
 
-        {/* Bottom CTA */}
-        <div className="mt-14 sm:mt-16 pt-8 border-t border-[var(--border-light)] text-center">
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] opacity-80">
-            Want more technical deep dives?{" "}
-            <Link
-              to="/blog"
-              className="text-[var(--accent-primary)] font-medium hover:underline"
-            >
-              Explore all articles
-            </Link>
-          </p>
-        </div>
+       
       </div>
     </div>
   );
