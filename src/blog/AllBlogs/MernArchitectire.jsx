@@ -1,34 +1,22 @@
 import React from "react";
+import BlogHeading from "../BlogHeading";
+import ui from '../../assets/blog/ui.jpg'
 
 const MernArchitecture = () => {
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]">
       {/* Hero / Header Section */}
-      <header className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[var(--bg-gradient)] opacity-40"></div>
-        <div className="relative container mx-auto px-6 py-24 md:py-32 text-center">
-          <h1 className="heading-font text-5xl md:text-7xl font-bold tracking-tight mb-6 text-[var(--text-main)]">
-            Latest Insights on{" "}
-            <span className="text-[var(--accent-primary)]">MERN</span>{" "}
-            Architecture
-          </h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90">
-            As of 2026 How MERN continues to evolve with AI, edge computing,
-            TypeScript, and Next.js integration
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <span className="px-6 py-3 bg-[var(--accent-primary)] text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all">
-              TypeScript-First
-            </span>
-            <span className="px-6 py-3 bg-[var(--accent-primary)] text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all">
-              Edge & Serverless Ready
-            </span>
-            <span className="px-6 py-3 bg-[var(--accent-primary)] text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all">
-              AI-Native Patterns
-            </span>
-          </div>
-        </div>
-      </header>
+      <BlogHeading
+        title="Latest Insights on"
+        highlight="MERN Architecture"
+        description="As of 2026 How MERN continues to evolve with AI, edge computing, TypeScript, and Next.js integration"
+        // backgroundImage={ui}
+        tags={[
+          "TypeScript-First",
+          "Edge & Serverless Ready",
+          "AI-Native Patterns",
+        ]}
+      />
 
       {/* Main Content – now in paragraph style */}
       <main className="container mx-auto px-6 py-16 md:py-24">
