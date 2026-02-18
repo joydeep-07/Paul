@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { FiHome, FiUser, FiGrid, FiMail } from "react-icons/fi";
 import { FaBlog } from "react-icons/fa";
+import { PiCardsThreeLight } from "react-icons/pi";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +15,7 @@ const links = [
   { name: "About", path: "/about", icon: <FiUser /> },
   { name: "Projects", path: "/projects", icon: <FiGrid /> },
   { name: "Contact", path: "/contact", icon: <FiMail /> },
-  { name: "Blogs", path: "/blogs", icon: <FaBlog /> },
+  { name: "Blogs", path: "/blogs", icon: <PiCardsThreeLight /> },
 ];
 
 const Navbar = () => {
