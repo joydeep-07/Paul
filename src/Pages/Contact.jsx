@@ -110,7 +110,7 @@ const Contact = () => {
 
   return (
     <>
-      <div className=" bg-[var(--bg-main)] py-6">
+      <div className=" bg-[var(--bg-main)] py-6 pt-25">
         <div className="max-w-7xl mx-auto px-4">
           {/* Header */}
           <div className="mb-12">
@@ -144,7 +144,7 @@ const Contact = () => {
                 {/* Skeleton */}
                 {!imageLoaded && (
                   <div className="absolute inset-0 rounded-full p-1 bg-[var(--bg-secondary)] text-[var(--text-secondary)] border-2 border-[var(--accent-primary)] animate-pulse flex justify-center items-center">
-                    <User/>
+                    <User />
                   </div>
                 )}
 

@@ -8,7 +8,7 @@ const Root = () => {
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-all duration-300">
       <Navbar />
       <ScrollToTop />
-      <div className="pt-25">
+      <div className="pt-0">
         <Outlet />
       </div>
     </div>

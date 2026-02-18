@@ -12,7 +12,7 @@ import BlogBanner from "../blog/BlogBanner";
 import NewsletterSection from "../blog/NewsletterSection";
 const Home = () => {
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen w-full pt-25">
       <Hero />
       <AboutMe />
       {/* <ProjectHeading /> */}

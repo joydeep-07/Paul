@@ -14,9 +14,25 @@ const BlogHeading = ({
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : "none",
       }}
     >
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-[var(--bg-gradient)] opacity-80"></div>
+      {/* Dynamic Gradient Overlay */}
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-[var(--bg-main)]/70 via-[var(--bg-main)]/50 to-[var(--bg-main)]/90"
+        aria-hidden="true"
+      />
 
+      {/* Animated Gradient Accent */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-primary)]/20 via-transparent to-[var(--accent-secondary)]/20 " />
+      </div>
+
+      {/* Soft Edge Fade */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none"
+        style={{
+          background: "linear-gradient(to top, var(--bg-main), transparent)",
+        }}
+        aria-hidden="true"
+      />
       <div
         className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 
                       py-16 sm:py-20 md:py-28 lg:py-36 

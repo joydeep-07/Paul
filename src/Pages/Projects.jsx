@@ -6,7 +6,7 @@ import Footer from "../layout/Footer";
 
 const Projects = () => {
   return (
-    <div className="flex flex-col items-center bg-[var(--bg-main)]">
+    <div className="flex flex-col items-center pt-25 bg-[var(--bg-main)]">
       {/* HEADER */}
       <div
         className="

@@ -20,7 +20,7 @@ const About = () => {
     ];
 
   return (
-    <div>
+    <div className='pt-25'>
       <Me />
       <div className='py-10'>
         <Slide items={skills} speed={20} />

@@ -13,7 +13,7 @@ const MernArchitecture = () => {
           title="Latest Insights on"
           highlight="MERN Architecture"
           description="As of 2026 How MERN continues to evolve with AI, edge computing, TypeScript, and Next.js integration"
-          // backgroundImage={ui}
+          backgroundImage={ui}
           tags={[
             "TypeScript-First",
             "Edge & Serverless Ready",
