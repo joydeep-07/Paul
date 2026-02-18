@@ -40,7 +40,7 @@ const UnderConstruction = ({ note, progress = 60 }) => {
           </h1>
 
           <p
-            className="text-lg max-w-md mx-auto pt-4"
+            className="text-sm max-w-md mx-auto pt-4"
             style={{ color: "var(--text-secondary)" }}
           >
             {note}
