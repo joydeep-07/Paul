@@ -114,7 +114,7 @@ const BlogBanner = () => {
               </span>
             </div>
 
-            {/* <div className="py-5 flex justify-center md:justify-start">
+            <div className="py-5 hidden md:flex justify-center md:justify-start">
               <Link to="/blogs">
                 <button className="cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 border border-[var(--border-light)] shadow-sm transition-all duration-500">
                   <span className="text-[10px] sm:text-xs">
@@ -122,7 +122,7 @@ const BlogBanner = () => {
                   </span>
                 </button>
               </Link>
-            </div> */}
+            </div>
           </div>
         </div>
         <div className="mb-20 mt-5 sm:mt-16 pt-8 border-t border-[var(--border-light)] text-center">
