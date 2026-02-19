@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import blogImage from "../assets/blog/ui.jpg"; // change image
+import blogImage from "../assets/blog/ui.jpg";
 import { Link, Links } from "react-router-dom";
 import ProjectHeading from "../Components/ProjectHeading";
 
@@ -123,19 +123,18 @@ const BlogBanner = () => {
                 </button>
               </Link>
             </div> */}
-
-            <div className="mb-20 sm:mt-16 pt-8 border-t border-[var(--border-light)] text-center">
-              <p className="text-xs sm:text-sm text-[var(--text-secondary)] opacity-80">
-                Want more technical deep dives?{" "}
-                <Link
-                  to="/blogs"
-                  className="text-[var(--accent-primary)] font-medium hover:underline"
-                >
-                  Explore all articles
-                </Link>
-              </p>
-            </div>
           </div>
+        </div>
+        <div className="mb-20 mt-5 sm:mt-16 pt-8 border-t border-[var(--border-light)] text-center">
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] opacity-80">
+            Want more technical deep dives?{" "}
+            <Link
+              to="/blogs"
+              className="text-[var(--accent-primary)] font-medium hover:underline"
+            >
+              Explore all articles
+            </Link>
+          </p>
         </div>
       </div>
     </div>
