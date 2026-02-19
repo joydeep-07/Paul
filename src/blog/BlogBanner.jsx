@@ -66,8 +66,6 @@ const BlogBanner = () => {
         ${loaded ? "opacity-100" : "opacity-0"}
       `}
               />
-
-             
             </Link>
 
             {/* CONTENT */}
@@ -116,14 +114,26 @@ const BlogBanner = () => {
               </span>
             </div>
 
-            <div className="py-5 flex justify-center md:justify-start">
+            {/* <div className="py-5 flex justify-center md:justify-start">
               <Link to="/blogs">
                 <button className="cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 border border-[var(--border-light)] shadow-sm transition-all duration-500">
                   <span className="text-[10px] sm:text-xs">
-                    READ THE ARTICLE
+                   WATCH MORE
                   </span>
                 </button>
               </Link>
+            </div> */}
+
+            <div className="mb-20 sm:mt-16 pt-8 border-t border-[var(--border-light)] text-center">
+              <p className="text-xs sm:text-sm text-[var(--text-secondary)] opacity-80">
+                Want more technical deep dives?{" "}
+                <Link
+                  to="/blogs"
+                  className="text-[var(--accent-primary)] font-medium hover:underline"
+                >
+                  Explore all articles
+                </Link>
+              </p>
             </div>
           </div>
         </div>

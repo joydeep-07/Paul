@@ -29,7 +29,7 @@ const MernArchitecture = () => {
               still Leads in 2026
             </h2>
 
-            <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
+            <p className="pt-4 text-[var(--text-main)] text-sm sm:text-base leading-relaxed text-justify">
               In 2026, the MERN stack MongoDB, Express.js, React, and Node.js
               continues to thrive as one of the most versatile and productive
               full-stack JavaScript ecosystems. Far from being just a tool for
@@ -41,7 +41,7 @@ const MernArchitecture = () => {
               startups to enterprise modernization projects.
             </p>
 
-            <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
+            <p className="pt-4 text-[var(--text-main)] text-sm sm:text-base leading-relaxed text-justify">
               TypeScript has become the de facto standard rather than an
               optional enhancement. End-to-end type safety from MongoDB schemas
               through Express APIs to React components eliminates a huge portion
@@ -54,7 +54,7 @@ const MernArchitecture = () => {
               client-side JavaScript.
             </p>
 
-            <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
+            <p className="pt-4 text-[var(--text-main)] text-sm sm:text-base leading-relaxed text-justify">
               AI integration stands out as perhaps the most transformative
               evolution. MongoDB Atlas Vector Search empowers MERN apps to serve
               as the long-term memory and retrieval backbone for LLMs and
@@ -65,7 +65,7 @@ const MernArchitecture = () => {
               purpose-built for the intelligent application era.
             </p>
 
-            <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm text-[var(--text-secondary)]  ">
+            <p className="pt-4 text-[var(--text-main)] text-sm sm:text-base leading-relaxed text-justify">
               Performance and distribution patterns have shifted toward
               "edge-first" and serverless architectures. Rather than relying on
               traditional centralized servers, modern MERN deployments push
@@ -76,7 +76,7 @@ const MernArchitecture = () => {
               JavaScript shipped to the browser.
             </p>
 
-            <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
+            <p className="pt-4 text-[var(--text-main)] text-sm sm:text-base leading-relaxed text-justify">
               Best practices in 2026 emphasize clean, scalable structure:
               feature-based organization, service and controller layers, strong
               custom hooks, API-first design with OpenAPI tools, immediate
@@ -95,7 +95,7 @@ const MernArchitecture = () => {
               for MERN
             </h2>
 
-            <p>
+            <p className="pt-4 text-[var(--text-main)] text-sm sm:text-base leading-relaxed text-justify">
               MERN in 2026 is faster, more intelligent, more globally
               distributed, and significantly more type-safe than ever before. It
               powers startups racing to ship MVPs, SaaS platforms scaling to
