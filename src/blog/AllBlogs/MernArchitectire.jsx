@@ -26,6 +26,7 @@ const MernArchitecture = () => {
           <div className="max-w-7xl text-justify mx-auto prose prose-lg prose-headings:font-bold prose-headings:text-[var(--text-main)] prose-p:text-[var(--text-secondary)] prose-a:text-[var(--accent-primary)] hover:prose-a:underline">
             <img
               src={ui}
+              loading="lazy"
               alt="UI Preview"
               className=" w-full  h-35 sm:h-72  md:h-80  lg:h-96  object-cover  rounded-lg mb-10"/>
 
