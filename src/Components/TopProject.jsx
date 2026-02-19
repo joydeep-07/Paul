@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import second from "../assets/thumbnail/medcare.png";
 import ProjectHeading from "./ProjectHeading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const TopProject = () => {
   const [loaded, setLoaded] = useState(false);
+  const navigate = useNavigate();
 
   const project = {
     title: "Appointment Booking System",
@@ -12,6 +13,14 @@ const TopProject = () => {
       "A full-featured MERN stack platform with real-time slot updates, and automated email confirmations.",
     year: "2025",
     thumbnail: second,
+  };
+
+  const handleNavigation = ()=>{
+    navigate("/project/medcare");
+  }
+
+  const handleProjects = () => {
+    navigate("/projects");
   };
 
   return (
@@ -35,6 +44,7 @@ const TopProject = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* LEFT → FEATURED CARD */}
           <div
+          onClick={handleNavigation}
             className="
     group cursor-pointer
     rounded-3xl border border-[var(--border-light)]/50
@@ -133,9 +143,9 @@ const TopProject = () => {
             </ul>
 
             <div className=" py-5 flex justify-center md:justify-start ">
-              <button className="cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 border border-[var(--border-light)] shadow-sm transition-all duration-500">
+              <button onClick={handleProjects} className="cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 border border-[var(--border-light)] shadow-sm transition-all duration-500">
                 <span className="text-[10px] sm:text-xs">
-                  READ FULL CASESTUDY
+                  SEE ALL PROJECTS
                 </span>
               </button>
             </div>
