@@ -1,6 +1,6 @@
 import React from "react";
 import BlogHeading from "../BlogHeading";
-import ui from "../../assets/blog/ui.jpg";
+import ui from "../../assets/blog/stack.jpg";
 import WorkBadge from "../../Components/WorkBadge";
 import Footer from "../../layout/Footer";
 
@@ -24,6 +24,11 @@ const MernArchitecture = () => {
         {/* Main Content – now in paragraph style */}
         <main className="container mx-auto px-6 pb-20">
           <div className="max-w-7xl text-justify mx-auto prose prose-lg prose-headings:font-bold prose-headings:text-[var(--text-main)] prose-p:text-[var(--text-secondary)] prose-a:text-[var(--accent-primary)] hover:prose-a:underline">
+            <img
+              src={ui}
+              alt="UI Preview"
+              className=" w-full  h-25 sm:h-72  md:h-80  lg:h-96  object-contain  rounded-lg mb-10"/>
+
             <h2 className="heading-font text-2xl md:text-5xl mb-8 text-left">
               Why <span className="text-[var(--accent-primary)] ">MERN</span>{" "}
               still Leads in 2026
