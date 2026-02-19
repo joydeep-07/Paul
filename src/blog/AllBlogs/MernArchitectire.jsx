@@ -27,7 +27,7 @@ const MernArchitecture = () => {
             <img
               src={ui}
               alt="UI Preview"
-              className=" w-full  h-25 sm:h-72  md:h-80  lg:h-96  object-contain  rounded-lg mb-10"/>
+              className=" w-full  h-25 sm:h-72  md:h-80  lg:h-96  object-cover  rounded-lg mb-10"/>
 
             <h2 className="heading-font text-2xl md:text-5xl mb-8 text-left">
               Why <span className="text-[var(--accent-primary)] ">MERN</span>{" "}
