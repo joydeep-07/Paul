@@ -91,13 +91,13 @@ const BlogBanner = () => {
                   </h2>
 
                   <p className="mt-2 text-xs sm:text-sm text-[var(--text-secondary)]/80 leading-relaxed">
-                    {blog.description.substring(0, 110)}...
+                    {blog.description.substring(0, 104)}...
                   </p>
                 </div>
 
-                <span className="text-xs p-1 sm:text-sm opacity-50 whitespace-nowrap font-medium tracking-wide">
+                {/* <span className="text-xs p-1 sm:text-sm opacity-50 whitespace-nowrap font-medium tracking-wide">
                   {blog.date}
-                </span>
+                </span> */}
               </div>
             </div>
           </div>
