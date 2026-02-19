@@ -32,7 +32,7 @@ const BlogBanner = () => {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* LEFT → FEATURED BLOG CARD */}
+          {/* LEFT FEATURED BLOG CARD */}
           <div
             className="relative p-[1.5px] rounded-3xl overflow-hidden cursor-glow group"
             onMouseMove={(e) => {
