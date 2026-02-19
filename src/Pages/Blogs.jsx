@@ -15,7 +15,7 @@ const Blogs = () => {
 
   return (
     <>
-      <div className="bg-[var(--bg-main)] min-h-screen transition-colors duration-300">
+      <div className="bg-[var(--bg-main)] min-h-screen transition-colors pt-25 duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-0 lg:px-0">
           <ProjectHeading
             small="Blog Section"

@@ -1,6 +1,6 @@
 import React from "react";
 import BlogHeading from "../BlogHeading";
-import ui from '../../assets/blog/ui.jpg'
+import ui from "../../assets/blog/ui.jpg";
 import WorkBadge from "../../Components/WorkBadge";
 import Footer from "../../layout/Footer";
 
@@ -13,7 +13,7 @@ const MernArchitecture = () => {
           title="Latest Insights on"
           highlight="MERN Architecture"
           description="As of 2026 How MERN continues to evolve with AI, edge computing, TypeScript, and Next.js integration"
-          backgroundImage={ui}
+          // backgroundImage={ui}
           tags={[
             "TypeScript-First",
             "Edge & Serverless Ready",
@@ -22,27 +22,23 @@ const MernArchitecture = () => {
         />
 
         {/* Main Content – now in paragraph style */}
-        <main className="container mx-auto px-6 py-16 md:py-24">
+        <main className="container mx-auto px-6 pb-20">
           <div className="max-w-7xl text-justify mx-auto prose prose-lg prose-headings:font-bold prose-headings:text-[var(--text-main)] prose-p:text-[var(--text-secondary)] prose-a:text-[var(--accent-primary)] hover:prose-a:underline">
-            <h2 className="heading-font text-3xl md:text-5xl font-bold mb-8 text-left">
+            <h2 className="heading-font text-2xl md:text-5xl mb-8 text-left">
               Why <span className="text-[var(--accent-primary)] ">MERN</span>{" "}
-              Remains a{" "}
-              <span className="text-[var(--accent-primary)] ">
-                Powerhouse in 2026
-              </span>
+              still Leads in 2026
             </h2>
 
             <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
-              In 2026, the MERN stack MongoDB, Express.js, React, and
-              Node.js continues to thrive as one of the most versatile and
-              productive full-stack JavaScript ecosystems. Far from being just a
-              tool for simple CRUD applications, MERN has matured into the
-              preferred foundation for intelligent, high-performance web
-              experiences. The single-language advantage of JavaScript (now
-              overwhelmingly paired with TypeScript) dramatically reduces
-              context switching, accelerates development cycles, and enables
-              seamless scaling from startups to enterprise modernization
-              projects.
+              In 2026, the MERN stack MongoDB, Express.js, React, and Node.js
+              continues to thrive as one of the most versatile and productive
+              full-stack JavaScript ecosystems. Far from being just a tool for
+              simple CRUD applications, MERN has matured into the preferred
+              foundation for intelligent, high-performance web experiences. The
+              single-language advantage of JavaScript (now overwhelmingly paired
+              with TypeScript) dramatically reduces context switching,
+              accelerates development cycles, and enables seamless scaling from
+              startups to enterprise modernization projects.
             </p>
 
             <p className="pt-4 leading-relaxed  text-sm sm:text-sm lg:text-sm md:text-sm  text-[var(--text-secondary)]  ">
@@ -91,7 +87,7 @@ const MernArchitecture = () => {
               capabilities for offline-first experiences.
             </p>
 
-            <h2 className="heading-font text-3xl md:text-5xl font-bold mt-16 mb-8 text-left">
+            <h2 className="heading-font text-2xl md:text-5xl mb-8 text-left mt-10">
               The{" "}
               <span className="text-[var(--accent-primary)] ">
                 Future Looks Bright
@@ -111,7 +107,7 @@ const MernArchitecture = () => {
               remain in extremely high demand.
             </p>
 
-            <p className="italic text-[var(--accent-primary)] text-center opacity-90 mt-10 text-xl">
+            <p className="italic text-[var(--accent-primary)] text-center opacity-90 mt-10 text-md">
               "MERN isn't fading it's evolving into the ideal backbone for
               intelligent, edge-native, full-stack development in an AI-driven
               world."
@@ -123,6 +119,7 @@ const MernArchitecture = () => {
       <WorkBadge />
       <Footer />
     </>
-  )};
+  );
+};
 
 export default MernArchitecture;
