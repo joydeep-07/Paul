@@ -34,7 +34,7 @@ const BlogBanner = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* LEFT → FEATURED BLOG CARD */}
           <div
-            className="relative p-[2px] rounded-3xl overflow-hidden cursor-glow group"
+            className="relative p-[1.5px] rounded-3xl overflow-hidden cursor-glow group"
             onMouseMove={(e) => {
               const rect = e.currentTarget.getBoundingClientRect();
               e.currentTarget.style.setProperty(
@@ -114,7 +114,13 @@ const BlogBanner = () => {
             <p className="text-[var(--text-secondary)] text-xs lg:text-sm text-justify leading-relaxed">
               In 2026, the MERN stack MongoDB, Express.js, React, and Node.js
               continues to thrive as one of the most versatile and productive
-              full-stack JavaScript ecosystems...
+              full-stack JavaScript ecosystems. Far from being just a tool for
+              simple CRUD applications, MERN has matured into the preferred
+              foundation for intelligent, high-performance web experiences. The
+              single-language advantage of JavaScript (now overwhelmingly paired
+              with TypeScript) dramatically reduces context switching,
+              accelerates development cycles, and enables seamless scaling from
+              startups to enterprise modernization projects.
             </p>
 
             <div className="flex flex-wrap gap-3 text-xs sm:text-sm text-[var(--text-secondary)]">
