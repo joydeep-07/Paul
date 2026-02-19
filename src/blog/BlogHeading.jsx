@@ -1,4 +1,5 @@
 import React from "react";
+import BlurCircle from "../Components/BlurCircle";
 
 const BlogHeading = ({
   title,
@@ -20,10 +21,14 @@ const BlogHeading = ({
         aria-hidden="true"
       />
 
+      {/* Background Blur Effects */}
+      <BlurCircle top="10%" left="-120px" color="#90a955" />
+      <BlurCircle bottom="-120px" right="-100px" />
+
       {/* Accent Glow */}
-      <div className="absolute inset-0 opacity-30">
+      {/* <div className="absolute inset-0 opacity-30">
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-primary)]/20 via-transparent to-[var(--accent-secondary)]/20" />
-      </div>
+      </div> */}
 
       {/* Bottom Fade */}
       <div
