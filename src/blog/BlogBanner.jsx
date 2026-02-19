@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import blogImage from "../assets/blog/ui.jpg";
-import { Link, Links } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProjectHeading from "../Components/ProjectHeading";
 
 const BlogBanner = () => {
@@ -30,59 +30,75 @@ const BlogBanner = () => {
           }
           desc="Explore my latest thoughts on development, design, modern web technologies, and the lessons I learn while building real-world projects."
         />
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* LEFT → BLOG IMAGE */}
           {/* LEFT → FEATURED BLOG CARD */}
           <div
-            className="
-    group cursor-pointer
-    rounded-2xl border border-[var(--border-light)]/50
-    bg-[var(--bg-secondary)]/80
-    shadow-sm
-    transition-all duration-500
-  "
+            className="relative p-[2px] rounded-3xl overflow-hidden cursor-glow group"
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              e.currentTarget.style.setProperty(
+                "--x",
+                `${e.clientX - rect.left}px`,
+              );
+              e.currentTarget.style.setProperty(
+                "--y",
+                `${e.clientY - rect.top}px`,
+              );
+            }}
           >
-            {/* IMAGE */}
-            <Link
-              to="/blog/mern-architecture"
+            {/* Cursor Gradient Border */}
+            <div className="absolute inset-0 rounded-3xl insta-cursor-border pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+            {/* Card */}
+            <div
               className="
-      relative overflow-hidden rounded-xl m-5
-     
-      block
-    "
+                relative z-10
+                rounded-3xl
+                border border-[var(--border-light)]/50
+                bg-[var(--bg-secondary)]
+                shadow-sm
+                transition-all duration-500
+              "
             >
-              {!loaded && (
-                <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse" />
-              )}
+              {/* IMAGE */}
+              <Link
+                to="/blog/mern-architecture"
+                className="relative overflow-hidden rounded-xl m-5 block"
+              >
+                {!loaded && (
+                  <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse" />
+                )}
 
-              <img
-                src={blog.thumbnail}
-                alt={blog.title}
-                loading="lazy"
-                onLoad={() => setLoaded(true)}
-                className={`
-        w-full h-full object-contain rounded-xl
-        transition-all duration-700 ease-out
-        ${loaded ? "opacity-100" : "opacity-0"}
-      `}
-              />
-            </Link>
+                <img
+                  src={blog.thumbnail}
+                  alt={blog.title}
+                  loading="lazy"
+                  onLoad={() => setLoaded(true)}
+                  className={`
+                    w-full h-full object-contain rounded-xl
+                    transition-all duration-700 ease-out
+                    ${loaded ? "opacity-100" : "opacity-0"}
+                  `}
+                />
+              </Link>
 
-            {/* CONTENT */}
-            <div className="px-6 pb-6 flex items-start justify-between gap-4">
-              <div>
-                <h2 className="heading-font text-lg sm:text-xl lg:text-2xl text-[var(--text-main)] transition-colors duration-300">
-                  {blog.title}
-                </h2>
+              {/* CONTENT */}
+              <div className="px-6 pb-6 flex items-start justify-between gap-4">
+                <div>
+                  <h2 className="heading-font text-lg sm:text-xl lg:text-2xl text-[var(--text-main)]">
+                    {blog.title}
+                  </h2>
 
-                <p className="mt-2 text-xs sm:text-sm text-[var(--text-secondary)]/80 leading-relaxed">
-                  {blog.description.substring(0, 110)}...
-                </p>
+                  <p className="mt-2 text-xs sm:text-sm text-[var(--text-secondary)]/80 leading-relaxed">
+                    {blog.description.substring(0, 110)}...
+                  </p>
+                </div>
+
+                <span className="text-xs p-1 sm:text-sm opacity-50 whitespace-nowrap font-medium tracking-wide">
+                  {blog.date}
+                </span>
               </div>
-
-              <span className="text-xs p-1 sm:text-sm opacity-50 whitespace-nowrap font-medium tracking-wide">
-                {blog.date}
-              </span>
             </div>
           </div>
 
@@ -98,13 +114,7 @@ const BlogBanner = () => {
             <p className="text-[var(--text-secondary)] text-xs lg:text-sm text-justify leading-relaxed">
               In 2026, the MERN stack MongoDB, Express.js, React, and Node.js
               continues to thrive as one of the most versatile and productive
-              full-stack JavaScript ecosystems. Far from being just a tool for
-              simple CRUD applications, MERN has matured into the preferred
-              foundation for intelligent, high-performance web experiences. The
-              single-language advantage of JavaScript (now overwhelmingly paired
-              with TypeScript) dramatically reduces context switching,
-              accelerates development cycles, and enables seamless scaling from
-              startups to enterprise modernization projects.
+              full-stack JavaScript ecosystems...
             </p>
 
             <div className="flex flex-wrap gap-3 text-xs sm:text-sm text-[var(--text-secondary)]">
@@ -131,6 +141,7 @@ const BlogBanner = () => {
             </div>
           </div>
         </div>
+
         <div className="mb-20 mt-5 sm:mt-16 pt-8 border-t border-[var(--border-light)] text-center">
           <p className="text-xs sm:text-sm text-[var(--text-secondary)] opacity-80">
             Want more technical deep dives?{" "}

@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store.js";
 import "./index.css";
-
+import "./gradinent.css"
 import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
