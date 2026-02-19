@@ -24,7 +24,7 @@ const TopProject = () => {
   };
 
   return (
-    <div className="bg-[var(--bg-main)] transition-colors duration-300 py-20">
+    <div className="bg-[var(--bg-main)] relative transition-colors duration-300 py-20">
       <ProjectHeading
         small={"Project Showcase"}
         heading={
@@ -44,21 +44,12 @@ const TopProject = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* LEFT → FEATURED CARD */}
           <div
-          onClick={handleNavigation}
-            className="
-    group cursor-pointer
-    rounded-2xl border border-[var(--border-light)]/50
-    bg-[var(--bg-secondary)]/80
-   
-    shadow-sm
-  "
+            onClick={handleNavigation}
+            className=" group cursor-pointer rounded-2xl border border-[var(--border-light)]/50 bg-[var(--bg-secondary)]/80 shadow-sm"
           >
             {/* IMAGE */}
             <div
-              className="
-      relative overflow-hidden rounded-xl m-5
-     
-    "
+              className=" relative overflow-hidden rounded-xl m-5 "
             >
               {!loaded && (
                 <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse" />
@@ -69,14 +60,8 @@ const TopProject = () => {
                 alt={project.title}
                 loading="lazy"
                 onLoad={() => setLoaded(true)}
-                className={`
-        w-full h-full object-contain rounded-xl
-        transition-all duration-700 ease-out
-        ${loaded ? "opacity-100" : "opacity-0"}
-      `}
+                className={` w-full h-full object-contain rounded-xl transition-all duration-700 ease-out ${loaded ? "opacity-100" : "opacity-0"} `}
               />
-
-             
             </div>
 
             {/* CONTENT */}
@@ -143,10 +128,11 @@ const TopProject = () => {
             </ul>
 
             <div className=" py-5 flex justify-center md:justify-start ">
-              <button onClick={handleProjects} className="cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 border border-[var(--border-light)] shadow-sm transition-all duration-500">
-                <span className="text-[10px] sm:text-xs">
-                  SEE ALL PROJECTS
-                </span>
+              <button
+                onClick={handleProjects}
+                className="cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 border border-[var(--border-light)] shadow-sm transition-all duration-500"
+              >
+                <span className="text-[10px] sm:text-xs">SEE ALL PROJECTS</span>
               </button>
             </div>
           </div>
