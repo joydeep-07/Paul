@@ -36,7 +36,7 @@ const BlogBanner = () => {
           <div
             className="
     group cursor-pointer
-    rounded-xl border border-[var(--border-light)]/50
+    rounded-2xl border border-[var(--border-light)]/50
     bg-[var(--bg-secondary)]/80
     shadow-sm
     transition-all duration-500
