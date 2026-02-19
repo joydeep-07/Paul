@@ -36,7 +36,7 @@ const BlogBanner = () => {
           <div
             className="
     group cursor-pointer
-    rounded-3xl border border-[var(--border-light)]/50
+    rounded-xl border border-[var(--border-light)]/50
     bg-[var(--bg-secondary)]/80
     shadow-sm
     transition-all duration-500
@@ -46,8 +46,8 @@ const BlogBanner = () => {
             <Link
               to="/blog/mern-architecture"
               className="
-      relative overflow-hidden rounded-2xl m-5
-      h-[240px] sm:h-[280px] md:h-[280px] lg:h-[320px]
+      relative overflow-hidden rounded-xl m-5
+     
       block
     "
             >

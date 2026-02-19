@@ -47,7 +47,7 @@ const TopProject = () => {
           onClick={handleNavigation}
             className="
     group cursor-pointer
-    rounded-3xl border border-[var(--border-light)]/50
+    rounded-xl border border-[var(--border-light)]/50
     bg-[var(--bg-secondary)]/80
    
     shadow-sm
@@ -56,8 +56,8 @@ const TopProject = () => {
             {/* IMAGE */}
             <div
               className="
-      relative overflow-hidden rounded-2xl m-5
-      h-[240px] sm:h-[280px] md:h-[280px] lg:h-[320px]
+      relative overflow-hidden rounded-xl m-5
+     
     "
             >
               {!loaded && (
