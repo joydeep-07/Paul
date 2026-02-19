@@ -75,9 +75,9 @@ const BlogBanner = () => {
                   {blog.title}
                 </h2>
 
-                {/* <p className="mt-2 text-xs sm:text-sm text-[var(--text-secondary)]/80 leading-relaxed">
+                <p className="mt-2 text-xs sm:text-sm text-[var(--text-secondary)]/80 leading-relaxed">
                   {blog.description.substring(0, 110)}...
-                </p> */}
+                </p>
               </div>
 
               <span className="text-xs p-1 sm:text-sm opacity-50 whitespace-nowrap font-medium tracking-wide">
@@ -96,7 +96,15 @@ const BlogBanner = () => {
             </h3>
 
             <p className="text-[var(--text-secondary)] text-xs lg:text-sm text-justify leading-relaxed">
-              {blog.description}
+              In 2026, the MERN stack MongoDB, Express.js, React, and Node.js
+              continues to thrive as one of the most versatile and productive
+              full-stack JavaScript ecosystems. Far from being just a tool for
+              simple CRUD applications, MERN has matured into the preferred
+              foundation for intelligent, high-performance web experiences. The
+              single-language advantage of JavaScript (now overwhelmingly paired
+              with TypeScript) dramatically reduces context switching,
+              accelerates development cycles, and enables seamless scaling from
+              startups to enterprise modernization projects.
             </p>
 
             <div className="flex flex-wrap gap-3 text-xs sm:text-sm text-[var(--text-secondary)]">
@@ -117,9 +125,7 @@ const BlogBanner = () => {
             <div className="py-5 hidden md:flex justify-center md:justify-start">
               <Link to="/blogs">
                 <button className="cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 border border-[var(--border-light)] shadow-sm transition-all duration-500">
-                  <span className="text-[10px] sm:text-xs">
-                   WATCH MORE
-                  </span>
+                  <span className="text-[10px] sm:text-xs">WATCH MORE</span>
                 </button>
               </Link>
             </div>
