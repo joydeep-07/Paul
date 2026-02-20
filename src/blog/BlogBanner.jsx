@@ -64,8 +64,7 @@ const BlogBanner = () => {
             >
               {/* IMAGE */}
               {/* MEDIA */}
-              <Link
-                to="/blog/mern-architecture"
+              <div
                 className="relative overflow-hidden rounded-xl m-5 block group"
               >
                 {!loaded && (
@@ -101,9 +100,12 @@ const BlogBanner = () => {
       pointer-events-none
     "
                 />
-              </Link>
+              </div>
               {/* CONTENT */}
-              <div className="px-6 pb-6 flex items-start justify-between gap-4">
+              <Link
+                to="/blog/mern-architecture"
+                className="px-6 pb-6 flex items-start justify-between gap-4"
+              >
                 <div>
                   <h2 className="heading-font text-lg sm:text-xl lg:text-2xl text-[var(--text-main)]">
                     {blog.title}
@@ -117,7 +119,7 @@ const BlogBanner = () => {
                 {/* <span className="text-xs p-1 sm:text-sm opacity-50 whitespace-nowrap font-medium tracking-wide">
                   {blog.date}
                 </span> */}
-              </div>
+              </Link>
             </div>
           </div>
 
