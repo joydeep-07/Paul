@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import blogImage from "../assets/blog/ui.jpg";
+import blogVid from '../assets/blog/short.mp4'
 import { Link } from "react-router-dom";
 import ProjectHeading from "../Components/ProjectHeading";
 
@@ -62,27 +63,45 @@ const BlogBanner = () => {
               "
             >
               {/* IMAGE */}
+              {/* MEDIA */}
               <Link
                 to="/blog/mern-architecture"
-                className="relative overflow-hidden rounded-xl m-5 block"
+                className="relative overflow-hidden rounded-xl m-5 block group"
               >
                 {!loaded && (
-                  <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse" />
+                  <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse z-20" />
                 )}
 
+                {/* IMAGE (Default) */}
                 <img
                   src={blog.thumbnail}
                   alt={blog.title}
                   loading="lazy"
                   onLoad={() => setLoaded(true)}
                   className={`
-                    w-full h-full object-contain rounded-xl
-                    transition-all duration-700 ease-out
-                    ${loaded ? "opacity-100" : "opacity-0"}
-                  `}
+      w-full h-full object-contain rounded-xl
+      transition-all duration-500 ease-out
+      ${loaded ? "opacity-100" : "opacity-0"}
+      group-hover:opacity-0
+    `}
+                />
+
+                {/* VIDEO (On Hover) */}
+                <video
+                  src={blogVid}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  className="
+      absolute inset-0 w-full h-full object-cover rounded-xl
+      opacity-0 group-hover:opacity-100
+      transition-opacity duration-500 ease-in-out
+      pointer-events-none
+    "
                 />
               </Link>
-
               {/* CONTENT */}
               <div className="px-6 pb-6 flex items-start justify-between gap-4">
                 <div>
