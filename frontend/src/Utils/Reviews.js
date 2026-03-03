@@ -1,8 +1,9 @@
+// src/data/reviewsData.js
 import dp1 from "../assets/images/dp1.jpg";
 import dp2 from "../assets/images/dp2.jpg";
 import dp3 from "../assets/images/dp3.jpg";
 
-export const reviews = [
+export const reviewsData = [
   {
     id: 1,
     name: "Debasis Roy",

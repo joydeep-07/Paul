@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { ArrowUp, User } from "lucide-react";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
 import ReviewSkeleton from "./ReviewSkeleton";
 import LeaveReview from "./LeaveReview";
-import { supabase } from "../supabaseClient";
+import { reviewsData } from "../Utils/Reviews"; 
 
 const SLIDE_DURATION = 10000;
 const RADIUS = 36;
@@ -32,54 +30,36 @@ const Reviews = () => {
   const [expandedId, setExpandedId] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [reviews, setReviews] = useState([]);
-  const navigate = useNavigate();
+
+  // Fake small loading delay so skeleton still shows briefly
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Auto-slide using the imported array
+  useEffect(() => {
+    if (isPaused || reviewsData.length === 0) return;
+
+    const interval = setInterval(() => {
+      setIndex(([prev]) => [(prev + 1) % reviewsData.length, 1]);
+    }, SLIDE_DURATION);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
   const holdTimeoutRef = useRef(null);
   const isHoldingRef = useRef(false);
 
-  // FETCH REVIEWS -- SUPABASE
-  useEffect(() => {
-    const fetchReviews = async () => {
-      const { data, error } = await supabase
-        .from("reviews")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (!error && data) {
-        setReviews(data);
-      }
-
-      setLoading(false);
-    };
-
-    fetchReviews();
-  }, []);
-
-  //  Auto slide
-  useEffect(() => {
-    if (isPaused || reviews.length === 0) return;
-
-    const interval = setInterval(() => {
-      setIndex(([prev]) => [(prev + 1) % reviews.length, 1]);
-    }, SLIDE_DURATION);
-
-    return () => clearInterval(interval);
-  }, [isPaused, reviews]);
-
   const swipeConfidenceThreshold = 100;
-  const swipePower = (offset, velocity) => {
-    return Math.abs(offset) * velocity;
-  };
+  const swipePower = (offset, velocity) => Math.abs(offset) * velocity;
 
   const toggleReadMore = (id) => {
-    if (expandedId === id) {
-      setExpandedId(null);
-      setIsPaused(false);
-    } else {
-      setExpandedId(id);
-      setIsPaused(true);
-    }
+    setExpandedId(expandedId === id ? null : id);
+    setIsPaused(expandedId !== id);
   };
 
   const handleDoubleClick = () => {
@@ -97,10 +77,10 @@ const Reviews = () => {
     }
   };
 
-  const totalSlides = reviews.length;
+  const totalSlides = reviewsData.length;
   const currentSlide = totalSlides > 0 ? index + 1 : 0;
 
-  const item = reviews[index] || {};
+  const item = reviewsData[index] || {};
   const words = item.review ? item.review.split(" ") : [];
   const shortText = words.slice(0, 40).join(" ");
   const isExpanded = expandedId === item.id;
@@ -112,34 +92,30 @@ const Reviews = () => {
   return (
     <div className="py-8 md:py-12 lg:py-16 bg-[var(--bg-main)] flex justify-center px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl w-full flex flex-col lg:flex-row gap-8 lg:gap-12">
-        {/* LEFT */}
+        {/* LEFT side - unchanged */}
         <div className="w-full lg:w-1/3 px-2 sm:px-4">
           <h3 className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
             Testimonials
           </h3>
-
           <div className="mt-2 mb-6 h-[2px] w-16 bg-[var(--accent-primary)] rounded-full" />
-
           <h1 className="heading-font text-3xl sm:text-4xl md:text-5xl leading-tight mb-4">
             What others{" "}
             <span className="text-[var(--accent-primary)]">Say</span>
           </h1>
-
           <p className="text-sm opacity-80 max-w-sm mb-6 lg:mb-0">
             I've worked with some amazing people over the years here's what they
             have to say about me.
           </p>
-
           <div className="hidden md:flex">
             <LeaveReview />
           </div>
         </div>
 
-        {/* RIGHT */}
+        {/* RIGHT side - using imported reviewsData */}
         <div className="w-full lg:w-2/3 px-2 sm:px-4 overflow-hidden">
           {loading ? (
             <ReviewSkeleton />
-          ) : reviews.length === 0 ? (
+          ) : reviewsData.length === 0 ? (
             <div className="h-64 sm:h-72 md:h-80 flex items-center justify-center border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl">
               <p className="text-sm opacity-70 tracking-wide px-4 text-center">
                 No Reviews found
@@ -156,36 +132,33 @@ const Reviews = () => {
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  /* DRAG SUPPORT */
                   drag="x"
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.15}
                   onDragStart={() => setIsPaused(true)}
                   onDragEnd={(e, { offset, velocity }) => {
                     const swipe = swipePower(offset.x, velocity.x);
-
                     if (swipe < -swipeConfidenceThreshold) {
-                      // Swipe Left → Next
-                      setIndex(([prev]) => [(prev + 1) % reviews.length, 1]);
-                    } else if (swipe > swipeConfidenceThreshold) {
-                      // Swipe Right → Previous
                       setIndex(([prev]) => [
-                        prev === 0 ? reviews.length - 1 : prev - 1,
+                        (prev + 1) % reviewsData.length,
+                        1,
+                      ]);
+                    } else if (swipe > swipeConfidenceThreshold) {
+                      setIndex(([prev]) => [
+                        prev === 0 ? reviewsData.length - 1 : prev - 1,
                         -1,
                       ]);
                     }
-
                     setIsPaused(false);
                   }}
                   onDoubleClick={handleDoubleClick}
                   onMouseUp={handleHoldRelease}
                   onMouseLeave={handleHoldRelease}
                   onTouchEnd={handleHoldRelease}
-                  transition={{
-                    layout: { duration: 0.45, ease: easeInOut },
-                  }}
-                  className=" border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none cursor-grab active:cursor-grabbing "
+                  transition={{ layout: { duration: 0.45, ease: easeInOut } }}
+                  className="border border-[var(--border-light)] bg-[var(--bg-secondary)] min-h-60 rounded-sm overflow-hidden select-none cursor-grab active:cursor-grabbing"
                 >
+                  {/* rest of your card content remains the same */}
                   <div className="flex flex-col sm:flex-row items-start sm:items-center p-4 sm:p-6">
                     <div className="relative mb-4 sm:mb-0 sm:mr-6 w-[88px] h-[88px] flex-shrink-0">
                       <svg className="absolute w-full h-full rotate-[-90deg]">
@@ -218,43 +191,29 @@ const Reviews = () => {
                         />
                       </svg>
 
-                      {item.image_url && item.image_url.startsWith("http") ? (
-                        <div className="relative h-16 w-16 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                          {/* Skeleton */}
-                          {!loadedImages[item.id] && (
-                            <div className="absolute inset-0 rounded-full p-1 bg-[var(--bg-secondary)] text-[var(--text-secondary)] border-2 border-[var(--accent-primary)] animate-pulse flex justify-center items-center">
-                              <User />
-                            </div>
-                          )}
-
-                          {/* Image */}
-                          <img
-                            loading="lazy"
-                            src={item.image_url}
-                            alt={item.name}
-                            onLoad={() => handleImageLoad(item.id)}
-                            className={` h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)] transition-opacity duration-500 ${
-                              loadedImages[item.id]
-                                ? "opacity-100"
-                                : "opacity-0"
-                            }`}
-                          />
-                        </div>
-                      ) : (
-                        <div className="h-16 w-16 flex items-center justify-center rounded-full bg-[var(--accent-primary)]/15 border border-[var(--accent-primary)]/30 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                          <User
-                            size={26}
-                            className="text-[var(--accent-primary)]"
-                          />
-                        </div>
-                      )}
+                      <div className="relative h-16 w-16 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        {!loadedImages[item.id] && (
+                          <div className="absolute inset-0 rounded-full p-1 bg-[var(--bg-secondary)] text-[var(--text-secondary)] border-2 border-[var(--accent-primary)] animate-pulse flex justify-center items-center">
+                            <User />
+                          </div>
+                        )}
+                        <img
+                          loading="lazy"
+                          src={item.photo}
+                          alt={item.name}
+                          onLoad={() => handleImageLoad(item.id)}
+                          className={`h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)] transition-opacity duration-500 ${
+                            loadedImages[item.id] ? "opacity-100" : "opacity-0"
+                          }`}
+                        />
+                      </div>
                     </div>
 
                     <div className="flex-1">
                       <h1 className="font-semibold text-lg sm:text-xl">
                         {item.name}
                       </h1>
-                      <p className="text-sm opacity-70 mt-1">{item.role}</p>
+                      <p className="text-sm opacity-70 mt-1">{item.position}</p>
                     </div>
                   </div>
 
@@ -280,7 +239,7 @@ const Reviews = () => {
                   onClick={() =>
                     window.open(
                       "https://www.linkedin.com/in/joydeep-paul-06b37926a",
-                      "_blank"
+                      "_blank",
                     )
                   }
                   className="flex items-center gap-2 border-b pb-1 text-sm hover:text-[var(--accent-primary)] text-[var(--text-secondary)]/70 whitespace-nowrap"
@@ -302,6 +261,7 @@ const Reviews = () => {
             </>
           )}
         </div>
+
         <div className="md:hidden justify-center flex">
           <LeaveReview />
         </div>
