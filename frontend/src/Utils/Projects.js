@@ -3,14 +3,14 @@ import medcare from "../assets/thumbnail/medcare.png";
 import movie from "../assets/thumbnail/movie.png";
 import img2 from "../assets/thumbnail/keepnotes.png";
 import wtsp from '../assets/thumbnail/wtsp.png'
-
+import school from "../assets/thumbnail/school.png";
 export const projects = [
   {
     id: "whatsapp-clone",
     title: "WhatsApp Clone",
     category: "Full Stack Application",
     year: 2026,
-    thumbnail: wtsp, 
+    thumbnail: wtsp,
     navigate: "/whatsapp",
     liveLink: "",
 
@@ -175,6 +175,40 @@ export const projects = [
       "Performance-optimized rendering using GPU acceleration",
       "Responsive canvas adapting to different screen sizes",
       "Creative UI blending traditional DOM with 3D elements",
+    ],
+  },
+  {
+    id: "school-website",
+    title: "Modern School Website",
+    category: "Frontend Application",
+    year: 2026,
+    thumbnail: school,
+    navigate: "/school",
+    liveLink: "https://davrnp.netlify.app/",
+
+    shortDescription:
+      "A modern, fully responsive school website with admin-based layout control, dynamic content sections, and smooth animated UI.",
+
+    description:
+      "Modern School Website is a responsive React-based web application designed to represent a professional educational institution online. The project focuses on clean UI architecture, dynamic component rendering, and smooth user experience. It includes conditional layout rendering based on admin authentication, reusable section components, and a fully customized light/dark theme system using CSS variables. Animations powered by Framer Motion and GSAP enhance visual engagement while maintaining performance and scalability.",
+
+    techStack: [
+      "React.js",
+      "React Router",
+      "Framer Motion",
+      "GSAP",
+      "CSS Variables (Custom Theme System)",
+      "Responsive Design",
+    ],
+
+    features: [
+      "Admin-based conditional layout rendering",
+      "Reusable and scalable component architecture",
+      "Custom light/dark theme toggle using CSS variables",
+      "Smooth page transitions using Framer Motion",
+      "Scroll-triggered animations with GSAP",
+      "Fully responsive design for all devices",
+      "Modern UI with clean typography and spacing system",
     ],
   },
 ];
