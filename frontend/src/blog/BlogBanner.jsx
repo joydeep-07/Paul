@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import blogImage from "../assets/blog/ui.jpg";
-import blogVid from '../assets/blog/short.mp4'
+import blogVid from "../assets/blog/short.mp4";
 import { Link } from "react-router-dom";
 import ProjectHeading from "../Components/ProjectHeading";
 
@@ -64,9 +64,7 @@ const BlogBanner = () => {
             >
               {/* IMAGE */}
               {/* MEDIA */}
-              <div
-                className="relative overflow-hidden rounded-xl m-5 block group"
-              >
+              <div className="relative overflow-hidden rounded-xl m-5 block group">
                 {!loaded && (
                   <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse z-20" />
                 )}
