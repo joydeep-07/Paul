@@ -184,7 +184,7 @@ const Reviews = () => {
                   transition={{
                     layout: { duration: 0.45, ease: easeInOut },
                   }}
-                  className=" border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl overflow-hidden select-none cursor-grab active:cursor-grabbing "
+                  className=" border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-lg min-h-100 md:min-h-59 overflow-hidden select-none cursor-grab active:cursor-grabbing "
                 >
                   <div className="flex flex-col sm:flex-row items-start sm:items-center p-4 sm:p-6">
                     <div className="relative mb-4 sm:mb-0 sm:mr-6 w-[88px] h-[88px] flex-shrink-0">
@@ -263,7 +263,7 @@ const Reviews = () => {
                     className="px-4 sm:px-6 pb-4 sm:pb-6 text-justify"
                   >
                     {isExpanded ? item.review : shortText}
-                    {words.length > 40 && (
+                    {words.length > 35 && (
                       <span
                         onClick={() => toggleReadMore(item.id)}
                         className="cursor-pointer text-[var(--accent-primary)] font-medium ml-1"
