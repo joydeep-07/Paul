@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { supabase } from "../supabaseClient";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 
@@ -36,34 +37,51 @@ const LeaveReview = () => {
   const onSubmit = async (data) => {
     setLoading(true);
 
+    let imageUrl = null;
+
     try {
-      // ────────────────────────────────────────────────
-      // Just print the form data to console
-      console.log("Submitted review data:", {
-        name: data.name,
-        role: data.role,
-        review: data.review,
-        image: data.image?.[0]
-          ? {
-              name: data.image[0].name,
-              size: data.image[0].size,
-              type: data.image[0].type,
-              // file: data.image[0]  ← you can log the File object if needed
-            }
-          : null,
-      });
+      /* ---------- Upload Image if provided ---------- */
+      if (data.image?.[0]) {
+        const file = data.image[0];
+        const fileExt = file.name.split(".").pop();
+        const fileName = `${Date.now()}-${Math.random()
+          .toString(36)
+          .substring(2)}.${fileExt}`;
 
-      // You can also do this for a more raw view:
-      console.log("Raw form data:", data);
+        const { error: uploadError } = await supabase.storage
+          .from("review-images")
+          .upload(fileName, file, {
+            cacheControl: "3600",
+            upsert: false,
+          });
 
-      // ────────────────────────────────────────────────
+        if (uploadError) throw uploadError;
 
-      toast.success("Review submitted successfully 🎉 (check console)");
+        const { data: publicUrlData } = supabase.storage
+          .from("review-images")
+          .getPublicUrl(fileName);
+
+        imageUrl = publicUrlData.publicUrl;
+      }
+
+      /* ---------- Insert Review ---------- */
+      const { error } = await supabase.from("reviews").insert([
+        {
+          name: data.name,
+          role: data.role,
+          image_url: imageUrl,
+          review: data.review,
+        },
+      ]);
+
+      if (error) throw error;
+
+      toast.success("Review submitted successfully 🎉");
       reset();
       setOpen(false);
     } catch (err) {
-      console.error("Submission error:", err);
-      toast.error("Something went wrong");
+      console.error(err);
+      toast.error("Failed to submit review");
     } finally {
       setLoading(false);
     }
