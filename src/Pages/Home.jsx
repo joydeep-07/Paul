@@ -14,7 +14,7 @@ const Home = () => {
       <AboutMe />
       <TopProject />
       <Reviews />
-      <BlogBanner />
+      {/* <BlogBanner /> */}
       {/* <NewsletterSection /> */}
       <WorkBadge />
       <Footer />
