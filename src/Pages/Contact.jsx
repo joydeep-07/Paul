@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import ContactFaq from "../Components/ContactFaq";
 import Footer from "../layout/Footer";
 import { User } from "lucide-react";
+import { TextField, Button, Box, Alert } from "@mui/material";
 
 const Contact = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -95,7 +96,7 @@ const Contact = () => {
 
       if (error) throw error;
 
-      toast.success("Message sent");
+      // toast.success("Message sent");
       setSubmitSuccess(true);
       setFormData({ name: "", email: "", message: "" });
 
@@ -120,7 +121,7 @@ const Contact = () => {
 
             <div className="mt-2 mb-6 h-[2px] w-16 bg-[var(--accent-primary)] rounded-full" />
 
-            <h1 className="heading-font text-4xl md:text-5xl mb-4">
+            <h1 className="heading-font text-4xl md:text-6xl mb-4">
               Let's Start a{" "}
               <span className="text-[var(--accent-primary)]">Conversation</span>
             </h1>
@@ -174,88 +175,114 @@ const Contact = () => {
 
             {/* Left - Form */}
             <div className="w-full lg:w-1/2 rounded-2xl p-6">
-              <form className="space-y-6" onSubmit={handleSubmit}>
-                {/* Name */}
-                <div>
-                  <label className="block text-xs uppercase tracking-wide mb-2 opacity-70">
-                    Name
-                  </label>
-                  <input
+              <form onSubmit={handleSubmit}>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  gap={3}
+                  sx={{
+                    "& .MuiInputLabel-root": {
+                      color: "var(--text-secondary)",
+                    },
+
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "var(--accent-primary)",
+                    },
+
+                    "& .MuiOutlinedInput-root": {
+                      color: "var(--text-main)",
+                      backgroundColor: "transparent",
+
+                      "& fieldset": {
+                        borderColor: "var(--border-light)",
+                      },
+
+                      "&:hover fieldset": {
+                        borderColor: "var(--accent-primary)",
+                      },
+
+                      "&.Mui-focused fieldset": {
+                        borderColor: "var(--accent-primary)",
+                      },
+                    },
+
+                    "& .MuiFormHelperText-root": {
+                      color: "var(--text-secondary)",
+                    },
+
+                    "& .Mui-error": {
+                      color: "#ef4444",
+                    },
+                  }}
+                >
+                  {/* Name */}
+                  <TextField
+                    label="Name"
                     name="name"
+                    variant="outlined"
+                    fullWidth
                     value={formData.name}
                     onChange={handleChange}
                     onFocus={handleFocus}
-                    placeholder="Your name"
-                    className="w-full bg-transparent border-b border-[var(--border-light)]
-                    focus:border-[var(--accent-primary)] outline-none py-2.5 text-sm transition"
+                    error={!!errors.name}
+                    helperText={errors.name}
                   />
-                  {errors.name && (
-                    <p className="text-xs text-red-400 mt-1">{errors.name}</p>
-                  )}
-                </div>
 
-                {/* Email */}
-                <div>
-                  <label className="block text-xs uppercase tracking-wide mb-2 opacity-70">
-                    Email
-                  </label>
-                  <input
+                  {/* Email */}
+                  <TextField
+                    label="Email"
                     name="email"
                     type="email"
+                    variant="outlined"
+                    fullWidth
                     value={formData.email}
                     onChange={handleChange}
                     onFocus={handleFocus}
-                    placeholder="Enter your email"
-                    className="w-full bg-transparent border-b border-[var(--border-light)]
-                    focus:border-[var(--accent-primary)] outline-none py-2.5 text-sm transition"
+                    error={!!errors.email}
+                    helperText={errors.email}
                   />
-                  {errors.email && (
-                    <p className="text-xs text-red-400 mt-1">{errors.email}</p>
-                  )}
-                </div>
 
-                {/* Message */}
-                <div>
-                  <label className="block text-xs uppercase tracking-wide mb-2 opacity-70">
-                    Message
-                  </label>
-                  <textarea
+                  {/* Message */}
+                  <TextField
+                    label="Message"
                     name="message"
-                    rows="4"
+                    multiline
+                    rows={4}
+                    variant="outlined"
+                    fullWidth
                     value={formData.message}
                     onChange={handleChange}
                     onFocus={handleFocus}
-                    placeholder="Your message..."
-                    className="w-full bg-transparent border border-[var(--border-light)]
-                    focus:border-[var(--accent-primary)] outline-none rounded-xl
-                    p-3.5 text-sm resize-none transition"
+                    error={!!errors.message}
+                    helperText={errors.message}
                   />
-                  {errors.message && (
-                    <p className="text-xs text-red-400 mt-1">
-                      {errors.message}
-                    </p>
+
+                  {/* Button */}
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    disabled={isSubmitting}
+                    sx={{
+                      borderRadius: "30px",
+                      padding: "10px",
+                      textTransform: "none",
+                      fontSize: "14px",
+                      backgroundColor: "var(--accent-primary)",
+                      color: "#fff",
+
+                      "&:hover": {
+                        backgroundColor: "var(--accent-primary)",
+                        opacity: 0.9,
+                      },
+                    }}
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </Button>
+
+                  {submitSuccess && (
+                    <Alert severity="success">Message sent successfully!</Alert>
                   )}
-                </div>
-
-                {/* Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`px-6 py-3 text-sm rounded-full border border-[var(--border-light)]
-                  transition-all duration-500 ${
-                    isSubmitting
-                      ? "opacity-50 cursor-not-allowed"
-                      : "hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
-                  }`}
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </button>
-
-                {submitSuccess && (
-                  <p className="text-sm text-green-400 mt-2">
-                    Message sent successfully!
-                  </p>
-                )}
+                </Box>
               </form>
             </div>
           </div>
