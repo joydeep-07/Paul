@@ -7,7 +7,7 @@ const Scale = () => {
 
   const y = useTransform(scrollY, [0, 4500], [0, -1800]);
 
-  const opacity = useTransform(scrollY, [0, 1200, 3000], [0.3, 1, 0.3]);
+  const opacity = useTransform(scrollY, [0, 1200, 3000], [0.5, 1, 0.5]);
   const scale = useTransform(scrollY, [0, 1200, 3000], [0.92, 1.08, 0.92]);
 
   const marks = Array.from({ length: 451 });
