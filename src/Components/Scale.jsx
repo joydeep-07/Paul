@@ -54,7 +54,7 @@ const Scale = () => {
         transition={{ duration: 0.8 }}
       >
         {/* Center indicator */}
-        <div className="absolute inset-0 flex items-center pointer-events-none">
+        <div className="absolute z-100 inset-0 flex items-center pointer-events-none">
           <div className="w-[5px] bg-red-600 h-[1.5px]" />
         </div>
 
