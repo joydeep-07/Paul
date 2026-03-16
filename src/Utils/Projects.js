@@ -4,6 +4,7 @@ import movie from "../assets/thumbnail/movie.png";
 import img2 from "../assets/thumbnail/keepnotes.png";
 import wtsp from '../assets/thumbnail/wtsp.png'
 import school from "../assets/thumbnail/school.png";
+import rentease from "../assets/thumbnail/rentease.png";
 export const projects = [
   {
     id: "whatsapp-clone",
@@ -209,6 +210,41 @@ export const projects = [
       "Scroll-triggered animations with GSAP",
       "Fully responsive design for all devices",
       "Modern UI with clean typography and spacing system",
+    ],
+  },
+  {
+    id: "rentease",
+    title: "RentEase – Bike Rental Interface",
+    category: "Frontend Application",
+    year: 2026,
+    thumbnail: rentease,
+    navigate: "/rentease",
+    liveLink: "https://rease.netlify.app/",
+
+    shortDescription:
+      "A modern React-based bike rental interface that allows users to browse bikes, view rental details, and manage active rentals through a clean dashboard UI.",
+
+    description:
+      "RentEase is a modern frontend bike rental interface built with React.js. The project focuses on creating a clean and intuitive user experience for browsing bikes and managing rentals. Users can explore different bike categories, view detailed information about available bikes, and check their active rentals through a structured dashboard layout. The application uses reusable component architecture, responsive design principles, and smooth UI interactions to create a scalable and visually appealing rental platform interface.",
+
+    techStack: [
+      "React.js",
+      "React Router",
+      "Tailwind CSS",
+      "CSS Variables (Custom Theme System)",
+      "GSAP",
+      "Responsive Design",
+    ],
+
+    features: [
+      "Modern bike rental browsing interface",
+      "Featured bikes section with category filtering",
+      "Active rentals dashboard layout",
+      "Detailed bike information cards",
+      "Reusable and scalable React component structure",
+      "Responsive design for mobile, tablet, and desktop",
+      "Smooth UI interactions and animations",
+      "Clean and minimal dashboard-style UI",
     ],
   },
 ];
