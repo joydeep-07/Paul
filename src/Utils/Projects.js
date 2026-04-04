@@ -5,7 +5,43 @@ import img2 from "../assets/thumbnail/keepnotes.png";
 import wtsp from '../assets/thumbnail/wtsp.png'
 import school from "../assets/thumbnail/school.png";
 import rentease from "../assets/thumbnail/rentease.png";
+import templeImg from "../assets/thumbnail/bharat.png";
 export const projects = [
+
+  {
+  id: "bharat-vraman",
+  title: "Bharat Vraman",
+  category: "Frontend Web Application",
+  year: 2026,
+  thumbnail: templeImg, // replace with your actual image import
+  navigate: "/bharat-vraman",
+  liveLink: "",
+
+  shortDescription:
+    "A beautifully designed temple exploration platform showcasing famous Indian temples with detailed information and smooth UI experience.",
+
+  description:
+    "Temple Explorer is a modern web application built using React.js that allows users to explore famous temples across India. The project displays temples in a visually appealing grid layout with images, names, and locations. Each temple has a dedicated detail page powered by dynamic routing using slugs, where users can view complete information such as deity, history, location, timings, and significance. The UI focuses on aesthetic design with smooth animations, responsive layout, and reusable components. The project emphasizes clean frontend architecture, user-friendly navigation, and scalable data handling.",
+
+  techStack: [
+    "React.js",
+    "React Router",
+    "JavaScript (ES6+)",
+    "Tailwind CSS",
+    "Responsive Design",
+  ],
+
+  features: [
+    "Dynamic temple listing in grid layout with image, name, and state",
+    "Slug-based routing for individual temple detail pages",
+    "Detailed temple information including deity, history, and location",
+    "Reusable component structure for scalability",
+    "Modern UI with smooth animations and clean design",
+    "Responsive layout for mobile, tablet, and desktop",
+    "Optimized performance with efficient rendering",
+  ],
+},
+
   {
     id: "whatsapp-clone",
     title: "WhatsApp Clone",
@@ -214,7 +250,7 @@ export const projects = [
   },
   {
     id: "rentease",
-    title: "RentEase – Bike Rental Interface",
+    title: "RentEase ",
     category: "Frontend Application",
     year: 2026,
     thumbnail: rentease,
@@ -222,7 +258,7 @@ export const projects = [
     liveLink: "https://rease.netlify.app/",
 
     shortDescription:
-      "A modern React-based bike rental interface that allows users to browse bikes, view rental details, and manage active rentals through a clean dashboard UI.",
+      "A modern React-based bike rental interface that allows users to browse rentals, view rental details, and manage active rentals through a clean dashboard UI.",
 
     description:
       "RentEase is a modern frontend bike rental interface built with React.js. The project focuses on creating a clean and intuitive user experience for browsing bikes and managing rentals. Users can explore different bike categories, view detailed information about available bikes, and check their active rentals through a structured dashboard layout. The application uses reusable component architecture, responsive design principles, and smooth UI interactions to create a scalable and visually appealing rental platform interface.",
