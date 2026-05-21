@@ -16,9 +16,9 @@ const NewsletterSection = () => {
             {/* LEFT → TEXT */}
             <div className="flex-1 space-y-6">
               <h3 className="heading-font text-2xl sm:text-[45px] tracking-tight text-[var(--text-main)] leading-tight">
-                Join My{" "}
+                Join{" "}
                 <span className="text-[var(--accent-primary)]">
-                  Developer Newsletter
+                  Developer's Newsletter
                 </span>
               </h3>
 

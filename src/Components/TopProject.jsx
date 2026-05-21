@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import second from "../assets/thumbnail/medcare.png";
+import second from "../assets/thumbnail/bharat.png";
 import ProjectHeading from "./ProjectHeading";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -8,15 +8,15 @@ const TopProject = () => {
   const navigate = useNavigate();
 
   const project = {
-    title: "Appointment Booking System",
+    title: "Bharat Vraman",
     shortDescription:
-      "A full-featured MERN stack platform with real-time slot updates, and automated email confirmations.",
-    year: "2025",
+      "A beautifully designed temple exploration platform showcasing famous Indian temples with detailed information and smooth UI experience.",
+    year: "2026",
     thumbnail: second,
   };
 
   const handleNavigation = ()=>{
-    navigate("/project/medcare");
+    navigate("/project/bharat-vraman");
   }
 
   const handleProjects = () => {
@@ -48,9 +48,7 @@ const TopProject = () => {
             className=" group cursor-pointer rounded-2xl border border-[var(--border-light)]/50 bg-[var(--bg-secondary)]/80 shadow-sm"
           >
             {/* IMAGE */}
-            <div
-              className=" relative overflow-hidden rounded-xl m-5 "
-            >
+            <div className=" relative overflow-hidden rounded-xl m-5 ">
               {!loaded && (
                 <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse" />
               )}
@@ -90,10 +88,13 @@ const TopProject = () => {
             </h3>
 
             <p className="text-[var(--text-secondary)] text-justify leading-relaxed">
-              This platform allows patients to book appointments in real-time,
-              receive automated email confirmations, and manage their medical
-              history securely. The system includes role-based authentication,
-              dynamic slot management, and a clean, responsive UI.
+              Temple Explorer is a modern React.js web application that lets
+              users explore famous temples across India. It showcases temples in
+              a responsive grid layout with images, names, and locations. Each
+              temple includes a dedicated detail page using dynamic routing with
+              slugs, displaying information like deity, history, timings, and
+              significance. The project features a clean UI with smooth
+              animations, reusable components, and user-friendly navigation.
             </p>
 
             <ul className="space-y-3 text-[var(--text-secondary)]">
@@ -102,28 +103,28 @@ const TopProject = () => {
                 <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
                   ✓
                 </span>{" "}
-                Real-time slot updates
-              </li>
-              <li>
-                {" "}
-                <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
-                  ✓
-                </span>{" "}
-                Secure JWT authentication
-              </li>
-              <li>
-                {" "}
-                <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
-                  ✓
-                </span>{" "}
-                Email notifications via Nodemailer
-              </li>
-              <li>
-                {" "}
-                <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
-                  ✓
-                </span>{" "}
                 Fully responsive UI
+              </li>
+              <li>
+                {" "}
+                <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
+                  ✓
+                </span>{" "}
+                Built with React.js, React Router, and Tailwind CSS
+              </li>
+              <li>
+                {" "}
+                <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
+                  ✓
+                </span>{" "}
+                Dynamic routing with slugs for temple detail pages
+              </li>
+              <li>
+                {" "}
+                <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
+                  ✓
+                </span>{" "}
+                Responsive grid layout showcasing temples with images and info
               </li>
             </ul>
 
