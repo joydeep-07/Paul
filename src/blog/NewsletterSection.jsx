@@ -1,7 +1,7 @@
 import { Facebook, Instagram, X } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { TextField, Button, Box, Alert } from "@mui/material";
 const NewsletterSection = () => {
   return (
     <div className="bg-[var(--bg-main)] transition-colors duration-300 py-20">
@@ -30,8 +30,8 @@ const NewsletterSection = () => {
             </div>
 
             {/* RIGHT → FORM */}
-            <div className="flex-1 w-full max-w-md">
-              <form className="flex flex-col gap-4">
+            <div className="flex-1 w-full">
+              {/* <form className="flex flex-col gap-4">
                 <input
                   type="email"
                   placeholder="your@email.com"
@@ -67,7 +67,83 @@ const NewsletterSection = () => {
                   <span className="relative z-10">Subscribe</span>
                   <div className="absolute inset-0 rounded-full to-transparent opacity-0 " />
                 </button>
-              </form>
+              </form> */}
+
+              <div className="w-full rounded-2xl ">
+                <form>
+                  <Box
+                    display=""
+                    flexDirection="column"
+                    gap={3}
+                    sx={{
+                      "& .MuiInputLabel-root": {
+                        color: "var(--text-secondary)",
+                      },
+
+                      "& .MuiInputLabel-root.Mui-focused": {
+                        color: "var(--accent-primary)",
+                      },
+
+                      "& .MuiOutlinedInput-root": {
+                        color: "var(--text-main)",
+                        backgroundColor: "transparent",
+
+                        "& fieldset": {
+                          borderColor: "var(--border-light)",
+                        },
+
+                        "&:hover fieldset": {
+                          borderColor: "var(--accent-primary)",
+                        },
+
+                        "&.Mui-focused fieldset": {
+                          borderColor: "var(--accent-primary)",
+                        },
+                      },
+
+                      "& .MuiFormHelperText-root": {
+                        color: "var(--text-secondary)",
+                      },
+
+                      "& .Mui-error": {
+                        color: "#ef4444",
+                      },
+                    }}
+                  >
+                    {/* Email */}
+                    <TextField
+                      label="Enter Your Email"
+                      name="email"
+                      type="email"
+                      variant="outlined"
+                      fullWidth
+                    />
+
+                    {/* Button */}
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      fullWidth
+                      sx={{
+                        borderRadius: "5px",
+                        marginTop: "10px",
+                        padding: "10px",
+                        textTransform: "none",
+                        fontSize: "14px",
+                        backgroundColor: "var(--accent-primary)",
+                        color: "#fff",
+
+                        "&:hover": {
+                          backgroundColor: "var(--accent-primary)",
+                          opacity: 0.9,
+                        },
+                      }}
+                    >
+                      Send Message
+                    </Button>
+                  </Box>
+                </form>
+              </div>
             </div>
           </div>
 
