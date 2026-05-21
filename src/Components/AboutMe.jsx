@@ -59,33 +59,40 @@ const AboutMe = () => {
             <ul className="space-y-3">
               <li className="flex justify-between">
                 <span className="text-xs  text-[var(--text-secondary)] uppercase font-medium">
-                 Bachelors in Computer Applications
+                  Lecturer at Kendriya Vidyalaya
                 </span>
                 <span className="text-[var(--text-main)]/95 uppercase text-xs font-medium">
-                  2022 - 25
+                  2026 / 2027
+                </span>
+              </li>
+
+              <li className="flex justify-between">
+                <span className="text-xs  text-[var(--text-secondary)] uppercase font-medium">
+                  Bachelors in Computer Applications
+                </span>
+                <span className="text-[var(--text-main)]/95 uppercase text-xs font-medium">
+                  2022 / 2025
                 </span>
               </li>
 
               <li className="flex justify-between">
                 <span className="text-xs uppercase  text-[var(--text-secondary)] font-medium">
-                  Mern Development 
+                  Mern Development
                 </span>
                 <span className="text-[var(--text-main)]/95 uppercase text-xs font-medium">
-                  2024  KOLKATA
+                  2024 KOLKATA
                 </span>
               </li>
 
               <li className="flex justify-between">
                 <span className="text-xs uppercase  text-[var(--text-secondary)] font-medium">
-                 Matric & Higher Secondary
+                  Matric & Higher Secondary
                 </span>
                 <span className="text-[var(--text-main)]/95 uppercase text-xs font-medium">
                   DAV 2020 / 2022
                 </span>
               </li>
             </ul>
-
-           
           </div>
         </div>
       </div>
