@@ -87,7 +87,7 @@ const TopProject = () => {
               <span className="text-[var(--accent-primary)] ">Stands Out</span>
             </h3>
 
-            <p className="text-[var(--text-secondary)] text-justify leading-relaxed">
+            <p className="text-[var(--text-secondary)] text-sm text-justify leading-relaxed">
               Temple Explorer is a modern React.js web application that lets
               users explore famous temples across India. It showcases temples in
               a responsive grid layout with images, names, and locations. Each
@@ -97,7 +97,7 @@ const TopProject = () => {
               animations, reusable components, and user-friendly navigation.
             </p>
 
-            <ul className="space-y-3 text-[var(--text-secondary)]">
+            <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
               <li>
                 {" "}
                 <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
@@ -119,13 +119,7 @@ const TopProject = () => {
                 </span>{" "}
                 Dynamic routing with slugs for temple detail pages
               </li>
-              <li>
-                {" "}
-                <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
-                  ✓
-                </span>{" "}
-                Responsive grid layout showcasing temples with images and info
-              </li>
+              
             </ul>
 
             <div className=" py-5 flex justify-center md:justify-start ">

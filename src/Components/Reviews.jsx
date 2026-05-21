@@ -260,7 +260,7 @@ const Reviews = () => {
 
                   <motion.p
                     layout
-                    className="px-4 sm:px-6 pb-4 sm:pb-6 text-justify"
+                    className="px-4 sm:px-6 pb-4 sm:pb-6 text-sm text-justify"
                   >
                     {isExpanded ? item.review : shortText}
                     {words.length > 45 && (
