@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import me from "../assets/images/main2.png";
+import me from "../assets/images/main1.png";
 import CircularText from "./CircularText";
 import { User } from "lucide-react";
 import DownloadModal from "./DownloadModal";
