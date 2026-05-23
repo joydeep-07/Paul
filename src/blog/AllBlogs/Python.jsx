@@ -307,7 +307,7 @@ const Python = () => {
         />
 
         <main className="container mx-auto pb-20">
-          <div className="max-w-8xl mx-auto md:px-16 space-y-14">
+          <div className="max-w-8xl mx-auto md:px-16 px-6 space-y-14">
             <h1 className="heading-font text-2xl md:text-5xl mb-8 text-left">
               About Python
             </h1>
