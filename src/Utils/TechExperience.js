@@ -1,17 +1,55 @@
-import { FaReact } from "react-icons/fa";
+import { FaReact, FaNodeJs, FaPython } from "react-icons/fa";
+
 import {
   SiFramer,
-  SiGreensock,
   SiAxios,
-  SiReactquery,
   SiTypescript,
-  SiNextdotjs,
-  SiScrollreveal,
+  SiExpress,
+  SiMongodb,
+  SiMui,
+  SiBootstrap,
+  SiC,
 } from "react-icons/si";
+
 export const libraries = [
   {
+    id: 4,
+    name: "MongoDB",
+    description:
+      "A NoSQL database designed for modern applications with flexible document-based data storage.",
+    points: [
+      "Stores data in JSON-like documents",
+      "Highly scalable database system",
+      "Flexible schema structure",
+      "Excellent for real-time applications",
+      "Works perfectly with Node.js",
+      "Efficient querying and indexing",
+      "Core database of the MERN stack",
+    ],
+    url: "https://www.mongodb.com/",
+    icon: SiMongodb,
+  },
+
+  {
+    id: 3,
+    name: "Express.js",
+    description:
+      "A minimal and flexible Node.js framework used for building powerful backend APIs and web applications.",
+    points: [
+      "Simplifies backend server development",
+      "Fast routing and middleware support",
+      "Ideal for REST API creation",
+      "Works seamlessly with MongoDB",
+      "Lightweight and highly scalable",
+      "Supports authentication and middleware",
+      "Widely used in MERN stack applications",
+    ],
+    url: "https://expressjs.com/",
+    icon: SiExpress,
+  },
+  {
     id: 1,
-    name: "React",
+    name: "React.js",
     description:
       "A powerful JavaScript library for building fast, scalable, and component-based user interfaces with a declarative approach.",
     points: [
@@ -26,6 +64,24 @@ export const libraries = [
     url: "https://react.dev/",
     icon: FaReact,
   },
+  {
+    id: 5,
+    name: "Node.js",
+    description:
+      "A fast and scalable JavaScript runtime environment used for backend development and server-side applications.",
+    points: [
+      "Runs JavaScript outside the browser",
+      "Event-driven and non-blocking architecture",
+      "Excellent for scalable applications",
+      "Huge npm ecosystem support",
+      "Efficient for APIs and real-time apps",
+      "Works seamlessly with Express.js",
+      "Perfect for full-stack JavaScript development",
+    ],
+    url: "https://nodejs.org/",
+    icon: FaNodeJs,
+  },
+
   {
     id: 2,
     name: "Framer Motion",
@@ -43,60 +99,81 @@ export const libraries = [
     url: "https://www.framer.com/motion/",
     icon: SiFramer,
   },
-  {
-    id: 3,
-    name: "GSAP",
-    description:
-      "A high-performance JavaScript animation library used for creating complex, timeline-based animations with unmatched smoothness and control.",
-    points: [
-      "Timeline-based animation control",
-      "Extremely high performance even on complex animations",
-      "Frame-perfect precision",
-      "Works with any JavaScript framework",
-      "Advanced easing and motion curves",
-      "Ideal for complex UI and motion-heavy websites",
-      "Industry standard for professional animations",
-    ],
-    url: "https://gsap.com/",
-    icon: SiScrollreveal,
-  },
-  // {
-  //   id: 4,
-  //   name: "GSAP ScrollTrigger",
-  //   description:
-  //     "A GSAP plugin that allows animations to be precisely controlled based on scroll position.",
-  //   points: [
-  //     "Scroll-based animation triggering",
-  //     "Pin elements during scroll",
-  //     "Scrub animations tied to scroll position",
-  //     "Create immersive parallax effects",
-  //     "Works perfectly with GSAP timelines",
-  //     "Fine-grained control over animation timing",
-  //     "Ideal for storytelling and portfolio websites",
-  //   ],
-  //   url: "https://gsap.com/scrolltrigger/",
-  //   icon: SiScrollreveal,
-  // },
-  
-  // {
-  //   id: 5,
-  //   name: "AOS (Animate On Scroll)",
-  //   description:
-  //     "A lightweight animation library that triggers smooth entrance animations when elements scroll into view.",
-  //   points: [
-  //     "Very easy to set up and use",
-  //     "Scroll-triggered entrance animations",
-  //     "Lightweight and performance-friendly",
-  //     "Minimal configuration required",
-  //     "Supports fade, zoom, slide animations",
-  //     "Good for simple UI animations",
-  //     "Perfect for landing pages",
-  //   ],
-  //   url: "https://michalsnik.github.io/aos/",
-  //   icon: MdAnimation,
-  // },
+
   {
     id: 6,
+    name: "Material UI",
+    description:
+      "A modern React UI framework that provides beautiful, responsive, and production-ready components.",
+    points: [
+      "Pre-designed professional UI components",
+      "Fully responsive design system",
+      "Easy customization with themes",
+      "Improves development speed",
+      "Built specifically for React",
+      "Accessible and optimized components",
+      "Perfect for dashboards and modern apps",
+    ],
+    url: "https://mui.com/",
+    icon: SiMui,
+  },
+
+  {
+    id: 7,
+    name: "Bootstrap",
+    description:
+      "A popular CSS framework used for building responsive and mobile-first websites quickly.",
+    points: [
+      "Responsive grid system",
+      "Prebuilt UI components",
+      "Easy mobile-first development",
+      "Fast styling and prototyping",
+      "Large community support",
+      "Cross-browser compatibility",
+      "Perfect for modern responsive websites",
+    ],
+    url: "https://getbootstrap.com/",
+    icon: SiBootstrap,
+  },
+
+  {
+    id: 8,
+    name: "C Programming",
+    description:
+      "A foundational programming language known for performance, efficiency, and low-level system programming.",
+    points: [
+      "Fast and efficient execution",
+      "Strong programming fundamentals",
+      "Used in operating systems and embedded systems",
+      "Memory management with pointers",
+      "Procedural programming approach",
+      "Excellent for problem-solving skills",
+      "Foundation for many modern languages",
+    ],
+    url: "https://en.wikipedia.org/wiki/C_(programming_language)",
+    icon: SiC,
+  },
+
+  {
+    id: 9,
+    name: "Python",
+    description:
+      "A versatile and beginner-friendly programming language widely used in automation, AI, web development, and data science.",
+    points: [
+      "Simple and readable syntax",
+      "Huge ecosystem of libraries",
+      "Popular in AI and machine learning",
+      "Used for automation and scripting",
+      "Supports web and backend development",
+      "Great for data analysis and visualization",
+      "One of the most in-demand languages",
+    ],
+    url: "https://www.python.org/",
+    icon: FaPython,
+  },
+
+  {
+    id: 10,
     name: "Axios",
     description:
       "A promise-based HTTP client used for making API requests and handling network communication efficiently.",
@@ -112,25 +189,9 @@ export const libraries = [
     url: "https://axios-http.com/",
     icon: SiAxios,
   },
-  // {
-  //   id: 7,
-  //   name: "TanStack Query",
-  //   description:
-  //     "A powerful data-fetching and state management library for server-state handling.",
-  //   points: [
-  //     "Automatic caching and cache invalidation",
-  //     "Background data refetching",
-  //     "Optimistic UI updates",
-  //     "Reduces API-related boilerplate",
-  //     "Built-in loading and error states",
-  //     "Improves app performance",
-  //     "Perfect for scalable React apps",
-  //   ],
-  //   url: "https://tanstack.com/query/latest",
-  //   icon: SiReactquery,
-  // },
+
   {
-    id: 8,
+    id: 11,
     name: "TypeScript",
     description:
       "A strongly typed superset of JavaScript that improves code quality and maintainability.",
@@ -146,21 +207,4 @@ export const libraries = [
     url: "https://www.typescriptlang.org/",
     icon: SiTypescript,
   },
-  // {
-  //   id: 9,
-  //   name: "Next.js",
-  //   description:
-  //     "A React framework for building production-grade applications with performance optimizations.",
-  //   points: [
-  //     "Server-side rendering for better SEO",
-  //     "Static site generation support",
-  //     "File-based routing system",
-  //     "Built-in API routes",
-  //     "Automatic code splitting",
-  //     "Optimized image handling",
-  //     "Ideal for full-stack React apps",
-  //   ],
-  //   url: "https://nextjs.org/",
-  //   icon: SiNextdotjs,
-  // },
 ];
