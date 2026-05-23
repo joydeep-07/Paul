@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import blogImage from "../assets/blog/ui.jpg";
+import blogImage from "../assets/blog/ui2.jpg";
 import blogVid from "../assets/blog/short.mp4";
 import { Link } from "react-router-dom";
 import ProjectHeading from "../Components/ProjectHeading";

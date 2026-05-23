@@ -1,12 +1,13 @@
-import ui1 from '../assets/blog/ui.jpg'
-import ui2 from '../assets/blog/ui2.jpg'
+import ui1 from "../assets/blog/ui.jpg";
+import ui2 from "../assets/blog/ui2.jpg";
+import second from "../assets/blog/python.jpg";
 
 export const blogs = [
   {
     id: 1,
     slug: "mern-architecture",
     title: "Designing Scalable MERN Architecture for Production Apps",
-    img: ui1,
+    img: ui2,
     shortDescription:
       "Learn how to structure large-scale MERN applications using clean architecture, modular folders, and scalable backend design.",
     blog: `
@@ -26,23 +27,30 @@ middlewares, and services for long-term maintainability.
 
   {
     id: 2,
-    slug: "advance-tailwind",
-    title: "JWT Authentication Explained for MERN Developers",
-    img: ui2,
+    slug: "python",
+    title: "Core Python for Beginners",
+    img: second,
     shortDescription:
-      "A complete beginner-to-advanced guide on implementing secure JWT authentication in MERN applications.",
+      "Understand variables, loops, functions, lists, dictionaries, and object-oriented programming concepts in Core Python.",
     blog: `
-This guide explains how JWT works internally, how tokens are generated,
-verified, and stored securely. We implement login, registration,
-protected routes, and role-based access control.
+Core Python forms the foundation of modern software development,
+automation, data science, and backend engineering.
 
-Security best practices like token expiration and HTTP-only cookies
-are also covered.
+In this article, we explore important Python fundamentals including variables,
+data types, conditional statements, loops, functions, lists, tuples,
+dictionaries, and file handling.
+
+You'll also learn how object-oriented programming works in Python using
+classes, constructors, inheritance, and encapsulation concepts.
+
+By mastering Core Python, developers can build strong programming logic
+and prepare themselves for advanced technologies like web development,
+machine learning, and automation.
     `,
-    category: "Security",
-    tags: ["JWT", "Authentication", "Node.js", "Security"],
-    readTime: "6 min read",
-    date: "Jan 2026",
+    category: "Python",
+    tags: ["Python", "Core Python", "Programming", "Functions", "OOP"],
+    readTime: "7 min read",
+    date: "Mar 2026",
     featured: false,
   },
 ];

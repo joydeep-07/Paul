@@ -12,6 +12,7 @@ import { Toaster, toast } from "sonner";
 import Blogs from "./Pages/Blogs";
 import MernArchitectire from "./blog/AllBlogs/MernArchitectire";
 import AdvanceTailwind from "./blog/AllBlogs/AdvanceTailwind";
+import Python from "./blog/AllBlogs/Python";
 
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
@@ -39,6 +40,8 @@ const App = () => {
         // BLOG ROUTES
         { path: "blog/mern-architecture", element: <MernArchitectire /> },
         { path: "blog/advance-tailwind", element: <AdvanceTailwind /> },
+        { path: "blog/python", element: <Python /> },
+
       ],
     },
   ]);
