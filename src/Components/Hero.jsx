@@ -74,7 +74,7 @@ const Hero = () => {
               <button
                 key={item.name}
                 onClick={() => window.open(item.url, "_blank")}
-                className="flex items-center gap-1 sm:gap-2 text-[var(--text-main)] 
+                className="flex cursor-pointer items-center gap-1 sm:gap-2 text-[var(--text-main)] 
                text-[9px] xs:text-[10px] sm:text-xs md:text-sm 
                font-medium uppercase transition-opacity duration-300 
                hover:opacity-100 group-hover:opacity-50 
