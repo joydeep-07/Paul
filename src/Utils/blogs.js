@@ -49,7 +49,7 @@ machine learning, and automation.
     `,
     category: "Python",
     tags: ["Python", "Core Python", "Programming", "Functions", "OOP"],
-    readTime: "7 min read",
+    readTime: "1 hr 30 min read",
     date: "Mar 2026",
     featured: false,
   },

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../../layout/Footer";
 import WorkBadge from "../../Components/WorkBadge";
 import BlogHeading from "../BlogHeading";
+import { Copy, Check } from "lucide-react";
 
 const sections = [
   {
@@ -292,6 +293,21 @@ print(squares)`,
 ];
 
 const Python = () => {
+    const [copiedIndex, setCopiedIndex] = useState(null);
+
+    const handleCopy = async (code, index) => {
+      try {
+        await navigator.clipboard.writeText(code);
+
+        setCopiedIndex(index);
+
+        setTimeout(() => {
+          setCopiedIndex(null);
+        }, 2000);
+      } catch (err) {
+        console.error("Copy failed:", err);
+      }
+    };
   return (
     <>
       <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]">
@@ -404,18 +420,37 @@ const Python = () => {
                   </p>
                 </div>
                 {/* Code Block UI Kept Same */}
-                <div className="bg-black/60 md:w-1/2 rounded-2xl overflow-hidden border border-white/10">
-                  <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                <div className="bg-[var(--bg-secondary)] md:w-1/2 rounded-2xl overflow-hidden border border-white/10">
+                  <div className="flex items-center justify-between px-5 py-3 border-b border-white/10 bg-white/5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
 
-                    <span className="ml-3 text-sm text-gray-400">
-                      example.py
-                    </span>
+                      <span className="ml-3 text-sm text-gray-400">
+                        example.py
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={() => handleCopy(section.code, index)}
+                      className="flex items-center gap-2 text-xs px-3 py-1.5 rounded-lg cursor-pointer transition-all text-gray-300"
+                    >
+                      {copiedIndex === index ? (
+                        <>
+                          <Check size={14} />
+                          
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={14} />
+                          
+                        </>
+                      )}
+                    </button>
                   </div>
 
-                  <pre className="p-6 overflow-x-auto text-sm md:text-base text-green-400">
+                  <pre className="p-6 overflow-x-auto text-sm md:text-base text-[var(--accent-primary)]">
                     <code>{section.code}</code>
                   </pre>
                 </div>
