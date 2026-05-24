@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import SplitText from "./SplitText";
 
 const WorkBadge = () => {
   const navigate = useNavigate();
@@ -18,14 +19,46 @@ const WorkBadge = () => {
         </div>
 
         {/* Heading */}
-        <h1 className="text-2xl heading-font xs:text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(-text--main)] leading-tight px-2 sm:px-0">
+        {/* <h1 className="text-2xl heading-font xs:text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(-text--main)] leading-tight px-2 sm:px-0">
           Let's{" "}
           <span className="text-[var(--accent-primary)]">
             {" "}
             create your <br /> next big
           </span>{" "}
           idea.
-        </h1>
+        </h1> */}
+
+        <SplitText
+          text="Let's create your"
+          className="text-2xl heading-font xs:text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(-text--main)] leading-tight px-2 sm:px-0"
+          delay={50}
+          duration={1.25}
+          ease="power3.out"
+          splitType="chars"
+          from={{ opacity: 0, y: 40 }}
+          to={{ opacity: 1, y: 0 }}
+          threshold={0.1}
+          rootMargin="-100px"
+          textAlign="center"
+          // onLetterAnimationComplete={handleAnimationComplete}
+          showCallback
+        />
+
+        <SplitText
+          text="next big idea."
+          className="text-2xl heading-font xs:text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--accent-primary)] leading-tight px-2 sm:px-0"
+          delay={75}
+          duration={1.25}
+          ease="power3.out"
+          splitType="chars"
+          from={{ opacity: 0, y: 40 }}
+          to={{ opacity: 1, y: 0 }}
+          threshold={0.1}
+          rootMargin="-100px"
+          textAlign="center"
+          // onLetterAnimationComplete={handleAnimationComplete}
+          showCallback
+        />
 
         {/* Contact button */}
         <button
