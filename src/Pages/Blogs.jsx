@@ -16,7 +16,7 @@ const Blogs = () => {
   return (
     <>
       <div className="bg-[var(--bg-main)] min-h-screen transition-colors pt-25 duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-0 lg:px-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-0  lg:px-0">
           <ProjectHeading
             small="Blog Section"
             heading={
@@ -31,7 +31,7 @@ const Blogs = () => {
           />
 
           {/* Cards Wrapper */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 ">
             {blogs.map((blog) => (
               <Link key={blog.id} to={`/blog/${blog.slug}`} className="w-full">
                 <div
@@ -39,7 +39,7 @@ const Blogs = () => {
                 >
                   {/* IMAGE */}
                   <div
-                    className=" relative overflow-hidden rounded-sm m-5 sm:h-[280px] md:h-[300px] lg:h-[320px] bg-[var(--bg-secondary)]"
+                    className=" relative overflow-hidden rounded-sm m-3 md:m-5 sm:h-[280px] md:h-[300px] lg:h-[320px] bg-[var(--bg-secondary)]"
                   >
                     {blog.img ? (
                       <img
