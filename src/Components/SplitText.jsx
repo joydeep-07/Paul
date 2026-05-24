@@ -17,8 +17,9 @@ const SplitText = ({
   to = { opacity: 1, y: 0 },
   threshold = 0.1,
   rootMargin = "-100px",
-  textAlign = "center",
-  tag = "p",
+  textAlign = "left",
+  tag = "span",
+  inline = true,
   onLetterAnimationComplete,
 }) => {
   const ref = useRef(null);
@@ -26,7 +27,6 @@ const SplitText = ({
   const onCompleteRef = useRef(onLetterAnimationComplete);
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
-  // Keep callback ref updated
   useEffect(() => {
     onCompleteRef.current = onLetterAnimationComplete;
   }, [onLetterAnimationComplete]);
@@ -44,39 +44,46 @@ const SplitText = ({
   useGSAP(
     () => {
       if (!ref.current || !text || !fontsLoaded) return;
-      // Prevent re-animation if already completed
       if (animationCompletedRef.current) return;
+
       const el = ref.current;
 
       if (el._rbsplitInstance) {
         try {
           el._rbsplitInstance.revert();
-        } catch (_) {
-          /* ignore */
-        }
+        } catch (_) {}
         el._rbsplitInstance = null;
       }
 
       const startPct = (1 - threshold) * 100;
+
       const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
+
       const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
+
       const marginUnit = marginMatch ? marginMatch[2] || "px" : "px";
+
       const sign =
         marginValue === 0
           ? ""
           : marginValue < 0
             ? `-=${Math.abs(marginValue)}${marginUnit}`
             : `+=${marginValue}${marginUnit}`;
+
       const start = `top ${startPct}%${sign}`;
 
       let targets;
+
       const assignTargets = (self) => {
         if (splitType.includes("chars") && self.chars.length)
           targets = self.chars;
+
         if (!targets && splitType.includes("words") && self.words.length)
           targets = self.words;
+
         if (!targets && splitType.includes("lines") && self.lines.length)
           targets = self.lines;
+
         if (!targets) targets = self.chars || self.words || self.lines;
       };
 
@@ -88,8 +95,10 @@ const SplitText = ({
         wordsClass: "split-word",
         charsClass: "split-char",
         reduceWhiteSpace: false,
+
         onSplit: (self) => {
           assignTargets(self);
+
           return gsap.fromTo(
             targets,
             { ...from },
@@ -98,6 +107,7 @@ const SplitText = ({
               duration,
               ease,
               stagger: delay / 1000,
+
               scrollTrigger: {
                 trigger: el,
                 start,
@@ -105,27 +115,30 @@ const SplitText = ({
                 fastScrollEnd: true,
                 anticipatePin: 0.4,
               },
+
               onComplete: () => {
                 animationCompletedRef.current = true;
                 onCompleteRef.current?.();
               },
+
               willChange: "transform, opacity",
               force3D: true,
             },
           );
         },
       });
+
       el._rbsplitInstance = splitInstance;
 
       return () => {
         ScrollTrigger.getAll().forEach((st) => {
           if (st.trigger === el) st.kill();
         });
+
         try {
           splitInstance.revert();
-        } catch (_) {
-          /* ignore */
-        }
+        } catch (_) {}
+
         el._rbsplitInstance = null;
       };
     },
@@ -146,22 +159,24 @@ const SplitText = ({
     },
   );
 
-  const renderTag = () => {
-    const style = {
-      textAlign,
-      wordWrap: "break-word",
-      willChange: "transform, opacity",
-    };
-    const classes = `split-parent overflow-hidden inline-block whitespace-normal ${className}`;
-    const Tag = tag || "p";
+  const Tag = tag || "span";
 
-    return (
-      <Tag ref={ref} style={style} className={classes}>
-        {text}
-      </Tag>
-    );
-  };
-  return renderTag();
+  return (
+    <Tag
+      ref={ref}
+      style={{
+        textAlign,
+        wordWrap: "break-word",
+        willChange: "transform, opacity",
+        display: inline ? "inline-block" : "block",
+      }}
+      className={`${
+        inline ? "inline-block align-middle" : "block"
+      } overflow-hidden whitespace-normal ${className}`}
+    >
+      {text}
+    </Tag>
+  );
 };
 
 export default SplitText;

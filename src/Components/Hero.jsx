@@ -4,6 +4,7 @@ import { SiMongodb, SiExpress, SiTailwindcss, SiFramer } from "react-icons/si";
 import { FaReact, FaNodeJs } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Ribbons from "./Ribbons";
+import SplitText from "./SplitText";
 
 const Hero = () => {
   const skills = [
@@ -17,6 +18,25 @@ const Hero = () => {
 
   const navigate = useNavigate();
 
+ const commonProps = {
+   delay: 35,
+   duration: 1.2,
+   ease: "power3.out",
+   splitType: "chars",
+   from: {
+     opacity: 0,
+     y: 70,
+   },
+   to: {
+     opacity: 1,
+     y: 0,
+   },
+   threshold: 0,
+   rootMargin: "-50px",
+   textAlign: "left",
+   inline: true,
+ };
+
   return (
     <>
       <div id="home">
@@ -28,13 +48,54 @@ const Hero = () => {
                 Hey, Its me Paul
               </p>
             </h2>
-            <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)] ">
+            {/* <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)] ">
               Crafting{" "}
               <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
                 purpose driven <br className="hidden sm:block" /> experiences
               </span>{" "}
               that inspire <br className="hidden sm:block" /> & engage.
-            </h1>
+            </h1> */}
+
+            <div className="flex flex-col">
+              {/* 1st Line */}
+              <div className="flex flex-wrap items-center gap-x-3">
+                <SplitText
+                  text="Crafting"
+                  className="text-4xl leading-[1.2] text-left sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)]"
+                  {...commonProps}
+                />
+
+                <SplitText
+                  text="purpose driven"
+                  className="text-4xl leading-[1.2] text-left sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--accent-primary)]"
+                  {...commonProps}
+                />
+              </div>
+
+              {/* 2nd Line */}
+              <div className="flex flex-wrap items-center gap-x-3">
+                <SplitText
+                  text="experiences"
+                  className="text-4xl leading-[1.2] text-left sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--accent-primary)]"
+                  {...commonProps}
+                />
+
+                <SplitText
+                  text="that inspire"
+                  className="text-4xl leading-[1.2] text-left sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)]"
+                  {...commonProps}
+                />
+              </div>
+
+              {/* 3rd Line */}
+              <div>
+                <SplitText
+                  text="& engage."
+                  className="text-4xl leading-[1.2] text-left sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)]"
+                  {...commonProps}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
