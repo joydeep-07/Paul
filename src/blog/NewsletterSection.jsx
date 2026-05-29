@@ -1,8 +1,10 @@
 import { Facebook, Instagram, X } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { TextField, Button, Box, Alert } from "@mui/material";
-import { supabase } from "../supabaseClient"; // adjust path
+import { TextField, Button, Box } from "@mui/material";
+import { toast } from "sonner";
+import { supabase } from "../supabaseClient"; 
+import { FaCrown } from "react-icons/fa";
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState("");
@@ -10,40 +12,38 @@ const NewsletterSection = () => {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+   e.preventDefault();
 
-    setLoading(true);
-    setSuccess("");
-    setError("");
+   setLoading(true);
 
-    if (!email) {
-      setError("Email is required");
-      setLoading(false);
-      return;
-    }
+   if (!email) {
+     toast.error("Email is required");
+     setLoading(false);
+     return;
+   }
 
-    try {
-      const { error } = await supabase
-        .from("newsletter_subscribers")
-        .insert([{ email }]);
+   try {
+     const { error } = await supabase
+       .from("newsletter_subscribers")
+       .insert([{ email }]);
 
-      if (error) {
-        if (error.code === "23505") {
-          setError("Email already subscribed");
-        } else {
-          setError(error.message);
-        }
-      } else {
-        setSuccess("Successfully subscribed");
-        setEmail("");
-      }
-    } catch (err) {
-      setError("Something went wrong");
-    }
+     if (error) {
+       if (error.code === "23505") {
+         toast.error("Email already subscribed");
+       } else {
+         toast.error(error.message);
+       }
+     } else {
+       toast.success("Successfully subscribed");
+       setEmail("");
+     }
+   } catch (err) {
+     toast.error("Something went wrong");
+   }
 
-    setLoading(false);
-  };
+   setLoading(false);
+ };
 
   return (
     <div className="bg-[var(--bg-main)] transition-colors duration-300 py-20">
@@ -110,17 +110,17 @@ const NewsletterSection = () => {
                       onChange={(e) => setEmail(e.target.value)}
                     />
 
-                    {success && (
+                    {/* {success && (
                       <Alert severity="success" sx={{ mt: 2 }}>
                         {success}
                       </Alert>
-                    )}
+                    )} */}
 
-                    {error && (
+                    {/* {error && (
                       <Alert severity="error" sx={{ mt: 2 }}>
                         {error}
                       </Alert>
-                    )}
+                    )} */}
 
                     <Button
                       type="submit"
@@ -135,6 +135,7 @@ const NewsletterSection = () => {
                         fontSize: "14px",
                         backgroundColor: "var(--accent-primary)",
                         color: "#fff",
+                        
 
                         "&:hover": {
                           backgroundColor: "var(--accent-primary)",
@@ -143,6 +144,7 @@ const NewsletterSection = () => {
                       }}
                     >
                       {loading ? "Submitting..." : "Subscribe"}
+                      <FaCrown className="ml-2" />
                     </Button>
                   </Box>
                 </form>
