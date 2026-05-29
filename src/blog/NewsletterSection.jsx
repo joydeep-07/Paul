@@ -130,7 +130,7 @@ const NewsletterSection = () => {
                       sx={{
                         borderRadius: "5px",
                         marginTop: "10px",
-                        padding: "10px",
+                        padding: "15px",
                         textTransform: "none",
                         fontSize: "14px",
                         backgroundColor: "var(--accent-primary)",
