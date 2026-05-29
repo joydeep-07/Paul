@@ -1,19 +1,56 @@
 import { Facebook, Instagram, X } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { TextField, Button, Box, Alert } from "@mui/material";
+import { supabase } from "../supabaseClient"; // adjust path
+
 const NewsletterSection = () => {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    setSuccess("");
+    setError("");
+
+    if (!email) {
+      setError("Email is required");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from("newsletter_subscribers")
+        .insert([{ email }]);
+
+      if (error) {
+        if (error.code === "23505") {
+          setError("Email already subscribed");
+        } else {
+          setError(error.message);
+        }
+      } else {
+        setSuccess("Successfully subscribed");
+        setEmail("");
+      }
+    } catch (err) {
+      setError("Something went wrong");
+    }
+
+    setLoading(false);
+  };
+
   return (
     <div className="bg-[var(--bg-main)] transition-colors duration-300 py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-0 lg:px-0">
-        <div
-          className="
-           
-          "
-        >
-          {/* FLEX CONTAINER */}
+        <div>
           <div className="relative flex flex-col lg:flex-row items-start justify-between gap-12">
-            {/* LEFT → TEXT */}
+            {/* LEFT */}
             <div className="flex-1 space-y-6">
               <h3 className="heading-font text-2xl sm:text-[45px] tracking-tight text-[var(--text-main)] leading-tight">
                 Join{" "}
@@ -29,50 +66,11 @@ const NewsletterSection = () => {
               </p>
             </div>
 
-            {/* RIGHT → FORM */}
+            {/* RIGHT */}
             <div className="flex-1 w-full">
-              {/* <form className="flex flex-col gap-4">
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  required
-                  className="
-                    w-full
-                    px-6 py-4
-                    rounded-sm
-                   bg-[var(--bg-main)]
-                    border border-[var(--border-light)] 
-                    text-[var(--text-main)]
-                    placeholder:text-[var(--text-secondary)]/70
-                    focus:outline-none
-                    focus:border-[var(--accent-primary)]/70
-                    transition-all duration-300
-                  "
-                />
-
-                <button
-                  type="submit"
-                  className="
-                    group relative
-                    px-8 py-3
-                    rounded-sm
-                    font-semibold tracking-wide
-                    text-white
-                    bg-[var(--accent-primary)]
-                    shadow-lg
-                    active:scale-[0.98]
-                    transition-all duration-300
-                  "
-                >
-                  <span className="relative z-10">Subscribe</span>
-                  <div className="absolute inset-0 rounded-full to-transparent opacity-0 " />
-                </button>
-              </form> */}
-
-              <div className="w-full rounded-2xl ">
-                <form>
+              <div className="w-full rounded-2xl">
+                <form onSubmit={handleSubmit}>
                   <Box
-                    display=""
                     flexDirection="column"
                     gap={3}
                     sx={{
@@ -100,30 +98,35 @@ const NewsletterSection = () => {
                           borderColor: "var(--accent-primary)",
                         },
                       },
-
-                      "& .MuiFormHelperText-root": {
-                        color: "var(--text-secondary)",
-                      },
-
-                      "& .Mui-error": {
-                        color: "#ef4444",
-                      },
                     }}
                   >
-                    {/* Email */}
                     <TextField
                       label="Enter Your Email"
                       name="email"
                       type="email"
                       variant="outlined"
                       fullWidth
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
 
-                    {/* Button */}
+                    {success && (
+                      <Alert severity="success" sx={{ mt: 2 }}>
+                        {success}
+                      </Alert>
+                    )}
+
+                    {error && (
+                      <Alert severity="error" sx={{ mt: 2 }}>
+                        {error}
+                      </Alert>
+                    )}
+
                     <Button
                       type="submit"
                       variant="contained"
                       fullWidth
+                      disabled={loading}
                       sx={{
                         borderRadius: "5px",
                         marginTop: "10px",
@@ -139,7 +142,7 @@ const NewsletterSection = () => {
                         },
                       }}
                     >
-                      Send Message
+                      {loading ? "Submitting..." : "Subscribe"}
                     </Button>
                   </Box>
                 </form>
