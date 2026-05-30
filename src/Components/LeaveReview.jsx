@@ -2,22 +2,29 @@ import React, { useState, useRef } from "react";
 import { supabase } from "../supabaseClient";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
+import Cropper from "react-easy-crop";
 
 const LeaveReview = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const formRef = useRef(null);
+  // Crop states
+  const [cropModalOpen, setCropModalOpen] = useState(false);
+  const [imageSrc, setImageSrc] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [croppedFile, setCroppedFile] = useState(null);
 
   /* -------------------- React Hook Form -------------------- */
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    formState: { errors },
-  } = useForm();
+ const {
+   register,
+   handleSubmit,
+   reset,
+   formState: { errors },
+ } = useForm();
 
-  const imageFile = watch("image");
+  // const imageFile = watch("image");
 
   /* -------------------- Mobile Focus Only -------------------- */
   const handleFocus = (e) => {
@@ -41,28 +48,28 @@ const LeaveReview = () => {
 
     try {
       /* ---------- Upload Image if provided ---------- */
-      if (data.image?.[0]) {
-        const file = data.image[0];
-        const fileExt = file.name.split(".").pop();
-        const fileName = `${Date.now()}-${Math.random()
-          .toString(36)
-          .substring(2)}.${fileExt}`;
+     if (croppedFile) {
+       const file = croppedFile;
+       const fileExt = file.name.split(".").pop();
+       const fileName = `${Date.now()}-${Math.random()
+         .toString(36)
+         .substring(2)}.${fileExt}`;
 
-        const { error: uploadError } = await supabase.storage
-          .from("review-images")
-          .upload(fileName, file, {
-            cacheControl: "3600",
-            upsert: false,
-          });
+       const { error: uploadError } = await supabase.storage
+         .from("review-images")
+         .upload(fileName, file, {
+           cacheControl: "3600",
+           upsert: false,
+         });
 
-        if (uploadError) throw uploadError;
+       if (uploadError) throw uploadError;
 
-        const { data: publicUrlData } = supabase.storage
-          .from("review-images")
-          .getPublicUrl(fileName);
+       const { data: publicUrlData } = supabase.storage
+         .from("review-images")
+         .getPublicUrl(fileName);
 
-        imageUrl = publicUrlData.publicUrl;
-      }
+       imageUrl = publicUrlData.publicUrl;
+     }
 
       /* ---------- Insert Review ---------- */
       const { error } = await supabase.from("reviews").insert([
@@ -86,6 +93,89 @@ const LeaveReview = () => {
       setLoading(false);
     }
   };
+
+  /*------------------- Image selection handler ---------------------- */ 
+
+  const handleImageSelect = (e) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setImageSrc(reader.result);
+
+      // Mobile browsers sometimes need a small delay
+      setTimeout(() => {
+        setCropModalOpen(true);
+      }, 150);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  const onCropComplete = (_, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  };
+
+
+  const createImage = (url) =>
+    new Promise((resolve, reject) => {
+      const image = new Image();
+
+      image.crossOrigin = "anonymous";
+
+      image.onload = () => resolve(image);
+      image.onerror = reject;
+
+      image.src = url;
+    });
+
+  const getCroppedImg = async (imageSrc, pixelCrop) => {
+    const image = await createImage(imageSrc);
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
+
+    ctx.drawImage(
+      image,
+      pixelCrop.x,
+      pixelCrop.y,
+      pixelCrop.width,
+      pixelCrop.height,
+      0,
+      0,
+      pixelCrop.width,
+      pixelCrop.height,
+    );
+
+    return new Promise((resolve) => {
+      canvas.toBlob((blob) => {
+        const file = new File([blob], `review-${Date.now()}.jpg`, {
+          type: "image/jpeg",
+        });
+
+        resolve(file);
+      }, "image/jpeg");
+    });
+  };
+
+
+ const handleCropSave = async () => {
+   const file = await getCroppedImg(imageSrc, croppedAreaPixels);
+
+   setCroppedFile(file);
+   setCropModalOpen(false);
+
+   setCrop({ x: 0, y: 0 });
+   setZoom(1);
+
+   toast.success("Image selected");
+ };
 
   return (
     <>
@@ -162,9 +252,9 @@ const LeaveReview = () => {
                   hover:border-[var(--accent-primary)]/60
                   transition-all"
                 >
-                  {imageFile?.length ? (
-                    <p className="mt-1 text-sm text-[var(--accent-primary)] font-medium truncate max-w-full">
-                      {imageFile[0].name}
+                  {croppedFile ? (
+                    <p className="mt-1 text-sm text-[var(--accent-primary)] font-medium">
+                      {croppedFile.name}
                     </p>
                   ) : (
                     <p className="text-sm font-medium uppercase text-[var(--text-main)]">
@@ -180,7 +270,7 @@ const LeaveReview = () => {
                     id="profile-image-upload"
                     type="file"
                     accept="image/*"
-                    {...register("image")}
+                    onChange={handleImageSelect}
                     className="hidden"
                   />
                 </label>
@@ -246,6 +336,96 @@ const LeaveReview = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {cropModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-xl p-4">
+          <div
+            className="
+    w-full max-w-xl overflow-hidden
+    rounded-xl h-[75vh] md:h-auto
+    border border-white/10
+    bg-[var(--bg-main)]/95
+    shadow-[0_30px_80px_rgba(0,0,0,0.45)]
+  "
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-8 pt-7 pb-5 border-b border-[var(--border-light)]">
+              <div>
+                <h3 className="text-xl heading-font text-[var(--accent-primary)] font-medium tracking-tight">
+                  Crop Profile Photo
+                </h3>
+
+                <p className="mt-1 text-sm text-[var(--text-secondary)]">
+                  Drag to reposition your image
+                </p>
+              </div>
+
+              {/* <button
+                onClick={() => setCropModalOpen(false)}
+                className="h-10 w-10 rounded-full hover:bg-white/5 transition-all"
+              >
+                ✕
+              </button> */}
+            </div>
+
+            {/* Crop Area */}
+            <div className="p-6">
+              <div
+                className=" relative overflow-hidden h-auto w-full aspect-square rounded border border-[var(--border-light)] bg-[var(--bg-main)] "
+              >
+                <Cropper
+                  image={imageSrc}
+                  crop={crop}
+                  zoom={zoom}
+                  aspect={1}
+                  cropShape="round"
+                  showGrid={true}
+                  zoomWithScroll
+                  // objectFit="cover"
+                  onCropChange={setCrop}
+                  onZoomChange={setZoom}
+                  onCropComplete={onCropComplete}
+                />
+              </div>
+
+              <p className="mt-4 text-center text-[8px] tracking-wide text-[var(--text-secondary)] uppercase">
+                Pinch or scroll to zoom • Drag to reposition
+              </p>
+            </div>
+
+            {/* Footer */}
+            <div className="flex justify-end gap-3 px-6 py-5 border-t border-[var(--border-light)]">
+              <button
+                onClick={() => setCropModalOpen(false)}
+                className="
+            px-6 py-2.5 rounded-full
+            border border-[var(--border-light)]
+            bg-[var(--bg-secondary)]
+            text-sm
+            transition-all
+            hover:bg-[var(--bg-secondary)]/70
+          "
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={handleCropSave}
+                className="
+            px-7 py-2.5 rounded-full
+            bg-[var(--accent-primary)]
+            text-white text-sm
+            shadow-lg
+            hover:opacity-90
+            transition-all
+          "
+              >
+                Save Photo
+              </button>
+            </div>
           </div>
         </div>
       )}
