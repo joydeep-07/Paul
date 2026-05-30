@@ -83,9 +83,23 @@ const LeaveReview = () => {
 
       if (error) throw error;
 
-      toast.success("Review submitted successfully ");
-      reset();
-      setOpen(false);
+     toast.success("Review submitted successfully");
+
+     reset();
+
+     // Reset image/crop states
+     setCroppedFile(null);
+     setImageSrc(null);
+     setCrop({ x: 0, y: 0 });
+     setZoom(1);
+     setCroppedAreaPixels(null);
+     setCropModalOpen(false);
+
+     // Clear file input if needed
+     const fileInput = document.getElementById("profile-image-upload");
+     if (fileInput) fileInput.value = "";
+
+     setOpen(false);
     } catch (err) {
       console.error(err);
       toast.error("Failed to submit review");
