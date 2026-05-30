@@ -83,7 +83,7 @@ const LeaveReview = () => {
 
       if (error) throw error;
 
-      toast.success("Review submitted successfully 🎉");
+      toast.success("Review submitted successfully ");
       reset();
       setOpen(false);
     } catch (err) {
@@ -174,7 +174,7 @@ const LeaveReview = () => {
    setCrop({ x: 0, y: 0 });
    setZoom(1);
 
-   toast.success("Image selected");
+  //  toast.success("Image selected");
  };
 
   return (
@@ -341,40 +341,54 @@ const LeaveReview = () => {
       )}
 
       {cropModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-xl p-4">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-xl p-3 sm:p-4">
           <div
             className="
-    w-full max-w-xl overflow-hidden
-    rounded-xl h-[75vh] md:h-auto
-    border border-white/10
-    bg-[var(--bg-main)]/95
-    shadow-[0_30px_80px_rgba(0,0,0,0.45)]
-  "
+        w-full max-w-xl
+        h-[80vh] sm:h-[85vh] md:h-auto
+        flex flex-col
+        overflow-hidden
+        rounded-xl
+        border border-white/10
+        bg-[var(--bg-main)]/95
+        shadow-[0_30px_80px_rgba(0,0,0,0.45)]
+      "
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-8 pt-7 pb-5 border-b border-[var(--border-light)]">
+            <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 pt-5 sm:pt-6 md:pt-7 pb-4 sm:pb-5 border-b border-[var(--border-light)] shrink-0">
               <div>
-                <h3 className="text-xl heading-font text-[var(--accent-primary)] font-medium tracking-tight">
+                <h3 className="text-lg sm:text-xl heading-font text-[var(--accent-primary)] font-medium tracking-tight">
                   Crop Profile Photo
                 </h3>
 
-                <p className="mt-1 text-sm text-[var(--text-secondary)]">
+                <p className="mt-1 text-xs sm:text-sm text-[var(--text-secondary)]">
                   Drag to reposition your image
                 </p>
               </div>
 
-              {/* <button
-                onClick={() => setCropModalOpen(false)}
-                className="h-10 w-10 rounded-full hover:bg-white/5 transition-all"
-              >
-                ✕
-              </button> */}
+              {/* Optional Close Button */}
+              {/* 
+        <button
+          onClick={() => setCropModalOpen(false)}
+          className="h-10 w-10 rounded-full hover:bg-white/5 transition-all"
+        >
+          ✕
+        </button>
+        */}
             </div>
 
             {/* Crop Area */}
-            <div className="p-6">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-5 md:p-6 min-h-0">
               <div
-                className=" relative overflow-hidden h-auto w-full aspect-square rounded border border-[var(--border-light)] bg-[var(--bg-main)] "
+                className="
+            relative
+            overflow-hidden
+            w-full
+            aspect-square
+            rounded-lg
+            border border-[var(--border-light)]
+            bg-[var(--bg-main)]
+          "
               >
                 <Cropper
                   image={imageSrc}
@@ -384,47 +398,62 @@ const LeaveReview = () => {
                   cropShape="round"
                   showGrid={true}
                   zoomWithScroll
-                  // objectFit="cover"
                   onCropChange={setCrop}
                   onZoomChange={setZoom}
                   onCropComplete={onCropComplete}
                 />
               </div>
 
-              <p className="mt-4 text-center text-[8px] tracking-wide text-[var(--text-secondary)] uppercase">
+              <p className="mt-4 text-center text-[10px] sm:text-xs tracking-wide text-[var(--text-secondary)] uppercase">
                 Pinch or scroll to zoom • Drag to reposition
               </p>
             </div>
 
             {/* Footer */}
-            <div className="flex justify-end gap-3 px-6 py-5 border-t border-[var(--border-light)]">
-              <button
-                onClick={() => setCropModalOpen(false)}
-                className="
-            px-6 py-2.5 rounded-full
-            border border-[var(--border-light)]
-            bg-[var(--bg-secondary)]
-            text-sm
-            transition-all
-            hover:bg-[var(--bg-secondary)]/70
-          "
-              >
-                Cancel
-              </button>
+            <div
+              className="
+          shrink-0
+          mt-auto
+          border-t border-[var(--border-light)]
+          px-4 sm:px-6
+          py-4 sm:py-5
+          bg-[var(--bg-main)]
+        "
+            >
+              <div className="flex flex-col-reverse sm:flex-row justify-end gap-3">
+                <button
+                  onClick={() => setCropModalOpen(false)}
+                  className="
+              w-full sm:w-auto
+              px-6 py-3 sm:py-2.5
+              rounded-full
+              border border-[var(--border-light)]
+              bg-[var(--bg-secondary)]
+              text-sm
+              transition-all
+              hover:bg-[var(--bg-secondary)]/70
+            "
+                >
+                  Cancel
+                </button>
 
-              <button
-                onClick={handleCropSave}
-                className="
-            px-7 py-2.5 rounded-full
-            bg-[var(--accent-primary)]
-            text-white text-sm
-            shadow-lg
-            hover:opacity-90
-            transition-all
-          "
-              >
-                Save Photo
-              </button>
+                <button
+                  onClick={handleCropSave}
+                  className="
+              w-full sm:w-auto
+              px-7 py-3 sm:py-2.5
+              rounded-full
+              bg-[var(--accent-primary)]
+              text-white
+              text-sm
+              shadow-lg
+              hover:opacity-90
+              transition-all
+            "
+                >
+                  Save Photo
+                </button>
+              </div>
             </div>
           </div>
         </div>
