@@ -3,47 +3,54 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { TextField, Button, Box } from "@mui/material";
 import { toast } from "sonner";
-import { supabase } from "../supabaseClient"; 
+import { supabase } from "../supabaseClient";
 import { FaCrown } from "react-icons/fa";
 
 const NewsletterSection = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
 
- const handleSubmit = async (e) => {
-   e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-   setLoading(true);
+    if (!name.trim()) {
+      toast.error("Name is required");
+      return;
+    }
 
-   if (!email) {
-     toast.error("Email is required");
-     setLoading(false);
-     return;
-   }
+    if (!email.trim()) {
+      toast.error("Email is required");
+      return;
+    }
 
-   try {
-     const { error } = await supabase
-       .from("newsletter_subscribers")
-       .insert([{ email }]);
+    setLoading(true);
 
-     if (error) {
-       if (error.code === "23505") {
-         toast.error("Email already subscribed");
-       } else {
-         toast.error(error.message);
-       }
-     } else {
-       toast.success("Successfully subscribed");
-       setEmail("");
-     }
-   } catch (err) {
-     toast.error("Something went wrong");
-   }
+    try {
+      const { error } = await supabase.from("newsletter_subscribers").insert([
+        {
+          name,
+          email,
+        },
+      ]);
 
-   setLoading(false);
- };
+      if (error) {
+        if (error.code === "23505") {
+          toast.error("Email already subscribed");
+        } else {
+          toast.error(error.message);
+        }
+      } else {
+        toast.success("Successfully subscribed");
+        setName("");
+        setEmail("");
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="bg-[var(--bg-main)] transition-colors duration-300 py-20">
@@ -100,27 +107,27 @@ const NewsletterSection = () => {
                       },
                     }}
                   >
-                    <TextField
-                      label="Enter Your Email"
-                      name="email"
-                      type="email"
-                      variant="outlined"
-                      fullWidth
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
+                    <div className="flex flex-col md:flex-row gap-4 md:gap-4">
+                      <TextField
+                        label="Enter Your Name"
+                        name="name"
+                        type="text"
+                        variant="outlined"
+                        fullWidth
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
 
-                    {/* {success && (
-                      <Alert severity="success" sx={{ mt: 2 }}>
-                        {success}
-                      </Alert>
-                    )} */}
-
-                    {/* {error && (
-                      <Alert severity="error" sx={{ mt: 2 }}>
-                        {error}
-                      </Alert>
-                    )} */}
+                      <TextField
+                        label="Enter Your Email"
+                        name="email"
+                        type="email"
+                        variant="outlined"
+                        fullWidth
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
 
                     <Button
                       type="submit"
@@ -135,7 +142,6 @@ const NewsletterSection = () => {
                         fontSize: "14px",
                         backgroundColor: "var(--accent-primary)",
                         color: "#fff",
-                        
 
                         "&:hover": {
                           backgroundColor: "var(--accent-primary)",
