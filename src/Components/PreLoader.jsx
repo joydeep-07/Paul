@@ -5,7 +5,6 @@ const greetings = [
   "Hello",
   "नमस्कार",
   "নমস্কার",
-  "ನಮಸ್ಕಾರ",
   "Bonjour",
   "Здравствуйте",
   "こんにちは",
@@ -19,7 +18,7 @@ const PreLoader = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentGreeting((prev) => (prev + 1) % greetings.length);
-    }, 450); 
+    }, 350); 
 
     return () => clearInterval(interval);
   }, []);
