@@ -44,11 +44,22 @@ const PreLoader = ({ onFinish }) => {
           onFinish();
         }
       }}
-      className="fixed inset-0 z-[9999] bg-lime-100 flex items-center justify-center"
+      className="fixed inset-0 z-[9999] bg-lime-100 flex items-center justify-center overflow-visible"
     >
       <h1 className="text-3xl md:text-4xl lg:text-5xl heading-font">
         {greetings[currentGreeting]}
       </h1>
+
+      <svg
+        className="absolute -bottom-1 left-0 w-full"
+        viewBox="0 0 1440 320"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="#ECFCCB"
+          d="M0,0 C250,320 1000,-120 1440,180 L1440,320 L0,320 Z"
+        />
+      </svg>
     </motion.div>
   );
 };
