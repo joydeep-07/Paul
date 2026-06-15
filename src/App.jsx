@@ -17,7 +17,7 @@ import PreLoader from "./Components/PreLoader";
 
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
-  const [loading, setLoading] = useState(true);
+  const [showPreloader, setShowPreloader] = useState(true);
 
   useEffect(() => {
     if (mode === "dark") {
@@ -26,14 +26,6 @@ const App = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [mode]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2400);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const router = createBrowserRouter([
     {
@@ -47,8 +39,6 @@ const App = () => {
         { path: "/blogs", element: <Blogs /> },
         { path: "/review/form", element: <ReviewForm /> },
         { path: "project/:id", element: <ProjectDetails /> },
-
-        // BLOG ROUTES
         { path: "blog/mern-architecture", element: <MernArchitectire /> },
         { path: "blog/advance-tailwind", element: <AdvanceTailwind /> },
         { path: "blog/python", element: <Python /> },
@@ -56,13 +46,12 @@ const App = () => {
     },
   ]);
 
-  if (loading) {
-    return <PreLoader />;
-  }
-
   return (
     <>
       <RouterProvider router={router} />
+
+      {showPreloader && <PreLoader onFinish={() => setShowPreloader(false)} />}
+
       <Toaster position="top-right" richColors />
     </>
   );
