@@ -23,7 +23,7 @@ const PreLoader = ({ onFinish }) => {
 
     const timer = setTimeout(() => {
       setSlideUp(true);
-    }, 3000);
+    }, 2400);
 
     return () => {
       clearInterval(interval);
