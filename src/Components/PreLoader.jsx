@@ -18,7 +18,7 @@ const PreLoader = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentGreeting((prev) => (prev + 1) % greetings.length);
-    }, 350); 
+    }, 320); 
 
     return () => clearInterval(interval);
   }, []);
