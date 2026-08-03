@@ -6,41 +6,90 @@ import wtsp from '../assets/thumbnail/wtsp.png'
 import school from "../assets/thumbnail/school.png";
 import rentease from "../assets/thumbnail/rentease.png";
 import templeImg from "../assets/thumbnail/bharat.png";
+import neurocare from "../assets/thumbnail/neurocare.png"
+
 export const projects = [
+  {
+    id: "neurocare",
+    title: "NeuroCare",
+    category: "AI-Powered Healthcare Platform",
+    year: 2026,
+    thumbnail: neurocare, // replace with your actual image import
+    navigate: "/neurocare",
+    liveLink: "",
+
+    shortDescription:
+      "An AI-powered medical appointment booking platform that intelligently connects patients with the right doctors based on symptoms, specialization, and location.",
+
+    description:
+      "NeuroCare is a full-stack MERN healthcare platform designed to simplify the appointment booking process for patients while providing efficient management tools for doctors and healthcare service providers. The platform features AI-assisted symptom analysis that recommends suitable medical specialists based on user-entered symptoms such as headache, fever, back pain, or chest pain. Patients can securely sign in using Email OTP or Google authentication, manage family members, upload medical reports, book appointments, receive digital prescriptions, and download them as professionally formatted PDFs. Doctors can manage appointments, write prescriptions, and access patient history, while administrators coordinate appointment approvals and scheduling. Built with modern UI principles, secure authentication, cloud storage, and responsive design, NeuroCare provides a scalable foundation for digital healthcare services.",
+
+    techStack: [
+      "React.js",
+      "TypeScript",
+      "Redux Toolkit",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "JWT Authentication",
+      "Google OAuth",
+      "Email OTP Authentication",
+      "Cloudinary",
+      "React PDF",
+      "GSAP",
+      "REST APIs",
+    ],
+
+    features: [
+      "AI-powered symptom analysis with automatic doctor recommendations",
+      "Appointment booking based on illness, specialization, and location",
+      "Email OTP and Google OAuth authentication",
+      "Patient, Doctor, and Service Provider portals",
+      "Admin-controlled appointment approval and scheduling",
+      "Family member management with shared medical records",
+      "Medical report upload and cloud storage using Cloudinary",
+      "Digital prescription creation with downloadable A4 PDF",
+      "Doctor search by specialization and medical condition",
+      "Patient profile management with custom avatar upload",
+      "Responsive UI with dark mode support and smooth GSAP animations",
+      "Secure REST API architecture with JWT authentication",
+    ],
+  },
 
   {
-  id: "bharat-vraman",
-  title: "Bharat Vraman",
-  category: "Frontend Web Application",
-  year: 2026,
-  thumbnail: templeImg, // replace with your actual image import
-  navigate: "/bharat-vraman",
-  liveLink: "",
+    id: "bharat-vraman",
+    title: "Bharat Vraman",
+    category: "Frontend Web Application",
+    year: 2026,
+    thumbnail: templeImg, // replace with your actual image import
+    navigate: "/bharat-vraman",
+    liveLink: "",
 
-  shortDescription:
-    "A beautifully designed temple exploration platform showcasing famous Indian temples with detailed information and smooth UI experience.",
+    shortDescription:
+      "A beautifully designed temple exploration platform showcasing famous Indian temples with detailed information and smooth UI experience.",
 
-  description:
-    "Temple Explorer is a modern web application built using React.js that allows users to explore famous temples across India. The project displays temples in a visually appealing grid layout with images, names, and locations. Each temple has a dedicated detail page powered by dynamic routing using slugs, where users can view complete information such as deity, history, location, timings, and significance. The UI focuses on aesthetic design with smooth animations, responsive layout, and reusable components. The project emphasizes clean frontend architecture, user-friendly navigation, and scalable data handling.",
+    description:
+      "Temple Explorer is a modern web application built using React.js that allows users to explore famous temples across India. The project displays temples in a visually appealing grid layout with images, names, and locations. Each temple has a dedicated detail page powered by dynamic routing using slugs, where users can view complete information such as deity, history, location, timings, and significance. The UI focuses on aesthetic design with smooth animations, responsive layout, and reusable components. The project emphasizes clean frontend architecture, user-friendly navigation, and scalable data handling.",
 
-  techStack: [
-    "React.js",
-    "React Router",
-    "JavaScript (ES6+)",
-    "Tailwind CSS",
-    "Responsive Design",
-  ],
+    techStack: [
+      "React.js",
+      "React Router",
+      "JavaScript (ES6+)",
+      "Tailwind CSS",
+      "Responsive Design",
+    ],
 
-  features: [
-    "Dynamic temple listing in grid layout with image, name, and state",
-    "Slug-based routing for individual temple detail pages",
-    "Detailed temple information including deity, history, and location",
-    "Reusable component structure for scalability",
-    "Modern UI with smooth animations and clean design",
-    "Responsive layout for mobile, tablet, and desktop",
-    "Optimized performance with efficient rendering",
-  ],
-},
+    features: [
+      "Dynamic temple listing in grid layout with image, name, and state",
+      "Slug-based routing for individual temple detail pages",
+      "Detailed temple information including deity, history, and location",
+      "Reusable component structure for scalability",
+      "Modern UI with smooth animations and clean design",
+      "Responsive layout for mobile, tablet, and desktop",
+      "Optimized performance with efficient rendering",
+    ],
+  },
 
   {
     id: "whatsapp-clone",
