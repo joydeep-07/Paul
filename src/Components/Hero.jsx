@@ -1,12 +1,12 @@
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, ChevronDown } from "lucide-react";
 import Slide from "./Slide";
 import { SiMongodb, SiExpress, SiTailwindcss, SiFramer } from "react-icons/si";
 import { FaReact, FaNodeJs } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import Ribbons from "./Ribbons";
-import SplitText from "./SplitText";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   const skills = [
     { name: "React", icon: <FaReact /> },
     { name: "Node.js", icon: <FaNodeJs /> },
@@ -16,165 +16,147 @@ const Hero = () => {
     { name: "Framer Motion", icon: <SiFramer /> },
   ];
 
-  const navigate = useNavigate();
+  const socialLinks = [
+    {
+      name: "LinkedIn",
+      url: "https://www.linkedin.com/in/joydeep-paul-06b37926a",
+    },
+    {
+      name: "Github",
+      url: "https://github.com/joydeep-07",
+    },
+    {
+      name: "Instagram",
+      url: "https://www.instagram.com/mr.paul_16",
+    },
+    {
+      name: "Gmail",
+      url: "mailto:joydeeprnp8821@gmail.com",
+    },
+  ];
 
- const commonProps = {
-   delay: 35,
-   duration: 1.2,
-   ease: "power3.out",
-   splitType: "chars",
-   from: {
-     opacity: 0,
-     y: 70,
-   },
-   to: {
-     opacity: 1,
-     y: 0,
-   },
-   threshold: 0,
-   rootMargin: "-50px",
-   textAlign: "left",
-   inline: true,
- };
+  const headingClass =
+    "text-[3.9vh] sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl leading-[1.2] heading-font font-medium";
 
   return (
-    <>
-      <div id="home">
-        <div className="flex flex-col justify-center items-center w-full px-4 sm:px-6 lg:px-8">
-          <div className="main flex flex-col gap-5 w-full max-w-7xl mx-auto">
-            <h2 className="text-xs sm:text-sm py-4 sm:py-5 px-3 sm:px-4 uppercase flex items-center gap-2 sm:gap-3 w-full">
-              <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-green-500 animate-pulse flex-shrink-0"></span>
-              <p className="text-xs font-semibold uppercase tracking-[0.1em] opacity-70">
-                Hey, Its me Paul
-              </p>
-            </h2>
-            {/* <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)] ">
-              Crafting{" "}
-              <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
-                purpose driven <br className="hidden sm:block" /> experiences
-              </span>{" "}
-              that inspire <br className="hidden sm:block" /> & engage.
-            </h1> */}
+    <section id="home" className="w-full">
+      <div className="max-w-8xl mx-auto md:px-12 px-5">
+        {/* HERO CONTENT */}
+        <div className="pt-0 sm:pt-5 md:pt-5">
+          {/* Availability */}
+          <div className="flex items-center gap-3 mb-8 sm:mb-10 md:mb-12">
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
 
-            <div className="flex flex-col">
-              {/* 1st Line */}
-              <div className="flex flex-wrap items-center gap-x-3">
-                <SplitText
-                  text="Crafting"
-                  className="text-4xl leading-[1.2] text-left sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)]"
-                  {...commonProps}
-                />
+            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)]">
+              Hey, It's me Paul
+            </span>
+          </div>
 
-                <SplitText
-                  text="purpose driven"
-                  className="text-4xl leading-[1.2] text-left sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--accent-primary)]"
-                  {...commonProps}
-                />
-              </div>
+          {/* Heading */}
+          <div className="flex flex-col gap-1 sm:gap-0">
+            {/* Line 1 */}
+            <div className="flex flex-wrap items-baseline gap-x-3 md:gap-x-5">
+              <span className={`${headingClass} text-[var(--text-main)]`}>
+                Crafting
+              </span>
 
-              {/* 2nd Line */}
-              <div className="flex flex-wrap items-center gap-x-3">
-                <SplitText
-                  text="experiences"
-                  className="text-4xl leading-[1.2] text-left sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--accent-primary)]"
-                  {...commonProps}
-                />
-
-                <SplitText
-                  text="that inspire"
-                  className="text-4xl leading-[1.2] text-left sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)]"
-                  {...commonProps}
-                />
-              </div>
-
-              {/* 3rd Line */}
-              <div>
-                <SplitText
-                  text="& engage."
-                  className="text-4xl leading-[1.2] text-left sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl heading-font font-medium text-[var(--text-main)]"
-                  {...commonProps}
-                />
-              </div>
+              <span className={`${headingClass} text-[var(--accent-primary)]`}>
+                purpose driven
+              </span>
             </div>
-          </div>
-        </div>
 
-        {/* Description Section */}
-        <div className="flex flex-col sm:flex-row items-center justify-center mt-10 sm:mt-6 md:mt-8 gap-3 px-4 sm:px-6 lg:px-8">
-          {/* Line */}
-          <div className="hidden sm:block border-b border-[var(--border-light)] w-full max-w-2xl mr-4 sm:mr-7"></div>
+            {/* Line 2 */}
+            <div className="flex flex-wrap items-baseline gap-x-3 md:gap-x-5">
+              <span className={`${headingClass} text-[var(--accent-primary)]`}>
+                experiences
+              </span>
 
-          {/* Text */}
-          <p className="text-[var(--text-main)] text-sm sm:text-sm md:text-base leading-snug max-w-4xl text-left sm:text-left">
-            I work with brands globally to build pixel-perfect, engaging, and
-            accessible digital
-            <br className="hidden sm:block" />
-            experiences that drive results and achieve business goals.
-          </p>
-        </div>
+              <span className={`${headingClass} text-[var(--text-main)]`}>
+                that inspire
+              </span>
+            </div>
 
-        <div
-          className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 sm:px-6 lg:px-8 xl:px-[100px] py-10 sm:py-12 md:py-15 gap-6 sm:gap-4 md:gap-6"
-          data-aos="fade-up"
-          data-aos-delay="450"
-        >
-          {/* Social Links */}
-          <div className="flex flex-wrap justify-start sm:justify-start gap-2 sm:gap-3 md:gap-5 py-2 sm:py-5 w-full sm:w-auto px-1 sm:px-3 group">
-            {[
-              {
-                name: "LinkedIn",
-                url: "https://www.linkedin.com/in/joydeep-paul-06b37926a",
-              },
-              { name: "Github", url: "https://github.com/joydeep-07" },
-              {
-                name: "Instagram",
-                url: "https://www.instagram.com/mr.paul_16",
-              },
-              { name: "Gmail", url: "mailto:joydeeprnp8821@gmail.com" },
-            ].map((item) => (
-              <button
-                key={item.name}
-                onClick={() => window.open(item.url, "_blank")}
-                className="flex cursor-pointer items-center gap-1 sm:gap-2 text-[var(--text-main)] 
-               text-[9px] xs:text-[10px] sm:text-xs md:text-sm 
-               font-medium uppercase transition-opacity duration-300 
-               hover:opacity-100 group-hover:opacity-50 
-               flex-shrink-0 px-1 sm:px-0"
-              >
-                <ArrowUp className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 rotate-45 flex-shrink-0" />
-                <span className="whitespace-nowrap">{item.name}</span>
-              </button>
-            ))}
+            {/* Line 3 */}
+            <span className={`${headingClass} text-[var(--text-main)]`}>
+              & engage.
+            </span>
           </div>
 
-          {/* About Me Button */}
-          <div className=" pt-4 md:pt-0 flex justify-center sm:justify-end">
+          {/* Description */}
+          <div className="mt-10 sm:mt-12 md:mt-16 flex items-start gap-5">
+            <div className="hidden sm:block md:w-3xl h-px bg-[var(--border-light)] mt-3 shrink-0" />
+
+            <p className="max-w-2xl text-xs sm:text-sm md:text-base text-[var(--text-secondary)] leading-relaxed">
+              I work with brands globally to build pixel-perfect, engaging, and
+              accessible digital experiences that drive results and achieve
+              business goals.
+            </p>
+          </div>
+
+          {/* Bottom Content */}
+          <div
+            className="mt-10 sm:mt-12 md:mt-16 flex flex-col sm:flex-row
+            justify-between items-start sm:items-center gap-8"
+            data-aos="fade-up"
+            data-aos-delay="450"
+          >
+            {/* Social Links */}
+            <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-5 md:gap-x-7 gap-y-3 group">
+              {socialLinks.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => window.open(item.url, "_blank")}
+                  className="
+        flex items-center gap-1.5
+        text-[10px] sm:text-xs md:text-sm
+        font-medium uppercase
+        text-[var(--text-main)]
+        opacity-100
+        transition-all duration-300
+        group-hover:opacity-40
+        hover:opacity-100
+        hover:text-[var(--accent-primary)]
+      "
+                >
+                  <ArrowUp className="w-3 h-3 md:w-3.5 md:h-3.5 rotate-45" />
+
+                  <span>{item.name}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* About Button */}
             <button
               onClick={() => navigate("/about")}
-              className=" relative overflow-hidden px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group w-full sm:w-auto"
+              className="
+                group
+                hidden md:flex items-center justify-center
+                px-7 sm:px-9 md:px-10
+                py-3 sm:py-3.5
+                rounded-full
+                border border-[var(--border-light)]
+                text-[var(--text-main)]
+                text-[10px] sm:text-xs
+                font-medium
+                tracking-[0.12em]
+                uppercase
+                transition-all duration-300
+                hover:border-[var(--accent-primary)]/30
+                hover:text-[var(--accent-primary)]
+                hover:bg-[var(--accent-primary)]/5
+              "
             >
-              <span className="flex items-center text-xs justify-center gap-2">
-                ABOUT ME
-              </span>
+              About Me
             </button>
-          </div>
-        </div>
-
-        <div className="py-6 sm:py-8 md:py-10">
-          <Slide items={skills} speed={20} />
-        </div>
-
-        {/* MOBILE ONLY – Quick Hint */}
-        <div className="sm:hidden w-full flex flex-col items-center gap-3 pt-7">
-          <div className="flex items-center gap-2 text-xs opacity-70 tracking-wide">
-            <ArrowUp className="w-3 h-3 rotate-180 animate-bounce" />
-            <span>Swipe to explore</span>
           </div>
         </div>
       </div>
 
-      {/* <Ribbons targetId="home" color="#66bb6a" /> */}
-    </>
+      {/* SKILLS */}
+      <div className="w-full mt-8 sm:mt-10 md:mt-14 py-6 sm:py-8 border-y border-[var(--border-light)]">
+        <Slide items={skills} speed={20} />
+      </div>
+    </section>
   );
 };
 
