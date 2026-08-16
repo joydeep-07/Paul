@@ -106,17 +106,7 @@ const Hero = () => {
                 <button
                   key={item.name}
                   onClick={() => window.open(item.url, "_blank")}
-                  className="
-        flex items-center gap-1.5
-        text-[10px] sm:text-xs md:text-sm
-        font-medium uppercase
-        text-[var(--text-main)]
-        opacity-100
-        transition-all duration-300
-        group-hover:opacity-40
-        hover:opacity-100
-        hover:text-[var(--accent-primary)]
-      "
+                  className=" flex items-center gap-1.5 text-[10px] sm:text-xs md:text-sm font-medium uppercase text-[var(--text-main)] opacity-100 transition-all duration-300 group-hover:opacity-40 hover:opacity-100 hover:text-[var(--accent-primary)]"
                 >
                   <ArrowUp className="w-3 h-3 md:w-3.5 md:h-3.5 rotate-45" />
 
@@ -128,23 +118,7 @@ const Hero = () => {
             {/* About Button */}
             <button
               onClick={() => navigate("/about")}
-              className="
-                group
-                hidden md:flex items-center justify-center
-                px-7 sm:px-9 md:px-10
-                py-3 sm:py-3.5
-                rounded-full
-                border border-[var(--border-light)]
-                text-[var(--text-main)]
-                text-[10px] sm:text-xs
-                font-medium
-                tracking-[0.12em]
-                uppercase
-                transition-all duration-300
-                hover:border-[var(--accent-primary)]/30
-                hover:text-[var(--accent-primary)]
-                hover:bg-[var(--accent-primary)]/5
-              "
+              className=" group hidden md:flex items-center justify-center px-7 sm:px-9 md:px-10 py-3 sm:py-3.5 rounded-full border border-[var(--border-light)] text-[var(--text-main)] text-[10px] sm:text-xs font-medium tracking-[0.12em] uppercase transition-all duration-300 hover:border-[var(--accent-primary)]/30 hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5"
             >
               About Me
             </button>
