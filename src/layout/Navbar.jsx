@@ -31,7 +31,7 @@ const Navbar = () => {
         height: "50px",
         borderRadius: "999px",
         marginTop: "12px",
-        backdropFilter: "blur(10px)",
+       
         ease: "power2.out",
         scrollTrigger: {
           trigger: document.body,
@@ -50,7 +50,7 @@ const Navbar = () => {
       {/* ================= TOP NAV (DESKTOP & MOBILE) ================= */}
       <nav
         ref={navRef}
-        className=" fixed top-4 z-50 transition-all w-full left-0 px-4 md:w-[92%] md:left-1/2 md:-translate-x-1/2 md:px-0"
+        className=" fixed top-4 z-50 transition-all w-full left-0 px-4 md:w-[92%] md:left-1/2 md:-translate-x-1/2 md:px-12"
       >
         <div
           className="
