@@ -15,7 +15,7 @@ const Root = () => {
         </div>
       </div>
 
-      <div className="hidden md:flex w-10 h-screen fixed right-0 top-0 items-center justify-center">
+      <div className="hidden md:flex h-screen fixed right-0 top-0 items-center justify-center">
         <Scale />
       </div>
     </div>
