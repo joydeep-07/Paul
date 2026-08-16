@@ -19,7 +19,7 @@ const Scale = () => {
   }, []);
 
   return (
-    <div className="fixed right-0 top-0 z-50 h-screen w-[2px] bg-[var(--border-light)]/40">
+    <div className="fixed right-0 top-0 z-50 h-screen w-[2px] ">
       <div
         className="absolute top-0 left-0 w-full bg-[var(--accent-primary)] origin-top transition-transform duration-100"
         style={{
