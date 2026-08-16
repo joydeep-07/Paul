@@ -28,17 +28,24 @@ const AboutMe = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
           {/* Left content */}
           <div className="lg:col-span-2 bg-[var(--bg-secondary)]/90 border border-[var(--border-light)]/90 rounded-xl p-4 sm:p-8 shadow-xs">
-            <p className="text-[var(--text-main)] text-sm sm:text-base leading-relaxed text-justify">
+            <p className="text-[var(--text-main)] text-xs sm:text-sm md:text-sm leading-relaxed text-justify">
               I'm{" "}
               <span className="font-semibold text-[var(--accent-primary)]">
                 Joydeep Paul
               </span>
-              , a passionate developer and designer with over{" "}
-              <span className="font-semibold">2+ years</span> of experience in
-              crafting seamless, user-centric digital experiences. My expertise
-              spans modern web design, full-stack development, and interactive
-              user interfaces, with a strong focus on building scalable,
-              high-quality, and impactful products.
+              , a passionate Frontend Developer and designer with over{" "}
+              <span className="font-semibold">4+ years</span> of experience in
+              crafting seamless, user-centric digital experiences with hands-on
+              experience building responsive, modern, and interactive web
+              applications using React.js, JavaScript, TypeScript, Tailwind CSS,
+              GSAP, and Framer Motion. Experienced in developing reusable
+              components, integrating REST APIs, managing application state, and
+              implementing smooth animations and responsive UI designs. Along
+              with strong frontend expertise, I have working knowledge of
+              Node.js, Express.js, MongoDB, authentication, and backend API
+              development. Passionate about writing clean, maintainable code and
+              building scalable applications with a strong focus on performance,
+              usability, and user experience.
               <br />
               <br />I enjoy collaborating with forward-thinking teams and
               turning ideas into polished digital solutions that feel intuitive,
@@ -63,6 +70,15 @@ const AboutMe = () => {
                 </span>
                 <span className="text-[var(--text-main)]/95 uppercase text-xs font-medium">
                   2026 / 2027
+                </span>
+              </li>
+
+              <li className="flex justify-between">
+                <span className="text-xs  text-[var(--text-secondary)] uppercase font-medium">
+                  Masters in Computer Applications
+                </span>
+                <span className="text-[var(--text-main)]/95 uppercase text-xs font-medium">
+                  2026 / 2028
                 </span>
               </li>
 

@@ -140,11 +140,7 @@ const Reviews = () => {
           {loading ? (
             <ReviewSkeleton />
           ) : reviews.length === 0 ? (
-            <div className="h-64 sm:h-72 md:h-80 flex items-center justify-center border border-[var(--border-light)] bg-[var(--bg-secondary)] rounded-xl">
-              <p className="text-sm opacity-70 tracking-wide px-4 text-center">
-                No Reviews found
-              </p>
-            </div>
+            <ReviewSkeleton />
           ) : (
             <>
               <AnimatePresence mode="wait" custom={direction}>
