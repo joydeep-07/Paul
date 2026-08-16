@@ -136,7 +136,7 @@ const Reviews = () => {
         </div>
 
         {/* RIGHT */}
-        <div className="w-full lg:w-2/3 px-2 sm:px-4 overflow-hidden">
+        <div className="w-full lg:w-2/3 px-0 sm:px-4 overflow-hidden">
           {loading ? (
             <ReviewSkeleton />
           ) : reviews.length === 0 ? (
