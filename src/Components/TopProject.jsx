@@ -24,7 +24,7 @@ const TopProject = () => {
   };
 
   return (
-    <div className="bg-[var(--bg-main)] relative transition-colors duration-300 py-20">
+    <div className="bg-[var(--bg-main)] relative transition-colors duration-300">
       <ProjectHeading
         small={"Project Showcase"}
         heading={
@@ -40,7 +40,7 @@ const TopProject = () => {
         }
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-0 lg:px-0 mt-12">
+      <div className="max-w-8xl mx-auto px-4 sm:px-0 lg:px-12 mt-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* LEFT → FEATURED CARD */}
           <div
