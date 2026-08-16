@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { projects } from "../Utils/Projects";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ExternalLink } from "lucide-react";
 import WorkBadge from "../Components/WorkBadge";
 import Footer from "../layout/Footer";
 
@@ -13,13 +13,13 @@ const ProjectDetails = () => {
 
   if (!project) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 px-4">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-[var(--text-main)]">
+      <div className="min-h-[70vh] flex flex-col items-center justify-center gap-4 px-4 text-center">
+        <h2 className="text-3xl font-medium text-[var(--text-main)]">
           Project not found
         </h2>
         <Link
           to="/projects"
-          className="text-sm sm:text-base text-[var(--accent-primary)] hover:underline"
+          className="text-sm text-[var(--accent-primary)] hover:underline"
         >
           Back to Projects
         </Link>
@@ -28,163 +28,174 @@ const ProjectDetails = () => {
   }
 
   return (
-    <>
-      <section className="bg-[var(--bg-main)] transition-colors duration-300 pt-25">
-        {/* ================= HERO ================= */}
-        <div className="relative overflow-hidden rounded-3xl bg-[var(--bg-gradient)]">
-          <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-0 sm:py-0 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-            {/* LEFT CONTENT */}
-            <div className="space-y-6">
-              <Link
-                to="/projects"
-                className="inline-flex items-center gap-2 text-sm sm:text-base text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition"
-              >
-                <ArrowLeft size={16} />
-                Back to Projects
-              </Link>
+    <div className="bg-[var(--bg-main)] min-h-screen transition-colors duration-300 pt-18 md:pt-18">
+      {/* ================= FULL-WIDTH HERO SECTION ================= */}
+      <section className="w-full px-4 sm:px-8 lg:px-16 pt-6 pb-16">
+        <div className="mb-5">
+          <Link
+            to="/projects"
+            className="inline-flex items-center gap-2 text-xs text-[var(--text-secondary)]50 hover:text-[var(--accent-primary)] transition"
+          >
+            <ChevronLeft size={16} />
+            Back to Projects
+          </Link>
+        </div>
 
-              <div className="flex flex-wrap items-center gap-1">
-                <span className="px-3 py-1 text-xs sm:text-sm rounded-full bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] font-medium">
-                  {project.category}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* LEFT: TITLE & META */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-xs sm:text-sm font-semibold tracking-wider uppercase text-[var(--accent-primary)]">
+                {project.category}
+              </span>
+              <span className="text-xs sm:text-sm text-[var(--text-secondary)]">
+                / {project.year}
+              </span>
+            </div>
+
+            <h1 className="text-4xl heading-font sm:text-5xl lg:text-6xl font-normal tracking-tight text-[var(--text-main)] leading-none">
+              {project.title}
+            </h1>
+
+            <p className="text-sm text-justify sm:text-sm text-[var(--text-secondary)] font-normal leading-relaxed">
+              {project.shortDescription}
+            </p>
+
+            <div className="flex flex-wrap gap-1 pt-2">
+              {project.techStack.map((tech, index) => (
+                <span
+                  key={index}
+                  className="text-xs sm:text-sm font-medium text-[var(--text-main)] bg-[var(--bg-secondary)]/50 px-1 py-1"
+                >
+                  {tech}
                 </span>
-                <span className="text-xs sm:text-sm text-[var(--text-secondary)]">
-                  {project.year}
-                </span>
-              </div>
+              ))}
+            </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl heading-font font-bold leading-tight text-[var(--text-main)]">
-                {project.title}
-              </h1>
-
-              <p className="text-xs sm:text-xs md:text-sm text-[var(--text-secondary)] max-w-xl">
-                {project.shortDescription}
-              </p>
-
-              {/* TECH STACK */}
-              <div className="flex flex-wrap gap-3 pt-4">
-                {project.techStack.map((tech, index) => (
-                  <span
-                    key={index}
-                    className="px-4 py-1.5 text-xs sm:text-sm rounded-full border border-[var(--border-light)] bg-[var(--bg-main)]/60 backdrop-blur text-[var(--text-main)]"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* CTA */}
-              {project.liveLink && (
+            {project.liveLink && (
+              <div className="pt-4">
                 <a
                   href={project.liveLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 mt-6 px-6 py-3 rounded-full border border-[var(--border-light)] text-sm sm:text-base font-medium text-[var(--accent-primary)] hover:opacity-90 transition-all duration-300"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-[var(--accent-primary)] hover:opacity-80 transition"
                 >
                   <ExternalLink size={16} />
                   Live Preview
                 </a>
-              )}
-            </div>
-          </div>
-        </div>
-        {/* RIGHT IMAGE */}
-        <div className="flex pt-10 justify-center items-center lg:justify-end">
-          <div className="relative w-full max-w-md px-4 sm:max-w-lg lg:max-w-full overflow-hidden">
-            {!loaded && (
-              <div className="absolute inset-0 bg-[var(--border-light)]/30 animate-pulse rounded-2xl" />
+              </div>
             )}
-            <img
-              src={project.thumbnail}
-              alt={project.title}
-              className={`w-full h-auto sm:h-[320px] md:h-[380px] lg:h-[440px] object-contain object-top rounded-xl transition-opacity duration-500 ${
-                loaded ? "opacity-100" : "opacity-0"
-              }`}
-              onLoad={() => setLoaded(true)}
-            />
           </div>
-        </div>
-        {/* ================= CONTENT ================= */}
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-20 space-y-20">
-          {/* OVERVIEW */}
-          <section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl heading-font font-medium mb-4">
-              Project{" "}
-              <span className="text-[var(--accent-primary)]">Overview</span>
-            </h2>
-            <div className="w-16 h-[2px] bg-[var(--accent-primary)] mb-6" />
-            <p className="text-sm sm:text-base md:text-lg text-[var(--text-secondary)] leading-relaxed text-justify max-w-7xl">
-              {project.description}
-            </p>
-          </section>
 
-          {/* CORE FUNCTIONALITY */}
-          <section className="grid lg:grid-cols-4 gap-10">
-            <div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl heading-font font-medium">
-                Core{" "}
-                <span className="text-[var(--accent-primary)]">
-                  Functionality
-                </span>
-              </h2>
-              <div className="w-14 h-[2px] bg-[var(--accent-primary)] mt-3" />
+          {/* RIGHT: EDGE-TO-EDGE THUMBNAIL */}
+          <div className="lg:col-span-6 w-full">
+            <div className="relative w-full overflow-hidden">
+              {!loaded && (
+                <div className="absolute inset-0 bg-[var(--border-light)]/20 animate-pulse aspect-video" />
+              )}
+              <img
+                src={project.thumbnail}
+                alt={project.title}
+                loading="lazy"
+                className={`w-full rounded-sm h-auto max-h-[500px] object-cover object-top transition-opacity duration-500 ${
+                  loaded ? "opacity-100" : "opacity-0"
+                }`}
+                onLoad={() => setLoaded(true)}
+              />
             </div>
-
-            <ul className="lg:col-span-3 space-y-0">
-              {project.features.map((feature, index) => (
-                <li
-                  key={index}
-                  className="p-4 sm:p-5 border-b border-[var(--border-light)] text-[var(--text-secondary)] leading-relaxed rounded-md hover:bg-[var(--bg-secondary)]/20 transition"
-                >
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          {/* PROBLEM & SOLUTION */}
-          <section className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl sm:text-3xl heading-font mb-3 text-[var(--text-main)]">
-                Problem Statement
-              </h3>
-              <p className="text-sm sm:text-base md:text-lg text-[var(--text-secondary)] leading-relaxed">
-                The goal was to design a modern, scalable project with clean UI,
-                reusable components, and smooth user experience while keeping
-                performance and maintainability in mind.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-2xl sm:text-3xl heading-font mb-3 text-[var(--text-main)]">
-                Solution Approach
-              </h3>
-              <p className="text-sm sm:text-base md:text-lg text-[var(--text-secondary)] leading-relaxed">
-                I implemented a component-driven architecture using React and
-                Vite, leveraged Tailwind CSS for rapid UI development, and
-                focused on clean separation of concerns for scalability.
-              </p>
-            </div>
-          </section>
-
-          {/* LEARNINGS */}
-          <section>
-            <h3 className="text-2xl sm:text-3xl heading-font mb-4">
-              Key{" "}
-              <span className="text-[var(--accent-primary)]">Learnings</span>
-            </h3>
-            <p className="text-sm sm:text-base md:text-lg text-[var(--text-secondary)] leading-relaxed max-w-3xl">
-              This project strengthened my understanding of reusable component
-              design, responsive layouts, UI consistency using CSS variables,
-              and real-world project structuring suitable for production-ready
-              applications.
-            </p>
-          </section>
+          </div>
         </div>
       </section>
 
+      {/* ================= FULL-WIDTH CONTENT SECTIONS ================= */}
+      <div className="w-full px-4 sm:px-8 lg:px-16 space-y-10 pb-24">
+        {/* OVERVIEW */}
+        <section className="md:pt-8">
+          <div className="space-y-4">
+            <span className="block text-xs font-semibold uppercase tracking-widest text-[var(--accent-primary)]">
+              01 / Overview
+            </span>
+
+            <p className="text-xs lg:text-sm  text-justify font-normal text-[var(--text-main)] leading-relaxed">
+              {project.description}
+            </p>
+          </div>
+        </section>
+
+        {/* CORE FUNCTIONALITY */}
+        <section className="md:pt-8">
+          <div className="space-y-6">
+            <span className="block text-xs font-semibold uppercase tracking-widest text-[var(--accent-primary)]">
+              02 / Features
+            </span>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-0">
+              {project.features.map((feature, index) => (
+                <div key={index} className="flex items-start gap-4 py-1 ">
+                  <span className="shrink-0 text-[10px] lg:text-xs text-[var(--accent-primary)] font-mono pt-0.5">
+                    {index + 1}.
+                  </span>
+
+                  <p className="text-xs lg:text-sm text-justify text-[var(--text-secondary)]/85 leading-relaxed">
+                    {feature}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* STRATEGY */}
+        {project.strategies?.length > 0 && (
+          <section className="pt-12 border-t border-[var(--border-light)]">
+            <div className="space-y-6">
+              <span className="block text-xs font-semibold uppercase tracking-widest text-[var(--accent-primary)]">
+                03 / Strategy
+              </span>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                {project.strategies.map((strategy, index) => (
+                  <div key={index} className="space-y-3">
+                    <h3 className="text-md heading-font md:text-md text-[var(--accent-primary)]">
+                      [ <span className="text-[var(--text-main)] " >{strategy.title}</span> ]
+                    </h3>
+
+                    <p className="text-xs lg:text-sm text-justify text-[var(--text-secondary)]/85 leading-relaxed">
+                      {strategy.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* KEY LEARNINGS */}
+        {project.takeaways?.length > 0 && (
+          <section className="pt-12 border-t border-[var(--border-light)]">
+            <div className="space-y-4">
+              <span className="block text-xs font-semibold uppercase tracking-widest text-[var(--accent-primary)]">
+                04 / Takeaways
+              </span>
+
+              <div className="space-y-3">
+                {project.takeaways.map((takeaway, index) => (
+                  <p
+                    key={index}
+                    className="text-xs lg:text-sm text-justify text-[var(--text-secondary)]/85 leading-relaxed"
+                  >
+                    {takeaway}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+      </div>
+
       <WorkBadge />
       <Footer />
-    </>
+    </div>
   );
 };
 
