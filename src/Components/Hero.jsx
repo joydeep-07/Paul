@@ -86,7 +86,7 @@ const Hero = () => {
           <div className="mt-10 sm:mt-12 md:mt-16 flex items-start gap-5">
             <div className="hidden sm:block md:w-3xl h-px bg-[var(--border-light)] mt-3 shrink-0" />
 
-            <p className="max-w-2xl text-xs sm:text-sm md:text-base text-[var(--text-secondary)] leading-relaxed">
+            <p className="max-w-2xl text-justify text-xs sm:text-sm md:text-sm md:max-w-xl text-[var(--text-secondary)] leading-relaxed">
               I work with brands globally to build pixel-perfect, engaging, and
               accessible digital experiences that drive results and achieve
               business goals.
