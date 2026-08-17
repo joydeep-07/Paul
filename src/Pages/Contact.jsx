@@ -294,7 +294,7 @@ const Contact = () => {
                       >
                         <Icon
                           size={14}
-                          className="shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5"
+                          className="shrink-0 transition-transform duration-300 "
                         />
 
                         <span className="text-[9px] font-medium uppercase tracking-[0.12em]">
