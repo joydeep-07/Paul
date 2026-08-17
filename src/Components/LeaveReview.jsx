@@ -6,6 +6,7 @@ import Cropper from "react-easy-crop";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BsShieldLockFill } from "react-icons/bs";
+import Auth from "./Auth";
 
 const LeaveReview = () => {
   const [open, setOpen] = useState(false);
@@ -261,23 +262,7 @@ const LeaveReview = () => {
                     Your feedback helps us grow and improve.
                   </p>
                 </div>
-                <Link
-                  to="/admin/reviews"
-                  aria-label="Manage Reviews"
-                  className=" group relative flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-light)] bg-[var(--bg-secondary)]/60 text-[var(--text-secondary)] backdrop-blur-sm transition-all duration-300 ease-out hover:bg-[var(--accent-primary)]/5 hover:text-[var(--accent-primary)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] "
-                >
-                  <BsShieldLockFill
-                    size={14}
-                    className="transition-transform duration-300 group-hover:scale-110"
-                  />
-
-                  {/* Custom tooltip */}
-                  <span
-                    className=" pointer-events-none absolute right-0 top-full z-50 mt-2 whitespace-nowrap rounded-md border border-[var(--border-light)] bg-[var(--bg-secondary)] px-2.5 py-1.5 text-[10px] font-medium text-[var(--text-main)] shadow-lg opacity-0 translate-y-1 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 "
-                  >
-                    Manage Reviews
-                  </span>
-                </Link>
+               <Auth/>
               </div>
 
               {/* Form */}
