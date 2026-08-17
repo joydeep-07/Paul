@@ -125,7 +125,7 @@ const ContactFaq = () => {
                           className="overflow-hidden"
                         >
                           <div className="pb-6 pl-9 pr-10 sm:pl-10 sm:pr-14">
-                            <p className="max-w-2xl text-xs leading-[1.9] text-[var(--text-secondary)] sm:text-sm">
+                            <p className="text-justify text-xs leading-[1.9] text-[var(--text-secondary)] sm:text-sm">
                               {item.answer}
                             </p>
                           </div>
