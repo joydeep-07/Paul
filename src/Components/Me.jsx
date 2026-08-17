@@ -6,15 +6,15 @@ import DownloadModal from "./DownloadModal";
 
 const Me = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
 
   const handleDownload = () => {
-    setShowModal(true); // open modal first
+    setShowModal(true);
   };
 
   const confirmDownload = () => {
     const link = document.createElement("a");
-    link.href = "/Resume.pdf"; 
+    link.href = "/Resume.pdf";
     link.download = "Joydeep_Paul_Resume.pdf";
     link.click();
 
@@ -23,78 +23,156 @@ const Me = () => {
 
   return (
     <>
-      <section className="flex justify-center items-center pb-5 py-5 bg-[var(--bg-main)] text-[var(--text-main)]">
-        <div className="max-w-7xl w-full flex flex-col lg:flex-row items-center gap-8 lg:gap-20 px-4 sm:px-6 md:px-8 lg:px-12">
-          {/* IMAGE SIDE */}
-          <div className="flex relative w-full lg:w-auto">
-            <div className="relative group mx-auto lg:mx-0">
-              {!imageLoaded && (
-                <div className="absolute flex justify-center items-center inset-0 rounded-b-full bg-[var(--border-light)]/50 animate-pulse">
-                  <User
-                    className="text-[var(--text-secondary)]/50"
-                    size={100}
-                  />
-                </div>
-              )}
+      <section className="w-full bg-[var(--bg-main)] transition-colors duration-300">
+        <div className="mx-auto max-w-8xl px-4 md:px-12">
+          {/* TOP LABEL */}
+          {/* <div className="mb-10 flex items-center gap-3 sm:mb-12">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+              About Me
+            </span>
 
-              <img
-                src={me}
-                alt="Joydeep Paul"
-                loading="lazy"
-                onLoad={() => setImageLoaded(true)}
-                className={`h-80 xs:h-96 sm:h-110 md:h-120 lg:h-130
-                w-70 xs:w-80 sm:w-90 md:w-95 lg:w-100
-                object-contain object-top rounded-b-full
-                transition-opacity duration-500
-                ${imageLoaded ? "opacity-100" : "opacity-0"}`}
-              />
+            <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
+          </div> */}
 
-              {imageLoaded && (
-                <div className="absolute -bottom-3 xs:-bottom-4 sm:-bottom-5 -right-8 xs:-right-9 sm:-right-10 scale-75 xs:scale-90 sm:scale-100">
-                  <CircularText
-                    text="LET'S TALK • LET'S TALK • LET'S TALK • "
-                    radius={30}
-                    fontSize={10}
-                    rotateSpeed={40}
-                    direction="clockwise"
-                    textColor="var(--text-main)"
-                  />
-                </div>
-              )}
+          {/* MAIN CONTENT */}
+          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-20">
+            {/* IMAGE SIDE */}
+            <div className="relative flex justify-center pt-6 lg:col-span-4 lg:justify-start">
+              <div className="relative">
+                {/* IMAGE LOADER */}
+                {!imageLoaded && (
+                  <div className="absolute inset-0 flex items-center justify-center rounded-b-full bg-[var(--border-light)]/40">
+                    <User
+                      className="text-[var(--text-secondary)]/40"
+                      size={90}
+                    />
+                  </div>
+                )}
+
+                <img
+                  src={me}
+                  alt="Joydeep Paul"
+                  loading="lazy"
+                  onLoad={() => setImageLoaded(true)}
+                  className={`h-80 w-70 object-contain object-top rounded-b-full transition-opacity duration-500
+                    xs:h-96 xs:w-80
+                    sm:h-110 sm:w-90
+                    md:h-120 md:w-95
+                    lg:h-130 lg:w-100
+                    ${imageLoaded ? "opacity-100" : "opacity-0"}
+                  `}
+                />
+
+                {/* CIRCULAR TEXT */}
+                {imageLoaded && (
+                  <div className="absolute -bottom-3 -right-8 scale-75 xs:-bottom-4 xs:-right-9 xs:scale-90 sm:-bottom-5 sm:-right-10 sm:scale-100">
+                    <CircularText
+                      text="LET'S TALK • LET'S TALK • LET'S TALK • "
+                      radius={30}
+                      fontSize={10}
+                      rotateSpeed={40}
+                      direction="clockwise"
+                      textColor="var(--text-main)"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          {/* TEXT SIDE */}
-          <div className="flex-1 flex flex-col justify-center text-center lg:text-left space-y-4 sm:space-y-5 lg:space-y-6 w-full">
-            <h1 className="text-3xl heading-font xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-tight">
-              A creative{" "}
-              <span className="text-[var(--accent-primary)]">developer</span> &
-              <br /> digital designer
-            </h1>
+            {/* TEXT SIDE */}
+            <div className="lg:col-span-8 lg:pl-0">
+              <div className="w-full">
+                {/* HEADING */}
+                <h1 className="heading-font text-3xl font-medium leading-tight tracking-tight text-[var(--text-main)] sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[60px]">
+                  A creative{" "}
+                  <span className="text-[var(--accent-primary)]">
+                    developer
+                  </span>{" "}
+                  & digital designer
+                </h1>
 
-            <p className="text-[var(--text-secondary)] text-xs xs:text-base sm:text-sm max-w-xl mx-auto lg:mx-0">
-              I collaborate with brands globally to design impactful,
-              mission-focused websites that drive results and achieve business
-              goals.
-            </p>
+                {/* DESCRIPTION */}
+                <p className="mt-6 w-full text-justify text-sm leading-[1.9] text-[var(--text-secondary)] sm:text-sm">
+                  I’m a frontend developer specializing in responsive and
+                  interactive web applications using React.js, JavaScript, and
+                  TypeScript. I work with Tailwind CSS, GSAP, and Framer Motion
+                  to build scalable UI, smooth interactions, and performant
+                  interfaces. I also have working knowledge of Node.js,
+                  Express.js, MongoDB, REST APIs, and authentication systems.
+                </p>
 
-            <div className="flex justify-center mt-5 lg:justify-start">
-              <button
-                onClick={handleDownload}
-                className="relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 backdrop-blur-md border border-[var(--border-light)] hover:border-[var(--accent-primary)]/20 shadow-sm transition-all duration-500 ease-out group"
-              >
-                <span className="flex items-center text-xs justify-center gap-2">
-                  DOWNLOAD RESUME
-                </span>
-              </button>
+                <p className="mt-5 w-full text-justify text-sm leading-[1.9] text-[var(--text-secondary)]">
+                  I focus on transforming concepts into maintainable,
+                  production-ready digital products through clean architecture,
+                  reusable components, optimized interactions, smooth
+                  animations, and a strong emphasis on usability, performance,
+                  and visual consistency.
+                </p>
+
+                {/* QUICK DETAILS */}
+                {/* TECHNICAL INFO */}
+                {/* TECHNICAL INFO */}
+                <div className="mt-8 border-y border-[var(--border-light)]">
+                  {/* PRIMARY FOCUS */}
+                  <div className="flex items-center justify-between gap-6 py-4 sm:inline-flex sm:w-1/3 sm:justify-start sm:border-r sm:border-[var(--border-light)] sm:pr-6 sm:py-5">
+                    <div>
+                      <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--accent-primary)] sm:text-[10px]">
+                        Primary Focus
+                      </span>
+
+                      <p className="mt-1 text-xs uppercase font-medium text-[var(--text-main)] sm:mt-2 sm:text-sm">
+                        Frontend Development
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* CORE STACK */}
+                  <div className="flex items-center justify-between gap-6 border-t border-[var(--border-light)] py-4 sm:inline-flex sm:w-1/3 sm:border-t-0 sm:border-r sm:border-[var(--border-light)] sm:px-6 sm:py-5">
+                    <div>
+                      <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--accent-primary)] sm:text-[10px]">
+                        Core Stack
+                      </span>
+
+                      <p className="mt-1 text-xs uppercase font-medium text-[var(--text-main)] sm:mt-2 sm:text-sm">
+                        React / Node / MongoDB
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* EXPERTISE */}
+                  <div className="flex items-center justify-between gap-6 border-t border-[var(--border-light)] py-4 sm:inline-flex sm:w-1/3 sm:border-t-0 sm:pl-6 sm:py-5">
+                    <div>
+                      <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--accent-primary)] sm:text-[10px]">
+                        Expertise
+                      </span>
+
+                      <p className="mt-1 text-xs uppercase font-medium text-[var(--text-main)] sm:mt-2 sm:text-sm">
+                        UI / UX / Full Stack
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* DOWNLOAD */}
+                <div className="mt-8 flex justify-start">
+                  <button
+                    onClick={handleDownload}
+                    className="relative cursor-pointer overflow-hidden rounded-full border border-[var(--accent-primary)] bg-[var(--accent-primary)] px-8 py-3 font-medium tracking-[0.1em] text-white shadow-sm transition-all duration-500 hover:opacity-90 sm:px-10"
+                  >
+                    <span className="flex items-center justify-center gap-2 text-[10px] sm:text-xs">
+                      DOWNLOAD RESUME
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* MODAL OVERLAY */}
+      {/* DOWNLOAD MODAL */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
           <DownloadModal
             onCancel={() => setShowModal(false)}
             onConfirm={confirmDownload}
