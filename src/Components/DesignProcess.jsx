@@ -6,93 +6,198 @@ import {
   FaProjectDiagram,
   FaHandshake,
 } from "react-icons/fa";
-import { motion } from "framer-motion";
 
 const steps = [
   {
-    id: 1,
-    icon: <FaSearch size={18} />,
+    id: "01",
+    icon: FaSearch,
     title: "Research",
     description:
-      "Understanding the problem space, gathering requirements, and analyzing user needs to ensure a strong foundation.",
+      "Understand the problem, requirements, users, project goals, and technical constraints.",
   },
   {
-    id: 2,
-    icon: <FaPenNib size={18} />,
-    title: "Wireframing",
+    id: "02",
+    icon: FaPenNib,
+    title: "Planning",
     description:
-      "Sketching layouts and structuring content to visualize user flows and interactions before diving into design.",
+      "Structure the content, user flow, components, and technical approach.",
   },
   {
-    id: 3,
-    icon: <FaPalette size={18} />,
+    id: "03",
+    icon: FaPalette,
     title: "Design",
     description:
-      "Bringing wireframes to life with colors, typography, and visual hierarchy for an appealing user interface.",
+      "Define the visual system, layout, typography, interactions, and hierarchy.",
   },
   {
-    id: 4,
-    icon: <FaProjectDiagram size={18} />,
-    title: "Prototyping",
+    id: "04",
+    icon: FaProjectDiagram,
+    title: "Development",
     description:
-      "Creating interactive prototypes to test usability and validate the design with real users before development.",
+      "Build responsive, reusable, and maintainable components with clean code.",
   },
   {
-    id: 5,
-    icon: <FaHandshake size={18} />,
-    title: "Quality Assurance",
+    id: "05",
+    icon: FaHandshake,
+    title: "Refinement",
     description:
-      "Delivering design assets to developers and iterating based on feedback to ensure the final product exceeds expectations.",
+      "Test, optimize, fix inconsistencies, and improve the final experience.",
   },
 ];
 
 const DesignProcess = () => {
   return (
-    <section className="w-full bg-[var(--bg-main)] py-10 sm:py-14 md:py-20 px-4 sm:px-6 lg:px-10">
-      <div className="max-w-7xl mx-auto flex flex-col gap-10">
-        {/* TOP / LEFT */}
-        <div className="max-w-xl">
-          <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
-            Steps I follow
-          </h3>
-
-          <div className="mt-2 mb-6 h-[2px] w-24 bg-[var(--accent-primary)] rounded-full" />
-
-          <h1 className="heading-font text-3xl sm:text-4xl md:text-5xl leading-snug">
-            What My{" "}
-            <span className="text-[var(--accent-primary)]">
-              Design process include
+    <section className="w-full bg-[var(--bg-main)] py-12 transition-colors duration-300 sm:py-16 md:py-20">
+      <div className="mx-auto max-w-8xl px-4 md:px-12">
+        {/* MAIN HEADING */}
+        <div className="mb-12 max-w-3xl sm:mb-14">
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+              My Process
             </span>
-          </h1>
 
-          <p className="mt-4 text-xs sm:text-sm text-[var(--text-secondary)]/80 max-w-md">
-            Each project is unique, and I follow a structured approach to turn
-            ideas into seamless user experiences.
+            <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
+          </div>
+
+          <h2 className="heading-font mt-5 text-3xl leading-tight text-[var(--text-main)] sm:text-4xl md:text-4xl">
+            How I Turn Ideas Into{" "}
+            <span className="text-[var(--accent-primary)]">
+              Digital Products
+            </span>
+          </h2>
+
+          <p className="mt-4 max-w-2xl text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
+            A structured workflow helps me move from an initial concept to a
+            polished digital experience while keeping usability, performance,
+            responsiveness, and code quality in focus.
           </p>
         </div>
 
-        {/* CARDS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {steps.map((step) => (
-            <motion.div
-              key={step.id}
-              className="border border-[var(--border-light)] bg-[var(--bg-secondary)] p-5 sm:p-6 rounded-xl flex flex-col"
-             
-            >
-              <h2 className="text-lg sm:text-xl heading-font flex items-center gap-3">
-                <span className="text-[var(--text-secondary)]">
-                  {step.icon}
-                </span>
-                <span className="text-[var(--accent-primary)]">
-                  {step.title}
-                </span>
-              </h2>
+        {/* CONTENT */}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
+          {/* LEFT — PROCESS */}
+          <div className="lg:col-span-7">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+              {steps.map((step) => {
+                const Icon = step.icon;
 
-              <p className="mt-3 text-xs sm:text-sm text-[var(--text-secondary)]/80 font-medium leading-relaxed">
-                {step.description}
-              </p>
-            </motion.div>
-          ))}
+                return (
+                  <div
+                    key={step.id}
+                    className="group rounded-sm border border-[var(--border-light)] bg-[var(--bg-secondary)] p-3.5 transition-all duration-300 hover:border-[var(--accent-primary)]/40 sm:rounded-md sm:p-4"
+                  >
+                    {/* TOP */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-[9px] font-medium tracking-[0.15em] text-[var(--accent-primary)] sm:text-[10px]">
+                        {String(step.id).padStart(2, "0")}
+                      </span>
+
+                      <div className="flex h-6 w-6 items-center justify-center rounded-full border border-[var(--border-light)] text-[var(--text-secondary)] transition-all duration-300 group-hover:border-[var(--accent-primary)]/40 group-hover:text-[var(--accent-primary)] sm:h-7 sm:w-7">
+                        <Icon className="text-[10px] sm:text-xs" />
+                      </div>
+                    </div>
+
+                    {/* TITLE */}
+                    <h3 className="heading-font mt-4 text-sm leading-tight text-[var(--text-main)] sm:mt-5 sm:text-base">
+                      {step.title}
+                    </h3>
+
+                    {/* DESCRIPTION */}
+                    <p className="mt-2 text-[10px] leading-[1.7] text-[var(--text-secondary)] sm:text-xs">
+                      {step.description}
+                    </p>
+
+                    {/* STAGE */}
+                    <div className="mt-4 flex items-center gap-1.5 sm:mt-5 sm:gap-2">
+                      <span className="h-px w-4 bg-[var(--accent-primary)] sm:w-6" />
+
+                      <span className="text-[7px] uppercase tracking-[0.15em] text-[var(--text-secondary)]/60 sm:text-[9px]">
+                        Stage {step.id}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          {/* RIGHT — SUPPORTING CONTENT */}
+          <div className="lg:col-span-5">
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+                Approach
+              </span>
+
+              <span className="h-px w-10 bg-[var(--accent-primary)]" />
+            </div>
+
+            <h3 className="heading-font mt-5 text-2xl leading-tight text-[var(--text-main)] sm:text-3xl">
+              Structured thinking,
+              <br />
+              <span className="text-[var(--accent-primary)]">
+                purposeful execution.
+              </span>
+            </h3>
+
+            <p className="mt-5 max-w-full text-justify text-xs leading-[1.9] text-[var(--text-secondary)] sm:text-sm">
+              Every project starts with understanding what needs to be solved. I
+              break the idea into clear requirements, define the user flow, and
+              establish a technical direction before moving into implementation.
+            </p>
+
+            <p className="mt-5 max-w-full text-justify text-xs leading-[1.9] text-[var(--text-secondary)] sm:text-sm">
+              During development, I focus on reusable components, responsive
+              layouts, clean architecture, performance, and meaningful
+              interactions. The final stage is dedicated to testing and
+              refinement.
+            </p>
+
+            {/* META */}
+            <div className="mt-8 border-y uppercase border-[var(--border-light)]">
+              {/* BACKEND */}
+              <div className="flex items-center justify-between gap-4 border-t border-[var(--border-light)] py-4">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                  Backend
+                </span>
+
+                <span className="text-right text-xs font-medium text-[var(--text-main)]">
+                  API / Database / Server
+                </span>
+              </div>
+
+              {/* AUTHENTICATION */}
+              <div className="flex items-center justify-between gap-4 border-t border-[var(--border-light)] py-4">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                  Authentication
+                </span>
+
+                <span className="text-right text-xs font-medium text-[var(--text-main)]">
+                  OTP / OAuth / Token-based
+                </span>
+              </div>
+
+              {/* TESTING */}
+              <div className="flex items-center justify-between gap-4 border-t border-[var(--border-light)] py-4">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                  Testing
+                </span>
+
+                <span className="text-right text-xs font-medium text-[var(--text-main)]">
+                  API / Authentication / UI
+                </span>
+              </div>
+
+              {/* QUALITY */}
+              <div className="flex items-center justify-between gap-4 border-t border-[var(--border-light)] py-4">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                  Quality
+                </span>
+
+                <span className="text-right text-xs font-medium text-[var(--text-main)]">
+                  Performance / Responsiveness
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
