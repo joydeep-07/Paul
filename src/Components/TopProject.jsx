@@ -24,7 +24,7 @@ const TopProject = () => {
   };
 
   return (
-    <section className="w-full bg-[var(--bg-main)] py-0 transition-colors duration-300">
+    <section className="w-full bg-[var(--bg-main)] py-0 pb-10 md:pb-0 transition-colors duration-300">
       <div className="mx-auto max-w-8xl px-4 md:px-12">
         {/* HEADER */}
         <div className="mb-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">

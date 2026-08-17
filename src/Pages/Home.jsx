@@ -17,7 +17,7 @@ const Home = () => {
       <BlogBanner />
       <NewsletterSection />
       <WorkBadge />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
