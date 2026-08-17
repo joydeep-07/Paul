@@ -193,7 +193,7 @@ const ProjectDetails = () => {
         )}
       </div>
 
-      <WorkBadge />
+      {/* <WorkBadge /> */}
       <Footer />
     </div>
   );

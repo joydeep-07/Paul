@@ -75,7 +75,7 @@ const Blogs = () => {
         </div>
       </div>
 
-      <WorkBadge />
+      {/* <WorkBadge /> */}
       <Footer />
     </>
   );

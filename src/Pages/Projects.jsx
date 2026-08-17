@@ -67,7 +67,7 @@ const Projects = () => {
 
         
 
-        <WorkBadge />
+        {/* <WorkBadge /> */}
         <Footer />
       </div>
     </div>

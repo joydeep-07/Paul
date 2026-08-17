@@ -28,7 +28,7 @@ const About = () => {
       <TechExperience/>
       <Awards/>
       <DesignProcess/>
-      <WorkBadge />
+      {/* <WorkBadge /> */}
       <Footer />
     </div>
   );

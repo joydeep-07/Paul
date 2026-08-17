@@ -16,8 +16,8 @@ const Home = () => {
       <Reviews />
       <BlogBanner />
       <NewsletterSection />
-      <WorkBadge />
-      {/* <Footer /> */}
+      {/* <WorkBadge /> */}
+      <Footer />
     </div>
   );
 };
