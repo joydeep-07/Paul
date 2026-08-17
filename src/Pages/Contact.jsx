@@ -281,16 +281,7 @@ const Contact = () => {
                             : undefined
                         }
                         aria-label={social.name}
-                        className="
-          group flex items-center justify-center gap-2
-          border border-[var(--border-light)] rounded-[3px]
-          px-3 py-2.5
-          text-[var(--text-secondary)]
-          transition-all duration-300
-          hover:border-[var(--accent-primary)]/40
-          hover:bg-[var(--accent-primary)]/5
-          hover:text-[var(--accent-primary)]
-        "
+                        className=" group flex items-center justify-center gap-2 border border-[var(--border-light)] rounded-[3px] px-3 py-2.5 text-[var(--text-secondary)] transition-all duration-300 hover:border-[var(--accent-primary)]/40 hover:bg-[var(--accent-primary)]/5 hover:text-[var(--accent-primary)]  "
                       >
                         <Icon
                           size={14}
