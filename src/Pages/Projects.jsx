@@ -1,75 +1,59 @@
 import React from "react";
 import MyWorks from "../Components/MyWorks";
-import { projects } from "../Utils/Projects";
-import WorkBadge from "../Components/WorkBadge";
 import Footer from "../layout/Footer";
+import { projects } from "../Utils/Projects";
 
 const Projects = () => {
   return (
-    <div className="flex flex-col items-center pt-25 bg-[var(--bg-main)]">
+    <div className="w-full bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
       {/* HEADER */}
-      <div
-        className="
-          w-full max-w-7xl
-          px-4 sm:px-6 lg:px-8
-          mb-14 sm:mb-16 lg:mb-20
-        "
-      >
-        {/* BADGE */}
-        <div className="flex items-center gap-3 mb-5">
-          <div className="w-10 sm:w-12 h-1 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] rounded-full" />
-          <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[var(--accent-primary)] font-medium">
-            Portfolio Showcase
-          </span>
-        </div>
+      <section className="mx-auto max-w-8xl px-4 pt-24 sm:px-6 sm:pt-28 md:px-12 lg:pt-32">
+        <div className="max-w-4xl">
+          {/* LABEL */}
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+              Portfolio
+            </span>
 
-        {/* TITLE */}
-        <div className="mb-8">
-          <h1
-            className="
-            heading-font
-            text-2xl sm:text-3xl md:text-5xl lg:text-6xl
-            leading-tight mb-3
-          "
-          >
-            Creating{" "}
-            <span className="bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
-              Next level
-            </span>{" "}
-            digital products
+            <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
+          </div>
+
+          {/* HEADING */}
+          <h1 className="heading-font mt-5 text-3xl leading-[1.15] text-[var(--text-main)] sm:text-4xl md:text-5xl lg:text-5xl">
+            Selected{" "}
+            <span className="text-[var(--accent-primary)]">projects</span>{" "}
+            & digital experiences
           </h1>
 
-          <p
-            className="
-            text-[var(--text-secondary)]
-            text-sm sm:text-base
-            max-w-xl
-            opacity-90
-            leading-relaxed
-          "
-          >
-            Each project is unique, and I follow a structured approach to turn
-            ideas into seamless user experiences.
+          {/* DESCRIPTION */}
+          <p className="mt-5 max-w-2xl text-xs leading-[1.9] text-[var(--text-secondary)] sm:text-sm md:text-base">
+            A collection of projects focused on responsive interfaces,
+            interactive experiences, scalable frontend architecture, and
+            practical full-stack development.
           </p>
-        </div>
 
-        {/* META */}
-        <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-[var(--text-secondary)]">
-          <span>{projects.length} Featured Projects</span>
-          <span className="w-1 h-1 bg-[var(--border-light)] rounded-full hidden sm:block" />
-          <span>Updated Recently</span>
-        </div>
-      </div>
+          {/* META */}
+          <div className="mt-6 flex items-center gap-3">
+            <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[var(--text-secondary)] sm:text-xs">
+              {projects.length} Featured Projects
+            </span>
 
-      {/* CONTENT */}
-      <div className="w-full">
+            <span className="h-1 w-1 rounded-full bg-[var(--accent-primary)]" />
+
+            <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[var(--text-secondary)]/60 sm:text-xs">
+              Selected Work
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* PROJECTS */}
+      <section className="mt-14 w-full sm:mt-16 lg:mt-20">
         <MyWorks />
+      </section>
 
-        
-
-        {/* <WorkBadge /> */}
-        <Footer />
-      </div>
+      {/* FOOTER */}
+      <Footer />
     </div>
   );
 };
