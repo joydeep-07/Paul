@@ -58,7 +58,7 @@ const NewsletterSection = () => {
         {/* HEADER */}
         <div className="mb-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
           {/* LEFT HEADER — TEXT */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 md:flex hidden flex-col ">
             <div className="mb-4 flex items-center gap-3">
               <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
                 Newsletter
@@ -107,7 +107,7 @@ const NewsletterSection = () => {
           {/* LEFT — TEXT */}
           <div className="lg:col-span-5">
             <div className="w-full">
-              <h3 className="heading-font text-3xl leading-tight tracking-tight text-[var(--text-main)] sm:text-4xl lg:text-[42px]">
+              <h3 className="heading-font text-2xl leading-tight tracking-tight text-[var(--text-main)] sm:text-4xl lg:text-[42px]">
                 Stay{" "}
                 <span className="text-[var(--accent-primary)]">
                   in the loop
