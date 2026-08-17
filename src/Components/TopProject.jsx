@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import second from "../assets/thumbnail/bharat.png";
-import ProjectHeading from "./ProjectHeading";
 import { Link, useNavigate } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 
 const TopProject = () => {
   const [loaded, setLoaded] = useState(false);
@@ -10,142 +10,246 @@ const TopProject = () => {
   const project = {
     title: "Bharat Vraman",
     shortDescription:
-      "A beautifully designed temple exploration platform showcasing famous Indian temples with detailed information and smooth UI experience.",
+      "A beautifully designed temple exploration platform showcasing famous Indian temples with detailed information and a smooth, intuitive browsing experience.",
     year: "2026",
     thumbnail: second,
   };
 
-  const handleNavigation = ()=>{
+  const handleNavigation = () => {
     navigate("/project/bharat-vraman");
-  }
+  };
 
   const handleProjects = () => {
     navigate("/projects");
   };
 
   return (
-    <div className="bg-[var(--bg-main)] relative transition-colors duration-300">
-      <ProjectHeading
-        small={"Project Showcase"}
-        heading={
-          <h1 className="text-3xl heading-font sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight mb-2">
-            Featured{" "}
-            <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
-              Projects
-            </span>
-          </h1>
-        }
-        desc={
-          "Each project is unique, and I follow a structured approach to turn ideas into seamless user experiences."
-        }
-      />
+    <section className="w-full bg-[var(--bg-main)] py-0 transition-colors duration-300">
+      <div className="mx-auto max-w-8xl px-4 md:px-12">
+        {/* HEADER */}
+        <div className="mb-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
+          {/* LEFT */}
+          <div className="lg:col-span-7 hidden md:flex flex-col">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+                Project Showcase
+              </span>
 
-      <div className="max-w-8xl mx-auto px-4 sm:px-0 lg:px-12 mt-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* LEFT → FEATURED CARD */}
-          <div
-            onClick={handleNavigation}
-            className=" group cursor-pointer rounded-2xl border border-[var(--border-light)]/50 bg-[var(--bg-secondary)]/80 shadow-sm"
-          >
-            {/* IMAGE */}
-            <div className=" relative overflow-hidden rounded-xl m-5 ">
-              {!loaded && (
-                <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse" />
-              )}
-
-              <img
-                src={project.thumbnail}
-                alt={project.title}
-                loading="lazy"
-                onLoad={() => setLoaded(true)}
-                className={` w-full h-full object-contain rounded-xl transition-all duration-700 ease-out ${loaded ? "opacity-100" : "opacity-0"} `}
-              />
+              <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
             </div>
 
-            {/* CONTENT */}
-            <div className="px-6 pb-6 flex items-start justify-between gap-4">
-              <div>
-                <h2 className="heading-font text-lg sm:text-xl lg:text-2xl text-[var(--text-main)] transition-colors duration-300">
-                  {project.title}
-                </h2>
+            <p className="max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
+              A selection of work that reflects my approach to design,
+              development, interaction, and creating meaningful digital
+              experiences.
+            </p>
+          </div>
 
-                <p className="mt-2 text-xs sm:text-sm text-[var(--text-secondary)]/80 leading-relaxed">
-                  {project.shortDescription}
-                </p>
-              </div>
+          <div className="md:hidden lg:col-span-5">
+            <div>
+              <h2 className="heading-font text-2xl text-[var(--text-main)] sm:text-3xl">
+                Featured{" "}
+                <span className="text-[var(--accent-primary)]">project</span>
+              </h2>
 
-              <span className="text-xs sm:text-sm opacity-50 whitespace-nowrap font-medium tracking-wide">
-                {project.year}
-              </span>
+              <p className="mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)]">
+                A closer look at one of my projects, its purpose, technology,
+                and the decisions behind its implementation.
+              </p>
             </div>
           </div>
 
-          {/* RIGHT → DESCRIPTION PANEL */}
-          <div className="space-y-6 p-2">
-            <h3 className="heading-font text-3xl tracking-tight sm:text-[45px] text-[var(--text-main)]">
-              Why This Project{" "}
-              <span className="text-[var(--accent-primary)] ">Stands Out</span>
-            </h3>
+          {/* RIGHT */}
+          <div className="hidden border-l border-[var(--border-light)] pl-10 md:flex lg:col-span-5">
+            <div>
+              <h2 className="heading-font text-2xl text-[var(--text-main)] sm:text-3xl">
+                Featured{" "}
+                <span className="text-[var(--accent-primary)]">project</span>
+              </h2>
 
-            <p className="text-[var(--text-secondary)] text-sm text-justify leading-relaxed">
-              Temple Explorer is a modern React.js web application that lets
-              users explore famous temples across India. It showcases temples in
-              a responsive grid layout with images, names, and locations. Each
-              temple includes a dedicated detail page using dynamic routing with
-              slugs, displaying information like deity, history, timings, and
-              significance. The project features a clean UI with smooth
-              animations, reusable components, and user-friendly navigation.
-            </p>
-
-            <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
-              <li>
-                {" "}
-                <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
-                  ✓
-                </span>{" "}
-                Fully responsive UI
-              </li>
-              <li>
-                {" "}
-                <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
-                  ✓
-                </span>{" "}
-                Built with React.js, React Router, and Tailwind CSS
-              </li>
-              <li>
-                {" "}
-                <span className=" text-[var(--accent-primary)] mr-2 font-bold ">
-                  ✓
-                </span>{" "}
-                Dynamic routing with slugs for temple detail pages
-              </li>
-              
-            </ul>
-
-            <div className=" py-5 flex justify-center md:justify-start ">
-              <button
-                onClick={handleProjects}
-                className="cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 border border-[var(--border-light)] shadow-sm transition-all duration-500"
-              >
-                <span className="text-[10px] sm:text-xs">SEE ALL PROJECTS</span>
-              </button>
+              <p className="mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)]">
+                A closer look at one of my projects, its purpose, technology,
+                and the decisions behind its implementation.
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-14 sm:mt-16 pt-8 border-t border-[var(--border-light)] text-center">
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] opacity-80">
+        {/* CONTENT */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20">
+          {/* LEFT — ORIGINAL CARD */}
+          <div className="lg:col-span-7">
+            <div
+              onClick={handleNavigation}
+              className="group cursor-pointer rounded-sm md:rounded-2xl md:border border-[var(--border-light)]/50 md:bg-[var(--bg-secondary)]/80 shadow-sm"
+            >
+              {/* IMAGE */}
+              <div className="relative md:m-5 overflow-hidden rounded-sm md:rounded-xl">
+                {!loaded && (
+                  <div className="absolute inset-0 rounded-sm md:rounded-xl bg-[var(--border-light)] animate-pulse" />
+                )}
+
+                <img
+                  src={project.thumbnail}
+                  alt={project.title}
+                  loading="lazy"
+                  onLoad={() => setLoaded(true)}
+                  className={`h-full w-full rounded-sm md:rounded-xl object-contain transition-all duration-700 ease-out ${
+                    loaded ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              </div>
+
+              {/* CARD CONTENT */}
+              <div className="flex items-start justify-between gap-4 md:px-6 pt-6 md:pt-0 pb-6">
+                <div className="w-full">
+                  <div className=" flex justify-between items-center">
+                    <h2 className="heading-font text-lg text-[var(--text-main)] transition-colors duration-300 sm:text-xl lg:text-2xl">
+                      {project.title}
+                    </h2>
+
+                    <span className="shrink-0 whitespace-nowrap text-[10px] font-medium uppercase tracking-wide text-[var(--text-main)] opacity-50 sm:text-xs">
+                      {project.year}
+                    </span>
+                  </div>
+
+                  <p className="mt-2 w-full md:max-w-xl text-justify text-xs leading-relaxed text-[var(--text-secondary)]/80 sm:text-sm">
+                    {project.shortDescription}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT — TEXT AREA */}
+          <div className="lg:col-span-5 lg:border-l lg:border-[var(--border-light)] lg:pl-10">
+            {/* MOBILE HEADING */}
+            {/* <div className="mb-8 border border-blue-500 md:hidden">
+              <div className="mb-3 flex items-center gap-3">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)]">
+                  Featured Project
+                </span>
+
+                <span className="h-px w-8 bg-[var(--accent-primary)]" />
+              </div>
+
+              <p className="text-xs leading-relaxed text-[var(--text-secondary)]">
+                The idea, technology, and implementation behind the project.
+              </p>
+            </div> */}
+
+            {/* <div className="md:hidden pb-10 lg:col-span-5">
+              <div>
+                <h2 className="heading-font text-2xl text-[var(--text-main)] sm:text-3xl">
+                  Featured{" "}
+                  <span className="text-[var(--accent-primary)]">project</span>
+                </h2>
+
+                <p className="mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)]">
+                  A closer look at one of my projects, its purpose, technology,
+                  and the decisions behind its implementation.
+                </p>
+              </div>
+            </div> */}
+
+            <div className="lg:col-span-7 pb-8 md:hidden">
+              <div className="mb-4 flex items-center gap-3">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+                  Project Showcase
+                </span>
+
+                <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
+              </div>
+
+              <p className="max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
+                A selection of work that reflects my approach to design,
+                development, interaction, and creating meaningful digital
+                experiences.
+              </p>
+            </div>
+
+            {/* CONSTRAINED TEXT WIDTH */}
+            <div className="max-w-md">
+              <h3 className="heading-font text-2xl leading-tight tracking-tight text-[var(--text-main)] md:text-4xl">
+                Why this project{" "}
+                <span className="text-[var(--accent-primary)]">stands out</span>
+              </h3>
+
+              <p className="mt-6 text-justify text-sm leading-[1.9] text-[var(--text-secondary)]">
+                Bharat Vraman is a modern React.js web application designed to
+                help users explore famous temples across India. The platform
+                presents temples through a clean and responsive interface, with
+                dedicated detail pages containing information such as deity,
+                history, timings, location, and cultural significance.
+              </p>
+
+              <p className="mt-5 text-justify text-sm leading-[1.9] text-[var(--text-secondary)]">
+                The project focuses on creating a simple discovery experience
+                while maintaining reusable components, responsive layouts,
+                dynamic routing, and smooth interactions throughout the
+                application.
+              </p>
+
+              {/* FEATURES */}
+              <div className="mt-8 ">
+                {[
+                  "Fully responsive interface",
+                  "React.js, React Router & Tailwind CSS",
+                  "Dynamic slug-based temple pages",
+                  "Reusable component architecture",
+                  "Smooth and intuitive navigation",
+                ].map((feature, index) => (
+                  <div key={index} className="flex items-center gap-3  py-3">
+                    <span className="text-xs font-medium text-[var(--accent-primary)]">
+                      0{index + 1}
+                    </span>
+
+                    <span className="text-xs text-[var(--text-secondary)] sm:text-sm">
+                      {feature}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* ACTIONS */}
+              <div className="mt-8 flex items-center gap-6">
+                <button
+                  type="button"
+                  onClick={handleNavigation}
+                  className="cursor-pointer text-xs flex items-center font-medium uppercase tracking-[0.15em] text-[var(--text-main)] transition-colors duration-300 hover:text-[var(--accent-primary)]"
+                >
+                  View Project
+                  <span className="ml-2 text-[var(--accent-primary)]">
+                    <ChevronRight size={14} />
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleProjects}
+                  className="cursor-pointer text-xs font-medium uppercase tracking-[0.15em] text-[var(--text-secondary)] transition-colors duration-300 hover:text-[var(--accent-primary)]"
+                >
+                  All Projects
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* FOOTER */}
+        <div className="mt-14 border-t border-[var(--border-light)] pt-6">
+          <p className="text-xs text-center md:text-left text-[var(--text-secondary)] sm:text-sm">
             Interested in collaboration?{" "}
             <Link
               to="/contact"
-              className="text-[var(--accent-primary)] font-medium hover:underline"
+              className="font-medium text-[var(--accent-primary)] transition-opacity hover:opacity-70"
             >
               Let&apos;s discuss your next project
             </Link>
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
