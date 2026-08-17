@@ -117,20 +117,22 @@ const Reviews = () => {
       <div className=" w-full flex flex-col lg:flex-row gap-8 lg:gap-12">
         {/* LEFT */}
         <div className="w-full lg:w-1/3 px-2 sm:px-4">
-          <h3 className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
-            Testimonials
-          </h3>
+          <div className="mb-4 flex items-center gap-3">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+              Testimonials
+            </span>
 
-          <div className="mt-2 mb-6 h-[2px] w-16 bg-[var(--accent-primary)] rounded-full" />
+            <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
+          </div>
 
-          <h1 className="heading-font text-3xl sm:text-4xl md:text-5xl leading-tight mb-4">
+          <h1 className="heading-font text-3xl leading-tight text-[var(--text-main)] sm:text-4xl md:text-5xl">
             What others{" "}
-            <span className="text-[var(--accent-primary)]">Say</span>
+            <span className="text-[var(--accent-primary)]">say</span>
           </h1>
 
-          <p className="text-sm opacity-80 max-w-sm mb-6 lg:mb-0">
-            I've worked with some amazing people over the years here's what they
-            have to say about me.
+          <p className="mt-4 max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
+            I've worked with some amazing people over the years. Here's what
+            they have to say about working with me.
           </p>
 
           <div className="hidden md:flex">
