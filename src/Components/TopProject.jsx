@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import second from "../assets/thumbnail/bharat.png";
+import second from "../assets/thumbnail/neurocare.png";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 
@@ -8,15 +8,15 @@ const TopProject = () => {
   const navigate = useNavigate();
 
   const project = {
-    title: "Bharat Vraman",
+    title: "AI Powered Healthcare Platform",
     shortDescription:
-      "A beautifully designed temple exploration platform showcasing famous Indian temples with detailed information and a smooth, intuitive browsing experience.",
+      "An AI-powered healthcare platform that connects patients with suitable doctors through intelligent symptom analysis, specialization-based recommendations, location-aware discovery, and streamlined appointment management.",
     year: "2026",
     thumbnail: second,
   };
 
   const handleNavigation = () => {
-    navigate("/project/bharat-vraman");
+    navigate("/project/neurocare");
   };
 
   const handleProjects = () => {
@@ -103,7 +103,8 @@ const TopProject = () => {
               {/* CARD CONTENT */}
               <div className="flex items-start justify-between gap-4 md:px-6 pt-6 md:pt-0 pb-6">
                 <div className="w-full">
-                  <div className=" flex justify-between items-center">
+                  {/* TITLE + YEAR */}
+                  <div className="flex items-start justify-between gap-4">
                     <h2 className="heading-font text-lg text-[var(--text-main)] transition-colors duration-300 sm:text-xl lg:text-2xl">
                       {project.title}
                     </h2>
@@ -113,7 +114,8 @@ const TopProject = () => {
                     </span>
                   </div>
 
-                  <p className="mt-2 w-full md:max-w-xl text-justify text-xs leading-relaxed text-[var(--text-secondary)]/80 sm:text-sm">
+                  {/* FULL WIDTH DESCRIPTION */}
+                  <p className="mt-2 w-full text-justify text-xs line-clamp-2 leading-relaxed text-[var(--text-secondary)]/80 sm:text-sm">
                     {project.shortDescription}
                   </p>
                 </div>
@@ -193,11 +195,11 @@ const TopProject = () => {
               {/* FEATURES */}
               <div className="mt-8 ">
                 {[
-                  "Fully responsive interface",
-                  "React.js, React Router & Tailwind CSS",
-                  "Dynamic slug-based temple pages",
-                  "Reusable component architecture",
-                  "Smooth and intuitive navigation",
+                  "Patient, Doctor & Admin role-based system",
+                  "Email OTP & Google OAuth authentication",
+                  "AI-powered symptom analysis & specialist recommendations",
+                  "Appointment booking with admin approval & scheduling",
+                  "Digital prescriptions, medical reports & family profiles",
                 ].map((feature, index) => (
                   <div key={index} className="flex items-center gap-3  py-3">
                     <span className="text-xs font-medium text-[var(--accent-primary)]">
