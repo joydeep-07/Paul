@@ -113,7 +113,7 @@ const Reviews = () => {
   };
 
   return (
-    <div className="py-8 md:py-12 lg:py-16 bg-[var(--bg-main)] flex justify-center px-4 sm:px-6 lg:px-8">
+    <div className="py-8 md:py-12 lg:py-16 bg-[var(--bg-main)] flex justify-center px-2 sm:px-6 lg:px-8">
       <div className=" w-full flex flex-col lg:flex-row gap-8 lg:gap-12">
         {/* LEFT */}
         <div className="w-full lg:w-1/3 px-2 sm:px-4">
@@ -141,7 +141,7 @@ const Reviews = () => {
         </div>
 
         {/* RIGHT */}
-        <div className="w-full lg:w-2/3 px-2 sm:px-4 overflow-hidden">
+        <div className="w-full lg:w-2/3 px-0 sm:px-4 overflow-hidden">
           {loading ? (
             <ReviewSkeleton />
           ) : reviews.length === 0 ? (
@@ -185,9 +185,9 @@ const Reviews = () => {
                   transition={{
                     layout: { duration: 0.45, ease: easeInOut },
                   }}
-                  className=" border border-[var(--border-light)]/50 bg-[var(--bg-secondary)]/50 rounded-lg min-h-88 md:min-h-59 overflow-hidden select-none cursor-grab active:cursor-grabbing "
+                  className=" border border-[var(--border-light)]/50 bg-[var(--bg-secondary)]/50 rounded-lg min-h-75 md:min-h-59 overflow-hidden select-none cursor-grab active:cursor-grabbing "
                 >
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center p-2 sm:p-6">
                     <div className="relative mb-4 sm:mb-0 sm:mr-6 w-[88px] h-[88px] flex-shrink-0">
                       <svg className="absolute w-full h-full rotate-[-90deg]">
                         <circle
@@ -261,7 +261,7 @@ const Reviews = () => {
 
                   <motion.p
                     layout
-                    className="px-4 sm:px-6 pb-4 sm:pb-6 text-sm text-justify"
+                    className="px-2 sm:px-6 pb-4 sm:pb-6 text-sm text-justify"
                   >
                     {isExpanded ? item.review : shortText}
                     {words.length > WORD_LIMIT && (

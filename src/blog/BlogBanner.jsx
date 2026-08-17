@@ -2,88 +2,98 @@ import React, { useState } from "react";
 import blogImage from "../assets/blog/ui2.jpg";
 import blogVid from "../assets/blog/short.mp4";
 import { Link } from "react-router-dom";
-import ProjectHeading from "../Components/ProjectHeading";
+import { ChevronRight } from "lucide-react";
 
 const BlogBanner = () => {
   const [loaded, setLoaded] = useState(false);
 
   const blog = {
     title: "Building Scalable MERN Applications",
-    description:
+    shortDescription:
       "A deep dive into structuring large-scale MERN stack applications with clean architecture, authentication, performance optimization, and scalable folder patterns.",
     date: "Feb 2026",
-    readTime: "8 min read",
     thumbnail: blogImage,
   };
 
   return (
-    <div className="bg-[var(--bg-main)] transition-colors duration-300 pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-0 lg:px-0">
-        <ProjectHeading
-          small="Blog Section"
-          heading={
-            <h1 className="text-3xl heading-font sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight mb-2">
-              Latest{" "}
-              <span className="text-[var(--accent-primary)] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] bg-clip-text text-transparent">
-                Articles
+    <section className="w-full bg-[var(--bg-main)] py-0 transition-colors duration-300">
+      <div className="mx-auto max-w-8xl px-4 md:px-12">
+        {/* HEADER */}
+        <div className="mb-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
+          {/* LEFT */}
+          <div className="hidden flex-col lg:col-span-7 md:flex">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+                Blog Section
               </span>
-            </h1>
-          }
-          desc="Explore my latest thoughts on development, design, modern web technologies, and the lessons I learn while building real-world projects."
-        />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* LEFT FEATURED CARD */}
-          <div
-            className="relative p-[1.5px] rounded-3xl overflow-hidden cursor-glow group"
-            onMouseMove={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              e.currentTarget.style.setProperty(
-                "--x",
-                `${e.clientX - rect.left}px`,
-              );
-              e.currentTarget.style.setProperty(
-                "--y",
-                `${e.clientY - rect.top}px`,
-              );
-            }}
-          >
-            {/* Cursor Gradient Border */}
-            <div className="absolute inset-0 rounded-3xl insta-cursor-border pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
+            </div>
 
-            {/* Card */}
-            <div
-              className="
-                relative z-10
-                rounded-3xl
-                border border-[var(--border-light)]/50
-                bg-[var(--bg-secondary)]
-                shadow-sm
-                transition-all duration-500
-              "
-            >
-              {/* IMAGE */}
+            <p className="max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
+              Explore my latest thoughts on development, design, modern web
+              technologies, and lessons learned while building real-world
+              projects.
+            </p>
+          </div>
+
+          {/* MOBILE HEADER */}
+          <div className="md:hidden lg:col-span-5">
+            <div>
+              <h2 className="heading-font text-2xl text-[var(--text-main)] sm:text-3xl">
+                Latest{" "}
+                <span className="text-[var(--accent-primary)]">articles</span>
+              </h2>
+
+              <p className="mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)]">
+                A closer look at my development experiences, technical
+                decisions, and ideas.
+              </p>
+            </div>
+          </div>
+
+          {/* RIGHT */}
+          <div className="hidden border-l border-[var(--border-light)] pl-10 md:flex lg:col-span-5">
+            <div>
+              <h2 className="heading-font text-2xl text-[var(--text-main)] sm:text-3xl">
+                Latest{" "}
+                <span className="text-[var(--accent-primary)]">articles</span>
+              </h2>
+
+              <p className="mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)]">
+                A closer look at my development experiences, technical
+                decisions, and ideas.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* CONTENT */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20">
+          {/* LEFT — BLOG CARD */}
+          <div className="lg:col-span-7">
+            <div className="group cursor-pointer rounded-sm md:rounded-2xl md:border border-[var(--border-light)]/50 md:bg-[var(--bg-secondary)]/80 shadow-sm">
               {/* MEDIA */}
-              <div className="relative overflow-hidden rounded-xl m-5 block group">
+              <Link
+                to="/blog/mern-architecture"
+                className="relative md:m-5 block overflow-hidden rounded-sm md:rounded-xl"
+              >
                 {!loaded && (
-                  <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse z-20" />
+                  <div className="absolute inset-0 z-20 animate-pulse rounded-sm bg-[var(--border-light)] md:rounded-xl" />
                 )}
 
-                {/* IMAGE (Default) */}
+                {/* IMAGE */}
                 <img
                   src={blog.thumbnail}
                   alt={blog.title}
                   loading="lazy"
                   onLoad={() => setLoaded(true)}
-                  className={`
-      w-full h-full object-contain rounded-xl
-      transition-all duration-500 ease-out
-      ${loaded ? "opacity-100" : "opacity-0"}
-      group-hover:opacity-0
-    `}
+                  className={`h-full w-full rounded-sm object-contain transition-all duration-500 ease-out md:rounded-xl ${
+                    loaded ? "opacity-100" : "opacity-0"
+                  } group-hover:opacity-0`}
                 />
 
-                {/* VIDEO (On Hover) */}
+                {/* VIDEO */}
                 <video
                   src={blogVid}
                   autoPlay
@@ -91,85 +101,124 @@ const BlogBanner = () => {
                   loop
                   playsInline
                   preload="metadata"
-                  className="
-      absolute inset-0 w-full h-full object-cover rounded-xl
-      opacity-0 group-hover:opacity-100
-      transition-opacity duration-500 ease-in-out
-      pointer-events-none
-    "
+                  className="pointer-events-none absolute inset-0 h-full w-full rounded-sm object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 md:rounded-xl"
                 />
-              </div>
-              {/* CONTENT */}
+              </Link>
+
+              {/* CARD CONTENT */}
               <Link
                 to="/blog/mern-architecture"
-                className="px-6 pb-6 flex items-start justify-between gap-4"
+                className="flex items-start justify-between gap-4 px-0 pt-6 pb-6 md:px-6 md:pt-0"
               >
-                <div>
-                  <h2 className="heading-font text-lg sm:text-xl lg:text-2xl text-[var(--text-main)]">
-                    {blog.title}
-                  </h2>
+                <div className="w-full">
+                  {/* TITLE + DATE */}
+                  <div className="flex items-start justify-between gap-4">
+                    <h2 className="heading-font text-lg text-[var(--text-main)] transition-colors duration-300 sm:text-xl lg:text-2xl">
+                      {blog.title}
+                    </h2>
 
-                  <p className="mt-2 text-xs sm:text-sm text-[var(--text-secondary)]/80 leading-relaxed">
-                    {blog.description.substring(0, 104)}...
+                    <span className="shrink-0 whitespace-nowrap text-[10px] font-medium uppercase tracking-wide text-[var(--text-main)] opacity-50 sm:text-xs">
+                      {blog.date}
+                    </span>
+                  </div>
+
+                  {/* FULL WIDTH DESCRIPTION */}
+                  <p className="mt-2 w-full text-justify text-xs leading-relaxed text-[var(--text-secondary)]/80 sm:text-sm">
+                    {blog.shortDescription}
                   </p>
                 </div>
-
-                {/* <span className="text-xs p-1 sm:text-sm opacity-50 whitespace-nowrap font-medium tracking-wide">
-                  {blog.date}
-                </span> */}
               </Link>
             </div>
           </div>
 
-          {/* RIGHT → BLOG CONTENT */}
-          <div className="space-y-6 p-2">
-            <h3 className="heading-font text-2xl tracking-tight sm:text-[45px] text-[var(--text-main)] leading-tight">
-              Latest Insights on{" "}
-              <span className="text-[var(--accent-primary)]">
-                MERN Architecture
-              </span>
-            </h3>
+          {/* RIGHT — TEXT AREA */}
+          <div className="lg:col-span-5 lg:border-l lg:border-[var(--border-light)] lg:pl-10">
+            {/* MOBILE PROJECT SHOWCASE STYLE HEADER */}
+            <div className="pb-8 md:hidden lg:col-span-7">
+              <div className="mb-4 flex items-center gap-3">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+                  Blog Section
+                </span>
 
-            <p className="text-[var(--text-secondary)] text-xs lg:text-sm text-justify leading-relaxed">
-              In 2026, the MERN stack MongoDB, Express.js, React, and Node.js
-              continues to thrive as one of the most versatile and productive
-              full-stack JavaScript ecosystems. Far from being just a tool for
-              simple CRUD applications, MERN has matured into the preferred
-              foundation for intelligent, high-performance web experiences. The
-              single-language advantage of JavaScript (now overwhelmingly paired
-              with TypeScript) dramatically reduces context switching,
-              accelerates development cycles, and enables seamless scaling from
-              startups to enterprise modernization projects.
-            </p>
+                <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
+              </div>
 
-            <div className="flex flex-wrap gap-3 text-xs sm:text-sm text-[var(--text-secondary)]">
-              <span className="px-3 py-1 rounded-full border border-[var(--border-light)]">
-                MongoDB
-              </span>
-              <span className="px-3 py-1 rounded-full border border-[var(--border-light)]">
-                Express
-              </span>
-              <span className="px-3 py-1 rounded-full border border-[var(--border-light)]">
-                React
-              </span>
-              <span className="px-3 py-1 rounded-full border border-[var(--border-light)]">
-                Node.js
-              </span>
+              <p className="max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
+                Explore my latest thoughts on development, design, modern web
+                technologies, and lessons learned while building real-world
+                projects.
+              </p>
             </div>
 
-            <div className="py-5 flex justify-center md:justify-start">
-              <Link to="/blogs">
-                <button className="cursor-pointer relative overflow-hidden px-8 py-3 rounded-full font-medium tracking-[0.1em] text-[var(--text-main)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5 border border-[var(--border-light)] shadow-sm transition-all duration-500">
-                  <span className="text-[10px] sm:text-xs">WATCH MORE</span>
-                </button>
-              </Link>
+            {/* CONSTRAINED TEXT WIDTH */}
+            <div className="max-w-md">
+              <h3 className="heading-font text-2xl leading-tight tracking-tight text-[var(--text-main)] md:text-4xl">
+                Latest insights on{" "}
+                <span className="text-[var(--accent-primary)]">
+                  MERN architecture
+                </span>
+              </h3>
+
+              <p className="mt-6 text-justify text-sm leading-[1.9] text-[var(--text-secondary)]">
+                In 2026, the MERN stack continues to be a versatile foundation
+                for building modern full-stack applications. MongoDB,
+                Express.js, React, and Node.js provide a unified JavaScript
+                ecosystem that simplifies development while allowing
+                applications to scale from smaller products to complex
+                platforms.
+              </p>
+
+              <p className="mt-5 text-justify text-sm leading-[1.9] text-[var(--text-secondary)]">
+                This article explores practical approaches to structuring
+                scalable MERN applications, including clean architecture,
+                authentication, performance optimization, reusable patterns, and
+                maintainable project organization.
+              </p>
+
+              {/* TECHNOLOGIES */}
+              <div className="mt-8">
+                {["MongoDB", "Express.js", "React.js", "Node.js"].map(
+                  (technology, index) => (
+                    <div
+                      key={technology}
+                      className="flex items-center gap-3 py-3"
+                    >
+                      <span className="text-xs font-medium text-[var(--accent-primary)]">
+                        0{index + 1}
+                      </span>
+
+                      <span className="text-xs text-[var(--text-secondary)] sm:text-sm">
+                        {technology}
+                      </span>
+                    </div>
+                  ),
+                )}
+              </div>
+
+              {/* ACTIONS */}
+              <div className="mt-8 flex items-center gap-6">
+                <Link
+                  to="/blog/mern-architecture"
+                  className="flex cursor-pointer items-center text-xs font-medium uppercase tracking-[0.15em] text-[var(--text-main)] transition-colors duration-300 hover:text-[var(--accent-primary)]"
+                >
+                  Read Article
+                  <span className="ml-2 text-[var(--accent-primary)]">
+                    <ChevronRight size={14} />
+                  </span>
+                </Link>
+
+                <Link
+                  to="/blogs"
+                  className="cursor-pointer text-xs font-medium uppercase tracking-[0.15em] text-[var(--text-secondary)] transition-colors duration-300 hover:text-[var(--accent-primary)]"
+                >
+                  All Articles
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-
-        
       </div>
-    </div>
+    </section>
   );
 };
 
