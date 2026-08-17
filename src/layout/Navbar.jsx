@@ -5,8 +5,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { FiHome, FiUser, FiGrid, FiMail } from "react-icons/fi";
-import { FaBlog } from "react-icons/fa";
-import { PiCardsThreeLight } from "react-icons/pi";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,29 +13,34 @@ const links = [
   { name: "About", path: "/about", icon: <FiUser /> },
   { name: "Projects", path: "/projects", icon: <FiGrid /> },
   { name: "Contact", path: "/contact", icon: <FiMail /> },
-  // { name: "Blogs", path: "/blogs", icon: <PiCardsThreeLight /> },
 ];
 
 const Navbar = () => {
   const navRef = useRef(null);
 
   useEffect(() => {
-    // ❌ Disable scroll trigger on mobile
     if (window.innerWidth < 768) return;
 
     const ctx = gsap.context(() => {
+      gsap.set(navRef.current, {
+        width: "92%",
+        height: "auto",
+        marginTop: 0,
+      });
+
       gsap.to(navRef.current, {
-        width: "50%",
-        height: "50px",
-        borderRadius: "999px",
+        width: "65%",
         marginTop: "12px",
-       
-        ease: "power2.out",
+        ease: "none",
+
+        immediateRender: false,
+
         scrollTrigger: {
           trigger: document.body,
           start: "top top",
-          end: "+=120",
-          scrub: true,
+          end: "+=180",
+          scrub: 1.2,
+          invalidateOnRefresh: true,
         },
       });
     }, navRef);
@@ -47,14 +50,19 @@ const Navbar = () => {
 
   return (
     <>
-      {/* ================= TOP NAV (DESKTOP & MOBILE) ================= */}
       <nav
         ref={navRef}
-        className=" fixed top-4 z-50 transition-all w-full left-0 px-4 md:w-[92%] md:left-1/2 md:-translate-x-1/2 md:px-12"
+        className="
+          fixed top-4 z-50
+          w-full left-0 px-4
+          md:w-[100%] md:left-1/2 md:-translate-x-1/2 md:px-0
+        "
       >
         <div
           className="
-            h-[50px] backdrop-blur-[5px] px-6 md:px-10
+            h-[50px]
+            backdrop-blur-[5px]
+            px-6 md:px-10
             flex items-center justify-between
             rounded-full
             border border-[var(--border-light)]
@@ -86,10 +94,12 @@ const Navbar = () => {
                   <span className="block group-hover:-translate-y-full transition-transform duration-500">
                     {link.name}
                   </span>
+
                   <span
                     className="
                       block absolute inset-0 translate-y-full
-                      group-hover:translate-y-0 transition-transform duration-500
+                      group-hover:translate-y-0
+                      transition-transform duration-500
                       text-[var(--accent-primary)]
                     "
                     aria-hidden
@@ -101,12 +111,11 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {/* THEME TOGGLE */}
           <ThemeToggle />
         </div>
       </nav>
 
-      {/* ================= MOBILE BOTTOM NAV ================= */}
+      {/* MOBILE BOTTOM NAV */}
       <nav
         className="
           fixed bottom-4 left-1/2 -translate-x-1/2 z-50
