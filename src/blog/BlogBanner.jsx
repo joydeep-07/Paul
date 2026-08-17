@@ -72,7 +72,7 @@ const BlogBanner = () => {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20">
           {/* LEFT — BLOG CARD */}
           <div className="lg:col-span-7">
-            <div className="group cursor-pointer rounded-sm md:rounded-2xl md:border border-[var(--border-light)]/50 md:bg-[var(--bg-secondary)]/80 shadow-sm">
+            <div className="group cursor-pointer rounded-sm md:rounded-2xl md:border border-[var(--border-light)]/50 md:bg-[var(--bg-secondary)]/80 md:shadow-sm">
               {/* MEDIA */}
               <Link
                 to="/blog/mern-architecture"

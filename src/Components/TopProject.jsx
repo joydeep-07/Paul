@@ -81,7 +81,7 @@ const TopProject = () => {
           <div className="lg:col-span-7">
             <div
               onClick={handleNavigation}
-              className="group cursor-pointer rounded-sm md:rounded-2xl md:border border-[var(--border-light)]/50 md:bg-[var(--bg-secondary)]/80 shadow-sm"
+              className="group cursor-pointer rounded-sm md:rounded-2xl md:border border-[var(--border-light)]/50 md:bg-[var(--bg-secondary)]/80 md:shadow-sm"
             >
               {/* IMAGE */}
               <div className="relative md:m-5 overflow-hidden rounded-sm md:rounded-xl">
