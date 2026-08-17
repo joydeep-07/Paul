@@ -25,32 +25,32 @@ middlewares, and services for long-term maintainability.
     featured: true,
   },
 
-  {
-    id: 2,
-    slug: "python",
-    title: "Core Python for Beginners",
-    img: second,
-    shortDescription:
-      "Understand variables, loops, functions, lists, dictionaries, and object-oriented programming concepts in Core Python.",
-    blog: `
-Core Python forms the foundation of modern software development,
-automation, data science, and backend engineering.
+//   {
+//     id: 2,
+//     slug: "python",
+//     title: "Core Python for Beginners",
+//     img: second,
+//     shortDescription:
+//       "Understand variables, loops, functions, lists, dictionaries, and object-oriented programming concepts in Core Python.",
+//     blog: `
+// Core Python forms the foundation of modern software development,
+// automation, data science, and backend engineering.
 
-In this article, we explore important Python fundamentals including variables,
-data types, conditional statements, loops, functions, lists, tuples,
-dictionaries, and file handling.
+// In this article, we explore important Python fundamentals including variables,
+// data types, conditional statements, loops, functions, lists, tuples,
+// dictionaries, and file handling.
 
-You'll also learn how object-oriented programming works in Python using
-classes, constructors, inheritance, and encapsulation concepts.
+// You'll also learn how object-oriented programming works in Python using
+// classes, constructors, inheritance, and encapsulation concepts.
 
-By mastering Core Python, developers can build strong programming logic
-and prepare themselves for advanced technologies like web development,
-machine learning, and automation.
-    `,
-    category: "Python",
-    tags: ["Python", "Core Python", "Programming", "Functions", "OOP"],
-    readTime: "1 hr 30 min read",
-    date: "Mar 2026",
-    featured: false,
-  },
+// By mastering Core Python, developers can build strong programming logic
+// and prepare themselves for advanced technologies like web development,
+// machine learning, and automation.
+//     `,
+//     category: "Python",
+//     tags: ["Python", "Core Python", "Programming", "Functions", "OOP"],
+//     readTime: "1 hr 30 min read",
+//     date: "Mar 2026",
+//     featured: false,
+//   },
 ];
