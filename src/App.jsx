@@ -13,6 +13,7 @@ import Blogs from "./Pages/Blogs";
 import MernArchitectire from "./blog/AllBlogs/MernArchitectire";
 import AdvanceTailwind from "./blog/AllBlogs/AdvanceTailwind";
 import Python from "./blog/AllBlogs/Python";
+import AdminReviews from "./Pages/AdminReviews";
 
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
@@ -37,6 +38,8 @@ const App = () => {
         { path: "/blogs", element: <Blogs /> },
         { path: "/review/form", element: <ReviewForm /> },
         { path: "project/:id", element: <ProjectDetails /> },
+        // PROTECTED ROUTE
+        { path: "/admin/reviews", element: <AdminReviews /> },
         // BLOG ROUTES
         { path: "blog/mern-architecture", element: <MernArchitectire /> },
         { path: "blog/advance-tailwind", element: <AdvanceTailwind /> },
