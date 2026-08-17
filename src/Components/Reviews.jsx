@@ -56,7 +56,7 @@ const Reviews = () => {
     fetchReviews();
   }, []);
 
-  //  Auto slide
+  // Auto slide
   useEffect(() => {
     if (isPaused || reviews.length === 0) return;
 
@@ -102,7 +102,10 @@ const Reviews = () => {
 
   const item = reviews[index] || {};
   const words = item.review ? item.review.split(" ") : [];
-  const shortText = words.slice(0, 40).join(" ");
+
+  // FIXED: Unified threshold to 35 words for both slicing and display check
+  const WORD_LIMIT = 35;
+  const shortText = words.slice(0, WORD_LIMIT).join(" ");
   const isExpanded = expandedId === item.id;
 
   const handleImageLoad = (id) => {
@@ -136,7 +139,7 @@ const Reviews = () => {
         </div>
 
         {/* RIGHT */}
-        <div className="w-full lg:w-2/3 sm:px-4 overflow-hidden">
+        <div className="w-full lg:w-2/3 px-2 sm:px-4 overflow-hidden">
           {loading ? (
             <ReviewSkeleton />
           ) : reviews.length === 0 ? (
@@ -259,7 +262,7 @@ const Reviews = () => {
                     className="px-4 sm:px-6 pb-4 sm:pb-6 text-sm text-justify"
                   >
                     {isExpanded ? item.review : shortText}
-                    {words.length > 45 && (
+                    {words.length > WORD_LIMIT && (
                       <span
                         onClick={() => toggleReadMore(item.id)}
                         className="cursor-pointer text-[var(--accent-primary)] font-medium ml-1"
@@ -279,14 +282,14 @@ const Reviews = () => {
                       "_blank",
                     )
                   }
-                  className="flex items-center gap-2 border-b pb-1 text-xs hover:text-[var(--accent-primary)] text-[var(--text-secondary)]/70 whitespace-nowrap"
+                  className="flex items-center gap-2 border-b pb-1 text-sm hover:text-[var(--accent-primary)] text-[var(--text-secondary)]/70 whitespace-nowrap"
                 >
                   Check it out on LinkedIn
                   <ArrowUp className="w-4 h-4 rotate-45" />
                 </button>
 
                 <div className="flex items-center gap-10">
-                  <div className="text-xs tracking-wider text-[var(--text-secondary)]/70">
+                  <div className="text-sm tracking-wider text-[var(--text-secondary)]/70">
                     <span className="font-medium text-[var(--text-main)]">
                       {String(currentSlide).padStart(2, "0")}
                     </span>
