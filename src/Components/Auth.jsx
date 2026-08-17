@@ -108,7 +108,7 @@ const Auth = () => {
                 type="button"
                 onClick={closeModal}
                 aria-label="Close"
-                className="group absolute right-5 top-5 z-20 flex h-8 w-8 items-center justify-center border border-[var(--border-light)] text-[var(--text-secondary)] transition-all duration-300 hover:border-[var(--accent-primary)]/40 hover:text-[var(--accent-primary)]"
+                className="group absolute right-5 top-5 z-20 flex h-8 w-8 items-center justify-center cursor-pointer text-[var(--text-secondary)] transition-all duration-300 hover:border-[var(--accent-primary)]/40 hover:text-[var(--accent-primary)]"
               >
                 <X
                   size={15}
