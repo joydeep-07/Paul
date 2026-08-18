@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { toast } from "sonner";
+import { CircularProgress, IconButton } from "@mui/material";
 import {
-  Box,
-  Typography,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  IconButton,
-  CircularProgress,
-  useTheme,
-} from "@mui/material";
-import { Trash2, Mail, User, Calendar } from "lucide-react";
+  Trash2,
+  Mail,
+  User,
+  Calendar,
+  ArrowUpRight,
+  ChevronDown,
+} from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import DeleteModal from "../Components/DeleteModal";
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
-  const theme = useTheme();
+  const [expandedMessage, setExpandedMessage] = useState(null);
+
+  // Delete modal state
+  const [deleteMessageId, setDeleteMessageId] = useState(null);
 
   const fetchMessages = async () => {
     try {
@@ -54,6 +53,12 @@ const AdminMessages = () => {
 
       setMessages((prev) => prev.filter((msg) => msg.id !== id));
 
+      if (expandedMessage === id) {
+        setExpandedMessage(null);
+      }
+
+      setDeleteMessageId(null);
+
       toast.success("Message deleted successfully");
     } catch (err) {
       console.error(err);
@@ -61,285 +66,402 @@ const AdminMessages = () => {
     }
   };
 
+  const toggleMessage = (id) => {
+    setExpandedMessage((prev) => (prev === id ? null : id));
+  };
+
   return (
-    <div className="relative min-h-screen bg-[var(--bg-main)]">
-
-      <Box
-        className="
-          w-full
-          bg-[var(--bg-main)]
-          pt-25
-          px-4
-          sm:px-6
-          md:px-12
-          lg:pl-28
-          text-[var(--text-main)]
-          transition-all
-          duration-300
-          pb-20
-        "
-      >
-        <div className="mx-auto max-w-8xl">
+    <>
+      <section className="w-full min-h-screen bg-[var(--bg-main)] flex justify-center py-24 md:py-30">
+        <div className="w-full max-w-8xl px-4 md:px-12">
           {/* HEADER */}
-          <div className="mb-8 flex items-center justify-between border-b border-[var(--border-light)] pb-6">
-            <div>
-              <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[var(--accent-primary)]">
-                Admin Dashboard
-              </span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 mb-12">
+            <div className="lg:col-span-7">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)]">
+                  Admin Dashboard
+                </span>
 
-              <h1 className="heading-font mt-2 text-3xl sm:text-4xl">
-                Inbox Messages
+                <span className="h-px w-12 bg-[var(--accent-primary)]" />
+              </div>
+
+              <h1 className="heading-font text-3xl sm:text-4xl text-[var(--text-main)]">
+                Inbox{" "}
+                <span className="text-[var(--accent-primary)]">messages</span>
               </h1>
+
+              <p className="mt-4 max-w-md text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+                Messages submitted through your contact form, organized in one
+                place for quick review and management.
+              </p>
             </div>
 
-            <span className="text-xs font-medium text-[var(--text-secondary)]">
-              Total: {messages.length}
-            </span>
+            <div className="lg:col-span-5 hidden md:flex flex-col lg:border-l lg:border-[var(--border-light)] lg:pl-10">
+              <h2 className="heading-font text-2xl sm:text-3xl text-[var(--text-main)]">
+                Quick <span className="text-[var(--accent-primary)]">info</span>
+              </h2>
+
+              <p className="mt-2 text-xs text-[var(--text-secondary)] leading-relaxed">
+                A simple overview of incoming messages and available actions.
+              </p>
+
+              <div className="flex items-center gap-8 mt-6">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                    Messages
+                  </p>
+
+                  <p className="heading-font mt-1 text-2xl text-[var(--text-main)]">
+                    {messages.length}
+                  </p>
+                </div>
+
+                <div className="h-8 w-px bg-[var(--border-light)]" />
+
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                    Status
+                  </p>
+
+                  <p className="mt-1 text-xs font-medium text-[var(--accent-primary)]">
+                    {loading ? "Loading" : "Active"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* MOBILE QUICK INFO */}
+          <div className="md:hidden mb-10 pb-8 border-b border-[var(--border-light)]">
+            <div className="flex items-center gap-3 mb-4">
+              <Mail size={15} className="text-[var(--accent-primary)]" />
+
+              <h2 className="heading-font text-xl text-[var(--text-main)]">
+                Quick <span className="text-[var(--accent-primary)]">info</span>
+              </h2>
+            </div>
+
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              {messages.length} message
+              {messages.length !== 1 ? "s" : ""} currently available in your
+              inbox.
+            </p>
           </div>
 
           {/* CONTENT */}
           {loading ? (
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              minHeight="300px"
-            >
+            <div className="min-h-[300px] flex items-center justify-center">
               <CircularProgress
+                size={24}
                 sx={{
                   color: "var(--accent-primary)",
                 }}
               />
-            </Box>
+            </div>
           ) : messages.length === 0 ? (
-            <Paper
-              elevation={0}
-              sx={{
-                backgroundColor: "transparent",
-                border: "1px dashed var(--border-light)",
-                borderRadius: "4px",
-                p: 6,
-                textAlign: "center",
-              }}
-            >
+            <div className="border border-dashed border-[var(--border-light)] rounded-sm py-16 px-6 text-center">
               <Mail
-                size={40}
-                className="
-                  mx-auto
-                  mb-3
-                  text-[var(--text-secondary)]
-                  opacity-40
-                "
+                size={34}
+                strokeWidth={1.5}
+                className="mx-auto mb-4 text-[var(--text-secondary)] opacity-40"
               />
 
-              <Typography
-                variant="h6"
-                sx={{
-                  color: "var(--text-main)",
-                  fontSize: "1rem",
-                }}
-                className="heading-font"
-              >
+              <h3 className="heading-font text-lg text-[var(--text-main)]">
                 No messages found
-              </Typography>
+              </h3>
 
-              <Typography
-                variant="body2"
-                sx={{
-                  color: "var(--text-secondary)",
-                  mt: 1,
-                  fontSize: "0.85rem",
-                }}
-              >
-                When visitors submit the contact form, their queries will appear
-                here.
-              </Typography>
-            </Paper>
+              <p className="max-w-sm mx-auto mt-2 text-xs text-[var(--text-secondary)] leading-relaxed">
+                When visitors submit the contact form, their messages will
+                appear here.
+              </p>
+            </div>
           ) : (
-            <TableContainer
-              component={Paper}
-              elevation={0}
-              sx={{
-                backgroundColor: "transparent",
-                border: "1px solid var(--border-light)",
-                borderRadius: "4px",
-                overflowX: "auto",
+            <div className="border-t border-[var(--border-light)]">
+              {/* DESKTOP HEADER */}
+              <div className="hidden md:grid grid-cols-12 gap-6 py-4 border-b border-[var(--border-light)]">
+                <div className="col-span-2">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                    Name
+                  </span>
+                </div>
 
-                "& .MuiTableCell-root": {
-                  borderColor: "var(--border-light)",
-                  color: "var(--text-main)",
-                },
-              }}
-            >
-              <Table aria-label="messages table">
-                <TableHead>
-                  <TableRow
-                    sx={{
-                      backgroundColor: "var(--bg-secondary)",
-                    }}
-                  >
-                    <TableCell
-                      sx={{
-                        fontSize: "10px",
-                        fontWeight: 600,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.15em",
-                        color: "var(--text-secondary)",
-                      }}
-                    >
-                      Name
-                    </TableCell>
+                <div className="col-span-3">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                    Email
+                  </span>
+                </div>
 
-                    <TableCell
-                      sx={{
-                        fontSize: "10px",
-                        fontWeight: 600,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.15em",
-                        color: "var(--text-secondary)",
-                      }}
-                    >
-                      Email
-                    </TableCell>
+                <div className="col-span-4">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                    Message
+                  </span>
+                </div>
 
-                    <TableCell
-                      sx={{
-                        fontSize: "10px",
-                        fontWeight: 600,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.15em",
-                        color: "var(--text-secondary)",
-                      }}
-                    >
-                      Message
-                    </TableCell>
+                <div className="col-span-2">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                    Date
+                  </span>
+                </div>
 
-                    <TableCell
-                      sx={{
-                        fontSize: "10px",
-                        fontWeight: 600,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.15em",
-                        color: "var(--text-secondary)",
-                      }}
-                    >
-                      Date
-                    </TableCell>
+                <div className="col-span-1 text-right">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                    #
+                  </span>
+                </div>
+              </div>
 
-                    <TableCell
-                      align="right"
-                      sx={{
-                        fontSize: "10px",
-                        fontWeight: 600,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.15em",
-                        color: "var(--text-secondary)",
-                      }}
-                    >
-                      Action
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
+              {/* MESSAGES LIST CONTAINER WITH LAYOUT ANIMATION */}
+              <motion.div layout className="flex flex-col">
+                <AnimatePresence initial={false}>
+                  {messages.map((msg) => {
+                    const isExpanded = expandedMessage === msg.id;
 
-                <TableBody>
-                  {messages.map((msg) => (
-                    <TableRow
-                      key={msg.id}
-                      sx={{
-                        "&:hover": {
-                          backgroundColor:
-                            "color-mix(in srgb, var(--accent-primary) 5%, transparent)",
-                        },
-                        transition: "background-color 0.2s",
-                      }}
-                    >
-                      <TableCell
-                        sx={{
-                          fontSize: "0.85rem",
-                          fontWeight: 500,
+                    return (
+                      <motion.div
+                        key={msg.id}
+                        layout
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{
+                          opacity: 0,
+                          scale: 0.98,
+                          transition: { duration: 0.2 },
                         }}
+                        transition={{
+                          duration: 0.3,
+                          ease: [0.04, 0.62, 0.23, 0.98],
+                        }}
+                        className="group relative border-b border-[var(--border-light)] transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--accent-primary)_3%,transparent)] overflow-hidden"
                       >
-                        <div className="flex items-center gap-2">
-                          <User
-                            size={14}
-                            className="
-                              shrink-0
-                              text-[var(--accent-primary)]
-                            "
-                          />
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6 py-6">
+                          {/* NAME + MOBILE DELETE */}
+                          <div className="md:col-span-2">
+                            <div className="flex items-center justify-between md:justify-start gap-2">
+                              <div className="flex items-center gap-2 min-w-0">
+                                <User
+                                  size={14}
+                                  strokeWidth={1.7}
+                                  className="shrink-0 text-[var(--accent-primary)]"
+                                />
 
-                          {msg.name}
+                                <span className="text-sm font-medium text-[var(--text-main)] truncate">
+                                  {msg.name}
+                                </span>
+                              </div>
+
+                              {/* MOBILE DELETE */}
+                              <div className="md:hidden shrink-0">
+                                <IconButton
+                                  onClick={() => setDeleteMessageId(msg.id)}
+                                  size="small"
+                                  aria-label="delete message"
+                                  sx={{
+                                    width: 30,
+                                    height: 30,
+                                    color: "var(--text-secondary)",
+                                    "&:hover": {
+                                      color: "#ef4444",
+                                      backgroundColor:
+                                        "rgba(239, 68, 68, 0.08)",
+                                    },
+                                  }}
+                                >
+                                  <Trash2 size={15} strokeWidth={1.7} />
+                                </IconButton>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* EMAIL */}
+                          <div className="md:col-span-3">
+                            <div className="flex items-center gap-2">
+                              <Mail
+                                size={13}
+                                strokeWidth={1.7}
+                                className="shrink-0 text-[var(--text-secondary)]"
+                              />
+
+                              <a
+                                href={`mailto:${msg.email}`}
+                                className="text-xs sm:text-sm text-[var(--text-secondary)] truncate transition-colors hover:text-[var(--accent-primary)]"
+                              >
+                                {msg.email}
+                              </a>
+                            </div>
+                          </div>
+
+                          {/* MESSAGE ACCORDION */}
+                          <div className="md:col-span-4">
+                            <button
+                              type="button"
+                              onClick={() => toggleMessage(msg.id)}
+                              className="w-full text-left flex items-start gap-3 cursor-pointer group/message"
+                            >
+                              <div className="flex-1 min-w-0">
+                                <motion.div
+                                  layout
+                                  transition={{
+                                    duration: 0.3,
+                                    ease: [0.04, 0.62, 0.23, 0.98],
+                                  }}
+                                  className="text-xs sm:text-sm text-[var(--text-secondary)] leading-[1.7] overflow-hidden"
+                                >
+                                  {isExpanded ? (
+                                    <motion.p
+                                      initial={{ opacity: 0 }}
+                                      animate={{ opacity: 1 }}
+                                      transition={{
+                                        duration: 0.2,
+                                        delay: 0.05,
+                                      }}
+                                    >
+                                      {msg.message}
+                                    </motion.p>
+                                  ) : (
+                                    <motion.p
+                                      initial={{ opacity: 0 }}
+                                      animate={{ opacity: 1 }}
+                                      transition={{
+                                        duration: 0.2,
+                                        delay: 0.05,
+                                      }}
+                                    >
+                                      {msg.message.length > 100
+                                        ? `${msg.message.slice(0, 100)}...`
+                                        : msg.message}
+                                    </motion.p>
+                                  )}
+                                </motion.div>
+                              </div>
+
+                              <motion.div
+                                animate={{
+                                  rotate: isExpanded ? 180 : 0,
+                                }}
+                                transition={{
+                                  duration: 0.3,
+                                  ease: [0.04, 0.62, 0.23, 0.98],
+                                }}
+                                className="shrink-0 mt-1"
+                              >
+                                <ChevronDown
+                                  size={14}
+                                  strokeWidth={1.7}
+                                  className="text-[var(--text-secondary)] group-hover/message:text-[var(--accent-primary)]"
+                                />
+                              </motion.div>
+                            </button>
+
+                            {/* MOBILE READ MORE */}
+                            {msg.message.length > 100 && (
+                              <button
+                                type="button"
+                                onClick={() => toggleMessage(msg.id)}
+                                className="mt-2 text-[9px] uppercase tracking-[0.18em] text-[var(--accent-primary)] cursor-pointer md:hidden"
+                              >
+                                {isExpanded ? "Show less" : "Read more"}
+                              </button>
+                            )}
+                          </div>
+
+                          {/* DATE */}
+                          <div className="md:col-span-2">
+                            <div className="flex items-center gap-2">
+                              <Calendar
+                                size={12}
+                                strokeWidth={1.7}
+                                className="shrink-0 text-[var(--text-secondary)]"
+                              />
+
+                              <span className="text-[10px] sm:text-xs text-[var(--text-secondary)]">
+                                {msg.created_at
+                                  ? new Date(msg.created_at).toLocaleDateString(
+                                      "en-IN",
+                                      {
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric",
+                                      },
+                                    )
+                                  : "N/A"}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* DESKTOP DELETE */}
+                          <div className="hidden md:flex md:col-span-1 justify-end">
+                            <IconButton
+                              onClick={() => setDeleteMessageId(msg.id)}
+                              size="small"
+                              aria-label="delete message"
+                              sx={{
+                                width: 30,
+                                height: 30,
+                                color: "var(--text-secondary)",
+                                transition: "all 0.25s ease",
+                                "&:hover": {
+                                  color: "#ef4444",
+                                  backgroundColor: "rgba(239, 68, 68, 0.08)",
+                                },
+                              }}
+                            >
+                              <Trash2 size={15} strokeWidth={1.7} />
+                            </IconButton>
+                          </div>
                         </div>
-                      </TableCell>
+                      </motion.div>
+                    );
+                  })}
+                </AnimatePresence>
+              </motion.div>
+            </div>
+          )}
 
-                      <TableCell
-                        sx={{
-                          fontSize: "0.85rem",
-                        }}
-                      >
-                        <a
-                          href={`mailto:${msg.email}`}
-                          className="
-                            transition-colors
-                            hover:text-[var(--accent-primary)]
-                          "
-                        >
-                          {msg.email}
-                        </a>
-                      </TableCell>
+          {/* FOOTER INFO */}
+          {!loading && messages.length > 0 && (
+            <div className="flex items-center justify-between pt-5">
+              <span className="text-[9px] uppercase tracking-[0.2em] text-[var(--text-secondary)]">
+                Contact inbox
+              </span>
 
-                      <TableCell
-                        sx={{
-                          fontSize: "0.85rem",
-                          maxWidth: "350px",
-                          lineHeight: "1.6",
-                        }}
-                      >
-                        <p className="line-clamp-2 text-[var(--text-secondary)]">
-                          {msg.message}
-                        </p>
-                      </TableCell>
-
-                      <TableCell
-                        sx={{
-                          fontSize: "0.75rem",
-                          color: "var(--text-secondary)",
-                        }}
-                      >
-                        <div className="flex items-center gap-1.5">
-                          <Calendar size={12} className="shrink-0" />
-
-                          {msg.created_at
-                            ? new Date(msg.created_at).toLocaleDateString()
-                            : "N/A"}
-                        </div>
-                      </TableCell>
-
-                      <TableCell align="right">
-                        <IconButton
-                          onClick={() => handleDelete(msg.id)}
-                          size="small"
-                          sx={{
-                            color: "var(--text-secondary)",
-                            "&:hover": {
-                              color: "#ef4444",
-                              backgroundColor: "rgba(239, 68, 68, 0.1)",
-                            },
-                          }}
-                          aria-label="delete message"
-                        >
-                          <Trash2 size={16} />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+              <div className="flex items-center gap-2 text-[10px] text-[var(--text-secondary)]">
+                <span>Latest messages first</span>
+                <ArrowUpRight size={12} />
+              </div>
+            </div>
           )}
         </div>
-      </Box>
-    </div>
+      </section>
+
+      {/* DELETE MODAL */}
+      <AnimatePresence>
+        {deleteMessageId && (
+          <motion.div
+            className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/40 backdrop-blur-[2px]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setDeleteMessageId(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 10 }}
+              transition={{
+                duration: 0.2,
+                ease: "easeOut",
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <DeleteModal
+                onCancel={() => setDeleteMessageId(null)}
+                onConfirm={() => handleDelete(deleteMessageId)}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
