@@ -80,7 +80,7 @@ const AdminReviews = () => {
 
   return (
     <section className="w-full bg-[var(--bg-main)] flex justify-center py-16 sm:py-20">
-      <div className="max-w-8xl px-4 md:px-12 w-full">
+      <div className="p-4 md:px-12 w-full">
         {/* HEADERS */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 mb-10">
           {/* TITLE HEADING (LEFT) */}

@@ -7,10 +7,7 @@ const AdminControl = () => {
     <div className="relative min-h-screen bg-[var(--bg-main)]">
       {/* Centered page content */}
       <main className="w-full">
-        <div className="mx-auto w-full max-w-8xl px-4 sm:px-6 md:px-12">
-          <AdminReviews />
-        </div>
-
+        <AdminReviews />
         <Footer />
       </main>
     </div>
