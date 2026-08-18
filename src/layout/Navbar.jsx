@@ -1,10 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import ThemeToggle from "../Components/ThemeToggle";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSelector } from "react-redux";
 
-import { FiHome, FiUser, FiGrid, FiMail } from "react-icons/fi";
+import {
+  FiHome,
+  FiUser,
+  FiGrid,
+  FiMail,
+  FiSettings,
+  FiMessageSquare,
+} from "react-icons/fi";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,6 +25,46 @@ const links = [
 
 const Navbar = () => {
   const navRef = useRef(null);
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  // Keep a local state so the Navbar updates immediately
+  const [isAdmin, setIsAdmin] = useState(
+    isAuthenticated || localStorage.getItem("adminAuthenticated") === "true",
+  );
+
+  const adminLinks = [
+    {
+      name: "Admin Control",
+      path: "/admin/control",
+      icon: <FiSettings />,
+    },
+    {
+      name: "Messages",
+      path: "/admin/messages",
+      icon: <FiMessageSquare />,
+    },
+  ];
+
+  // Sync Navbar with admin login/logout
+  useEffect(() => {
+    setIsAdmin(
+      isAuthenticated || localStorage.getItem("adminAuthenticated") === "true",
+    );
+  }, [isAuthenticated]);
+
+  // Listen for SignOut changes
+  useEffect(() => {
+    const handleAdminAuthChange = () => {
+      setIsAdmin(localStorage.getItem("adminAuthenticated") === "true");
+    };
+
+    window.addEventListener("adminAuthChanged", handleAdminAuthChange);
+
+    return () => {
+      window.removeEventListener("adminAuthChanged", handleAdminAuthChange);
+    };
+  }, []);
 
   useEffect(() => {
     if (window.innerWidth < 768) return;
@@ -109,6 +157,39 @@ const Navbar = () => {
                 </NavLink>
               </li>
             ))}
+
+            {/* ADMIN LINKS */}
+            {isAdmin &&
+              adminLinks.map((link) => (
+                <li
+                  key={link.name}
+                  className="relative h-6 overflow-hidden group"
+                >
+                  <NavLink
+                    to={link.path}
+                    className={({ isActive }) =>
+                      `block transition-transform duration-500 ease-out
+                      ${isActive ? "text-[var(--accent-primary)]" : ""}`
+                    }
+                  >
+                    <span className="block group-hover:-translate-y-full transition-transform duration-500">
+                      {link.name}
+                    </span>
+
+                    <span
+                      className="
+                        block absolute inset-0 translate-y-full
+                        group-hover:translate-y-0
+                        transition-transform duration-500
+                        text-[var(--accent-primary)]
+                      "
+                      aria-hidden
+                    >
+                      {link.name}
+                    </span>
+                  </NavLink>
+                </li>
+              ))}
           </ul>
 
           <ThemeToggle />
@@ -152,6 +233,29 @@ const Navbar = () => {
               {link.icon}
             </NavLink>
           ))}
+
+          {/* MOBILE ADMIN LINKS */}
+          {isAdmin &&
+            adminLinks.map((link) => (
+              <NavLink
+                key={link.name}
+                to={link.path}
+                aria-label={link.name}
+                className={({ isActive }) =>
+                  `
+                  flex items-center justify-center
+                  text-xl transition-colors duration-300
+                  ${
+                    isActive
+                      ? "text-[var(--accent-primary)]"
+                      : "text-[var(--text-main)] opacity-70"
+                  }
+                `
+                }
+              >
+                {link.icon}
+              </NavLink>
+            ))}
         </div>
       </nav>
     </>

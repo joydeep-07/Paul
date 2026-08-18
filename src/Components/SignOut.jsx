@@ -6,10 +6,11 @@ const SignOut = () => {
   const navigate = useNavigate();
 
   const handleSignOut = () => {
-    // Clear the authentication flag
     localStorage.removeItem("adminAuthenticated");
 
-    // Redirect to home page
+    // Immediately notify Navbar
+    window.dispatchEvent(new Event("adminAuthChanged"));
+
     navigate("/", { replace: true });
   };
 

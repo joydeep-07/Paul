@@ -1,10 +1,27 @@
 import { Phone } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaInstagram, FaXTwitter, FaLinkedin, FaGithub } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Auth from "../Components/Auth";
+import SignOut from "../Components/SignOut";
 
 const Footer = () => {
+  const [isAdmin, setIsAdmin] = useState(
+    localStorage.getItem("adminAuthenticated") === "true",
+  );
+
+  useEffect(() => {
+    const handleAdminAuthChange = () => {
+      setIsAdmin(localStorage.getItem("adminAuthenticated") === "true");
+    };
+
+    window.addEventListener("adminAuthChanged", handleAdminAuthChange);
+
+    return () => {
+      window.removeEventListener("adminAuthChanged", handleAdminAuthChange);
+    };
+  }, []);
+
   const socials = [
     {
       name: "Instagram",
@@ -31,7 +48,6 @@ const Footer = () => {
   return (
     <footer className="w-full bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
       <div className="mx-auto max-w-8xl px-4 md:pb-6 py-6 pb-22 md:px-12">
-        {/* MAIN FOOTER */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-14">
           {/* LEFT */}
           <div className="lg:col-span-7">
@@ -93,7 +109,8 @@ const Footer = () => {
                 );
               })}
 
-              <Auth />
+              {/* ADMIN AUTH BUTTON */}
+              {isAdmin ? <SignOut /> : <Auth />}
 
               <Link
                 to="/contact"

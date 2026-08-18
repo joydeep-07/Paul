@@ -16,7 +16,6 @@ import {
   useTheme,
 } from "@mui/material";
 import { Trash2, Mail, User, Calendar } from "lucide-react";
-import SidePanel from "../Admin/SidePanel";
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState([]);
@@ -64,7 +63,6 @@ const AdminMessages = () => {
 
   return (
     <div className="relative min-h-screen bg-[var(--bg-main)]">
-      <SidePanel />
 
       <Box
         className="

@@ -3,11 +3,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff, LockKeyhole, Mail, X, ArrowUpRight } from "lucide-react";
 import { BsShieldLockFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../slices/authSlice";
 
 const ADMIN_EMAIL = "joydeeprnp8821@gmail.com";
 const ADMIN_PASSWORD = "123456";
 
 const Auth = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,11 +22,7 @@ const Auth = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
-
   const handleAdminClick = () => {
-    const isAuthenticated =
-      localStorage.getItem("adminAuthenticated") === "true";
     if (isAuthenticated) {
       navigate("/admin/control");
     } else {
@@ -46,7 +49,11 @@ const Auth = () => {
         email.trim().toLowerCase() === ADMIN_EMAIL &&
         password === ADMIN_PASSWORD
       ) {
-        localStorage.setItem("adminAuthenticated", "true");
+        dispatch(
+          login({
+            email: email.trim().toLowerCase(),
+          }),
+        );
 
         setLoading(false);
         closeModal();
@@ -88,7 +95,7 @@ const Auth = () => {
               onMouseDown={(e) => e.stopPropagation()}
               initial={{
                 opacity: 0,
-                y: "100%", // Slide up from bottom on mobile
+                y: "100%",
                 scale: 1,
               }}
               animate={{
@@ -141,9 +148,9 @@ const Auth = () => {
                       01 / Authentication
                     </p>
 
-                    <h2 className="text-[var(--text-main)] heading-font text-2xl md:text-3xl ">
+                    <h2 className="text-[var(--text-main)] heading-font text-2xl md:text-3xl">
                       Admin
-                      <span className="text-[var(--accent-primary)] ">
+                      <span className="text-[var(--accent-primary)]">
                         {" "}
                         Authentication
                       </span>
@@ -270,8 +277,16 @@ const Auth = () => {
                       {error && (
                         <motion.div
                           initial={{ opacity: 1, height: 0, y: -5 }}
-                          animate={{ opacity: 1, height: "auto", y: 0 }}
-                          exit={{ opacity: 0, height: 0, y: -5 }}
+                          animate={{
+                            opacity: 1,
+                            height: "auto",
+                            y: 0,
+                          }}
+                          exit={{
+                            opacity: 0,
+                            height: 0,
+                            y: -5,
+                          }}
                           className="flex items-center gap-2 overflow-hidden text-[10px] text-red-500"
                         >
                           <span className="h-1 w-1 rounded-full bg-red-500" />
