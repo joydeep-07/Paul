@@ -5,6 +5,7 @@ import { CircularProgress, IconButton } from "@mui/material";
 import { Trash2, Mail, User, Calendar, ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import DeleteModal from "../Components/DeleteModal";
+import Footer from '../layout/Footer'
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState([]);
@@ -57,7 +58,7 @@ const AdminMessages = () => {
 
   return (
     <>
-      <section className="w-full min-h-screen bg-[var(--bg-main)] flex justify-center py-24 md:py-30">
+      <section className="w-full bg-[var(--bg-main)] flex justify-center py-24 md:py-30">
         <div className="w-full max-w-8xl px-4 md:px-12">
           {/* HEADER */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 mb-12">
@@ -291,6 +292,7 @@ const AdminMessages = () => {
           </div>
         </div>
       )}
+      <Footer/>
     </>
   );
 };
