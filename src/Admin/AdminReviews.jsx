@@ -8,11 +8,16 @@ import ReviewSkeleton from "../Components/ReviewSkeleton";
 import LeaveReview from "../Components/LeaveReview";
 import AdminSubscribers from "./AdminSubscribers";
 import { supabase } from "../supabaseClient";
+import DeleteModal from "../Components/DeleteModal";
 
 const AdminReviews = () => {
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
   const [deletingId, setDeletingId] = useState(null);
+
+  // State to track which review is targeted for deletion by the modal
+  const [reviewToDelete, setReviewToDelete] = useState(null);
+
   const [subscriberCount, setSubscriberCount] = useState(0);
 
   // Tracks which single review accordion is open (stores ID or null)
@@ -57,11 +62,17 @@ const AdminReviews = () => {
     setOpenId((prev) => (prev === id ? null : id));
   };
 
-  // DELETE REVIEW HANDLER
-  const handleDelete = async (e, id) => {
+  // OPEN DELETE MODAL
+  const promptDelete = (e, review) => {
     e.stopPropagation();
-    if (!window.confirm("Are you sure you want to delete this review?")) return;
+    setReviewToDelete(review);
+  };
 
+  // CONFIRM AND EXECUTE DELETE
+  const handleDeleteConfirm = async () => {
+    if (!reviewToDelete) return;
+
+    const id = reviewToDelete.id;
     setDeletingId(id);
     const { error } = await supabase.from("reviews").delete().eq("id", id);
 
@@ -73,13 +84,14 @@ const AdminReviews = () => {
       toast.error("Failed to delete the review.");
     }
     setDeletingId(null);
+    setReviewToDelete(null);
   };
 
   // Slice reviews based on showAll state
   const displayedReviews = showAll ? reviews : reviews.slice(0, 4);
 
   return (
-    <section className="w-full bg-[var(--bg-main)] flex justify-center py-16 sm:py-20">
+    <section className="w-full bg-[var(--bg-main)] flex justify-center py-16 sm:py-20 relative">
       <div className="p-4 md:px-12 w-full">
         {/* HEADERS */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 mb-10">
@@ -104,7 +116,7 @@ const AdminReviews = () => {
           </div>
 
           {/* SUBSCRIBERS HEADING (RIGHT TOP) */}
-          <div className="lg:col-span-5 pl-10 border-l border-[var(--border-light)]">
+          <div className="lg:col-span-5 hidden md:flex flex-col pl-10 border-l border-[var(--border-light)]">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)]">
                 Admin Newsletter
@@ -148,7 +160,7 @@ const AdminReviews = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.3, ease: easeInOut }}
-                        className="border border-[var(--border-light)]/50 bg-[var(--bg-secondary)]/50 rounded-lg overflow-hidden transition-colors"
+                        className="border-b border-t border-[var(--border-light)] rounded-xs overflow-hidden transition-colors"
                       >
                         {/* ACCORDION HEADER */}
                         <div
@@ -186,26 +198,13 @@ const AdminReviews = () => {
 
                           <div className="flex items-center gap-3 flex-shrink-0">
                             <button
-                              onClick={(e) => handleDelete(e, rev.id)}
+                              onClick={(e) => promptDelete(e, rev)}
                               disabled={deletingId === rev.id}
-                              className="flex items-center gap-1.5 px-3 py-1.5 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-md text-xs font-medium transition-colors disabled:opacity-50"
+                              className="flex items-center gap-1.5 px-3 py-1.5 text-red-700 cursor-pointer transition-colors disabled:opacity-50"
                               title="Delete Review"
                             >
                               <Trash2 size={14} />
-                              <span className="hidden sm:inline">
-                                {deletingId === rev.id
-                                  ? "Deleting..."
-                                  : "Delete"}
-                              </span>
                             </button>
-
-                            <motion.div
-                              animate={{ rotate: isOpen ? 180 : 0 }}
-                              transition={{ duration: 0.3 }}
-                              className="text-[var(--text-secondary)] p-1"
-                            >
-                              <ChevronDown size={20} />
-                            </motion.div>
                           </div>
                         </div>
 
@@ -269,12 +268,41 @@ const AdminReviews = () => {
             </div>
           </div>
 
+          <div className="lg:col-span-5 md:hidden flex flex-col">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)]">
+                Admin Newsletter
+              </span>
+              <span className="h-px w-12 bg-[var(--accent-primary)]" />
+            </div>
+
+            <h1 className="heading-font text-3xl sm:text-4xl md:text-4xl text-[var(--text-main)]">
+              Newsletter{" "}
+              <span className="text-[var(--accent-primary)]">Subscribers</span>
+            </h1>
+
+            <p className="mt-4 max-w-md text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+              Manage newsletter subscribers, review their details, and stay
+              organized with your latest audience updates from one place.
+            </p>
+          </div>
+
           {/* RIGHT COLUMN: IMPORTED ADMIN SUBSCRIBERS COMPONENT */}
           <div className="lg:col-span-5 lg:border-l lg:border-[var(--border-light)] lg:pl-10">
             <AdminSubscribers />
           </div>
         </div>
       </div>
+
+      {/* DELETE MODAL OVERLAY */}
+      {reviewToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
+          <DeleteModal
+            onCancel={() => setReviewToDelete(null)}
+            onConfirm={handleDeleteConfirm}
+          />
+        </div>
+      )}
     </section>
   );
 };

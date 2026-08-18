@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { toast } from "sonner";
 import { FaCrown, FaTrash, FaEnvelope, FaUser } from "react-icons/fa";
+import DeleteModal from "../Components/DeleteModal";
 
 const AdminSubscribers = () => {
   const [subscribers, setSubscribers] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // State to track the subscriber targeted for deletion by the modal
+  const [subscriberToDelete, setSubscriberToDelete] = useState(null);
 
   // Fetch subscribers from Supabase on component mount
   const fetchSubscribers = async () => {
@@ -32,10 +36,16 @@ const AdminSubscribers = () => {
     fetchSubscribers();
   }, []);
 
-  // Handle deleting a subscriber
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to remove this subscriber?"))
-      return;
+  // Open the Delete Modal for a specific subscriber
+  const promptDelete = (sub) => {
+    setSubscriberToDelete(sub);
+  };
+
+  // Confirm and execute deleting a subscriber
+  const handleDeleteConfirm = async () => {
+    if (!subscriberToDelete) return;
+
+    const id = subscriberToDelete.id;
 
     try {
       const { error } = await supabase
@@ -47,36 +57,17 @@ const AdminSubscribers = () => {
         toast.error(error.message);
       } else {
         toast.success("Subscriber removed successfully");
-        setSubscribers(subscribers.filter((sub) => sub.id !== id));
+        setSubscribers((prev) => prev.filter((sub) => sub.id !== id));
       }
     } catch (err) {
       toast.error("Something went wrong");
+    } finally {
+      setSubscriberToDelete(null);
     }
   };
 
   return (
-    <div className="w-full">
-      {/* HEADER */}
-      {/* <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-        <div>
-          <h2 className="heading-font text-2xl sm:text-3xl text-[var(--text-main)] flex items-center gap-2">
-            Newsletter{" "}
-            <span className="text-[var(--accent-primary)]">Subscribers</span>
-          </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-1">
-            Manage and view everyone who has subscribed to your developer
-            updates.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2 bg-[var(--border-light)]/20 border border-[var(--border-light)] px-3 py-1.5 rounded-md self-start sm:self-auto">
-          <FaCrown className="text-[var(--accent-primary)] text-xs" />
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-main)]">
-            Total: {subscribers.length}
-          </span>
-        </div>
-      </div> */}
-
+    <div className="w-full relative">
       {/* CONTENT */}
       {loading ? (
         <div className="flex justify-center items-center py-16 border border-[var(--border-light)]/50 rounded-lg bg-[var(--bg-secondary)]/50">
@@ -117,8 +108,8 @@ const AdminSubscribers = () => {
               </div>
 
               <button
-                onClick={() => handleDelete(sub.id)}
-                className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-md text-xs font-medium transition-colors"
+                onClick={() => promptDelete(sub)}
+                className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-md text-xs font-medium transition-colors cursor-pointer"
                 title="Remove Subscriber"
               >
                 <FaTrash size={12} />
@@ -126,6 +117,16 @@ const AdminSubscribers = () => {
               </button>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* DELETE MODAL OVERLAY */}
+      {subscriberToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
+          <DeleteModal
+            onCancel={() => setSubscriberToDelete(null)}
+            onConfirm={handleDeleteConfirm}
+          />
         </div>
       )}
     </div>
