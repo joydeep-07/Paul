@@ -134,7 +134,7 @@ const Footer = () => {
             </p>
 
             <p className="text-[9px] hidden md:flex uppercase tracking-[0.18em] text-[var(--text-secondary)]/60 sm:text-[10px]">
-              React · Node.js · MongoDB
+              MongoDB · Express.js · React · Node.js
             </p>
           </div>
         </div>
