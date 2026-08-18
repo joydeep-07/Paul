@@ -11,45 +11,13 @@ const ThemeToggle = () => {
 
   const isDark = mode === "dark";
 
-  const handleToggleTheme = async (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-
-    const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
-
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y),
-    );
-
-    if (!document.startViewTransition) {
-      dispatch(toggleTheme());
-      return;
-    }
-
-    const transition = document.startViewTransition(() => {
-      dispatch(toggleTheme());
-    });
-
-    await transition.ready;
-
-    document.documentElement.animate(
-      {
-        clipPath: [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${endRadius}px at ${x}px ${y}px)`,
-        ],
-      },
-      {
-        duration: 700,
-        easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-        pseudoElement: "::view-transition-new(root)",
-      },
-    );
+  const handleToggleTheme = () => {
+    dispatch(toggleTheme());
   };
 
   return (
     <button
+      type="button"
       onClick={handleToggleTheme}
       aria-label="Toggle theme"
       className="h-9 w-9 rounded-full flex items-center justify-center cursor-pointer"
@@ -58,24 +26,30 @@ const ThemeToggle = () => {
         {isDark ? (
           <motion.span
             key="moon"
-            initial={{ rotate: -180, scale: 0.6, opacity: 0 }}
-            animate={{ rotate: 0, scale: 1, opacity: 1 }}
-            exit={{ rotate: 180, scale: 0.6, opacity: 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="text-gray-100 text-lg"
+            initial={{ rotate: -180, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            exit={{ rotate: 180, opacity: 0 }}
+            transition={{
+              duration: 0.45,
+              ease: "easeOut",
+            }}
+            className="flex items-center justify-center text-gray-100"
           >
             <FaRegMoon size={16} />
           </motion.span>
         ) : (
           <motion.span
             key="sun"
-            initial={{ rotate: 180, scale: 0.6, opacity: 0 }}
-            animate={{ rotate: 0, scale: 1, opacity: 1 }}
-            exit={{ rotate: -180, scale: 0.6, opacity: 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="text-neutral-800"
+            initial={{ rotate: 180, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            exit={{ rotate: -180, opacity: 0 }}
+            transition={{
+              duration: 0.45,
+              ease: "easeOut",
+            }}
+            className="flex items-center justify-center text-neutral-800"
           >
-            <IoSunnyOutline size={16} />
+            <IoSunnyOutline size={17} />
           </motion.span>
         )}
       </AnimatePresence>

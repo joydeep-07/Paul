@@ -49,10 +49,10 @@
 }
 
 /* Smooth transition for all theme-dependent properties */
-/* * {
+* {
   transition: background-color 0.4s ease, color 0.4s ease,
     border-color 0.4s ease;
-} */
+}
 
 @font-face {
   font-family: "Heading";
@@ -115,7 +115,7 @@ textarea::-moz-selection {
   color: #ffffff;
 }
 
-/* ==================================== SELECTION ====================================  */
+/* ==================================== AUTO FILL ====================================  */
 
 /* Autofill Transparent background */
 input:-webkit-autofill,
@@ -131,21 +131,4 @@ select:-webkit-autofill {
 .dark input:-webkit-autofill,
 .dark textarea:-webkit-autofill {
   -webkit-text-fill-color: var(--text-main);
-}
-
-
-
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
-  z-index: -1;
-}
-
-::view-transition-new(root) {
-  z-index: 9999;
 }
