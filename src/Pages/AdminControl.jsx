@@ -1,7 +1,7 @@
 import React from "react";
 import AdminReviews from "../Admin/AdminReviews";
 import Footer from "../layout/Footer";
-import SidePanel from "../admin/SidePanel";
+import SidePanel from "../Admin/SidePanel";
 
 const AdminControl = () => {
   return (
