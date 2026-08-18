@@ -55,14 +55,14 @@ const SidePanel = () => {
 
   const menuItems = [
     {
-      label: "Messages",
-      icon: MessageSquare,
-      path: "/admin/messages",
-    },
-    {
       label: "Control",
       icon: Settings,
       path: "/admin/control",
+    },
+    {
+      label: "Messages",
+      icon: MessageSquare,
+      path: "/admin/messages",
     },
   ];
 
