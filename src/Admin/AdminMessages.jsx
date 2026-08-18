@@ -16,7 +16,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { Trash2, Mail, User, Calendar } from "lucide-react";
-import SidePanel from "../admin/SidePanel";
+import SidePanel from "../Admin/SidePanel";
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState([]);
