@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff, LockKeyhole, Mail, X, ArrowUpRight } from "lucide-react";
 import { BsShieldLockFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../slices/authSlice";
 
 const ADMIN_EMAIL = "joydeeprnp8821@gmail.com";
@@ -13,8 +13,6 @@ const Auth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +21,9 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
 
   const handleAdminClick = () => {
-    if (isAuthenticated) {
+    const isAdmin = localStorage.getItem("adminAuthenticated") === "true";
+
+    if (isAdmin) {
       navigate("/admin/control");
     } else {
       setIsOpen(true);
@@ -49,14 +49,22 @@ const Auth = () => {
         email.trim().toLowerCase() === ADMIN_EMAIL &&
         password === ADMIN_PASSWORD
       ) {
+        // Redux authentication
         dispatch(
           login({
             email: email.trim().toLowerCase(),
           }),
         );
 
+        // Persist admin authentication
+        localStorage.setItem("adminAuthenticated", "true");
+
+        // Immediately update Navbar and Footer
+        window.dispatchEvent(new Event("adminAuthChanged"));
+
         setLoading(false);
         closeModal();
+
         navigate("/admin/control");
       } else {
         setLoading(false);
@@ -64,7 +72,6 @@ const Auth = () => {
       }
     }, 500);
   };
-
   return (
     <>
       {/* ADMIN BUTTON */}
