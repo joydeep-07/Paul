@@ -262,7 +262,7 @@ const LeaveReview = () => {
                     Your feedback helps us grow and improve.
                   </p>
                 </div>
-               <Auth/>
+               {/* <Auth/> */}
               </div>
 
               {/* Form */}

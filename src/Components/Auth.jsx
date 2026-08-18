@@ -17,6 +17,16 @@ const Auth = () => {
 
   const navigate = useNavigate();
 
+  const handleAdminClick = () => {
+    const isAuthenticated =
+      localStorage.getItem("adminAuthenticated") === "true";
+    if (isAuthenticated) {
+      navigate("/admin/control");
+    } else {
+      setIsOpen(true);
+    }
+  };
+
   const closeModal = () => {
     setIsOpen(false);
     setEmail("");
@@ -40,7 +50,7 @@ const Auth = () => {
 
         setLoading(false);
         closeModal();
-        navigate("/admin/reviews");
+        navigate("/admin/control");
       } else {
         setLoading(false);
         setError("Invalid email or password.");
@@ -51,10 +61,9 @@ const Auth = () => {
   return (
     <>
       {/* ADMIN BUTTON */}
-
       <button
         type="button"
-        onClick={() => setIsOpen(true)}
+        onClick={handleAdminClick}
         aria-label="Admin Access"
         className="group cursor-pointer flex items-center justify-center gap-2 rounded-sm border border-[var(--border-light)] px-3 py-2.5 text-[var(--text-main)] transition-all duration-300 hover:opacity-90"
       >

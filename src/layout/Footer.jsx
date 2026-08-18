@@ -2,6 +2,7 @@ import { Phone } from "lucide-react";
 import React from "react";
 import { FaInstagram, FaXTwitter, FaLinkedin, FaGithub } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import Auth from "../Components/Auth";
 
 const Footer = () => {
   const socials = [
@@ -92,9 +93,11 @@ const Footer = () => {
                 );
               })}
 
+              <Auth />
+
               <Link
                 to="/contact"
-                className="group flex items-center justify-center gap-2 rounded-sm border border-[var(--accent-primary)] bg-[var(--accent-primary)] px-3 py-2.5 text-white transition-all duration-300 hover:opacity-90"
+                className="group cursor-pointer flex items-center justify-center gap-2 rounded-sm border border-[var(--border-light)] px-3 py-2.5 text-[var(--text-main)] transition-all duration-300 hover:opacity-90"
               >
                 <Phone size={12} />
 
