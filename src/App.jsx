@@ -15,6 +15,7 @@ import AdvanceTailwind from "./blog/AllBlogs/AdvanceTailwind";
 import Python from "./blog/AllBlogs/Python";
 import AdminControl from "./Pages/AdminControl";
 import ProtectedRoute from "./layout/ProtectedRoute"; // Import the guard
+import AdminMessages from "./Admin/AdminMessages";
 
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
@@ -46,6 +47,15 @@ const App = () => {
           element: (
             <ProtectedRoute>
               <AdminControl />
+            </ProtectedRoute>
+          ),
+        },
+
+        {
+          path: "/admin/messages",
+          element: (
+            <ProtectedRoute>
+             <AdminMessages/>
             </ProtectedRoute>
           ),
         },

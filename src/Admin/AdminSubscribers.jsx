@@ -55,7 +55,7 @@ const AdminSubscribers = () => {
   };
 
   return (
-    <div className="w-full bg-[var(--bg-main)] min-h-screen py-10 px-4 sm:px-8 lg:px-12 transition-colors duration-300">
+    <div className="w-full bg-[var(--bg-main)] py-10 px-4 sm:px-8 lg:px-12 transition-colors duration-300">
       <div className="mx-auto max-w-7xl">
         {/* HEADER */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
