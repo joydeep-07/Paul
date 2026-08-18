@@ -3,6 +3,7 @@ import SignOut from "../Components/SignOut";
 import AdminReviews from "../Admin/AdminReviews";
 import AdminMessages from "../Admin/AdminMessages";
 import AdminSubscribers from "../Admin/AdminSubscribers";
+import Footer from '../layout/Footer'
 
 const AdminControl = () => {
   return (
@@ -10,6 +11,7 @@ const AdminControl = () => {
       <AdminReviews/>
       <AdminMessages/>
       <AdminSubscribers/>
+      <Footer/>
       <SignOut />
     </div>
   );
