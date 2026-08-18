@@ -51,19 +51,17 @@ const Auth = () => {
   return (
     <>
       {/* ADMIN BUTTON */}
+
       <button
         type="button"
         onClick={() => setIsOpen(true)}
         aria-label="Admin Access"
-        className="group relative flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-light)] bg-[var(--bg-secondary)]/40 text-[var(--text-secondary)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--accent-primary)]/50 hover:text-[var(--accent-primary)] active:scale-95"
+        className="group cursor-pointer flex items-center justify-center gap-2 rounded-sm border border-[var(--border-light)] px-3 py-2.5 text-[var(--text-main)] transition-all duration-300 hover:opacity-90"
       >
-        <BsShieldLockFill
-          size={13}
-          className="transition-transform duration-300 group-hover:scale-110"
-        />
+        <BsShieldLockFill size={12} />
 
-        <span className="pointer-events-none absolute right-0 top-full z-50 mt-2 whitespace-nowrap rounded-md border border-[var(--border-light)] bg-[var(--bg-main)] px-2.5 py-1.5 text-[10px] font-medium text-[var(--text-main)] shadow-lg opacity-0 translate-y-1 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-          Admin Access
+        <span className="text-[9px] font-medium uppercase tracking-[0.12em]">
+          Admin Control
         </span>
       </button>
 
