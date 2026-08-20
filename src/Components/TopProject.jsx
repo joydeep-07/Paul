@@ -214,7 +214,7 @@ const TopProject = () => {
               </div>
 
               {/* ACTIONS */}
-              <div className="mt-8 flex items-center gap-6">
+              <div id="project-btn" className="mt-8 flex items-center gap-6">
                 <button
                   type="button"
                   onClick={handleNavigation}

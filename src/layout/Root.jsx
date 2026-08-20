@@ -8,10 +8,7 @@ import CursorFollower from "../cursor/CursorFollower";
 const Root = () => {
   return (
     <div className="min-h-screen flex relative bg-[var(--bg-main)] text-[var(--text-main)] transition-all duration-300">
-      <CursorFollower
-        enlargedIds={["hero-btn", "custom-card"]}
-        ignoreIds={["navbar", "footer"]}
-      />
+      <CursorFollower />
 
       <div className="w-full">
         <Navbar />
