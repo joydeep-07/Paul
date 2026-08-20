@@ -46,7 +46,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="w-full bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
+    <footer id="footer" className="w-full bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
       <div className="mx-auto max-w-8xl px-4 md:pb-6 py-6 pb-22 md:px-12">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-14">
           {/* LEFT */}

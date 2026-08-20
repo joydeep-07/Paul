@@ -99,6 +99,7 @@ const Navbar = () => {
   return (
     <>
       <nav
+        id="navbar"
         ref={navRef}
         className="
           fixed top-4 z-50
