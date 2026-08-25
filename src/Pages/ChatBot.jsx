@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { Bot, Send, User, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const API_URL = import.meta.env.VITE_BACKEND_API_URL;
+const API_URL =
+  import.meta.env.VITE_BACKEND_API_URL ||
+  "https://paulhere-backend.onrender.com";
 
 const ChatBot = () => {
   const [message, setMessage] = useState("");
@@ -49,7 +51,11 @@ const ChatBot = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_URL}/api/chat`, {
+      const endpoint = `${API_URL.replace(/\/$/, "")}/api/chat`;
+
+      console.log("Chat API URL:", endpoint);
+
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,10 +65,30 @@ const ChatBot = () => {
         }),
       });
 
-      const data = await response.json();
+      const contentType = response.headers.get("content-type");
+
+      let data = {};
+
+      if (contentType?.includes("application/json")) {
+        data = await response.json();
+      } else {
+        const responseText = await response.text();
+
+        console.error("Non-JSON response:", responseText);
+
+        throw new Error(
+          `Server returned ${response.status}: ${
+            responseText || "Empty response"
+          }`,
+        );
+      }
+
+      console.log("Chat API response:", data);
 
       if (!response.ok) {
-        throw new Error(data.message || "Something went wrong");
+        throw new Error(
+          data.message || data.error || `Server returned ${response.status}`,
+        );
       }
 
       const aiText =
@@ -88,7 +114,9 @@ const ChatBot = () => {
         {
           id: Date.now() + 1,
           type: "ai",
-          text: "Sorry, I couldn't connect to the AI server. Please try again.",
+          text:
+            error.message ||
+            "Sorry, I couldn't connect to the AI server. Please try again.",
           time: getTime(),
         },
       ]);
@@ -103,7 +131,7 @@ const ChatBot = () => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
@@ -187,6 +215,7 @@ const ChatBot = () => {
             </span>
           </div>
 
+          {/* MESSAGES */}
           {messages.map((item) => {
             const isUser = item.type === "user";
 
@@ -267,13 +296,19 @@ const ChatBot = () => {
                 "
               >
                 <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[var(--text-secondary)] opacity-50" />
+
                 <span
                   className="h-1.5 w-1.5 animate-bounce rounded-full bg-[var(--text-secondary)] opacity-50"
-                  style={{ animationDelay: "150ms" }}
+                  style={{
+                    animationDelay: "150ms",
+                  }}
                 />
+
                 <span
                   className="h-1.5 w-1.5 animate-bounce rounded-full bg-[var(--text-secondary)] opacity-50"
-                  style={{ animationDelay: "300ms" }}
+                  style={{
+                    animationDelay: "300ms",
+                  }}
                 />
               </div>
             </div>
@@ -294,7 +329,20 @@ const ChatBot = () => {
             onKeyDown={handleKeyDown}
             disabled={loading}
             placeholder={loading ? "AI is thinking..." : "Ask something..."}
-            className="h-11 min-w-0 flex-1 bg-transparent px-3 text-sm text-[var(--text-main)] outline-none placeholder:text-[var(--text-secondary)] placeholder:opacity-40 disabled:cursor-not-allowed disabled:opacity-50"
+            className="
+              h-11
+              min-w-0
+              flex-1
+              bg-transparent
+              px-3
+              text-sm
+              text-[var(--text-main)]
+              outline-none
+              placeholder:text-[var(--text-secondary)]
+              placeholder:opacity-40
+              disabled:cursor-not-allowed
+              disabled:opacity-50
+            "
           />
 
           <button
