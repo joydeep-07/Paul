@@ -242,8 +242,6 @@ const ChatBot = () => {
           {/* LEFT SIDE */}
 
           <div>
-           
-
             <h1 className="heading-font mt-1 text-lg tracking-tight md:text-2xl">
               <span className="text-[var(--accent-primary)]">Paul's</span>{" "}
               Assistant
@@ -360,31 +358,6 @@ const ChatBot = () => {
                   isUser ? "justify-end" : "justify-start"
                 }`}
               >
-                {/* AI AVATAR */}
-
-                {!isUser && (
-                  <div
-                    className="
-                      mb-1
-                      flex
-                      h-8
-                      w-8
-                      shrink-0
-                      items-center
-                      justify-center
-                      rounded-full
-                      border
-                      border-[var(--border-light)]
-                      bg-[var(--bg-secondary)]
-                      shadow-sm
-                    "
-                  >
-                    <h2 className="text-xs text-[var(--text-secondary)]/50 ">
-                      AI
-                    </h2>
-                  </div>
-                )}
-
                 {/* MESSAGE BUBBLE */}
 
                 <div
@@ -536,32 +509,7 @@ const ChatBot = () => {
                   )}
 
                   {/* TIME */}
-
-                
                 </div>
-
-                {/* USER AVATAR */}
-
-                {isUser && (
-                  <div
-                    className="
-                      mb-1
-                      flex
-                      h-8
-                      w-8
-                      shrink-0
-                      items-center
-                      justify-center
-                      rounded-full
-                      border
-                      border-[var(--border-light)]
-                      bg-[var(--bg-secondary)]
-                      shadow-sm
-                    "
-                  >
-                    <User size={14} className="text-[var(--text-secondary)]" />
-                  </div>
-                )}
               </div>
             );
           })}
