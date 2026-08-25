@@ -165,7 +165,7 @@ const ChatBot = () => {
         <div className="mx-auto flex items-center justify-between">
           <div>
             <h1 className="heading-font mt-1 text-lg md:text-2xl">
-              AI Assistant
+              <span className="text-[var(--accent-primary)]">Paul's</span> Assistant
             </h1>
 
             <div className="mt-1 flex items-center gap-2">
