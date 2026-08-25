@@ -4,6 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import ScrollToTop from "../Components/ScrollToTop";
 import Scale from "../Components/Scale";
 import CursorFollower from "../cursor/CursorFollower";
+import ChatAssistant from "../Components/ChatAssistant";
 
 const Root = () => {
   const location = useLocation();
@@ -12,7 +13,7 @@ const Root = () => {
 
   return (
     <div className="min-h-screen flex relative bg-[var(--bg-main)] text-[var(--text-main)] transition-all duration-300">
-      <CursorFollower />
+      {/* <CursorFollower /> */}
 
       <div className="w-full">
         {!isChatPage && <Navbar />}
@@ -21,6 +22,10 @@ const Root = () => {
 
         <div className="pt-0">
           <Outlet />
+        </div>
+
+        <div className="fixed md:bottom-6 bottom-20 hidden md:flex right-6">
+          <ChatAssistant/>
         </div>
       </div>
 

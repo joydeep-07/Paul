@@ -132,3 +132,14 @@ select:-webkit-autofill {
 .dark textarea:-webkit-autofill {
   -webkit-text-fill-color: var(--text-main);
 }
+
+/* ====================================
+   LENIS + INNER SCROLL CONTAINERS
+==================================== */
+
+/* Chat containers must scroll independently from Lenis */
+[data-lenis-prevent] {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
