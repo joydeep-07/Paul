@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+
 import { Bot, Send, User, X } from "lucide-react";
+
 import { Link } from "react-router-dom";
+
+import ReactMarkdown from "react-markdown";
 
 const API_URL =
   import.meta.env.VITE_BACKEND_API_URL ||
@@ -20,12 +24,69 @@ const ChatBot = () => {
   ]);
 
   const chatRef = useRef(null);
+  const inputRef = useRef(null);
+
+  /*
+   * Scroll only the chat container.
+   * The header and input are outside this container,
+   * so they remain fixed.
+   */
+  const scrollToBottom = () => {
+    if (!chatRef.current) return;
+
+    requestAnimationFrame(() => {
+      chatRef.current.scrollTo({
+        top: chatRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    });
+  };
 
   useEffect(() => {
-    if (chatRef.current) {
-      chatRef.current.scrollTop = chatRef.current.scrollHeight;
-    }
+    scrollToBottom();
   }, [messages, loading]);
+
+  /*
+   * Automatically focus the input when the page loads.
+   */
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  /*
+   * Prevent the Lenis smooth-scroll instance from
+   * controlling the chat's internal scrolling.
+   */
+  useEffect(() => {
+    const chat = chatRef.current;
+
+    if (!chat) return;
+
+    const preventWheelPropagation = (e) => {
+      e.stopPropagation();
+    };
+
+    chat.addEventListener("wheel", preventWheelPropagation, {
+      passive: true,
+    });
+
+    return () => {
+      chat.removeEventListener("wheel", preventWheelPropagation);
+    };
+  }, []);
+
+  /*
+   * Lock body scrolling while the chatbot page is open.
+   */
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
 
   const getTime = () => {
     return new Date().toLocaleTimeString([], {
@@ -122,6 +183,10 @@ const ChatBot = () => {
       ]);
     } finally {
       setLoading(false);
+
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 50);
     }
   };
 
@@ -139,62 +204,96 @@ const ChatBot = () => {
 
   return (
     <div
-      className="relative flex h-screen flex-col overflow-hidden px-4 py-4 md:px-12 md:py-8"
+      className="fixed inset-0 flex flex-col overflow-hidden"
       style={{
         backgroundColor: "var(--bg-main)",
         color: "var(--text-main)",
       }}
     >
-      {/* HEADER */}
+      {/* =========================================================
+          FIXED HEADER
+      ========================================================= */}
+
       <header
         className="
           fixed
-          left-1/2
+          inset-x-0
           top-0
           z-50
-          w-[calc(100%-2rem)]
-          -translate-x-1/2
+          shrink-0
           border-b
-          border-[var(--border-light)]/50
-          bg-[var(--bg-main)]
-          py-2
-          md:w-[calc(100%-6rem)]
-          md:py-4
+          border-[var(--border-light)]/40
+          bg-[var(--bg-main)]/90
+          backdrop-blur-md
         "
       >
-        <div className="mx-auto flex items-center justify-between">
+        <div
+          className="
+            mx-auto
+            flex
+            w-[calc(100%-2rem)]
+            items-center
+            justify-between
+            py-3
+            md:w-[calc(100%-6rem)]
+            md:py-4
+          "
+        >
+          {/* LEFT SIDE */}
+
           <div>
-            <h1 className="heading-font mt-1 text-lg md:text-2xl">
-              <span className="text-[var(--accent-primary)]">Paul's</span> Assistant
+           
+
+            <h1 className="heading-font mt-1 text-lg tracking-tight md:text-2xl">
+              <span className="text-[var(--accent-primary)]">Paul's</span>{" "}
+              Assistant
             </h1>
 
             <div className="mt-1 flex items-center gap-2">
-              <span
-                className={`h-2 w-2 rounded-full ${
-                  loading
-                    ? "animate-pulse bg-yellow-500"
-                    : "bg-[var(--accent-primary)]"
-                }`}
-              />
+              <span className="relative flex h-2 w-2">
+                <span
+                  className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                    loading
+                      ? "animate-ping bg-amber-400"
+                      : "animate-pulse bg-[var(--accent-primary)]"
+                  }`}
+                />
 
-              <span className="text-xs text-[var(--text-secondary)] opacity-60">
+                <span
+                  className={`relative inline-flex h-2 w-2 rounded-full ${
+                    loading ? "bg-amber-500" : "bg-[var(--accent-primary)]"
+                  }`}
+                />
+              </span>
+
+              <span className="text-[11px] font-medium text-[var(--text-secondary)]/70">
                 {loading ? "Thinking..." : "Online"}
               </span>
             </div>
           </div>
 
+          {/* CLOSE BUTTON */}
+
           <Link
             to="/"
+            aria-label="Close Chat"
             className="
               flex
               h-9
               w-9
               items-center
               justify-center
+              rounded-full
+              border
+              border-[var(--border-light)]/50
+              bg-[var(--bg-secondary)]/60
               text-[var(--text-secondary)]
               transition-all
-              duration-300
+              duration-200
+              hover:border-[var(--accent-primary)]/40
+              hover:bg-[var(--accent-primary)]/10
               hover:text-[var(--accent-primary)]
+              active:scale-95
             "
           >
             <X size={16} />
@@ -202,20 +301,55 @@ const ChatBot = () => {
         </div>
       </header>
 
-      {/* CHAT AREA */}
-      <div
+      {/* =========================================================
+          SCROLLABLE MESSAGE AREA
+      ========================================================= */}
+
+      <main
         ref={chatRef}
-        className="mt-18 min-h-0 flex-1 overflow-y-auto md:mt-22 md:px-12"
+        data-lenis-prevent
+        className="
+          min-h-0
+          flex-1
+          overflow-y-auto
+          overscroll-contain
+          touch-pan-y
+          px-4
+          pb-36
+          pt-28
+          scrollbar-thin
+          scrollbar-thumb-[var(--border-light)]
+          md:px-12
+          md:pt-32
+        "
       >
-        <div className="mx-auto max-w-6xl space-y-5 pb-28">
-          {/* DATE */}
+        <div className="mx-auto max-w-5xl space-y-5">
+          {/* TODAY */}
+
           <div className="flex justify-center">
-            <span className="border border-[var(--border-light)]/50 bg-[var(--bg-secondary)] px-3 py-1 text-[9px] uppercase tracking-[0.2em] text-[var(--text-secondary)] opacity-60">
+            <span
+              className="
+                rounded-sm
+                border
+                border-[var(--border-light)]/40
+                bg-[var(--bg-secondary)]
+                px-3.5
+                py-2
+                text-[9px]
+                font-medium
+                uppercase
+                tracking-[0.2em]
+                text-[var(--text-secondary)]
+                opacity-70
+                shadow-sm
+              "
+            >
               Today
             </span>
           </div>
 
           {/* MESSAGES */}
+
           {messages.map((item) => {
             const isUser = item.type === "user";
 
@@ -226,152 +360,379 @@ const ChatBot = () => {
                   isUser ? "justify-end" : "justify-start"
                 }`}
               >
-                {/* AI ICON */}
+                {/* AI AVATAR */}
+
                 {!isUser && (
-                  <div className="mb-1 hidden h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--border-light)] bg-[var(--bg-secondary)] sm:flex">
-                    <Bot size={15} className="text-[var(--accent-primary)]" />
+                  <div
+                    className="
+                      mb-1
+                      flex
+                      h-8
+                      w-8
+                      shrink-0
+                      items-center
+                      justify-center
+                      rounded-full
+                      border
+                      border-[var(--border-light)]
+                      bg-[var(--bg-secondary)]
+                      shadow-sm
+                    "
+                  >
+                    <h2 className="text-xs text-[var(--text-secondary)]/50 ">
+                      AI
+                    </h2>
                   </div>
                 )}
 
-                {/* MESSAGE */}
+                {/* MESSAGE BUBBLE */}
+
                 <div
-                  className="relative max-w-[85%] border px-4 py-3 text-sm leading-5 sm:max-w-[65%]"
-                  style={{
-                    backgroundColor: isUser
-                      ? "var(--accent-primary)"
-                      : "var(--bg-secondary)",
-
-                    borderColor: isUser
-                      ? "var(--accent-primary)"
-                      : "var(--border-light)",
-
-                    color: isUser ? "#ffffff" : "var(--text-main)",
-
-                    borderRadius: isUser
-                      ? "14px 14px 3px 14px"
-                      : "14px 14px 14px 3px",
-                  }}
-                >
-                  <p className="whitespace-pre-wrap">{item.text}</p>
-
-                  <span
-                    className={`mt-1 block text-[9px] ${
+                  className={`
+                    group
+                    relative
+                    max-w-[88%]
+                    px-4
+                    py-3
+                    text-xs
+                    leading-relaxed
+                    shadow-sm
+                    transition-all
+                    duration-200
+                    hover:shadow-md
+                    sm:max-w-[75%]
+                    sm:px-4
+                    sm:py-3
+                    ${
                       isUser
-                        ? "text-white/60"
-                        : "text-[var(--text-secondary)] opacity-50"
-                    }`}
-                  >
-                    {item.time}
-                  </span>
+                        ? "rounded-xl rounded-br-xs bg-[var(--accent-primary)] text-white"
+                        : "rounded-xl rounded-bl-xs border border-[var(--border-light)]/70 bg-[var(--bg-secondary)] text-[var(--text-main)]"
+                    }
+                  `}
+                >
+                  {isUser ? (
+                    <p className="whitespace-pre-wrap break-words">
+                      {item.text}
+                    </p>
+                  ) : (
+                    <ReactMarkdown
+                      components={{
+                        p: ({ children }) => (
+                          <p className="mb-2 last:mb-0 leading-relaxed">
+                            {children}
+                          </p>
+                        ),
+
+                        strong: ({ children }) => (
+                          <strong className="font-semibold">{children}</strong>
+                        ),
+
+                        em: ({ children }) => (
+                          <em className="italic">{children}</em>
+                        ),
+
+                        ul: ({ children }) => (
+                          <ul className="my-2 list-disc space-y-1 pl-5">
+                            {children}
+                          </ul>
+                        ),
+
+                        ol: ({ children }) => (
+                          <ol className="my-2 list-decimal space-y-1 pl-5">
+                            {children}
+                          </ol>
+                        ),
+
+                        li: ({ children }) => (
+                          <li className="pl-1">{children}</li>
+                        ),
+
+                        h1: ({ children }) => (
+                          <h1 className="mb-2 text-sm font-semibold">
+                            {children}
+                          </h1>
+                        ),
+
+                        h2: ({ children }) => (
+                          <h2 className="mb-2 text-sm font-semibold">
+                            {children}
+                          </h2>
+                        ),
+
+                        h3: ({ children }) => (
+                          <h3 className="mb-2 text-xs font-semibold">
+                            {children}
+                          </h3>
+                        ),
+
+                        a: ({ href, children }) => (
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="
+                              text-[var(--accent-primary)]
+                              underline
+                              underline-offset-2
+                              transition-opacity
+                              hover:opacity-80
+                            "
+                          >
+                            {children}
+                          </a>
+                        ),
+
+                        blockquote: ({ children }) => (
+                          <blockquote
+                            className="
+                              my-2
+                              border-l-2
+                              border-[var(--accent-primary)]/40
+                              pl-3
+                              opacity-80
+                            "
+                          >
+                            {children}
+                          </blockquote>
+                        ),
+
+                        code: ({ inline, children }) =>
+                          inline ? (
+                            <code
+                              className="
+                                rounded
+                                bg-[var(--bg-main)]
+                                px-1.5
+                                py-0.5
+                                font-mono
+                                text-[11px]
+                              "
+                            >
+                              {children}
+                            </code>
+                          ) : (
+                            <code
+                              className="
+                                block
+                                overflow-x-auto
+                                rounded-lg
+                                bg-[var(--bg-main)]
+                                p-3
+                                font-mono
+                                text-[11px]
+                              "
+                            >
+                              {children}
+                            </code>
+                          ),
+
+                        hr: () => (
+                          <hr className="my-3 border-[var(--border-light)]/50" />
+                        ),
+                      }}
+                    >
+                      {item.text}
+                    </ReactMarkdown>
+                  )}
+
+                  {/* TIME */}
+
+                
                 </div>
 
-                {/* USER ICON */}
+                {/* USER AVATAR */}
+
                 {isUser && (
-                  <div className="mb-1 hidden h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--border-light)] bg-[var(--bg-secondary)] sm:flex">
-                    <User size={15} className="text-[var(--text-secondary)]" />
+                  <div
+                    className="
+                      mb-1
+                      flex
+                      h-8
+                      w-8
+                      shrink-0
+                      items-center
+                      justify-center
+                      rounded-full
+                      border
+                      border-[var(--border-light)]
+                      bg-[var(--bg-secondary)]
+                      shadow-sm
+                    "
+                  >
+                    <User size={14} className="text-[var(--text-secondary)]" />
                   </div>
                 )}
               </div>
             );
           })}
 
-          {/* LOADING */}
+          {/* THINKING */}
+
           {loading && (
             <div className="flex items-end gap-2">
-              <div className="mb-1 hidden h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--border-light)] bg-[var(--bg-secondary)] sm:flex">
-                <Bot size={15} className="text-[var(--accent-primary)]" />
+              <div
+                className="
+                  mb-1
+                  flex
+                  h-8
+                  w-8
+                  shrink-0
+                  items-center
+                  justify-center
+                  rounded-full
+                  border
+                  border-[var(--border-light)]
+                  bg-[var(--bg-secondary)]
+                  shadow-sm
+                "
+              >
+                <h2 className="text-xs text-[var(--text-secondary)]/50 ">AI</h2>
               </div>
 
               <div
                 className="
                   flex
                   items-center
-                  gap-1
-                  rounded-[14px_14px_14px_3px]
+                  gap-2
+                  rounded-xl
+                  rounded-bl-xs
                   border
-                  border-[var(--border-light)]
+                  border-[var(--border-light)]/70
                   bg-[var(--bg-secondary)]
                   px-4
-                  py-4
+                  py-3
                 "
               >
-                <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-[var(--text-secondary)] opacity-50" />
+                <span className="text-xs text-[var(--text-secondary)]/60">
+                  Thinking
+                </span>
 
-                <span
-                  className="h-1.5 w-1.5 animate-bounce rounded-full bg-[var(--text-secondary)] opacity-50"
-                  style={{
-                    animationDelay: "150ms",
-                  }}
-                />
+                <div className="flex items-center gap-1">
+                  <span className="h-1 w-1 animate-bounce rounded-full bg-[var(--accent-primary)]/60" />
 
-                <span
-                  className="h-1.5 w-1.5 animate-bounce rounded-full bg-[var(--text-secondary)] opacity-50"
-                  style={{
-                    animationDelay: "300ms",
-                  }}
-                />
+                  <span
+                    className="h-1 w-1 animate-bounce rounded-full bg-[var(--accent-primary)]/60"
+                    style={{
+                      animationDelay: "150ms",
+                    }}
+                  />
+
+                  <span
+                    className="h-1 w-1 animate-bounce rounded-full bg-[var(--accent-primary)]/60"
+                    style={{
+                      animationDelay: "300ms",
+                    }}
+                  />
+                </div>
               </div>
             </div>
           )}
         </div>
-      </div>
+      </main>
 
-      {/* INPUT AREA */}
-      <div className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-2rem)] -translate-x-1/2 pt-3 md:w-[calc(100%-6rem)]">
-        <form
-          onSubmit={handleSubmit}
-          className="mx-auto flex max-w-6xl items-center gap-2 border border-[var(--border-light)]/60 bg-[var(--bg-secondary)] p-2"
-        >
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={handleKeyDown}
-            disabled={loading}
-            placeholder={loading ? "AI is thinking..." : "Ask something..."}
-            className="
-              h-11
-              min-w-0
-              flex-1
-              bg-transparent
-              px-3
-              text-sm
-              text-[var(--text-main)]
-              outline-none
-              placeholder:text-[var(--text-secondary)]
-              placeholder:opacity-40
-              disabled:cursor-not-allowed
-              disabled:opacity-50
-            "
-          />
+      {/* =========================================================
+          FIXED INPUT AREA
+      ========================================================= */}
 
-          <button
-            type="submit"
-            disabled={loading || !message.trim()}
+      <div
+        className="
+          fixed
+          inset-x-0
+          bottom-0
+          z-50
+          border-t
+          border-[var(--border-light)]/40
+          bg-[var(--bg-main)]/90
+          px-4
+          py-3
+          backdrop-blur-md
+          md:px-12
+          md:py-4
+        "
+      >
+        <form onSubmit={handleSubmit} className="mx-auto max-w-5xl">
+          <div
             className="
               flex
-              h-11
-              w-11
-              shrink-0
               items-center
-              justify-center
-              bg-[var(--accent-primary)]
-              text-white
+              gap-2
+              rounded-xl
+              border
+              border-[var(--border-light)]/70
+              bg-[var(--bg-secondary)]
+              p-2
+              shadow-sm
               transition-all
               duration-200
-              hover:scale-105
-              disabled:cursor-not-allowed
-              disabled:opacity-40
-              disabled:hover:scale-100
+              focus-within:border-[var(--accent-primary)]/40
             "
           >
-            <Send size={16} />
-          </button>
-        </form>
+            <input
+              ref={inputRef}
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={handleKeyDown}
+              disabled={loading}
+              placeholder={loading ? "AI is thinking..." : "Ask me anything..."}
+              className="
+                h-10
+                min-w-0
+                flex-1
+                bg-transparent
+                px-2
+                text-sm
+                text-[var(--text-main)]
+                outline-none
+                placeholder:text-[var(--text-secondary)]
+                placeholder:opacity-40
+                disabled:cursor-not-allowed
+                disabled:opacity-50
+              "
+            />
 
-        <p className="mt-2 text-center text-[9px] tracking-wide text-[var(--text-secondary)] opacity-40">
-          Press Enter to send
-        </p>
+            <button
+              type="submit"
+              disabled={loading || !message.trim()}
+              aria-label="Send message"
+              className="
+                flex
+                h-10
+                w-10
+                shrink-0
+                items-center
+                justify-center
+                rounded-lg
+                bg-[var(--accent-primary)]
+                text-white
+                shadow-sm
+                transition-all
+                duration-200
+                hover:scale-[1.02]
+                active:scale-95
+                disabled:cursor-not-allowed
+                disabled:opacity-40
+                disabled:hover:scale-100
+                disabled:active:scale-100
+              "
+            >
+              <Send size={15} />
+            </button>
+          </div>
+
+          <p
+            className="
+              mt-2
+              text-center
+              text-[9px]
+              tracking-wide
+              text-[var(--text-secondary)]
+              opacity-40
+            "
+          >
+            Press Enter to send
+          </p>
+        </form>
       </div>
     </div>
   );
