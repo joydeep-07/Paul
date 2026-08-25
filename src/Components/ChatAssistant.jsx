@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Bot, Send, User, Sparkles, X, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
+import ReactMarkdown from "react-markdown";
 
 const API_URL =
   import.meta.env.VITE_BACKEND_API_URL ||
@@ -25,10 +26,12 @@ const ChatAssistant = ({ onClose }) => {
   const panelRef = useRef(null);
   const backdropRef = useRef(null);
   const triggerBtnRef = useRef(null);
+  const inputRef = useRef(null); // Reference for input field
 
   // Scroll to bottom when messages update
   const scrollToBottom = () => {
     if (!chatRef.current) return;
+
     chatRef.current.scrollTo({
       top: chatRef.current.scrollHeight,
       behavior: "smooth",
@@ -41,12 +44,49 @@ const ChatAssistant = ({ onClose }) => {
     }
   }, [messages.length]);
 
-  // Lock body scroll when chat is open
+  // Lock body scroll when chat is open & Auto-focus input
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
+
+    if (isOpen) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
+
     return () => {
       document.body.style.overflow = "";
     };
+  }, [isOpen]);
+
+  // Global keydown listener to capture any user typing anytime while chat is open
+  useEffect(() => {
+    const handleGlobalTyping = (e) => {
+      if (!isOpen) return;
+
+      // Ignore standard shortcut modifiers
+      if (
+        e.ctrlKey ||
+        e.altKey ||
+        e.metaKey ||
+        e.key === "Escape" ||
+        e.key === "Tab"
+      ) {
+        return;
+      }
+
+      const activeElement = document.activeElement;
+      const isInputAlreadyFocused =
+        activeElement.tagName === "INPUT" ||
+        activeElement.tagName === "TEXTAREA" ||
+        activeElement.isContentEditable;
+
+      // Focus input field automatically if not focused yet
+      if (!isInputAlreadyFocused && inputRef.current) {
+        inputRef.current.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleGlobalTyping);
+    return () => window.removeEventListener("keydown", handleGlobalTyping);
   }, [isOpen]);
 
   // GSAP Animations setup
@@ -84,6 +124,7 @@ const ChatAssistant = ({ onClose }) => {
             duration: 0.4,
             ease: "back.out(1.2)",
             pointerEvents: "auto",
+            onComplete: () => inputRef.current?.focus(),
           },
         );
       } else {
@@ -131,6 +172,7 @@ const ChatAssistant = ({ onClose }) => {
 
   const sendMessage = async () => {
     const text = message.trim();
+
     if (!text || loading) return;
 
     const userMessage = {
@@ -149,17 +191,23 @@ const ChatAssistant = ({ onClose }) => {
 
       const response = await fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: text,
+        }),
       });
 
       const contentType = response.headers.get("content-type");
+
       let data = {};
 
       if (contentType?.includes("application/json")) {
         data = await response.json();
       } else {
         const responseText = await response.text();
+
         throw new Error(
           `Server returned ${response.status}: ${
             responseText || "Empty response"
@@ -204,6 +252,7 @@ const ChatAssistant = ({ onClose }) => {
       ]);
     } finally {
       setLoading(false);
+      setTimeout(() => inputRef.current?.focus(), 50);
     }
   };
 
@@ -220,7 +269,7 @@ const ChatAssistant = ({ onClose }) => {
   };
 
   return (
-    <>
+    <div className="hidden md:block">
       {/* Floating Open Button */}
       <button
         ref={triggerBtnRef}
@@ -240,7 +289,7 @@ const ChatAssistant = ({ onClose }) => {
         <MessageCircle size={24} />
       </button>
 
-      {/* Backdrop (mobile) */}
+      {/* Backdrop */}
       <div
         ref={backdropRef}
         className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none md:bg-transparent md:backdrop-blur-none"
@@ -289,12 +338,14 @@ const ChatAssistant = ({ onClose }) => {
                         : "animate-pulse bg-[var(--accent-primary)]"
                     }`}
                   />
+
                   <span
                     className={`relative inline-flex h-2 w-2 rounded-full ${
                       loading ? "bg-amber-500" : "bg-[var(--accent-primary)]"
                     }`}
                   />
                 </span>
+
                 <span className="text-[11px] font-medium text-[var(--text-secondary)]/70">
                   {loading ? "Thinking..." : "Online"}
                 </span>
@@ -332,8 +383,8 @@ const ChatAssistant = ({ onClose }) => {
             <div className="my-2 flex justify-center">
               <span
                 className="
-                  rounded-full border border-[var(--border-light)]/40
-                  bg-[var(--bg-main)]/80 px-3.5 py-0.5
+                  rounded-sm border border-[var(--border-light)]/40
+                  bg-[var(--bg-main)]/80 px-3.5 py-2.5
                   text-[9px] font-medium uppercase tracking-[0.2em]
                   text-[var(--text-secondary)] opacity-70 shadow-sm
                 "
@@ -372,14 +423,104 @@ const ChatAssistant = ({ onClose }) => {
                       transition-all duration-200 hover:shadow-md sm:max-w-[75%] sm:px-4 sm:py-3
                       ${
                         isUser
-                          ? "rounded-2xl rounded-br-xs bg-[var(--accent-primary)] text-white"
-                          : "rounded-2xl rounded-bl-xs border border-[var(--border-light)]/70 bg-[var(--bg-main)] text-[var(--text-main)]"
+                          ? "rounded-xl rounded-br-xs bg-[var(--accent-primary)] text-white"
+                          : "rounded-xl rounded-bl-xs border border-[var(--border-light)]/70 bg-[var(--bg-main)] text-[var(--text-main)]"
                       }
                     `}
                   >
-                    <p className="whitespace-pre-wrap break-words">
-                      {item.text}
-                    </p>
+                    {isUser ? (
+                      <p className="whitespace-pre-wrap break-words">
+                        {item.text}
+                      </p>
+                    ) : (
+                      <ReactMarkdown
+                        components={{
+                          p: ({ children }) => (
+                            <p className="mb-2 last:mb-0 leading-relaxed">
+                              {children}
+                            </p>
+                          ),
+
+                          strong: ({ children }) => (
+                            <strong className="font-semibold">
+                              {children}
+                            </strong>
+                          ),
+
+                          em: ({ children }) => (
+                            <em className="italic">{children}</em>
+                          ),
+
+                          ul: ({ children }) => (
+                            <ul className="my-2 list-disc space-y-1 pl-5">
+                              {children}
+                            </ul>
+                          ),
+
+                          ol: ({ children }) => (
+                            <ol className="my-2 list-decimal space-y-1 pl-5">
+                              {children}
+                            </ol>
+                          ),
+
+                          li: ({ children }) => (
+                            <li className="pl-1">{children}</li>
+                          ),
+
+                          h1: ({ children }) => (
+                            <h1 className="mb-2 text-sm font-semibold">
+                              {children}
+                            </h1>
+                          ),
+
+                          h2: ({ children }) => (
+                            <h2 className="mb-2 text-sm font-semibold">
+                              {children}
+                            </h2>
+                          ),
+
+                          h3: ({ children }) => (
+                            <h3 className="mb-2 text-xs font-semibold">
+                              {children}
+                            </h3>
+                          ),
+
+                          a: ({ href, children }) => (
+                            <a
+                              href={href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[var(--accent-primary)] underline underline-offset-2 transition-opacity hover:opacity-80"
+                            >
+                              {children}
+                            </a>
+                          ),
+
+                          blockquote: ({ children }) => (
+                            <blockquote className="my-2 border-l-2 border-[var(--accent-primary)]/40 pl-3 opacity-80">
+                              {children}
+                            </blockquote>
+                          ),
+
+                          code: ({ inline, children }) =>
+                            inline ? (
+                              <code className="rounded bg-[var(--bg-secondary)] px-1.5 py-0.5 font-mono text-[11px]">
+                                {children}
+                              </code>
+                            ) : (
+                              <code className="block overflow-x-auto rounded-lg bg-[var(--bg-secondary)] p-3 font-mono text-[11px]">
+                                {children}
+                              </code>
+                            ),
+
+                          hr: () => (
+                            <hr className="my-3 border-[var(--border-light)]/50" />
+                          ),
+                        }}
+                      >
+                        {item.text}
+                      </ReactMarkdown>
+                    )}
                   </div>
 
                   {isUser && (
@@ -421,10 +562,12 @@ const ChatAssistant = ({ onClose }) => {
 
                   <div className="flex items-center gap-1">
                     <span className="h-1 w-1 animate-bounce rounded-full bg-[var(--accent-primary)]/60" />
+
                     <span
                       className="h-1 w-1 animate-bounce rounded-full bg-[var(--accent-primary)]/60"
                       style={{ animationDelay: "150ms" }}
                     />
+
                     <span
                       className="h-1 w-1 animate-bounce rounded-full bg-[var(--accent-primary)]/60"
                       style={{ animationDelay: "300ms" }}
@@ -450,6 +593,7 @@ const ChatAssistant = ({ onClose }) => {
               "
             >
               <input
+                ref={inputRef}
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
@@ -483,7 +627,7 @@ const ChatAssistant = ({ onClose }) => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

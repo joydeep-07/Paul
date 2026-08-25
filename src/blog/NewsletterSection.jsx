@@ -52,13 +52,12 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="w-full bg-[var(--bg-main)] py-16 transition-colors duration-300 sm:py-20 lg:py-24">
+    <section className="relative z-0 w-full bg-[var(--bg-main)] py-16 transition-colors duration-300 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-8xl px-4 md:px-12">
-        {/* HEADER */}
         {/* HEADER */}
         <div className="mb-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
           {/* LEFT HEADER — TEXT */}
-          <div className="lg:col-span-5 md:flex hidden flex-col ">
+          <div className="hidden flex-col md:flex lg:col-span-5">
             <div className="mb-4 flex items-center gap-3">
               <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
                 Newsletter
@@ -122,28 +121,6 @@ const NewsletterSection = () => {
                 things I learn while building projects. Subscription is
                 completely free.
               </p>
-
-              {/* <div className="mt-8 border-t border-[var(--border-light)]">
-                {[
-                  "MERN Architecture",
-                  "UI & UX Development",
-                  "Performance Optimization",
-                  "Real-world Projects",
-                ].map((item, index) => (
-                  <div
-                    key={item}
-                    className="flex items-center gap-3 border-b border-[var(--border-light)] py-3"
-                  >
-                    <span className="text-xs font-medium text-[var(--accent-primary)]">
-                      0{index + 1}
-                    </span>
-
-                    <span className="text-xs text-[var(--text-secondary)] sm:text-sm">
-                      {item}
-                    </span>
-                  </div>
-                ))}
-              </div> */}
             </div>
           </div>
 
@@ -182,7 +159,7 @@ const NewsletterSection = () => {
                   },
                 }}
               >
-                <div className="flex md:flex-row flex-col gap-4 pb-4">
+                <div className="flex flex-col gap-4 pb-4 md:flex-row">
                   <TextField
                     label="Enter Your Name"
                     name="name"
@@ -245,8 +222,6 @@ const NewsletterSection = () => {
             </form>
           </div>
         </div>
-
-        {/* FOOTER */}
       </div>
     </section>
   );
