@@ -7,8 +7,115 @@ import school from "../assets/thumbnail/school.png";
 import rentease from "../assets/thumbnail/rentease.png";
 import templeImg from "../assets/thumbnail/bharat.png";
 import neurocare from "../assets/thumbnail/neurocare.png"
+import palettex from "../assets/thumbnail/palettex.png";
 
 export const projects = [
+  {
+    id: "palette-x",
+    title: "Palette X",
+    category: "Web-Based Digital Painting Application",
+    year: 2026,
+    thumbnail: palettex,
+    navigate: "/project/palette-x",
+    liveLink: "",
+
+    shortDescription:
+      "A modern web-based paint application inspired by Microsoft Paint that provides intuitive drawing, shape creation, text editing, color customization, image manipulation, and export functionality.",
+
+    description:
+      "Palette X is a modern web-based digital painting and image editing application inspired by the simplicity and accessibility of Microsoft Paint. The application provides users with a complete canvas-based workspace for creating and editing digital artwork directly in the browser. It includes essential drawing tools such as pencils, brushes, erasers, shapes, lines, curves, fill tools, color selection, custom colors, text insertion, selections, zooming, resizing, rotation, and image transformations. The application is designed around an intuitive layer-based and vector-aware canvas architecture that allows different types of drawing elements to be rendered and manipulated efficiently. Users can customize brush sizes, colors, shape properties, text styling, and canvas dimensions while maintaining a simple and familiar editing workflow. Palette X also supports undo and redo operations and image export, with exported artwork flattened onto a solid white background to ensure consistent results across image formats.",
+
+    techStack: [
+      "React.js",
+      "TypeScript",
+      "HTML5 Canvas",
+      "Canvas API",
+      "Tailwind CSS",
+      "Layer Management",
+      "Vector Graphics",
+      "Image Processing",
+      "Responsive UI",
+    ],
+
+    features: [
+      "Browser-based digital painting workspace for creating and editing artwork without installing desktop software.",
+      "MS Paint-inspired interface designed around a simple and familiar image editing workflow.",
+      "Freehand pencil and brush tools for drawing directly on the canvas.",
+      "Adjustable brush and pencil sizes for different drawing requirements.",
+      "Eraser tool for removing portions of artwork.",
+      "Paint bucket tool for filling enclosed areas with selected colors.",
+      "Color picker for selecting colors directly from the canvas.",
+      "Custom color selection allowing users to work with their preferred colors.",
+      "Foreground and background color management for flexible drawing workflows.",
+      "Line and curve drawing tools for creating precise paths.",
+      "Geometric shape tools including rectangles, rounded rectangles, circles, ellipses, and polygons.",
+      "Customizable shape outlines, fill colors, and drawing properties.",
+      "Text tool allowing users to add text directly onto the canvas.",
+      "Text customization including font family, font size, color, alignment, bold, and italic styling where supported.",
+      "Selection tools for selecting and manipulating portions of artwork.",
+      "Canvas resizing for changing the dimensions of the working area.",
+      "Image transformation tools including rotation and horizontal or vertical flipping.",
+      "Zoom controls for working precisely on detailed artwork.",
+      "Undo and redo functionality for recovering previous canvas states.",
+      "Layer-based rendering architecture for managing and compositing canvas content.",
+      "Vector element rendering system for handling editable graphical elements.",
+      "Responsive interface designed for desktop, tablet, and touch-based devices.",
+      "Touch-friendly canvas interactions for supported mobile and tablet devices.",
+      "PNG image export for saving completed artwork.",
+      "JPEG and WebP export support for flexible image output.",
+      "Exported images are flattened onto a solid white background to prevent unwanted transparency.",
+      "Canvas content and vector elements are composited together during image export.",
+      "Optimized canvas rendering designed to maintain smooth drawing interactions.",
+    ],
+
+    strategies: [
+      {
+        title: "Problem Statement",
+        description:
+          "Traditional desktop painting applications can be unnecessarily complex for users who only need a simple environment for drawing, annotating, and editing images. Palette X addresses this by bringing the core functionality of a familiar paint application into the browser. The goal is to provide essential image creation and editing capabilities through an accessible interface without requiring additional desktop software.",
+      },
+
+      {
+        title: "Canvas-Based Architecture",
+        description:
+          "Palette X is built around the HTML5 Canvas API to provide real-time drawing and image rendering directly in the browser. Canvas operations are used for freehand drawing, shapes, image manipulation, and final rendering. The application separates document state from rendering logic so that canvas content can be composed efficiently while keeping the editing system maintainable.",
+      },
+
+      {
+        title: "Layer Management",
+        description:
+          "A dedicated layer management system is used to organize and composite different pieces of canvas content. Instead of treating the entire artwork as a single drawing surface, the application can manage multiple layers and combine them during rendering and export. This provides a more flexible foundation for future editing capabilities while keeping the rendering pipeline organized.",
+      },
+
+      {
+        title: "Vector Element Rendering",
+        description:
+          "Palette X uses a vector-aware rendering system for graphical elements such as shapes and other structured canvas objects. Vector elements can be interpreted and rendered separately from raster-based drawing operations, allowing the application to maintain a clean distinction between freehand artwork and structured graphical elements.",
+      },
+
+      {
+        title: "MS Paint-Inspired User Experience",
+        description:
+          "The interface is designed around the familiar interaction patterns of Microsoft Paint while using a modern web-based implementation. Tools are organized according to their purpose, making it easy for users to select drawing tools, customize colors and properties, add text, manipulate images, and export their final artwork without unnecessary complexity.",
+      },
+
+      {
+        title: "Image Export Strategy",
+        description:
+          "The export system creates a separate rendering canvas and composites the complete document before generating the final image. During export, a solid white background is placed underneath all layers and vector elements. This ensures that saved images do not contain unexpected transparent regions and that the final artwork has a consistent white background across PNG, JPEG, and WebP exports.",
+      },
+
+      {
+        title: "Responsive Canvas Interaction",
+        description:
+          "The application is designed to work across different screen sizes while preserving an effective drawing experience. Desktop users receive a full editing workspace, while smaller devices use responsive controls and touch-friendly interactions. The canvas interaction model is designed to support mouse, touch, and other supported pointer input methods.",
+      },
+    ],
+
+    takeaways: [
+      "Building Palette X significantly strengthened my practical understanding of browser-based graphics programming and interactive canvas applications. Through this project, I gained hands-on experience working with the HTML5 Canvas API, layer compositing, vector rendering, drawing interactions, image transformations, custom color management, text rendering, undo and redo systems, and image export pipelines. The project also helped me understand the architectural challenges involved in building an editor where user interactions must be translated into persistent graphical state while maintaining smooth rendering performance. Implementing a complete MS Paint-inspired workflow further improved my ability to design reusable tools, manage complex canvas state, separate rendering logic from application state, and create a responsive editing experience for different devices.",
+    ],
+  },
   {
     id: "neurocare",
     title: "NeuroCare",
