@@ -747,70 +747,72 @@ const ChatAssistant = ({ onClose }) => {
           "
         >
           {messages.length === 0 ? (
-            <div className="flex min-h-full flex-col justify-end space-y-6">
-              <div className="space-y-1">
+            <div className="flex min-h-full flex-col justify-between">
+              {/* Greeting - Top */}
+              <div className="space-y-1 pt-10 md:pt-0">
                 <h1
                   className="
-                    flex items-center gap-2
-                    text-2xl md:text-3xl font-bold
-                    text-[var(--text-main)]
-                    heading-font
-                  "
+        flex items-center gap-2
+        text-3xl md:text-4xl font-bold
+        text-[var(--text-main)]
+        heading-font
+      "
                 >
-                  Hello there!
+                  Hi there!
                 </h1>
 
                 <p
                   className="
-                    text-lg md:text-xl
-                    font-light
-                    text-[var(--text-main)]
-                    opacity-60
-                  "
+        text-lg md:text-xl
+        font-light
+        text-[var(--text-main)]
+        opacity-60
+      "
                 >
                   How can I help you today?
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2.5">
-                {initialPrompts.map((item, idx) => (
+              {/* Questions - Bottom */}
+              <div className="flex flex-wrap items-center gap-2">
+                {initialPrompts.slice(0, 4).map((item, idx) => (
                   <button
                     key={idx}
                     onClick={() => sendMessage(item.prompt)}
                     className="
-                      flex w-full
-                      items-center
-                      rounded-full
-                      border
-                      border-[var(--border-light)]
-                      bg-[var(--bg-secondary)]
-                      px-4 py-3 md:px-5 md:py-3.5
-                      text-left
-                      transition-all
-                      duration-200
-                      hover:bg-black/5
-                      active:scale-[0.99]
-                      dark:hover:bg-white/5
-                    "
+        flex w-fit max-w-full shrink-0
+        items-center
+        rounded-full
+        border
+        border-[var(--border-light)]
+        bg-[var(--bg-secondary)]
+        px-4 py-3
+        text-left
+        transition-all
+        duration-200
+        hover:bg-black/5
+        active:scale-[0.99]
+        dark:hover:bg-white/5
+      "
                   >
                     <span
                       className="
-                        mr-2
-                        text-xs md:text-sm
-                        font-semibold
-                        text-[var(--text-main)]
-                      "
+          mr-2
+          text-xs
+          font-semibold
+          text-[var(--text-main)]
+        "
                     >
                       {item.title}
                     </span>
 
                     <span
                       className="
-                        text-xs md:text-sm
-                        font-normal
-                        text-[var(--text-main)]
-                        opacity-50
-                      "
+          text-xs
+          font-normal
+          text-[var(--text-main)]
+          opacity-50
+        "
                     >
                       {item.subtitle}
                     </span>
