@@ -28,14 +28,13 @@ const Navbar = () => {
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  // Keep a local state so the Navbar updates immediately
   const [isAdmin, setIsAdmin] = useState(
     isAuthenticated || localStorage.getItem("adminAuthenticated") === "true",
   );
 
   const adminLinks = [
     {
-      name: "Admin Control",
+      name: "Admin",
       path: "/admin/control",
       icon: <FiSettings />,
     },
@@ -46,14 +45,14 @@ const Navbar = () => {
     },
   ];
 
-  // Sync Navbar with admin login/logout
+  // Sync Navbar with admin authentication
   useEffect(() => {
     setIsAdmin(
       isAuthenticated || localStorage.getItem("adminAuthenticated") === "true",
     );
   }, [isAuthenticated]);
 
-  // Listen for SignOut changes
+  // Listen for admin login/logout changes
   useEffect(() => {
     const handleAdminAuthChange = () => {
       setIsAdmin(localStorage.getItem("adminAuthenticated") === "true");
@@ -66,6 +65,7 @@ const Navbar = () => {
     };
   }, []);
 
+  // Desktop navbar scroll animation
   useEffect(() => {
     if (window.innerWidth < 768) return;
 
@@ -80,7 +80,6 @@ const Navbar = () => {
         width: "65%",
         marginTop: "12px",
         ease: "none",
-
         immediateRender: false,
 
         scrollTrigger: {
@@ -96,62 +95,133 @@ const Navbar = () => {
     return () => ctx.revert();
   }, []);
 
+  const allMobileLinks = isAdmin ? [...links, ...adminLinks] : links;
+
   return (
     <>
+      {/* =====================================================
+          TOP NAVBAR
+      ===================================================== */}
       <nav
         id="navbar"
         ref={navRef}
         className="
-          fixed top-4 z-50
-          w-full left-0 px-4
-          md:w-[100%] md:left-1/2 md:-translate-x-1/2 md:px-0
+          fixed
+          top-3
+          left-1/2
+          -translate-x-1/2
+          z-50
+
+          w-[calc(100%-24px)]
+
+          md:w-[100%]
+          md:left-1/2
+          md:px-0
         "
       >
         <div
           className="
-            h-[50px]
-            backdrop-blur-[5px]
-            px-6 md:px-10
-            flex items-center justify-between
+            h-[48px]
+            md:h-[50px]
+
+            flex
+            items-center
+            justify-between
+
+            px-4
+            md:px-10
+
             rounded-full
-            border border-[var(--border-light)]
+
+            border
+            border-[var(--border-light)]
+
             bg-[var(--bg-main)]/80
+            backdrop-blur-xl
+
             shadow-lg
           "
         >
           {/* LOGO */}
-          <Link to="/">
-            <h1 className="text-sm md:text-base font-semibold tracking-wide cursor-pointer">
+          <Link
+            to="/"
+            className="
+              flex
+              items-center
+              shrink-0
+            "
+          >
+            <h1
+              className="
+                text-[12px]
+                md:text-base
+                font-semibold
+                tracking-[0.14em]
+                leading-none
+              "
+            >
               PAUL HERE
             </h1>
           </Link>
 
-          {/* DESKTOP NAV LINKS */}
-          <ul className="hidden md:flex items-center gap-10 text-sm font-medium">
+          {/* =================================================
+              DESKTOP NAV LINKS
+          ================================================= */}
+          <ul
+            className="
+              hidden
+              md:flex
+              items-center
+              gap-10
+              text-sm
+              font-medium
+            "
+          >
             {links.map((link) => (
               <li
                 key={link.name}
-                className="relative h-6 overflow-hidden group"
+                className="
+                  relative
+                  h-6
+                  overflow-hidden
+                  group
+                "
               >
                 <NavLink
                   to={link.path}
                   className={({ isActive }) =>
-                    `block transition-transform duration-500 ease-out
-                    ${isActive ? "text-[var(--accent-primary)]" : ""}`
+                    `
+                    block
+                    transition-transform
+                    duration-500
+                    ease-out
+                    ${isActive ? "text-[var(--accent-primary)]" : ""}
+                  `
                   }
                 >
-                  <span className="block group-hover:-translate-y-full transition-transform duration-500">
+                  <span
+                    className="
+                      block
+                      group-hover:-translate-y-full
+                      transition-transform
+                      duration-500
+                    "
+                  >
                     {link.name}
                   </span>
 
                   <span
                     className="
-                      block absolute inset-0 translate-y-full
+                      block
+                      absolute
+                      inset-0
+                      translate-y-full
                       group-hover:translate-y-0
-                      transition-transform duration-500
+                      transition-transform
+                      duration-500
                       text-[var(--accent-primary)]
                     "
-                    aria-hidden
+                    aria-hidden="true"
                   >
                     {link.name}
                   </span>
@@ -164,27 +234,48 @@ const Navbar = () => {
               adminLinks.map((link) => (
                 <li
                   key={link.name}
-                  className="relative h-6 overflow-hidden group"
+                  className="
+                    relative
+                    h-6
+                    overflow-hidden
+                    group
+                  "
                 >
                   <NavLink
                     to={link.path}
                     className={({ isActive }) =>
-                      `block transition-transform duration-500 ease-out
-                      ${isActive ? "text-[var(--accent-primary)]" : ""}`
+                      `
+                      block
+                      transition-transform
+                      duration-500
+                      ease-out
+                      ${isActive ? "text-[var(--accent-primary)]" : ""}
+                    `
                     }
                   >
-                    <span className="block group-hover:-translate-y-full transition-transform duration-500">
+                    <span
+                      className="
+                        block
+                        group-hover:-translate-y-full
+                        transition-transform
+                        duration-500
+                      "
+                    >
                       {link.name}
                     </span>
 
                     <span
                       className="
-                        block absolute inset-0 translate-y-full
+                        block
+                        absolute
+                        inset-0
+                        translate-y-full
                         group-hover:translate-y-0
-                        transition-transform duration-500
+                        transition-transform
+                        duration-500
                         text-[var(--accent-primary)]
                       "
-                      aria-hidden
+                      aria-hidden="true"
                     >
                       {link.name}
                     </span>
@@ -193,70 +284,94 @@ const Navbar = () => {
               ))}
           </ul>
 
-          <ThemeToggle />
+          {/* THEME TOGGLE */}
+          <div
+            className="
+              flex
+              items-center
+              shrink-0
+            "
+          >
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
 
-      {/* MOBILE BOTTOM NAV */}
+      {/* =====================================================
+          MOBILE BOTTOM NAVBAR
+      ===================================================== */}
       <nav
         className="
-          fixed bottom-4 left-1/2 -translate-x-1/2 z-50
-          w-[92%] md:hidden
+          fixed
+          bottom-0
+          left-0
+          z-50
+          w-full
+          md:hidden
         "
       >
         <div
           className="
-            h-[56px]
-            flex items-center justify-around
-            rounded-full
-            border border-[var(--border-light)]
+            h-[62px]
+            w-full
+
+            flex
+            items-center
+            justify-around
+
+            border-t
+            border-[var(--border-light)]
+
             bg-[var(--bg-main)]/90
-            backdrop-blur-md
-            shadow-lg
+            backdrop-blur-xl
           "
         >
-          {links.map((link) => (
+          {allMobileLinks.map((link) => (
             <NavLink
               key={link.name}
               to={link.path}
+              aria-label={link.name}
               className={({ isActive }) =>
                 `
-                flex items-center justify-center
-                text-xl transition-colors duration-300
-                ${
-                  isActive
-                    ? "text-[var(--accent-primary)]"
-                    : "text-[var(--text-main)] opacity-70"
-                }
+                relative
+
+                h-full
+                flex
+                flex-1
+
+                items-center
+                justify-center
+
+                text-[var(--text-main)]
+
+                transition-colors
+                duration-300
+
+                ${isActive ? "text-[var(--accent-primary)]" : "opacity-55"}
               `
               }
             >
-              {link.icon}
+              {({ isActive }) => (
+                <>
+                  {/* ICON */}
+                  <span
+                    className={`
+                      text-[20px]
+
+                      transition-transform
+                      duration-300
+
+                      ${isActive ? "text-[var(--accent-primary)]" : "scale-100"}
+                    `}
+                  >
+                    {link.icon}
+                  </span>
+
+                 
+                </>
+              )}
             </NavLink>
           ))}
-
-          {/* MOBILE ADMIN LINKS */}
-          {isAdmin &&
-            adminLinks.map((link) => (
-              <NavLink
-                key={link.name}
-                to={link.path}
-                aria-label={link.name}
-                className={({ isActive }) =>
-                  `
-                  flex items-center justify-center
-                  text-xl transition-colors duration-300
-                  ${
-                    isActive
-                      ? "text-[var(--accent-primary)]"
-                      : "text-[var(--text-main)] opacity-70"
-                  }
-                `
-                }
-              >
-                {link.icon}
-              </NavLink>
-            ))}
         </div>
       </nav>
     </>

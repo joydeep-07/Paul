@@ -823,7 +823,7 @@ const ChatAssistant = ({ onClose }) => {
                         isUser ? "justify-end" : "justify-start"
                       }`}
                     >
-                      {!isUser && (
+                      {/* {!isUser && (
                         <div
                           className="
                             mt-1
@@ -843,7 +843,7 @@ const ChatAssistant = ({ onClose }) => {
                         >
                           AI
                         </div>
-                      )}
+                      )} */}
 
                       <div
                         className={`text-sm leading-relaxed ${
@@ -976,30 +976,13 @@ const ChatAssistant = ({ onClose }) => {
                         )}
                       </div>
 
-                      {isUser && (
-                        <div
-                          className="
-                            mt-1
-                            flex h-7 w-7
-                            shrink-0
-                            items-center
-                            justify-center
-                            rounded-full
-                            border
-                            border-[var(--border-light)]
-                            bg-[var(--bg-secondary)]
-                            text-[var(--text-main)]
-                          "
-                        >
-                          <User size={14} />
-                        </div>
-                      )}
+                     
                     </div>
 
                     {!isUser && (
                       <div
                         className="
-                          ml-10
+                          ml-0
                           flex items-center gap-3
                           pt-1
                           text-xs
@@ -1060,17 +1043,6 @@ const ChatAssistant = ({ onClose }) => {
 
               {!loading && followUps.length > 0 && (
                 <div className="space-y-2 pt-2">
-                  <p
-                    className="
-                      text-xs
-                      font-medium
-                      text-[var(--text-main)]
-                      opacity-50
-                    "
-                  >
-                    Follow up questions:
-                  </p>
-
                   <div className="flex flex-wrap gap-2">
                     {followUps.map((question, index) => (
                       <button
@@ -1102,7 +1074,6 @@ const ChatAssistant = ({ onClose }) => {
                 <div
                   className="
                     flex items-center gap-2
-                    pl-10
                     text-xs
                     text-[var(--text-main)]
                     opacity-50
