@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import {
   Send,
@@ -10,8 +11,8 @@ import {
   Volume2,
   VolumeX,
   RotateCcw,
-  Paperclip,
   Mic,
+  MicOff,
   Circle,
   ArrowUp,
 } from "lucide-react";
@@ -33,7 +34,7 @@ const shuffleArray = (array) => {
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
 
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    [shuffled[i], shuffled[j]] = [shuffled[i], shuffled[j]];
   }
 
   return shuffled;
@@ -178,12 +179,14 @@ const ChatAssistant = ({ onClose }) => {
   const [speakingId, setSpeakingId] = useState(null);
   const [followUps, setFollowUps] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [isListening, setIsListening] = useState(false);
 
   const chatRef = useRef(null);
   const panelRef = useRef(null);
   const backdropRef = useRef(null);
   const triggerBtnRef = useRef(null);
   const textareaRef = useRef(null);
+  const recognitionRef = useRef(null);
 
   /* =========================================================
      INITIAL PROMPTS
@@ -247,53 +250,56 @@ const ChatAssistant = ({ onClose }) => {
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
 
-    if (isOpen) {
-      setTimeout(() => {
-        textareaRef.current?.focus();
-      }, 100);
-    }
-
     return () => {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
 
   /* =========================================================
-     GLOBAL KEYBOARD TYPING
+     VOICE INPUT SETUP
   ========================================================= */
 
-  useEffect(() => {
-    const handleGlobalTyping = (e) => {
-      if (!isOpen) return;
+  const toggleVoiceInput = () => {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
 
-      if (
-        e.ctrlKey ||
-        e.altKey ||
-        e.metaKey ||
-        e.key === "Escape" ||
-        e.key === "Tab"
-      ) {
-        return;
-      }
+    if (!SpeechRecognition) {
+      alert("Voice input is not supported in this browser.");
+      return;
+    }
 
-      const activeElement = document.activeElement;
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+      return;
+    }
 
-      const isInputFocused =
-        activeElement?.tagName === "INPUT" ||
-        activeElement?.tagName === "TEXTAREA" ||
-        activeElement?.isContentEditable;
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
 
-      if (!isInputFocused && textareaRef.current) {
-        textareaRef.current.focus();
-      }
+    recognition.onstart = () => {
+      setIsListening(true);
     };
 
-    window.addEventListener("keydown", handleGlobalTyping);
-
-    return () => {
-      window.removeEventListener("keydown", handleGlobalTyping);
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setMessage((prev) => (prev ? `${prev} ${transcript}` : transcript));
     };
-  }, [isOpen]);
+
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognitionRef.current = recognition;
+    recognition.start();
+  };
 
   /* =========================================================
      GSAP OPEN / CLOSE ANIMATION
@@ -321,7 +327,7 @@ const ChatAssistant = ({ onClose }) => {
           panelRef.current,
           {
             opacity: 0,
-            scale: 0.85,
+            scale: 0.95,
             y: 30,
             transformOrigin: "bottom right",
           },
@@ -332,9 +338,6 @@ const ChatAssistant = ({ onClose }) => {
             duration: 0.4,
             ease: "back.out(1.2)",
             pointerEvents: "auto",
-            onComplete: () => {
-              textareaRef.current?.focus();
-            },
           },
         );
       } else {
@@ -355,7 +358,7 @@ const ChatAssistant = ({ onClose }) => {
 
         gsap.to(panelRef.current, {
           opacity: 0,
-          scale: 0.85,
+          scale: 0.95,
           y: 20,
           duration: 0.25,
           ease: "power2.in",
@@ -384,8 +387,10 @@ const ChatAssistant = ({ onClose }) => {
 
   const handleClose = () => {
     window.speechSynthesis?.cancel();
+    recognitionRef.current?.stop();
 
     setSpeakingId(null);
+    setIsListening(false);
     setIsOpen(false);
 
     onClose?.();
@@ -516,12 +521,6 @@ const ChatAssistant = ({ onClose }) => {
         rawFollowUps = generateDynamicFollowUps();
       }
 
-      /*
-       * Always keep follow-ups basic.
-       * If backend sends complicated questions,
-       * we ignore them and use portfolio questions.
-       */
-
       const basicQuestions = generateDynamicFollowUps();
 
       setFollowUps(
@@ -572,10 +571,6 @@ const ChatAssistant = ({ onClose }) => {
       ]);
     } finally {
       setLoading(false);
-
-      setTimeout(() => {
-        textareaRef.current?.focus();
-      }, 50);
     }
   };
 
@@ -614,22 +609,19 @@ const ChatAssistant = ({ onClose }) => {
   };
 
   /* =========================================================
-     UI
+     UI RENDER VIA PORTAL
   ========================================================= */
 
-  return (
-    <div className="hidden md:block">
-      {/* =====================================================
-          FLOATING TRIGGER BUTTON
-      ===================================================== */}
-
+  return createPortal(
+    <div className="w-full">
+      {/* FLOATING TRIGGER BUTTON */}
       <button
         ref={triggerBtnRef}
         onClick={() => setIsOpen(true)}
         type="button"
         aria-label="Open Chat"
         className="
-          fixed bottom-5 right-5 z-50
+          fixed md:bottom-5 bottom-20 right-5 z-[9997]
           flex h-14 w-14 items-center justify-center
           rounded-full bg-[var(--accent-primary)] text-white
           shadow-lg shadow-[var(--accent-primary)]/30
@@ -641,14 +633,11 @@ const ChatAssistant = ({ onClose }) => {
         <MessageCircle size={24} />
       </button>
 
-      {/* =====================================================
-          BACKDROP
-      ===================================================== */}
-
+      {/* BACKDROP */}
       <div
         ref={backdropRef}
         className="
-          fixed inset-0 z-40
+          fixed inset-0 z-[9998]
           bg-black/40 backdrop-blur-sm
           opacity-0 pointer-events-none
           md:bg-transparent md:backdrop-blur-none
@@ -657,23 +646,23 @@ const ChatAssistant = ({ onClose }) => {
         aria-hidden="true"
       />
 
-      {/* =====================================================
-          MAIN PANEL
-      ===================================================== */}
-
+      {/* MAIN PANEL */}
       <div
         ref={panelRef}
         className="
-          fixed z-50
+          fixed z-[9999]
+          top-0 left-0
+          h-[100dvh] w-[100dvw]
           flex flex-col
           overflow-hidden
           opacity-0 pointer-events-none
           bg-[var(--bg-main)]
           text-[var(--text-main)]
           shadow-2xl
-          inset-0 rounded-none
+          rounded-none
 
-          md:inset-auto
+          md:top-auto
+          md:left-auto
           md:bottom-8
           md:right-8
           md:h-[650px]
@@ -683,10 +672,7 @@ const ChatAssistant = ({ onClose }) => {
           md:border-[var(--border-light)]
         "
       >
-        {/* ===================================================
-            HEADER
-        =================================================== */}
-
+        {/* HEADER */}
         <header
           className="
             flex shrink-0
@@ -747,10 +733,7 @@ const ChatAssistant = ({ onClose }) => {
           </button>
         </header>
 
-        {/* ===================================================
-            SCROLLABLE CHAT AREA
-        =================================================== */}
-
+        {/* SCROLLABLE CHAT AREA */}
         <div
           ref={chatRef}
           data-lenis-prevent
@@ -758,32 +741,28 @@ const ChatAssistant = ({ onClose }) => {
             min-h-0
             flex-1
             overflow-y-auto
-            px-6 py-6
+            px-4 py-4
+            md:px-6 md:py-6
             scrollbar-thin
           "
         >
-          {/* =================================================
-              EMPTY STATE
-          ================================================= */}
-
           {messages.length === 0 ? (
             <div className="flex min-h-full flex-col justify-end space-y-6">
               <div className="space-y-1">
                 <h1
                   className="
                     flex items-center gap-2
-                    text-3xl font-bold
+                    text-2xl md:text-3xl font-bold
                     text-[var(--text-main)]
                     heading-font
                   "
                 >
                   Hello there!
-                 
                 </h1>
 
                 <p
                   className="
-                    text-xl
+                    text-lg md:text-xl
                     font-light
                     text-[var(--text-main)]
                     opacity-60
@@ -792,10 +771,6 @@ const ChatAssistant = ({ onClose }) => {
                   How can I help you today?
                 </p>
               </div>
-
-              {/* =================================================
-                  INITIAL PROMPTS
-              ================================================= */}
 
               <div className="flex flex-col gap-2.5">
                 {initialPrompts.map((item, idx) => (
@@ -809,7 +784,7 @@ const ChatAssistant = ({ onClose }) => {
                       border
                       border-[var(--border-light)]
                       bg-[var(--bg-secondary)]
-                      px-5 py-3.5
+                      px-4 py-3 md:px-5 md:py-3.5
                       text-left
                       transition-all
                       duration-200
@@ -821,7 +796,7 @@ const ChatAssistant = ({ onClose }) => {
                     <span
                       className="
                         mr-2
-                        text-sm
+                        text-xs md:text-sm
                         font-semibold
                         text-[var(--text-main)]
                       "
@@ -831,7 +806,7 @@ const ChatAssistant = ({ onClose }) => {
 
                     <span
                       className="
-                        text-sm
+                        text-xs md:text-sm
                         font-normal
                         text-[var(--text-main)]
                         opacity-50
@@ -844,10 +819,6 @@ const ChatAssistant = ({ onClose }) => {
               </div>
             </div>
           ) : (
-            /* =================================================
-               ACTIVE CHAT
-            ================================================= */
-
             <div className="space-y-6 pb-4">
               {messages.map((item) => {
                 const isUser = item.type === "user";
@@ -857,17 +828,11 @@ const ChatAssistant = ({ onClose }) => {
                     key={item.id}
                     className="group relative flex flex-col gap-2"
                   >
-                    {/* =========================================
-                        MESSAGE ROW
-                    ========================================= */}
-
                     <div
                       className={`flex gap-3 ${
                         isUser ? "justify-end" : "justify-start"
                       }`}
                     >
-                      {/* AI ICON */}
-
                       {!isUser && (
                         <div
                           className="
@@ -890,13 +855,11 @@ const ChatAssistant = ({ onClose }) => {
                         </div>
                       )}
 
-                      {/* MESSAGE CONTENT */}
-
                       <div
                         className={`text-sm leading-relaxed ${
                           isUser
                             ? `
-                              max-w-[80%]
+                              max-w-[85%] md:max-w-[80%]
                               rounded-2xl
                               rounded-tr-xs
                               border
@@ -913,15 +876,11 @@ const ChatAssistant = ({ onClose }) => {
                             `
                         }`}
                       >
-                        {/* USER MESSAGE */}
-
                         {isUser ? (
                           <p className="whitespace-pre-wrap break-words">
                             {item.text}
                           </p>
                         ) : item.isNew ? (
-                          /* AI TYPEWRITER */
-
                           <TypewriterText
                             text={item.text}
                             onComplete={() => {
@@ -938,8 +897,6 @@ const ChatAssistant = ({ onClose }) => {
                             }}
                           />
                         ) : (
-                          /* NORMAL AI MARKDOWN */
-
                           <ReactMarkdown
                             components={{
                               p: ({ children }) => (
@@ -1029,8 +986,6 @@ const ChatAssistant = ({ onClose }) => {
                         )}
                       </div>
 
-                      {/* USER ICON */}
-
                       {isUser && (
                         <div
                           className="
@@ -1051,10 +1006,6 @@ const ChatAssistant = ({ onClose }) => {
                       )}
                     </div>
 
-                    {/* =========================================
-                        AI ACTION BAR
-                    ========================================= */}
-
                     {!isUser && (
                       <div
                         className="
@@ -1066,8 +1017,6 @@ const ChatAssistant = ({ onClose }) => {
                           opacity-60
                         "
                       >
-                        {/* COPY */}
-
                         <button
                           onClick={() => handleCopy(item.id, item.text)}
                           type="button"
@@ -1084,8 +1033,6 @@ const ChatAssistant = ({ onClose }) => {
                           )}
                         </button>
 
-                        {/* REGENERATE */}
-
                         <button
                           onClick={handleRegenerate}
                           type="button"
@@ -1096,8 +1043,6 @@ const ChatAssistant = ({ onClose }) => {
                         >
                           <RotateCcw size={14} />
                         </button>
-
-                        {/* READ ALOUD */}
 
                         <button
                           onClick={() => handleReadAloud(item.id, item.text)}
@@ -1122,10 +1067,6 @@ const ChatAssistant = ({ onClose }) => {
                   </div>
                 );
               })}
-
-              {/* =================================================
-                  BASIC FOLLOW-UP QUESTIONS
-              ================================================= */}
 
               {!loading && followUps.length > 0 && (
                 <div className="space-y-2 pt-2">
@@ -1167,10 +1108,6 @@ const ChatAssistant = ({ onClose }) => {
                 </div>
               )}
 
-              {/* =================================================
-                  THINKING
-              ================================================= */}
-
               {loading && (
                 <div
                   className="
@@ -1206,15 +1143,13 @@ const ChatAssistant = ({ onClose }) => {
           )}
         </div>
 
-        {/* =====================================================
-            INPUT AREA
-        ===================================================== */}
-
+        {/* INPUT AREA */}
         <div
           className="
             shrink-0
             bg-[var(--bg-main)]
-            p-4
+            p-3 md:p-4
+            pb-[calc(0.75rem+env(safe-area-inset-bottom))]
           "
         >
           <form
@@ -1222,23 +1157,19 @@ const ChatAssistant = ({ onClose }) => {
             className="
               relative
               flex
-              min-h-[110px]
+              min-h-[100px] md:min-h-[110px]
               flex-col
               justify-between
               rounded-2xl
               border
               border-[var(--border-light)]
               bg-[var(--bg-secondary)]
-              p-4
+              p-3 md:p-4
               transition-all
               duration-200
               focus-within:border-[var(--accent-primary)]/50
             "
           >
-            {/* =================================================
-                TEXTAREA
-            ================================================= */}
-
             <textarea
               ref={textareaRef}
               rows={2}
@@ -1247,9 +1178,7 @@ const ChatAssistant = ({ onClose }) => {
               onKeyDown={handleKeyDown}
               disabled={loading}
               placeholder={
-                loading
-                  ? "AI is processing..."
-                  : "Ask me anything ..."
+                loading ? "AI is processing..." : "Ask me anything ..."
               }
               className="
                 w-full
@@ -1264,10 +1193,6 @@ const ChatAssistant = ({ onClose }) => {
               "
             />
 
-            {/* =================================================
-                INPUT ACTIONS
-            ================================================= */}
-
             <div className="flex items-center justify-between pt-2">
               <div
                 className="
@@ -1276,47 +1201,25 @@ const ChatAssistant = ({ onClose }) => {
                   opacity-50
                 "
               >
-                {/* ATTACH */}
-
                 <button
                   type="button"
-                  className="
-                    transition-opacity
-                    hover:opacity-100
-                  "
-                  aria-label="Attach File"
-                >
-                  <Paperclip size={18} />
-                </button>
-
-                {/* MICROPHONE */}
-
-                <button
-                  type="button"
-                  className="
-                    transition-opacity
-                    hover:opacity-100
-                  "
+                  onClick={toggleVoiceInput}
+                  className={`transition-opacity hover:opacity-100 ${
+                    isListening ? "text-red-500 opacity-100 animate-pulse" : ""
+                  }`}
                   aria-label="Voice Input"
                 >
-                  <Mic size={18} />
+                  {isListening ? <MicOff size={18} /> : <Mic size={18} />}
                 </button>
-
-                {/* OPTIONS */}
 
                 <button
                   type="button"
-                  className="
-                    transition-opacity
-                    hover:opacity-100
-                  "
+                  className="transition-opacity hover:opacity-100"
                   aria-label="Options"
                 >
                   <Circle size={18} />
                 </button>
               </div>
-
-              {/* SEND */}
 
               <button
                 type="submit"
@@ -1345,7 +1248,8 @@ const ChatAssistant = ({ onClose }) => {
           </form>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };
 

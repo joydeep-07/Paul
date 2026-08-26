@@ -24,7 +24,7 @@ const Root = () => {
           <Outlet />
         </div>
 
-        <div className="fixed md:bottom-6 bottom-20 hidden md:flex right-6">
+        <div className="">
           <ChatAssistant/>
         </div>
       </div>
