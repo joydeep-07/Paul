@@ -122,13 +122,6 @@ const Hero = () => {
             >
               About Me
             </button>
-
-            <button
-              onClick={() => navigate("/aichat")}
-              className=" group md:hidden flex items-center justify-center px-7 sm:px-9 md:px-10 py-3 sm:py-3.5 rounded-full border border-[var(--border-light)] text-[var(--text-main)] text-[10px] sm:text-xs font-medium tracking-[0.12em] uppercase transition-all duration-300 hover:border-[var(--accent-primary)]/30 hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/5"
-            >
-              Ask Queries
-            </button>
           </div>
         </div>
       </div>

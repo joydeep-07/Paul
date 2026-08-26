@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import Lottie from "lottie-react";
+import meta from "../assets/animation/meta.json";
 
 import {
   Send,
@@ -193,11 +195,6 @@ const ChatAssistant = ({ onClose }) => {
   ========================================================= */
 
   const initialPrompts = [
-    {
-      title: "About Me",
-      subtitle: "Who are you?",
-      prompt: "Tell me about yourself.",
-    },
     {
       title: "Skills & Expertise",
       subtitle: "View your core skills",
@@ -620,19 +617,10 @@ const ChatAssistant = ({ onClose }) => {
         onClick={() => setIsOpen(true)}
         type="button"
         aria-label="Open Chat"
-        className="
-          fixed md:bottom-5 bottom-20 right-5 z-[9997]
-          flex h-14 w-14 items-center justify-center
-          rounded-full bg-[var(--accent-primary)] text-white
-          shadow-lg shadow-[var(--accent-primary)]/30
-          transition-shadow duration-300
-          hover:shadow-xl active:scale-95
-          md:bottom-8 md:right-8
-        "
+        className=" group fixed bottom-20 right-5 z-[9997] flex h-14 w-14 items-center justify-center rounded-full shadow-[var(--accent-primary)]/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[var(--accent-primary)]/40 active:scale-95 md:bottom-8 md:right-8 cursor-pointer "
       >
-        <MessageCircle size={24} />
+        <Lottie animationData={meta} loop autoplay className="h-14 md:h-12 md:w-12 w-14" />
       </button>
-
       {/* BACKDROP */}
       <div
         ref={backdropRef}
