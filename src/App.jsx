@@ -16,7 +16,6 @@ import Python from "./blog/AllBlogs/Python";
 import AdminControl from "./Pages/AdminControl";
 import ProtectedRoute from "./layout/ProtectedRoute"; // Import the guard
 import AdminMessages from "./Admin/AdminMessages";
-import ChatBot from "./Pages/ChatBot";
 
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
@@ -38,7 +37,6 @@ const App = () => {
         { path: "/about", element: <About /> },
         { path: "/contact", element: <Contact /> },
         { path: "/projects", element: <Projects /> },
-        { path: "/aichat", element: <ChatBot /> },
         { path: "/blogs", element: <Blogs /> },
         { path: "/review/form", element: <ReviewForm /> },
         { path: "project/:id", element: <ProjectDetails /> },
