@@ -171,7 +171,7 @@ const TopProject = () => {
             </div>
 
             {/* CONSTRAINED TEXT WIDTH */}
-            <div className="max-w-md">
+            <div className="">
               <h3 className="heading-font text-2xl leading-tight tracking-tight text-[var(--text-main)] md:text-4xl">
                 Why this project{" "}
                 <span className="text-[var(--accent-primary)]">stands out</span>
