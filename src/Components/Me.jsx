@@ -93,24 +93,26 @@ const Me = () => {
 
                 {/* DESCRIPTION */}
                 <p className="mt-6 w-full text-justify text-sm leading-[1.9] text-[var(--text-secondary)] sm:text-sm">
-                  I’m a frontend developer specializing in responsive and
-                  interactive web applications using React.js, JavaScript, and
-                  TypeScript. I work with Tailwind CSS, GSAP, and Framer Motion
-                  to build scalable UI, smooth interactions, and performant
-                  interfaces. I also have working knowledge of Node.js,
-                  Express.js, MongoDB, REST APIs, and authentication systems.
+                  I’m a Full Stack Developer with strong expertise in building
+                  responsive, interactive, and scalable web applications using
+                  React.js, JavaScript, and TypeScript. I specialize in modern
+                  frontend development with Tailwind CSS, GSAP, and Framer
+                  Motion, while also working with Node.js, Express.js, and
+                  MongoDB to develop robust backend services and RESTful APIs. I
+                  have experience implementing authentication, role-based access
+                  control, state management, database integration, and
+                  end-to-end application workflows.
                 </p>
 
                 <p className="mt-5 w-full text-justify text-sm leading-[1.9] text-[var(--text-secondary)]">
-                  I focus on transforming concepts into maintainable,
-                  production-ready digital products through clean architecture,
-                  reusable components, optimized interactions, smooth
-                  animations, and a strong emphasis on usability, performance,
-                  and visual consistency.
+                  I focus on transforming ideas into complete, production-ready
+                  digital products by combining clean architecture, reusable
+                  components, scalable backend systems, optimized APIs, and
+                  polished user experiences. My approach emphasizes maintainable
+                  code, performance, security, responsiveness, and intuitive
+                  interfaces across the entire application stack.
                 </p>
 
-                {/* QUICK DETAILS */}
-                {/* TECHNICAL INFO */}
                 {/* TECHNICAL INFO */}
                 <div className="mt-8 border-y border-[var(--border-light)]">
                   {/* PRIMARY FOCUS */}
@@ -121,7 +123,7 @@ const Me = () => {
                       </span>
 
                       <p className="mt-1 text-xs uppercase font-medium text-[var(--text-main)] sm:mt-2 sm:text-sm">
-                        Frontend Development
+                        Fullstack Development
                       </p>
                     </div>
                   </div>

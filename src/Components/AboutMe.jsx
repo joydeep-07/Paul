@@ -52,23 +52,23 @@ const AboutMe = () => {
               <span className="font-medium heading-font text-[var(--accent-primary)]">
                 Joydeep Paul
               </span>
-              , a passionate Frontend Developer focused on building seamless,
-              user-centric digital experiences. I work primarily with React.js,
-              JavaScript, TypeScript, Tailwind CSS, GSAP, and Framer Motion to
-              create responsive, modern, and interactive web applications. I
-              have hands-on experience developing reusable components,
-              integrating REST APIs, managing application state, implementing
-              smooth animations, and creating responsive interfaces. Alongside
-              my frontend expertise, I have working knowledge of Node.js,
-              Express.js, MongoDB, authentication systems, and backend API
-              development.
+              , a Full Stack Developer focused on building modern, responsive,
+              and user-centric digital products. I specialize in frontend
+              development using React.js, JavaScript, TypeScript, Tailwind CSS,
+              GSAP, and Framer Motion, while also working with Node.js,
+              Express.js, MongoDB, REST APIs, and authentication systems to
+              build complete web applications. I have hands-on experience
+              developing reusable components, integrating APIs, managing
+              application state, designing backend services, and implementing
+              scalable application workflows.
             </p>
 
             <p className="mt-6 text-sm sm:text-sm text-justify text-[var(--text-secondary)] leading-[1.9]">
-              I enjoy writing clean, maintainable code and building scalable
-              applications with a strong focus on performance, usability, and
-              visual quality. I like turning ideas into polished digital
-              products that feel intuitive, purposeful, and refined.
+              I enjoy turning ideas into polished, production-ready applications
+              by combining clean architecture, maintainable code, intuitive user
+              experiences, and reliable backend systems. I focus on performance,
+              responsiveness, usability, and visual quality while continuously
+              improving my skills across the full development stack.
             </p>
           </div>
 

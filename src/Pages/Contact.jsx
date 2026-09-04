@@ -220,7 +220,7 @@ const Contact = () => {
                     </h2>
 
                     <p className="mt-1 text-[10px] uppercase tracking-[0.15em] text-[var(--text-secondary)]">
-                      Frontend Developer
+                      Fullstack Developer
                     </p>
                   </div>
                 </div>
@@ -233,37 +233,29 @@ const Contact = () => {
                 </p>
 
                 {/* INFO */}
-                <div className="mt-8 border-y border-[var(--border-light)]">
+                {/* <div className="mt-8 border-y border-[var(--border-light)]">
                   <div className="flex items-center justify-between gap-4 py-4">
                     <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-                      Focus
+                      Role
                     </span>
 
                     <span className="text-right text-xs font-medium text-[var(--text-main)]">
-                      Frontend Development
+                      Full Stack Developer
                     </span>
                   </div>
 
                   <div className="flex items-center justify-between gap-4 border-t border-[var(--border-light)] py-4">
                     <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-                      Stack
+                      Expertise
                     </span>
 
                     <span className="text-right text-xs font-medium text-[var(--text-main)]">
-                      React · Node · MongoDB
+                      React · Node · Express · MongoDB
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between gap-4 border-t border-[var(--border-light)] py-4">
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-                      Response
-                    </span>
-
-                    <span className="text-right text-xs font-medium text-[var(--text-main)]">
-                      Usually within 24–48h
-                    </span>
-                  </div>
-                </div>
+                  
+                </div> */}
 
                 {/* SOCIALS */}
                 <div className="mt-7 grid grid-cols-2 gap-2 sm:grid-cols-4">
