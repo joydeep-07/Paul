@@ -70,6 +70,21 @@ const generateDynamicFollowUps = () => {
 };
 
 /* =========================================================
+   CLEAN TEXT FOR SPEECH (STRIPS MARKDOWN SYMBOLS & CODES)
+========================================================= */
+
+const cleanTextForSpeech = (text) => {
+  if (!text) return "";
+  return text
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
+    .replace(/[#*\_~>-]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+};
+
+/* =========================================================
    TYPEWRITER COMPONENT
 ========================================================= */
 
@@ -182,6 +197,7 @@ const ChatAssistant = ({ onClose }) => {
   const [followUps, setFollowUps] = useState([]);
   const [messages, setMessages] = useState([]);
   const [isListening, setIsListening] = useState(false);
+  const [isVoiceSubmitted, setIsVoiceSubmitted] = useState(false);
 
   const chatRef = useRef(null);
   const panelRef = useRef(null);
@@ -189,6 +205,8 @@ const ChatAssistant = ({ onClose }) => {
   const triggerBtnRef = useRef(null);
   const textareaRef = useRef(null);
   const recognitionRef = useRef(null);
+  const silenceTimerRef = useRef(null);
+  const messageRefs = useRef({});
 
   /* =========================================================
      INITIAL PROMPTS
@@ -231,14 +249,23 @@ const ChatAssistant = ({ onClose }) => {
   };
 
   /* =========================================================
-     AUTO SCROLL
+     AUTO SCROLL & GSAP ENTRY FOR AI RESPONSE
   ========================================================= */
 
   useEffect(() => {
     if (messages.length > 0) {
       scrollToBottom();
+
+      const lastMsg = messages[messages.length - 1];
+      if (lastMsg && lastMsg.type === "ai" && messageRefs.current[lastMsg.id]) {
+        gsap.fromTo(
+          messageRefs.current[lastMsg.id],
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" },
+        );
+      }
     }
-  }, [messages.length, loading]);
+  }, [messages, loading]);
 
   /* =========================================================
      BODY SCROLL LOCK
@@ -256,6 +283,17 @@ const ChatAssistant = ({ onClose }) => {
      VOICE INPUT SETUP
   ========================================================= */
 
+  const resetSilenceTimer = () => {
+    if (silenceTimerRef.current) {
+      clearTimeout(silenceTimerRef.current);
+    }
+    silenceTimerRef.current = setTimeout(() => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    }, 3000);
+  };
+
   const toggleVoiceInput = () => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -266,32 +304,54 @@ const ChatAssistant = ({ onClose }) => {
     }
 
     if (isListening) {
+      if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
       recognitionRef.current?.stop();
       setIsListening(false);
       return;
     }
 
+    // Instantly stop any currently active speech synthesis when voice recording starts
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      setSpeakingId(null);
+    }
+
     const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
+    recognition.continuous = true;
+    recognition.interimResults = true;
     recognition.lang = "en-US";
 
     recognition.onstart = () => {
       setIsListening(true);
+      resetSilenceTimer();
     };
 
     recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      setMessage((prev) => (prev ? `${prev} ${transcript}` : transcript));
+      let currentTranscript = "";
+      for (let i = 0; i < event.results.length; i++) {
+        currentTranscript += event.results[i][0].transcript;
+      }
+      setMessage(currentTranscript);
+      resetSilenceTimer();
     };
 
     recognition.onerror = (event) => {
       console.error("Speech recognition error:", event.error);
+      if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
       setIsListening(false);
     };
 
     recognition.onend = () => {
+      if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
       setIsListening(false);
+
+      setMessage((latestMsg) => {
+        if (latestMsg.trim()) {
+          setIsVoiceSubmitted(true);
+          sendMessage(latestMsg);
+        }
+        return latestMsg;
+      });
     };
 
     recognitionRef.current = recognition;
@@ -299,7 +359,7 @@ const ChatAssistant = ({ onClose }) => {
   };
 
   /* =========================================================
-     GSAP OPEN / CLOSE ANIMATION
+     GSAP OPEN ANIMATION
   ========================================================= */
 
   useEffect(() => {
@@ -337,30 +397,6 @@ const ChatAssistant = ({ onClose }) => {
             pointerEvents: "auto",
           },
         );
-      } else {
-        gsap.to(triggerBtnRef.current, {
-          scale: 1,
-          opacity: 1,
-          duration: 0.3,
-          ease: "back.out(1.5)",
-          pointerEvents: "auto",
-        });
-
-        gsap.to(backdropRef.current, {
-          opacity: 0,
-          duration: 0.25,
-          ease: "power2.in",
-          pointerEvents: "none",
-        });
-
-        gsap.to(panelRef.current, {
-          opacity: 0,
-          scale: 0.95,
-          y: 20,
-          duration: 0.25,
-          ease: "power2.in",
-          pointerEvents: "none",
-        });
       }
     });
 
@@ -379,18 +415,44 @@ const ChatAssistant = ({ onClose }) => {
   };
 
   /* =========================================================
-     CLOSE CHAT
+     GSAP CLOSE CHAT ANIMATION
   ========================================================= */
 
   const handleClose = () => {
+    if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
     window.speechSynthesis?.cancel();
     recognitionRef.current?.stop();
 
     setSpeakingId(null);
     setIsListening(false);
-    setIsOpen(false);
 
-    onClose?.();
+    gsap.to(triggerBtnRef.current, {
+      scale: 1,
+      opacity: 1,
+      duration: 0.3,
+      ease: "back.out(1.5)",
+      pointerEvents: "auto",
+    });
+
+    gsap.to(backdropRef.current, {
+      opacity: 0,
+      duration: 0.25,
+      ease: "power2.in",
+      pointerEvents: "none",
+    });
+
+    gsap.to(panelRef.current, {
+      opacity: 0,
+      scale: 0.95,
+      y: 20,
+      duration: 0.25,
+      ease: "power2.in",
+      pointerEvents: "none",
+      onComplete: () => {
+        setIsOpen(false);
+        onClose?.();
+      },
+    });
   };
 
   /* =========================================================
@@ -408,7 +470,7 @@ const ChatAssistant = ({ onClose }) => {
   };
 
   /* =========================================================
-     READ ALOUD
+     READ ALOUD (READS ALL CLEAN TEXT WITHOUT MARKDOWN SYMBOLS)
   ========================================================= */
 
   const handleReadAloud = (id, text) => {
@@ -422,7 +484,26 @@ const ChatAssistant = ({ onClose }) => {
 
     window.speechSynthesis.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(text);
+    const cleanText = cleanTextForSpeech(text);
+    if (!cleanText) return;
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+
+    const voices = window.speechSynthesis.getVoices();
+    const premiumVoice = voices.find(
+      (v) =>
+        v.lang.startsWith("en") &&
+        (v.name.includes("Natural") ||
+          v.name.includes("Google") ||
+          v.name.includes("Enhanced") ||
+          v.name.includes("Premium")),
+    );
+    if (premiumVoice) {
+      utterance.voice = premiumVoice;
+    }
+
+    utterance.pitch = 1.0;
+    utterance.rate = 0.95;
 
     utterance.onend = () => {
       setSpeakingId(null);
@@ -503,7 +584,7 @@ const ChatAssistant = ({ onClose }) => {
         "I couldn't generate a response.";
 
       /* =====================================================
-         BASIC FOLLOW-UP QUESTIONS
+         FOLLOW-UP QUESTIONS
       ===================================================== */
 
       let rawFollowUps = [];
@@ -527,45 +608,53 @@ const ChatAssistant = ({ onClose }) => {
       );
 
       /* =====================================================
-         ADD AI MESSAGE
+         ADD AI MESSAGE & READ ALL OUTPUT ALOUD
       ===================================================== */
+
+      const newAiMsgId = Date.now() + 1;
 
       setMessages((prev) => [
         ...prev,
         {
-          id: Date.now() + 1,
+          id: newAiMsgId,
           type: "ai",
           text: aiText,
           time: getTime(),
           isNew: true,
         },
       ]);
+
+      // Automatically speak the complete text output when voice input was used
+      if (isVoiceSubmitted) {
+        handleReadAloud(newAiMsgId, aiText);
+        setIsVoiceSubmitted(false);
+      }
     } catch (error) {
       console.error("Chat API Error:", error);
 
       const fallbackError =
         error.message || "Sorry, I couldn't connect to the AI server.";
 
-      /* =====================================================
-         FALLBACK FOLLOW-UPS
-      ===================================================== */
-
       setFollowUps(shuffleArray(generateDynamicFollowUps()).slice(0, 3));
 
-      /* =====================================================
-         ADD ERROR MESSAGE
-      ===================================================== */
+      const newAiMsgId = Date.now() + 1;
 
       setMessages((prev) => [
         ...prev,
         {
-          id: Date.now() + 1,
+          id: newAiMsgId,
           type: "ai",
           text: fallbackError,
           time: getTime(),
           isNew: true,
         },
       ]);
+
+      // Automatically speak error output if prompt was initiated by voice
+      if (isVoiceSubmitted) {
+        handleReadAloud(newAiMsgId, fallbackError);
+        setIsVoiceSubmitted(false);
+      }
     } finally {
       setLoading(false);
     }
@@ -590,6 +679,7 @@ const ChatAssistant = ({ onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setIsVoiceSubmitted(false);
     sendMessage();
   };
 
@@ -601,6 +691,7 @@ const ChatAssistant = ({ onClose }) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
 
+      setIsVoiceSubmitted(false);
       sendMessage();
     }
   };
@@ -626,6 +717,7 @@ const ChatAssistant = ({ onClose }) => {
           className="h-14 md:h-12 md:w-12 w-14"
         />
       </button>
+
       {/* BACKDROP */}
       <div
         ref={backdropRef}
@@ -755,7 +847,10 @@ const ChatAssistant = ({ onClose }) => {
                 {initialPrompts.slice(0, 4).map((item, idx) => (
                   <button
                     key={idx}
-                    onClick={() => sendMessage(item.prompt)}
+                    onClick={() => {
+                      setIsVoiceSubmitted(false);
+                      sendMessage(item.prompt);
+                    }}
                     className="
         flex w-fit max-w-full shrink-0
         items-center
@@ -805,6 +900,7 @@ const ChatAssistant = ({ onClose }) => {
                 return (
                   <div
                     key={item.id}
+                    ref={(el) => (messageRefs.current[item.id] = el)}
                     className="group relative flex flex-col gap-2"
                   >
                     <div
@@ -812,28 +908,6 @@ const ChatAssistant = ({ onClose }) => {
                         isUser ? "justify-end" : "justify-start"
                       }`}
                     >
-                      {/* {!isUser && (
-                        <div
-                          className="
-                            mt-1
-                            flex h-7 w-7
-                            shrink-0
-                            items-center
-                            justify-center
-                            rounded-full
-                            border
-                            border-[var(--border-light)]
-                            bg-[var(--bg-secondary)]
-                            text-[10px]
-                            font-semibold
-                            text-[var(--text-main)]
-                            opacity-70
-                          "
-                        >
-                          AI
-                        </div>
-                      )} */}
-
                       <div
                         className={`text-sm leading-relaxed ${
                           isUser
@@ -1034,7 +1108,10 @@ const ChatAssistant = ({ onClose }) => {
                     {followUps.map((question, index) => (
                       <button
                         key={`${index}-${question}`}
-                        onClick={() => sendMessage(question)}
+                        onClick={() => {
+                          setIsVoiceSubmitted(false);
+                          sendMessage(question);
+                        }}
                         className="
                           rounded-full
                           border
