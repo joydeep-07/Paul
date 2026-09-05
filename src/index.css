@@ -60,8 +60,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Genos";
+  src: url("./assets/fonts/genos.ttf") format("truetype");
+  font-display: swap;
+}
+
 .heading-font {
-  font-family: "Heading", sans-serif;
+  font-family: "Genos", sans-serif;
 
   font: italic;
 }
