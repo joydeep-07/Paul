@@ -36,7 +36,7 @@ const Hero = () => {
   ];
 
   const headingClass =
-    "text-[3.9vh] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[6vw] leading-[0.9] heading-font font-light";
+    "text-[9vw] md:text-[5.5vw] leading-[0.9] heading-font font-light";
 
   return (
     <section id="home" className="w-full">
