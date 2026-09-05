@@ -83,7 +83,7 @@ const Me = () => {
             <div className="lg:col-span-8 lg:pl-0">
               <div className="w-full">
                 {/* HEADING */}
-                <h1 className="heading-font text-3xl font-medium leading-tight tracking-tight text-[var(--text-main)] sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[60px]">
+                <h1 className="heading-font text-3xl font-light leading-tight tracking-tight text-[var(--text-main)] sm:text-4xl md:text-5xl lg:text-[4vw]">
                   A creative{" "}
                   <span className="text-[var(--accent-primary)]">
                     developer

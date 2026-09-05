@@ -49,7 +49,7 @@ const AboutMe = () => {
           <div className="lg:col-span-7">
             <p className="text-sm sm:text-sm text-justify text-[var(--text-main)] leading-[1.9]">
               I'm{" "}
-              <span className="font-medium heading-font text-[var(--accent-primary)]">
+              <span className="font-medium text-[var(--accent-primary)]">
                 Joydeep Paul
               </span>
               , a Full Stack Developer focused on building modern, responsive,
