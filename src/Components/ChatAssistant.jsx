@@ -619,7 +619,12 @@ const ChatAssistant = ({ onClose }) => {
         aria-label="Open Chat"
         className=" group fixed bottom-20 right-5 z-[9997] flex h-14 w-14 items-center justify-center rounded-full shadow-[var(--accent-primary)]/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[var(--accent-primary)]/40 active:scale-95 md:bottom-8 md:right-8 cursor-pointer "
       >
-        <Lottie animationData={meta} loop autoplay className="h-14 md:h-12 md:w-12 w-14" />
+        <Lottie
+          animationData={meta}
+          loop
+          autoplay
+          className="h-14 md:h-12 md:w-12 w-14"
+        />
       </button>
       {/* BACKDROP */}
       <div
@@ -670,32 +675,16 @@ const ChatAssistant = ({ onClose }) => {
             bg-[var(--bg-secondary)]
           "
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center">
             <div>
-              <h2 className="text-lg heading-font tracking-wide">
+              <h2 className="text-xl heading-font tracking-wide">
                 <span className="text-[var(--accent-primary)]">Paul's</span>{" "}
                 Assistant
               </h2>
 
               <div className="flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span
-                    className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                      loading
-                        ? "animate-ping bg-amber-400"
-                        : "animate-pulse bg-emerald-400"
-                    }`}
-                  />
-
-                  <span
-                    className={`relative inline-flex h-2 w-2 rounded-full ${
-                      loading ? "bg-amber-500" : "bg-emerald-500"
-                    }`}
-                  />
-                </span>
-
-                <span className="text-[11px] font-medium opacity-60">
-                  {loading ? "Thinking..." : "Online"}
+                <span className="text-[3vw] md:text-sm heading-font font-medium opacity-60">
+                  Created by Paul
                 </span>
               </div>
             </div>
@@ -741,7 +730,7 @@ const ChatAssistant = ({ onClose }) => {
                 <h1
                   className="
         flex items-center gap-2
-        text-3xl md:text-4xl font-bold
+        text-[8vw] md:text-4xl font-light
         text-[var(--text-main)]
         heading-font
       "
@@ -975,8 +964,6 @@ const ChatAssistant = ({ onClose }) => {
                           </ReactMarkdown>
                         )}
                       </div>
-
-                     
                     </div>
 
                     {!isUser && (
