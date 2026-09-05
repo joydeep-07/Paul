@@ -242,7 +242,7 @@ const Reviews = () => {
                           />
                         </div>
                       ) : (
-                        <div className="h-16 w-16 flex items-center justify-center rounded-full bg-[var(--accent-primary)]/15 border border-[var(--accent-primary)]/30 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <div className="h-16 w-16 flex items-center justify-center rounded-full border border-[var(--border-light)] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                           <User
                             size={26}
                             className="text-[var(--accent-primary)]"
