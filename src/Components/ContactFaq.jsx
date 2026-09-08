@@ -1,46 +1,131 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { faqData } from "../Utils/questions";
 import { IoChevronUp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 
+// GSAP Imports
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const ContactFaq = () => {
+  const containerRef = useRef(null);
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleFaq = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  /* -------------------- GSAP Scroll Animations -------------------- */
+  useGSAP(
+    () => {
+      gsap.config({ force3D: true });
+
+      // Initial state setup for Left Column
+      gsap.set(".faq-label-wrapper", { y: 20, opacity: 0 });
+      gsap.set(".faq-accent-line", {
+        scaleX: 0,
+        transformOrigin: "left center",
+      });
+      gsap.set(".slide-faq-left", {
+        clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)",
+        x: -40,
+        opacity: 0,
+      });
+
+      // Initial state setup for FAQ Items
+      gsap.set(".faq-item-reveal", {
+        y: 30,
+        opacity: 0,
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+        defaults: { ease: "expo.out" },
+      });
+
+      tl.to(".faq-label-wrapper", {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+      })
+        .to(
+          ".faq-accent-line",
+          {
+            scaleX: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          "-=0.4",
+        )
+        .to(
+          ".slide-faq-left",
+          {
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+            x: 0,
+            opacity: 1,
+            duration: 1.1,
+            stagger: 0.1,
+          },
+          "-=0.5",
+        )
+        .to(
+          ".faq-item-reveal",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.08,
+            ease: "power2.out",
+          },
+          "-=0.8",
+        );
+    },
+    { scope: containerRef },
+  );
+
   return (
-    <section className="w-full bg-[var(--bg-main)] py-12 transition-colors duration-300 sm:py-16 md:py-20">
+    <section
+      ref={containerRef}
+      className="w-full bg-[var(--bg-main)] py-12 transition-colors duration-300 sm:py-16 md:py-20 overflow-hidden"
+    >
       <div className="mx-auto max-w-8xl px-4 md:px-12">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
           {/* LEFT */}
           <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-24">
+            <div className="">
               {/* LABEL */}
-              <div className="flex items-center gap-3">
+              <div className="faq-label-wrapper flex items-center gap-3 transform-gpu will-change-[transform,opacity]">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
                   Questions
                 </span>
 
-                <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
+                <span className="faq-accent-line h-px w-10 bg-[var(--accent-primary)] sm:w-12 transform-gpu will-change-transform" />
               </div>
 
               {/* HEADING */}
-              <h2 className="heading-font mt-5 text-3xl leading-tight text-[var(--text-main)] sm:text-4xl md:text-5xl">
-                Frequently{" "}
-                <span className="text-[var(--accent-primary)]">
-                  Asked Questions
-                </span>
-              </h2>
+              <div className="overflow-hidden mt-5">
+                <h2 className="slide-faq-left heading-font text-3xl leading-tight text-[var(--text-main)] sm:text-4xl md:text-5xl transform-gpu will-change-[transform,clip-path,opacity]">
+                  Frequently{" "}
+                  <span className="text-[var(--accent-primary)]">
+                    Asked Questions
+                  </span>
+                </h2>
+              </div>
 
               {/* DESCRIPTION */}
-              <p className="mt-5 max-w-md text-xs leading-[1.9] text-[var(--text-secondary)] sm:text-sm">
-                Find answers to common questions about my development process,
-                services, technologies, and project collaboration.
-              </p>
-
-              
+              <div className="overflow-hidden mt-5">
+                <p className="slide-faq-left max-w-md text-xs leading-[1.9] text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+                  Find answers to common questions about my development process,
+                  services, technologies, and project collaboration.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -53,7 +138,7 @@ const ContactFaq = () => {
                 return (
                   <div
                     key={index}
-                    className="border-b border-[var(--border-light)]"
+                    className="faq-item-reveal border-b border-[var(--border-light)] transform-gpu will-change-[transform,opacity]"
                   >
                     {/* QUESTION */}
                     <button

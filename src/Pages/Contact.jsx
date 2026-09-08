@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import me from "../assets/images/boat.jpeg";
 import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
@@ -9,7 +9,16 @@ import Footer from "../layout/Footer";
 import { User, ArrowUpRight } from "lucide-react";
 import { TextField, Button, Box, Alert } from "@mui/material";
 
+// GSAP Imports
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const Contact = () => {
+  const containerRef = useRef(null);
+
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -21,6 +30,62 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  /* -------------------- GSAP Sliding Animation (Left Side Only) -------------------- */
+  useGSAP(
+    () => {
+      gsap.config({ force3D: true });
+
+      // Initial state setup
+      gsap.set(".contact-label-wrapper", { y: 20, opacity: 0 });
+      gsap.set(".contact-accent-line", {
+        scaleX: 0,
+        transformOrigin: "left center",
+      });
+
+      gsap.set(".slide-text-left", {
+        clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)",
+        x: -40,
+        opacity: 0,
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+        defaults: { ease: "expo.out" },
+      });
+
+      tl.to(".contact-label-wrapper", {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+      })
+        .to(
+          ".contact-accent-line",
+          {
+            scaleX: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          "-=0.4",
+        )
+        .to(
+          ".slide-text-left",
+          {
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+            x: 0,
+            opacity: 1,
+            duration: 1.1,
+            stagger: 0.1,
+          },
+          "-=0.5",
+        );
+    },
+    { scope: containerRef },
+  );
 
   /* -------------------- Mobile Focus Scroll -------------------- */
 
@@ -148,150 +213,135 @@ const Contact = () => {
 
   return (
     <>
-      <section className="w-full bg-[var(--bg-main)] pt-25 text-[var(--text-main)] transition-colors duration-300">
+      <section
+        ref={containerRef}
+        className="w-full bg-[var(--bg-main)] pt-25 text-[var(--text-main)] transition-colors duration-300 overflow-hidden"
+      >
         <div className="mx-auto max-w-8xl px-4 pb-12 sm:px-6 sm:pb-16 md:px-12 md:pb-20">
-          {/* HEADER */}
-          <div className="grid grid-cols-1 gap-8 pb-10 lg:grid-cols-12 lg:gap-16">
-            {/* LEFT */}
-            <div className="lg:col-span-7">
-              <div className="flex items-center gap-3">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
-                  Get In Touch
-                </span>
-
-                <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
-              </div>
-
-              <h1 className="heading-font mt-5 max-w-4xl text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
-                Let&apos;s start a{" "}
-                <span className="text-[var(--accent-primary)]">
-                  conversation.
-                </span>
-              </h1>
-
-              <p className="max-w-xl text-xs leading-[1.9] text-[var(--text-secondary)] sm:text-sm">
-                Have a project in mind, need help with a technical problem, or
-                simply want to connect? Send me a message and I&apos;ll get back
-                to you.
-              </p>
-            </div>
-          </div>
-
-          {/* MAIN CONTENT */}
-          <div className="grid grid-cols-1 gap-12 pt-10 lg:grid-cols-12 lg:gap-16 lg:pt-14">
-            {/* LEFT — CONTACT INFO */}
-            <div className="lg:col-span-5">
-              <div className="flex flex-col">
-                {/* AVAILABILITY */}
-                <div className="flex w-fit items-center gap-2 px-3 py-2">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
-
-                  <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-[var(--text-secondary)]">
-                    Available to work
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+            {/* LEFT SIDE — HEADER + DETAILS COMBINED */}
+            <div className="lg:col-span-5 flex flex-col justify-between">
+              <div>
+                {/* HEADER SECTION */}
+                <div className="contact-label-wrapper flex items-center gap-3 transform-gpu will-change-[transform,opacity]">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+                    Get In Touch
                   </span>
+
+                  <span className="contact-accent-line h-px w-10 bg-[var(--accent-primary)] sm:w-12 transform-gpu will-change-transform" />
+                </div>
+
+                <div className="overflow-hidden mt-5">
+                  <h1 className="slide-text-left heading-font text-3xl leading-tight sm:text-4xl md:text-5xl transform-gpu will-change-[transform,clip-path,opacity]">
+                    Let&apos;s start a{" "}
+                    <span className="text-[var(--accent-primary)]">
+                      conversation.
+                    </span>
+                  </h1>
+                </div>
+
+                <div className="overflow-hidden mt-3">
+                  <p className="slide-text-left text-xs leading-[1.9] text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+                    Have a project in mind, need help with a technical problem,
+                    or simply want to connect? Send me a message and I&apos;ll
+                    get back to you.
+                  </p>
+                </div>
+
+                {/* AVAILABILITY */}
+                <div className="overflow-hidden mt-8">
+                  <div className="slide-text-left flex w-fit items-center gap-2 px-3 py-2 transform-gpu will-change-[transform,clip-path,opacity]">
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
+                    <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-[var(--text-secondary)]">
+                      Available to work
+                    </span>
+                  </div>
                 </div>
 
                 {/* PROFILE */}
-                <div className="mt-8 flex items-center gap-5">
-                  <div className="relative h-20 w-20 shrink-0">
-                    {!imageLoaded && (
-                      <div className="absolute inset-0 flex items-center justify-center rounded-full border border-[var(--border-light)] bg-[var(--bg-secondary)]">
-                        <User
-                          size={24}
-                          className="text-[var(--text-secondary)]"
-                        />
-                      </div>
-                    )}
+                <div className="overflow-hidden mt-6">
+                  <div className="slide-text-left flex items-center gap-5 transform-gpu will-change-[transform,clip-path,opacity]">
+                    <div className="relative h-20 w-20 shrink-0">
+                      {!imageLoaded && (
+                        <div className="absolute inset-0 flex items-center justify-center rounded-full border border-[var(--border-light)] bg-[var(--bg-secondary)]">
+                          <User
+                            size={24}
+                            className="text-[var(--text-secondary)]"
+                          />
+                        </div>
+                      )}
 
-                    <img
-                      src={me}
-                      alt="Joydeep Paul"
-                      loading="lazy"
-                      onLoad={() => setImageLoaded(true)}
-                      className={`h-20 w-20 rounded-full border border-[var(--border-light)] object-cover p-1 transition-opacity duration-500 ${
-                        imageLoaded ? "opacity-100" : "opacity-0"
-                      }`}
-                    />
-                  </div>
+                      <img
+                        src={me}
+                        alt="Joydeep Paul"
+                        loading="lazy"
+                        onLoad={() => setImageLoaded(true)}
+                        className={`h-20 w-20 rounded-full border border-[var(--border-light)] object-cover p-1 transition-opacity duration-500 ${
+                          imageLoaded ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                    </div>
 
-                  <div>
-                    <h2 className="heading-font text-lg text-[var(--text-main)] sm:text-xl">
-                      Joydeep Paul
-                    </h2>
+                    <div>
+                      <h2 className="heading-font text-lg text-[var(--text-main)] sm:text-xl">
+                        Joydeep Paul
+                      </h2>
 
-                    <p className="mt-1 text-[10px] uppercase tracking-[0.15em] text-[var(--text-secondary)]">
-                      Fullstack Developer
-                    </p>
+                      <p className="mt-1 text-[10px] uppercase tracking-[0.15em] text-[var(--text-secondary)]">
+                        Fullstack Developer
+                      </p>
+                    </div>
                   </div>
                 </div>
 
                 {/* DESCRIPTION */}
-                <p className="mt-7 max-w-md text-xs leading-[1.9] text-[var(--text-secondary)] sm:text-sm">
-                  I build responsive and interactive digital products with
-                  React, modern UI systems, animation libraries, and scalable
-                  backend technologies.
-                </p>
-
-                {/* INFO */}
-                {/* <div className="mt-8 border-y border-[var(--border-light)]">
-                  <div className="flex items-center justify-between gap-4 py-4">
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-                      Role
-                    </span>
-
-                    <span className="text-right text-xs font-medium text-[var(--text-main)]">
-                      Full Stack Developer
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between gap-4 border-t border-[var(--border-light)] py-4">
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-                      Expertise
-                    </span>
-
-                    <span className="text-right text-xs font-medium text-[var(--text-main)]">
-                      React · Node · Express · MongoDB
-                    </span>
-                  </div>
-
-                  
-                </div> */}
+                <div className="overflow-hidden mt-6">
+                  <p className="slide-text-left max-w-md text-xs leading-[1.9] text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+                    I build responsive and interactive digital products with
+                    React, modern UI systems, animation libraries, and scalable
+                    backend technologies.
+                  </p>
+                </div>
 
                 {/* SOCIALS */}
-                <div className="mt-7 grid grid-cols-2 gap-2 sm:grid-cols-4">
-                  {socials.map((social) => {
-                    const Icon = social.icon;
+                <div className="overflow-hidden mt-7">
+                  <div className="slide-text-left grid grid-cols-2 gap-2 sm:grid-cols-4 transform-gpu will-change-[transform,clip-path,opacity]">
+                    {socials.map((social) => {
+                      const Icon = social.icon;
 
-                    return (
-                      <a
-                        key={social.name}
-                        href={social.href}
-                        target={social.name !== "Email" ? "_blank" : undefined}
-                        rel={
-                          social.name !== "Email"
-                            ? "noopener noreferrer"
-                            : undefined
-                        }
-                        aria-label={social.name}
-                        className=" group flex items-center justify-center gap-2 border border-[var(--border-light)] rounded-[3px] px-3 py-2.5 text-[var(--text-secondary)] transition-all duration-300 hover:border-[var(--accent-primary)]/40 hover:bg-[var(--accent-primary)]/5 hover:text-[var(--accent-primary)]  "
-                      >
-                        <Icon
-                          size={14}
-                          className="shrink-0 transition-transform duration-300 "
-                        />
+                      return (
+                        <a
+                          key={social.name}
+                          href={social.href}
+                          target={
+                            social.name !== "Email" ? "_blank" : undefined
+                          }
+                          rel={
+                            social.name !== "Email"
+                              ? "noopener noreferrer"
+                              : undefined
+                          }
+                          aria-label={social.name}
+                          className="group flex items-center justify-center gap-2 border border-[var(--border-light)] rounded-[3px] px-3 py-2.5 text-[var(--text-secondary)] transition-all duration-300 hover:border-[var(--accent-primary)]/40 hover:bg-[var(--accent-primary)]/5 hover:text-[var(--accent-primary)]"
+                        >
+                          <Icon
+                            size={14}
+                            className="shrink-0 transition-transform duration-300"
+                          />
 
-                        <span className="text-[9px] font-medium uppercase tracking-[0.12em]">
-                          {social.name}
-                        </span>
-                      </a>
-                    );
-                  })}
+                          <span className="text-[9px] font-medium uppercase tracking-[0.12em]">
+                            {social.name}
+                          </span>
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* RIGHT — FORM */}
-            <div className="lg:col-span-7 ">
+            {/* RIGHT SIDE — FORM (STATIC / UNANIMATED) */}
+            <div className="lg:col-span-7">
               <div className="mb-7 flex items-center justify-between">
                 <div>
                   <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[var(--accent-primary)]">
@@ -429,6 +479,7 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* FAQ & FOOTER AT BOTTOM */}
       <ContactFaq />
       <Footer />
     </>
