@@ -304,7 +304,7 @@ const Contact = () => {
                 </div>
 
                 {/* SOCIALS */}
-                <div className="overflow-hidden mt-7">
+                <div className="overflow-hidden mt-7 h-10">
                   <div className="slide-text-left grid grid-cols-2 gap-2 sm:grid-cols-4 transform-gpu will-change-[transform,clip-path,opacity]">
                     {socials.map((social) => {
                       const Icon = social.icon;

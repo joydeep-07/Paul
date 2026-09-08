@@ -46,9 +46,17 @@ const Hero = () => {
     () => {
       // Set initial hidden states
       gsap.set(".hero-availability", { y: 20, opacity: 0 });
+      gsap.set(".hero-[accent-line-top]", {
+        scaleX: 0,
+        transformOrigin: "left center",
+      });
       gsap.set(".hero-title-line", { yPercent: 120 });
       gsap.set(".hero-line", { scaleX: 0, transformOrigin: "left center" });
-      gsap.set(".hero-desc", { y: 20, opacity: 0 });
+      gsap.set(".slide-text-left", {
+        clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)",
+        x: -40,
+        opacity: 0,
+      });
       gsap.set(".social-btn", { y: 15, opacity: 0 });
       gsap.set(".about-btn", { y: 15, opacity: 0 });
 
@@ -61,6 +69,15 @@ const Hero = () => {
         opacity: 1,
         duration: 0.6,
       })
+        .to(
+          ".hero-[accent-line-top]",
+          {
+            scaleX: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          "-=0.4",
+        )
         .to(
           ".hero-title-line",
           {
@@ -80,11 +97,13 @@ const Hero = () => {
           "-=0.4",
         )
         .to(
-          ".hero-desc",
+          ".slide-text-left",
           {
-            y: 0,
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+            x: 0,
             opacity: 1,
-            duration: 0.6,
+            duration: 1.1,
+            ease: "expo.out",
           },
           "-=0.5",
         )
@@ -123,6 +142,9 @@ const Hero = () => {
             <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)]">
               Hey, It's me Paul
             </span>
+
+            {/* Top Line */}
+            <span className="hero-[accent-line-top] h-px w-10 bg-[var(--accent-primary)] sm:w-12 transform-gpu will-change-transform" />
           </div>
 
           {/* Heading */}
@@ -169,11 +191,13 @@ const Hero = () => {
           <div className="mt-10 sm:mt-12 md:mt-16 flex items-start gap-5">
             <div className="hero-line hidden sm:block md:w-3xl h-px bg-[var(--border-light)] mt-3 shrink-0 transform-gpu will-change-transform" />
 
-            <p className="hero-desc max-w-2xl text-justify text-xs sm:text-sm md:text-sm md:max-w-xl text-[var(--text-secondary)] leading-relaxed transform-gpu will-change-[transform,opacity]">
-              I work with brands globally to build pixel-perfect, engaging, and
-              accessible digital experiences that drive results and achieve
-              business goals.
-            </p>
+            <div className="overflow-hidden">
+              <p className="slide-text-left max-w-2xl text-justify text-xs sm:text-sm md:text-sm md:max-w-xl text-[var(--text-secondary)] leading-relaxed transform-gpu will-change-[transform,clip-path,opacity]">
+                I work with brands globally to build pixel-perfect, engaging,
+                and accessible digital experiences that drive results and
+                achieve business goals.
+              </p>
+            </div>
           </div>
 
           {/* Bottom Content */}
