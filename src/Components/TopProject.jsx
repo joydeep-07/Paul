@@ -95,7 +95,7 @@ const TopProject = () => {
             x: 0,
             opacity: 1,
             duration: 1.2,
-            stagger: 0.15,
+            stagger: 0.12,
           },
           "-=1.0",
         )
@@ -124,15 +124,15 @@ const TopProject = () => {
         {/* HEADER */}
         <div className="mb-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-7 hidden md:flex flex-col">
-            <div className="mb-4 flex items-center gap-3">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+            <div className="mb-4 flex items-center gap-3 overflow-hidden">
+              <span className="slide-text-left text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs transform-gpu will-change-[transform,clip-path,opacity]">
                 Project Showcase
               </span>
               <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
             </div>
 
             <div className="overflow-hidden">
-              <p className="mask-text max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path]">
+              <p className="slide-text-left max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
                 A selection of work that reflects my approach to design,
                 development, interaction, and creating meaningful digital
                 experiences.
@@ -142,11 +142,11 @@ const TopProject = () => {
 
           <div className="md:hidden lg:col-span-5">
             <div className="overflow-hidden">
-              <h2 className="mask-text heading-font text-2xl text-[var(--text-main)] sm:text-3xl transform-gpu will-change-[transform,clip-path]">
+              <h2 className="slide-text-left heading-font text-2xl text-[var(--text-main)] sm:text-3xl transform-gpu will-change-[transform,clip-path,opacity]">
                 Featured{" "}
                 <span className="text-[var(--accent-primary)]">project</span>
               </h2>
-              <p className="mask-text mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path]">
+              <p className="slide-text-left mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path,opacity]">
                 A closer look at one of my projects, its purpose, technology,
                 and the decisions behind its implementation.
               </p>
@@ -155,11 +155,11 @@ const TopProject = () => {
 
           <div className="hidden border-l border-[var(--border-light)] pl-10 md:flex lg:col-span-5">
             <div className="overflow-hidden">
-              <h2 className="mask-text heading-font text-2xl text-[var(--text-main)] sm:text-3xl transform-gpu will-change-[transform,clip-path]">
+              <h2 className="slide-text-left heading-font text-2xl text-[var(--text-main)] sm:text-3xl transform-gpu will-change-[transform,clip-path,opacity]">
                 Featured{" "}
                 <span className="text-[var(--accent-primary)]">project</span>
               </h2>
-              <p className="mask-text mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path]">
+              <p className="slide-text-left mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path,opacity]">
                 A closer look at one of my projects, its purpose, technology,
                 and the decisions behind its implementation.
               </p>
@@ -209,19 +209,21 @@ const TopProject = () => {
                 {/* CARD CONTENT */}
                 <div className="flex items-start justify-between gap-4 md:px-6 pt-6 md:pt-0 pb-6">
                   <div className="w-full">
-                    <div className="flex items-start justify-between gap-4">
-                      <h2 className="heading-font text-lg text-[var(--text-main)] transition-colors duration-300 sm:text-xl lg:text-2xl">
+                    <div className="flex items-start justify-between gap-4 overflow-hidden">
+                      <h2 className="slide-text-left heading-font text-lg text-[var(--text-main)] transition-colors duration-300 sm:text-xl lg:text-2xl transform-gpu will-change-[transform,clip-path,opacity]">
                         {project.title}
                       </h2>
 
-                      <span className="shrink-0 whitespace-nowrap text-[10px] font-medium uppercase tracking-wide text-[var(--text-main)] opacity-50 sm:text-xs">
+                      <span className="slide-text-left shrink-0 whitespace-nowrap text-[10px] font-medium uppercase tracking-wide text-[var(--text-main)] opacity-50 sm:text-xs transform-gpu will-change-[transform,clip-path,opacity]">
                         {project.year}
                       </span>
                     </div>
 
-                    <p className="mt-2 w-full text-justify text-xs line-clamp-2 leading-relaxed text-[var(--text-secondary)]/80 sm:text-sm">
-                      {project.shortDescription}
-                    </p>
+                    <div className="overflow-hidden">
+                      <p className="slide-text-left mt-2 w-full text-justify text-xs line-clamp-2 leading-relaxed text-[var(--text-secondary)]/80 sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+                        {project.shortDescription}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -231,8 +233,8 @@ const TopProject = () => {
           {/* RIGHT — TEXT & MAGNETIC FEATURES */}
           <div className="lg:col-span-5 lg:border-l lg:border-[var(--border-light)] lg:pl-10">
             <div className="lg:col-span-7 pb-8 md:hidden">
-              <div className="mb-4 flex items-center gap-3">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
+              <div className="mb-4 flex items-center gap-3 overflow-hidden">
+                <span className="slide-text-left text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs transform-gpu will-change-[transform,clip-path,opacity]">
                   Project Showcase
                 </span>
                 <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
@@ -326,8 +328,8 @@ const TopProject = () => {
         </div>
 
         {/* FOOTER */}
-        <div className="mt-14 border-t border-[var(--border-light)] pt-6">
-          <p className="text-xs text-center md:text-left text-[var(--text-secondary)] sm:text-sm">
+        <div className="mt-14 border-t border-[var(--border-light)] pt-6 overflow-hidden">
+          <p className="slide-text-left text-xs text-center md:text-left text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
             Interested in collaboration?{" "}
             <Link
               to="/contact"

@@ -9,7 +9,7 @@ import { login } from "../slices/authSlice";
 const ADMIN_EMAIL = "joydeeprnp8821@gmail.com";
 const ADMIN_PASSWORD = "123456";
 
-const Auth = () => {
+const Auth = ({ className = "" }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -72,6 +72,7 @@ const Auth = () => {
       }
     }, 500);
   };
+
   return (
     <>
       {/* ADMIN BUTTON */}
@@ -79,7 +80,7 @@ const Auth = () => {
         type="button"
         onClick={handleAdminClick}
         aria-label="Admin Access"
-        className="group cursor-pointer flex items-center justify-center gap-2 rounded-sm border border-[var(--border-light)] px-3 py-2.5 text-[var(--text-main)] transition-all duration-300 hover:opacity-90"
+        className={`group cursor-pointer flex items-center justify-center gap-2 rounded-sm border border-[var(--border-light)] px-3 py-2.5 text-[var(--text-main)] transition-all duration-300 hover:opacity-90 ${className}`}
       >
         <BsShieldLockFill size={12} />
 
