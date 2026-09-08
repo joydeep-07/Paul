@@ -171,28 +171,42 @@ const TopProject = () => {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20">
           {/* LEFT — BORDER DRAW CARD */}
           <div className="lg:col-span-7">
-            <div className="card-3d-wrapper relative transform-gpu">
+            <div className="card-3d-wrapper relative w-full transform-gpu">
               {/* SVG Border Effect */}
               <svg
-                className="pointer-events-none absolute -inset-1 h-[calc(100%+8px)] w-[calc(100%+8px)] rounded-2xl z-10"
+                className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
                 fill="none"
+                preserveAspectRatio="none"
               >
                 <rect
-                  width="100%"
-                  height="100%"
+                  x="1.5"
+                  y="1.5"
+                  width="calc(100% - 3px)"
+                  height="calc(100% - 3px)"
                   rx="16"
-                  className="border-path stroke-[var(--accent-primary)] stroke-[3]"
+                  ry="16"
+                  className="border-path stroke-[var(--accent-primary)]"
+                  strokeWidth="2"
                 />
               </svg>
 
               <div
                 onClick={handleNavigation}
-                className="group cursor-pointer rounded-sm md:rounded-2xl md:border border-[var(--border-light)]/50 md:bg-[var(--bg-secondary)]/80 md:shadow-sm"
+                className="
+        group
+        cursor-pointer
+        overflow-hidden
+        rounded-2xl
+        border
+        border-[var(--border-light)]/50
+        bg-[var(--bg-secondary)]/80
+        shadow-sm
+      "
               >
                 {/* IMAGE */}
-                <div className="relative md:m-5 overflow-hidden rounded-sm md:rounded-xl">
+                <div className="relative m-3 overflow-hidden rounded-xl sm:m-4 md:m-5">
                   {!loaded && (
-                    <div className="absolute inset-0 rounded-sm md:rounded-xl bg-[var(--border-light)] animate-pulse" />
+                    <div className="absolute inset-0 rounded-xl bg-[var(--border-light)] animate-pulse" />
                   )}
 
                   <img
@@ -200,27 +214,27 @@ const TopProject = () => {
                     alt={project.title}
                     loading="lazy"
                     onLoad={() => setLoaded(true)}
-                    className={`h-full w-full rounded-sm md:rounded-xl object-contain transition-all duration-700 ease-out ${
+                    className={`h-full w-full rounded-xl object-contain transition-all duration-700 ease-out ${
                       loaded ? "opacity-100" : "opacity-0"
                     }`}
                   />
                 </div>
 
                 {/* CARD CONTENT */}
-                <div className="flex items-start justify-between gap-4 md:px-6 pt-6 md:pt-0 pb-6">
+                <div className="flex items-start justify-between gap-4 px-4 pb-5 sm:px-5 sm:pb-6 md:px-6">
                   <div className="w-full">
                     <div className="flex items-start justify-between gap-4 overflow-hidden">
                       <h2 className="slide-text-left heading-font text-lg text-[var(--text-main)] transition-colors duration-300 sm:text-xl lg:text-2xl transform-gpu will-change-[transform,clip-path,opacity]">
                         {project.title}
                       </h2>
 
-                      <span className="slide-text-left shrink-0 whitespace-nowrap text-[10px] font-medium uppercase tracking-wide text-[var(--text-main)] opacity-50 sm:text-xs transform-gpu will-change-[transform,clip-path,opacity]">
+                      <span className="slide-text-left shrink-0 whitespace-nowrap pt-1 text-[10px] font-medium uppercase tracking-wide text-[var(--text-main)] opacity-50 sm:text-xs transform-gpu will-change-[transform,clip-path,opacity]">
                         {project.year}
                       </span>
                     </div>
 
                     <div className="overflow-hidden">
-                      <p className="slide-text-left mt-2 w-full text-justify text-xs line-clamp-2 leading-relaxed text-[var(--text-secondary)]/80 sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+                      <p className="slide-text-left mt-2 w-full text-justify text-xs leading-relaxed text-[var(--text-secondary)]/80 line-clamp-2 sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
                         {project.shortDescription}
                       </p>
                     </div>
