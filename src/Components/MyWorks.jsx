@@ -136,19 +136,18 @@ const MyWorks = () => {
               </div>
 
               {/* CONTENT */}
-              <div className="px-4 pb-5 flex items-start justify-between gap-4">
-                <div>
+              <div className="px-4 pb-5 ">
+                <div className="flex items-center justify-between w-full">
                   <h2 className="heading-font text-lg sm:text-xl lg:text-2xl text-[var(--text-main)]">
                     {project.title}
-                  </h2>
-                  <p className="mt-1 text-xs sm:text-sm text-[var(--text-secondary)]/80">
-                    {project.shortDescription}
-                  </p>
+                  </h2>{" "}
+                  <span className="text-xs sm:text-sm opacity-60 whitespace-nowrap">
+                    {project.year}
+                  </span>
                 </div>
-
-                <span className="text-xs sm:text-sm opacity-60 whitespace-nowrap">
-                  {project.year}
-                </span>
+                <p className="mt-1 text-xs sm:text-sm line-clamp-2 text-justify text-[var(--text-secondary)]/80">
+                  {project.shortDescription}
+                </p>
               </div>
             </div>
           ))}
