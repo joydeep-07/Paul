@@ -5,15 +5,10 @@
   /* Backgrounds */
   --bg-main: #ffffff;
   --bg-secondary: #f7f7f7;
-  --bg-gradient: linear-gradient(
-  135deg,
-  #ecfdf5,
-  #d1fae5,
-  #a7f3d0
-);
+  --bg-gradient: linear-gradient(135deg, #ecfdf5, #d1fae5, #a7f3d0);
 
   /* Text */
-  --text-main: #191919; 
+  --text-main: #191919;
   --text-secondary: #212121;
 
   /* Accent Colors */
@@ -27,14 +22,9 @@
 /* DARK MODE */
 .dark {
   /* Backgrounds */
-  --bg-main: #0b0b0b; 
+  --bg-main: #0b0b0b;
   --bg-secondary: #0f0f0f;
---bg-gradient: linear-gradient(
-  135deg,
-  #022c17,
-  #064e2e,
-  #065f2b
-);
+  --bg-gradient: linear-gradient(135deg, #022c17, #064e2e, #065f2b);
 
   /* Text */
   --text-main: #d4d4d4;
@@ -49,9 +39,27 @@
 }
 
 /* ==================================== SMOOTH TRANSTITION ====================================  */
-* {
-  transition: background-color 0.4s ease, color 0.4s ease,
-    border-color 0.4s ease;
+
+/* Theme toggle animation */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+  isolation: isolate;
+}
+
+/* Prevent layout jump during capture */
+html {
+  view-transition-name: root;
 }
 
 @font-face {
@@ -72,7 +80,7 @@
   font: italic;
 }
 
-button{
+button {
   cursor: pointer;
 }
 

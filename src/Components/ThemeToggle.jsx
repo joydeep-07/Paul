@@ -11,8 +11,45 @@ const ThemeToggle = () => {
 
   const isDark = mode === "dark";
 
-  const handleToggleTheme = () => {
-    dispatch(toggleTheme());
+  const handleToggleTheme = async (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    const maxDistanceX = Math.max(x, window.innerWidth - x);
+    const maxDistanceY = Math.max(y, window.innerHeight - y);
+    const endRadius = Math.hypot(maxDistanceX, maxDistanceY) * 1.15;
+
+    // Fallback if View Transitions API is unsupported
+    if (!document.startViewTransition) {
+      dispatch(toggleTheme());
+      return;
+    }
+
+    const transition = document.startViewTransition(() => {
+      dispatch(toggleTheme());
+    });
+
+    try {
+      await transition.ready;
+
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration: 700,
+          easing: "cubic-bezier(0.25, 1, 0.5, 1)",
+          pseudoElement: "::view-transition-new(root)",
+        },
+      );
+    } catch {
+      // Fallback on animation error
+    }
   };
 
   return (
