@@ -1,11 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import { ArrowUp, User } from "lucide-react";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import ReviewSkeleton from "./ReviewSkeleton";
 import LeaveReview from "./LeaveReview";
 import { supabase } from "../supabaseClient";
+
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SLIDE_DURATION = 10000;
 const RADIUS = 36;
@@ -27,6 +32,7 @@ const slideVariants = {
 };
 
 const Reviews = () => {
+  const containerRef = useRef(null);
   const [loadedImages, setLoadedImages] = useState({});
   const [[index, direction], setIndex] = useState([0, 1]);
   const [expandedId, setExpandedId] = useState(null);
@@ -37,6 +43,62 @@ const Reviews = () => {
 
   const holdTimeoutRef = useRef(null);
   const isHoldingRef = useRef(false);
+
+  // GSAP Scroll Reveal Animation (Left to Right)
+  useGSAP(
+    () => {
+      gsap.config({ force3D: true });
+
+      // Initial state setup
+      gsap.set(".reviews-label-wrapper", { y: 20, opacity: 0 });
+      gsap.set(".reviews-accent-line", {
+        scaleX: 0,
+        transformOrigin: "left center",
+      });
+
+      gsap.set(".slide-text-left", {
+        clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)",
+        x: -40,
+        opacity: 0,
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+        defaults: { ease: "expo.out" },
+      });
+
+      tl.to(".reviews-label-wrapper", {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+      })
+        .to(
+          ".reviews-accent-line",
+          {
+            scaleX: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          "-=0.4",
+        )
+        .to(
+          ".slide-text-left",
+          {
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+            x: 0,
+            opacity: 1,
+            duration: 1.1,
+            stagger: 0.12,
+          },
+          "-=0.5",
+        );
+    },
+    { scope: containerRef },
+  );
 
   // FETCH REVIEWS -- SUPABASE
   useEffect(() => {
@@ -103,7 +165,6 @@ const Reviews = () => {
   const item = reviews[index] || {};
   const words = item.review ? item.review.split(" ") : [];
 
-  // FIXED: Unified threshold to 35 words for both slicing and display check
   const WORD_LIMIT = 35;
   const shortText = words.slice(0, WORD_LIMIT).join(" ");
   const isExpanded = expandedId === item.id;
@@ -113,29 +174,36 @@ const Reviews = () => {
   };
 
   return (
-    <div className="py-8 md:py-12 lg:py-16 bg-[var(--bg-main)] flex justify-center px-2 sm:px-6 lg:px-8">
-      <div className=" w-full flex flex-col lg:flex-row gap-8 lg:gap-12">
+    <div
+      ref={containerRef}
+      className="py-8 md:py-12 lg:py-16 bg-[var(--bg-main)] flex justify-center px-2 sm:px-6 lg:px-8 overflow-hidden"
+    >
+      <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-12">
         {/* LEFT */}
         <div className="w-full lg:w-1/3 px-2 sm:px-4">
-          <div className="mb-4 flex items-center gap-3">
+          <div className="reviews-label-wrapper mb-4 flex items-center gap-3 transform-gpu will-change-[transform,opacity]">
             <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
               Testimonials
             </span>
 
-            <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
+            <span className="reviews-accent-line h-px w-10 bg-[var(--accent-primary)] sm:w-12 transform-gpu will-change-transform" />
           </div>
 
-          <h1 className="heading-font text-3xl leading-tight text-[var(--text-main)] sm:text-4xl md:text-5xl">
-            What others{" "}
-            <span className="text-[var(--accent-primary)]">say</span>
-          </h1>
+          <div className="overflow-hidden">
+            <h1 className="slide-text-left heading-font text-3xl leading-tight text-[var(--text-main)] sm:text-4xl md:text-5xl transform-gpu will-change-[transform,clip-path,opacity]">
+              What others{" "}
+              <span className="text-[var(--accent-primary)]">say</span>
+            </h1>
+          </div>
 
-          <p className="mt-4 max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
-            I've worked with some amazing people over the years. Here's what
-            they have to say about working with me.
-          </p>
+          <div className="overflow-hidden">
+            <p className="slide-text-left mt-4 max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+              I've worked with some amazing people over the years. Here's what
+              they have to say about working with me.
+            </p>
+          </div>
 
-          <div className="hidden md:flex">
+          <div className="hidden md:flex mt-6">
             <LeaveReview />
           </div>
         </div>
@@ -157,7 +225,6 @@ const Reviews = () => {
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  /* DRAG SUPPORT */
                   drag="x"
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.15}
@@ -166,10 +233,8 @@ const Reviews = () => {
                     const swipe = swipePower(offset.x, velocity.x);
 
                     if (swipe < -swipeConfidenceThreshold) {
-                      // Swipe Left → Next
                       setIndex(([prev]) => [(prev + 1) % reviews.length, 1]);
                     } else if (swipe > swipeConfidenceThreshold) {
-                      // Swipe Right → Previous
                       setIndex(([prev]) => [
                         prev === 0 ? reviews.length - 1 : prev - 1,
                         -1,
@@ -185,7 +250,7 @@ const Reviews = () => {
                   transition={{
                     layout: { duration: 0.45, ease: easeInOut },
                   }}
-                  className=" border border-[var(--border-light)]/50 bg-[var(--bg-secondary)]/50 rounded-lg min-h-75 md:min-h-59 overflow-hidden select-none cursor-grab active:cursor-grabbing "
+                  className="border border-[var(--border-light)]/50 bg-[var(--bg-secondary)]/50 rounded-lg min-h-75 md:min-h-59 overflow-hidden select-none cursor-grab active:cursor-grabbing"
                 >
                   <div className="flex flex-col sm:flex-row items-start sm:items-center p-2 sm:p-6">
                     <div className="relative mb-4 sm:mb-0 sm:mr-6 w-[88px] h-[88px] flex-shrink-0">
@@ -221,20 +286,18 @@ const Reviews = () => {
 
                       {item.image_url && item.image_url.startsWith("http") ? (
                         <div className="relative h-16 w-16 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                          {/* Skeleton */}
                           {!loadedImages[item.id] && (
                             <div className="absolute inset-0 rounded-full p-1 bg-[var(--bg-secondary)] text-[var(--text-secondary)] border-2 border-[var(--accent-primary)] animate-pulse flex justify-center items-center">
                               <User />
                             </div>
                           )}
 
-                          {/* Image */}
                           <img
                             loading="lazy"
                             src={item.image_url}
                             alt={item.name}
                             onLoad={() => handleImageLoad(item.id)}
-                            className={` h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)] transition-opacity duration-500 ${
+                            className={`h-16 w-16 rounded-full object-cover z-10 border border-[var(--border-light)] transition-opacity duration-500 ${
                               loadedImages[item.id]
                                 ? "opacity-100"
                                 : "opacity-0"
