@@ -18,17 +18,19 @@ const AboutMe = () => {
 
   useGSAP(
     () => {
-      // Hardware acceleration setup
       gsap.config({ force3D: true });
 
-      // Initial state setup for left-to-right slide animation
+      // 1. Set Initial States
       gsap.set(".about-label-wrapper", { y: 20, opacity: 0 });
-      gsap.set(".about-accent-line", {
-        scaleX: 0,
-        transformOrigin: "left center",
-      });
 
-      // Slide left-to-right text setup
+      gsap.set(
+        [".about-accent-line", ".quick-info-top-border", ".quick-info-divider"],
+        {
+          scaleX: 0,
+          transformOrigin: "left center",
+        },
+      );
+
       gsap.set(".slide-text-left", {
         clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)",
         x: -40,
@@ -36,18 +38,18 @@ const AboutMe = () => {
       });
 
       gsap.set(".quick-info-row", {
-        clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)",
-        x: -40,
         opacity: 0,
+        y: 15,
       });
 
+      // 2. ScrollTrigger Timeline Sequence
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 80%",
+          start: "top 75%",
           toggleActions: "play none none reverse",
         },
-        defaults: { ease: "expo.out" },
+        defaults: { ease: "power3.out" },
       });
 
       tl.to(".about-label-wrapper", {
@@ -64,30 +66,48 @@ const AboutMe = () => {
           },
           "-=0.4",
         )
-        // Reveal text elements sliding left to right
+        // Reveal left & right headers & main copy
         .to(
           ".slide-text-left",
           {
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
             x: 0,
             opacity: 1,
-            duration: 1.1,
-            stagger: 0.12,
+            duration: 0.9,
+            stagger: 0.08,
           },
           "-=0.5",
         )
-        // Reveal Quick Info Rows sliding left to right
+        // Draw top border of the Quick Info table
+        .to(
+          ".quick-info-top-border",
+          {
+            scaleX: 1,
+            duration: 0.8,
+            ease: "power2.inOut",
+          },
+          "-=0.6",
+        )
+        // Stagger rows & draw row divider lines simultaneously
         .to(
           ".quick-info-row",
           {
-            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-            x: 0,
             opacity: 1,
-            duration: 0.8,
+            y: 0,
+            duration: 0.5,
             stagger: 0.08,
-            ease: "power2.out",
           },
-          "-=0.6",
+          "-=0.4",
+        )
+        .to(
+          ".quick-info-divider",
+          {
+            scaleX: 1,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: "power2.inOut",
+          },
+          "<", // Sync start time directly with .quick-info-row stagger
         );
     },
     { scope: containerRef },
@@ -96,7 +116,7 @@ const AboutMe = () => {
   return (
     <section
       ref={containerRef}
-      className="w-full bg-[var(--bg-main)] flex justify-center py-16 sm:py-20 overflow-hidden"
+      className="w-full bg-[var(--bg-main)] flex justify-center py-16 sm:py-20 overflow-hidden transition-colors duration-300"
     >
       <div className="max-w-8xl px-4 md:px-12 w-full">
         {/* HEADERS */}
@@ -107,7 +127,6 @@ const AboutMe = () => {
               <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)]">
                 About Me
               </span>
-
               <span className="about-accent-line h-px w-12 bg-[var(--accent-primary)] transform-gpu will-change-transform" />
             </div>
 
@@ -173,7 +192,7 @@ const AboutMe = () => {
           {/* QUICK INFO CONTENT */}
           <div className="lg:col-span-5 lg:border-l lg:border-[var(--border-light)] lg:pl-10">
             {/* QUICK INFO HEADING (MOBILE) */}
-            <div className="lg:col-span-5 md:hidden flex flex-col mb-8">
+            <div className="md:hidden flex flex-col mb-8">
               <div className="overflow-hidden">
                 <h2 className="slide-text-left heading-font text-2xl sm:text-3xl text-[var(--text-main)] transform-gpu will-change-[transform,clip-path,opacity]">
                   Quick{" "}
@@ -189,19 +208,25 @@ const AboutMe = () => {
               </div>
             </div>
 
-            <div className="divide-y divide-[var(--border-light)]/40">
-              {info.map(([title, year], index) => (
-                <div
-                  key={index}
-                  className="quick-info-row flex items-center justify-between gap-6 py-3 first:pt-0 transform-gpu will-change-[transform,clip-path,opacity]"
-                >
-                  <span className="text-xs sm:text-sm text-[var(--text-secondary)]">
-                    {title}
-                  </span>
+            {/* QUICK INFO LIST */}
+            <div className="relative">
+              {/* Top Animated Border Line */}
+              <div className="quick-info-top-border h-px w-full bg-[var(--border-light)]" />
 
-                  <span className="shrink-0 text-[10px] sm:text-xs font-medium text-[var(--text-main)] uppercase tracking-wider">
-                    {year}
-                  </span>
+              {info.map(([title, year], index) => (
+                <div key={index} className="relative">
+                  <div className="quick-info-row group flex items-center justify-between gap-6 py-3 sm:py-4 transition-colors duration-300 transform-gpu will-change-[transform,opacity]">
+                    <span className="text-xs sm:text-sm text-[var(--text-secondary)] transition-colors duration-300 group-hover:text-[var(--text-main)]">
+                      {title}
+                    </span>
+
+                    <span className="shrink-0 text-[10px] sm:text-xs font-medium text-[var(--text-main)] uppercase tracking-wider transition-colors duration-300 group-hover:text-[var(--accent-primary)]">
+                      {year}
+                    </span>
+                  </div>
+
+                  {/* Bottom Animated Divider Line */}
+                  <div className="quick-info-divider h-px w-full bg-[var(--border-light)]" />
                 </div>
               ))}
             </div>

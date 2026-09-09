@@ -55,16 +55,10 @@ const Footer = () => {
     () => {
       gsap.config({ force3D: true });
 
-      // Initial state setup for text slide animation
+      // Initial state setup for left text slide animation
       gsap.set(".slide-text-left", {
         clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)",
         x: -40,
-        opacity: 0,
-      });
-
-      // Initial state setup for social links & actions fade/slide
-      gsap.set(".footer-action-item", {
-        x: -20,
         opacity: 0,
       });
 
@@ -77,25 +71,13 @@ const Footer = () => {
         defaults: { ease: "expo.out" },
       });
 
-      footerTl
-        .to(".slide-text-left", {
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-          x: 0,
-          opacity: 1,
-          duration: 1.2,
-          stagger: 0.12,
-        })
-        .to(
-          ".footer-action-item",
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.06,
-            ease: "power2.out",
-          },
-          "-=0.8",
-        );
+      footerTl.to(".slide-text-left", {
+        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+        x: 0,
+        opacity: 1,
+        duration: 1.2,
+        stagger: 0.12,
+      });
     },
     { scope: footerRef },
   );
@@ -138,16 +120,16 @@ const Footer = () => {
 
           {/* RIGHT */}
           <div className="lg:col-span-5 lg:border-l lg:border-[var(--border-light)] lg:pl-10">
-            <div className="flex items-center gap-3 overflow-hidden">
-              <span className="slide-text-left text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs transform-gpu will-change-[transform,clip-path,opacity]">
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
                 Connect
               </span>
 
               <span className="h-px w-8 bg-[var(--accent-primary)]" />
             </div>
 
-            <div className="overflow-hidden">
-              <p className="slide-text-left mt-4 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+            <div>
+              <p className="mt-4 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
                 Follow my work, projects, and development journey across these
                 platforms.
               </p>
@@ -165,7 +147,7 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.name}
-                    className="footer-action-item group flex items-center justify-center gap-2 rounded-sm border border-[var(--border-light)] px-3 py-2.5 text-[var(--text-secondary)] transition-all duration-300 hover:border-[var(--accent-primary)]/40 hover:bg-[var(--accent-primary)]/5 hover:text-[var(--accent-primary)] transform-gpu will-change-[transform,opacity]"
+                    className="group flex items-center justify-center gap-2 rounded-sm border border-[var(--border-light)] px-3 py-2.5 text-[var(--text-secondary)] transition-all duration-300 hover:border-[var(--accent-primary)]/40 hover:bg-[var(--accent-primary)]/5 hover:text-[var(--accent-primary)]"
                   >
                     <Icon className="text-sm transition-transform duration-300 group-hover:-translate-y-0.5" />
 
@@ -177,15 +159,11 @@ const Footer = () => {
               })}
 
               {/* ADMIN AUTH BUTTON */}
-              {isAdmin ? (
-                <SignOut className="footer-action-item transform-gpu will-change-[transform,opacity]" />
-              ) : (
-                <Auth className="footer-action-item transform-gpu will-change-[transform,opacity]" />
-              )}
+              {isAdmin ? <SignOut /> : <Auth />}
 
               <Link
                 to="/contact"
-                className="footer-action-item group cursor-pointer flex items-center justify-center gap-2 rounded-sm border border-[var(--border-light)] px-3 py-2.5 text-[var(--text-main)] transition-all duration-300 hover:opacity-90 transform-gpu will-change-[transform,opacity]"
+                className="group cursor-pointer flex items-center justify-center gap-2 rounded-sm border border-[var(--border-light)] px-3 py-2.5 text-[var(--text-main)] transition-all duration-300 hover:opacity-90"
               >
                 <Phone size={12} />
 

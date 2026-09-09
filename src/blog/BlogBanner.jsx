@@ -31,9 +31,6 @@ const BlogBanner = () => {
       const pathEl = borderPathRef.current;
       if (pathEl) {
         const pathLength = pathEl.getTotalLength();
-
-        // Reveal only a portion of the border path (e.g., 40% length dash)
-        // Adjust the multiplier (0.4) to match the exact coverage ratio from Top Projects
         const visibleSegmentLength = pathLength * 0.4;
 
         gsap.set(pathEl, {
@@ -41,54 +38,17 @@ const BlogBanner = () => {
           strokeDashoffset: visibleSegmentLength,
         });
 
-        const tl = gsap.timeline({
+        // SVG Partial Line Animation Only
+        gsap.to(pathEl, {
+          strokeDashoffset: -pathLength + visibleSegmentLength,
+          duration: 1.8,
+          ease: "power2.inOut",
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 80%",
             toggleActions: "play none none reverse",
           },
-          defaults: { ease: "expo.out" },
         });
-
-        // Header Animations
-        gsap.set(".blog-label-wrapper", { y: 20, opacity: 0 });
-        gsap.set(".blog-accent-line", {
-          scaleX: 0,
-          transformOrigin: "left center",
-        });
-        gsap.set(".slide-text-left", {
-          clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)",
-          x: -40,
-          opacity: 0,
-        });
-
-        tl.to(".blog-label-wrapper", { y: 0, opacity: 1, duration: 0.6 })
-          .to(
-            ".blog-accent-line",
-            { scaleX: 1, duration: 0.8, ease: "power2.out" },
-            "-=0.4",
-          )
-          // Animate partial line along the perimeter
-          .to(
-            pathEl,
-            {
-              strokeDashoffset: -pathLength + visibleSegmentLength,
-              duration: 1.8,
-              ease: "power2.inOut",
-            },
-            "-=0.5",
-          )
-          .to(
-            ".slide-text-left",
-            {
-              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-              x: 0,
-              opacity: 1,
-              duration: 1.1,
-              stagger: 0.1,
-            },
-            "-=1.2",
-          );
       }
     },
     { scope: containerRef },
@@ -103,14 +63,14 @@ const BlogBanner = () => {
         {/* HEADER */}
         <div className="mb-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
           <div className="hidden flex-col lg:col-span-7 md:flex">
-            <div className="blog-label-wrapper mb-4 flex items-center gap-3 transform-gpu will-change-[transform,opacity]">
+            <div className="mb-4 flex items-center gap-3">
               <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
                 Blog Section
               </span>
-              <span className="blog-accent-line h-px w-10 bg-[var(--accent-primary)] sm:w-12 transform-gpu will-change-transform" />
+              <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
             </div>
-            <div className="overflow-hidden">
-              <p className="slide-text-left max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+            <div>
+              <p className="max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
                 Explore my latest thoughts on development, design, modern web
                 technologies, and lessons learned while building real-world
                 projects.
@@ -120,14 +80,14 @@ const BlogBanner = () => {
 
           <div className="md:hidden lg:col-span-5">
             <div>
-              <div className="overflow-hidden">
-                <h2 className="slide-text-left heading-font text-2xl text-[var(--text-main)] sm:text-3xl transform-gpu will-change-[transform,clip-path,opacity]">
+              <div>
+                <h2 className="heading-font text-2xl text-[var(--text-main)] sm:text-3xl">
                   Latest{" "}
                   <span className="text-[var(--accent-primary)]">articles</span>
                 </h2>
               </div>
-              <div className="overflow-hidden">
-                <p className="slide-text-left mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path,opacity]">
+              <div>
+                <p className="mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)]">
                   A closer look at my development experiences, technical
                   decisions, and ideas.
                 </p>
@@ -137,14 +97,14 @@ const BlogBanner = () => {
 
           <div className="hidden border-l border-[var(--border-light)] pl-10 md:flex lg:col-span-5">
             <div>
-              <div className="overflow-hidden">
-                <h2 className="slide-text-left heading-font text-2xl text-[var(--text-main)] sm:text-3xl transform-gpu will-change-[transform,clip-path,opacity]">
+              <div>
+                <h2 className="heading-font text-2xl text-[var(--text-main)] sm:text-3xl">
                   Latest{" "}
                   <span className="text-[var(--accent-primary)]">articles</span>
                 </h2>
               </div>
-              <div className="overflow-hidden">
-                <p className="slide-text-left mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path,opacity]">
+              <div>
+                <p className="mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)]">
                   A closer look at my development experiences, technical
                   decisions, and ideas.
                 </p>
@@ -156,7 +116,7 @@ const BlogBanner = () => {
         {/* CONTENT */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-7">
-            <div className="relative w-full rounded-2xl transform-gpu">
+            <div className="relative w-full rounded-2xl">
               {/* SVG PARTIAL STROKE OVERLAY */}
               <svg className="pointer-events-none absolute inset-0 h-full w-full z-20 overflow-visible">
                 <rect
@@ -210,8 +170,8 @@ const BlogBanner = () => {
                 <div className="flex items-start justify-between gap-4 pt-6 pb-2">
                   <div className="w-full">
                     <div className="flex items-start justify-between gap-4">
-                      <div className="overflow-hidden">
-                        <h2 className="slide-text-left heading-font text-lg text-[var(--text-main)] transition-colors duration-300 sm:text-xl lg:text-2xl transform-gpu will-change-[transform,clip-path,opacity]">
+                      <div>
+                        <h2 className="heading-font text-lg text-[var(--text-main)] transition-colors duration-300 sm:text-xl lg:text-2xl">
                           {blog.title}
                         </h2>
                       </div>
@@ -221,8 +181,8 @@ const BlogBanner = () => {
                       </span>
                     </div>
 
-                    <div className="overflow-hidden">
-                      <p className="slide-text-left mt-2 w-full text-justify text-xs leading-relaxed text-[var(--text-secondary)]/80 sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+                    <div>
+                      <p className="mt-2 w-full text-justify text-xs leading-relaxed text-[var(--text-secondary)]/80 sm:text-sm">
                         {blog.shortDescription}
                       </p>
                     </div>
@@ -235,15 +195,15 @@ const BlogBanner = () => {
           {/* RIGHT — TEXT AREA */}
           <div className="lg:col-span-5 lg:border-l lg:border-[var(--border-light)] lg:pl-10">
             <div className="pb-8 md:hidden lg:col-span-7">
-              <div className="blog-label-wrapper mb-4 flex items-center gap-3 transform-gpu will-change-[transform,opacity]">
+              <div className="mb-4 flex items-center gap-3">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
                   Blog Section
                 </span>
-                <span className="blog-accent-line h-px w-10 bg-[var(--accent-primary)] sm:w-12 transform-gpu will-change-transform" />
+                <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
               </div>
 
-              <div className="overflow-hidden">
-                <p className="slide-text-left max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+              <div>
+                <p className="max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
                   Explore my latest thoughts on development, design, modern web
                   technologies, and lessons learned while building real-world
                   projects.
@@ -252,8 +212,8 @@ const BlogBanner = () => {
             </div>
 
             <div>
-              <div className="overflow-hidden">
-                <h3 className="slide-text-left heading-font text-2xl leading-tight tracking-tight text-[var(--text-main)] md:text-4xl transform-gpu will-change-[transform,clip-path,opacity]">
+              <div>
+                <h3 className="heading-font text-2xl leading-tight tracking-tight text-[var(--text-main)] md:text-4xl">
                   Latest insights on{" "}
                   <span className="text-[var(--accent-primary)]">
                     MERN architecture
@@ -261,15 +221,15 @@ const BlogBanner = () => {
                 </h3>
               </div>
 
-              <div className="overflow-hidden">
-                <p className="slide-text-left mt-6 text-justify text-sm leading-[1.9] text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path,opacity]">
+              <div>
+                <p className="mt-6 text-justify text-sm leading-[1.9] text-[var(--text-secondary)]">
                   In 2026, the MERN stack continues to be a versatile foundation
                   for building modern full-stack applications.
                 </p>
               </div>
 
-              <div className="overflow-hidden">
-                <p className="slide-text-left mt-5 text-justify text-sm leading-[1.9] text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path,opacity]">
+              <div>
+                <p className="mt-5 text-justify text-sm leading-[1.9] text-[var(--text-secondary)]">
                   This article explores practical approaches to structuring
                   scalable MERN applications, including clean architecture,
                   authentication, performance optimization, reusable patterns,
@@ -280,8 +240,8 @@ const BlogBanner = () => {
               <div className="mt-8">
                 {["MongoDB", "Express.js", "React.js", "Node.js"].map(
                   (technology, index) => (
-                    <div key={technology} className="overflow-hidden">
-                      <div className="slide-text-left flex items-center gap-3 py-3 transform-gpu will-change-[transform,clip-path,opacity]">
+                    <div key={technology}>
+                      <div className="flex items-center gap-3 py-3">
                         <span className="text-xs font-medium text-[var(--accent-primary)]">
                           0{index + 1}
                         </span>
@@ -294,8 +254,8 @@ const BlogBanner = () => {
                 )}
               </div>
 
-              <div className="mt-8 flex items-center gap-6 overflow-hidden">
-                <div className="slide-text-left flex items-center gap-6 transform-gpu will-change-[transform,clip-path,opacity]">
+              <div className="mt-8 flex items-center gap-6">
+                <div className="flex items-center gap-6">
                   <Link
                     to="/blog/mern-architecture"
                     className="flex cursor-pointer items-center text-xs font-medium uppercase tracking-[0.15em] text-[var(--text-main)] transition-colors duration-300 hover:text-[var(--accent-primary)]"

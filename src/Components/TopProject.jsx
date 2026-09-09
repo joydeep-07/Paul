@@ -33,84 +33,23 @@ const TopProject = () => {
     () => {
       gsap.config({ force3D: true });
 
-      // 1. Initial State Setup
-      // Top header titles / descriptions slide UP & reveal via clip-path
-      gsap.set(".mask-text", {
-        clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
-        y: 30,
-      });
-
       // SVG accent border outline setup
       gsap.set(".border-path", {
         strokeDasharray: 1000,
         strokeDashoffset: 1000,
       });
 
-      // All paragraph & heading text on the right side: initial left-to-right slide state
-      gsap.set(".slide-text-left", {
-        clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)",
-        x: -40,
-        opacity: 0,
-      });
-
-      // Features list: magnetic left-to-right slide setup
-      gsap.set(".magnetic-feature", {
-        x: -40,
-        opacity: 0,
-      });
-
-      const mainTl = gsap.timeline({
+      // SVG Border Animation Only
+      gsap.to(".border-path", {
+        strokeDashoffset: 0,
+        duration: 1.5,
+        ease: "power2.inOut",
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top 75%",
           toggleActions: "play none none reverse",
         },
-        defaults: { ease: "expo.out" },
       });
-
-      // 2. Timeline Sequence
-      mainTl
-        // Header Text Mask Animation
-        .to(".mask-text", {
-          clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0 100%)",
-          y: 0,
-          duration: 1.2,
-          stagger: 0.15,
-        })
-        // Draw Card Accent SVG Border
-        .to(
-          ".border-path",
-          {
-            strokeDashoffset: 0,
-            duration: 1.5,
-            ease: "power2.inOut",
-          },
-          "-=0.9",
-        )
-        // Reveal All Paragraphs / Section Titles with Left-to-Right Slide Animation
-        .to(
-          ".slide-text-left",
-          {
-            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-            x: 0,
-            opacity: 1,
-            duration: 1.2,
-            stagger: 0.12,
-          },
-          "-=1.0",
-        )
-        // Feature List Items Left-to-Right Magnetic Animation
-        .to(
-          ".magnetic-feature",
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.08,
-            ease: "back.out(1.4)",
-          },
-          "-=0.8",
-        );
     },
     { scope: containerRef },
   );
@@ -124,15 +63,15 @@ const TopProject = () => {
         {/* HEADER */}
         <div className="mb-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-7 hidden md:flex flex-col">
-            <div className="mb-4 flex items-center gap-3 overflow-hidden">
-              <span className="slide-text-left text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs transform-gpu will-change-[transform,clip-path,opacity]">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
                 Project Showcase
               </span>
               <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
             </div>
 
-            <div className="overflow-hidden">
-              <p className="slide-text-left max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+            <div>
+              <p className="max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
                 A selection of work that reflects my approach to design,
                 development, interaction, and creating meaningful digital
                 experiences.
@@ -141,12 +80,12 @@ const TopProject = () => {
           </div>
 
           <div className="md:hidden lg:col-span-5">
-            <div className="overflow-hidden">
-              <h2 className="slide-text-left heading-font text-2xl text-[var(--text-main)] sm:text-3xl transform-gpu will-change-[transform,clip-path,opacity]">
+            <div>
+              <h2 className="heading-font text-2xl text-[var(--text-main)] sm:text-3xl">
                 Featured{" "}
                 <span className="text-[var(--accent-primary)]">project</span>
               </h2>
-              <p className="slide-text-left mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path,opacity]">
+              <p className="mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)]">
                 A closer look at one of my projects, its purpose, technology,
                 and the decisions behind its implementation.
               </p>
@@ -154,12 +93,12 @@ const TopProject = () => {
           </div>
 
           <div className="hidden border-l border-[var(--border-light)] pl-10 md:flex lg:col-span-5">
-            <div className="overflow-hidden">
-              <h2 className="slide-text-left heading-font text-2xl text-[var(--text-main)] sm:text-3xl transform-gpu will-change-[transform,clip-path,opacity]">
+            <div>
+              <h2 className="heading-font text-2xl text-[var(--text-main)] sm:text-3xl">
                 Featured{" "}
                 <span className="text-[var(--accent-primary)]">project</span>
               </h2>
-              <p className="slide-text-left mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path,opacity]">
+              <p className="mt-2 max-w-sm text-xs leading-relaxed text-[var(--text-secondary)]">
                 A closer look at one of my projects, its purpose, technology,
                 and the decisions behind its implementation.
               </p>
@@ -171,7 +110,7 @@ const TopProject = () => {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20">
           {/* LEFT — BORDER DRAW CARD */}
           <div className="lg:col-span-7">
-            <div className="card-3d-wrapper relative w-full transform-gpu">
+            <div className="card-3d-wrapper relative w-full">
               {/* SVG Border Effect */}
               <svg
                 className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
@@ -223,18 +162,18 @@ const TopProject = () => {
                 {/* CARD CONTENT */}
                 <div className="flex items-start justify-between gap-4 px-4 pb-5 sm:px-5 sm:pb-6 md:px-6">
                   <div className="w-full">
-                    <div className="flex items-start justify-between gap-4 overflow-hidden">
-                      <h2 className="slide-text-left heading-font text-lg text-[var(--text-main)] transition-colors duration-300 sm:text-xl lg:text-2xl transform-gpu will-change-[transform,clip-path,opacity]">
+                    <div className="flex items-start justify-between gap-4">
+                      <h2 className="heading-font text-lg text-[var(--text-main)] transition-colors duration-300 sm:text-xl lg:text-2xl">
                         {project.title}
                       </h2>
 
-                      <span className="slide-text-left shrink-0 whitespace-nowrap pt-1 text-[10px] font-medium uppercase tracking-wide text-[var(--text-main)] opacity-50 sm:text-xs transform-gpu will-change-[transform,clip-path,opacity]">
+                      <span className="shrink-0 whitespace-nowrap pt-1 text-[10px] font-medium uppercase tracking-wide text-[var(--text-main)] opacity-50 sm:text-xs">
                         {project.year}
                       </span>
                     </div>
 
-                    <div className="overflow-hidden">
-                      <p className="slide-text-left mt-2 w-full text-justify text-xs leading-relaxed text-[var(--text-secondary)]/80 line-clamp-2 sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+                    <div>
+                      <p className="mt-2 w-full text-justify text-xs leading-relaxed text-[var(--text-secondary)]/80 line-clamp-2 sm:text-sm">
                         {project.shortDescription}
                       </p>
                     </div>
@@ -244,16 +183,16 @@ const TopProject = () => {
             </div>
           </div>
 
-          {/* RIGHT — TEXT & MAGNETIC FEATURES */}
+          {/* RIGHT — TEXT & FEATURES */}
           <div className="lg:col-span-5 lg:border-l lg:border-[var(--border-light)] lg:pl-10">
             <div className="lg:col-span-7 pb-8 md:hidden">
-              <div className="mb-4 flex items-center gap-3 overflow-hidden">
-                <span className="slide-text-left text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs transform-gpu will-change-[transform,clip-path,opacity]">
+              <div className="mb-4 flex items-center gap-3">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)] sm:text-xs">
                   Project Showcase
                 </span>
                 <span className="h-px w-10 bg-[var(--accent-primary)] sm:w-12" />
               </div>
-              <p className="slide-text-left max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+              <p className="max-w-md text-xs leading-relaxed text-[var(--text-secondary)] sm:text-sm">
                 A selection of work that reflects my approach to design,
                 development, interaction, and creating meaningful digital
                 experiences.
@@ -261,8 +200,8 @@ const TopProject = () => {
             </div>
 
             <div>
-              <div className="overflow-hidden">
-                <h3 className="slide-text-left heading-font text-2xl leading-tight tracking-tight text-[var(--text-main)] md:text-4xl transform-gpu will-change-[transform,clip-path,opacity]">
+              <div>
+                <h3 className="heading-font text-2xl leading-tight tracking-tight text-[var(--text-main)] md:text-4xl">
                   Why this project{" "}
                   <span className="text-[var(--accent-primary)]">
                     stands out
@@ -270,8 +209,8 @@ const TopProject = () => {
                 </h3>
               </div>
 
-              <div className="overflow-hidden">
-                <p className="slide-text-left mt-6 text-justify text-sm leading-[1.9] text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path,opacity]">
+              <div>
+                <p className="mt-6 text-justify text-sm leading-[1.9] text-[var(--text-secondary)]">
                   Bharat Vraman is a modern React.js web application designed to
                   help users explore famous temples across India. The platform
                   presents temples through a clean and responsive interface,
@@ -280,8 +219,8 @@ const TopProject = () => {
                 </p>
               </div>
 
-              <div className="overflow-hidden">
-                <p className="slide-text-left mt-5 text-justify text-sm leading-[1.9] text-[var(--text-secondary)] transform-gpu will-change-[transform,clip-path,opacity]">
+              <div>
+                <p className="mt-5 text-justify text-sm leading-[1.9] text-[var(--text-secondary)]">
                   The project focuses on creating a simple discovery experience
                   while maintaining reusable components, responsive layouts,
                   dynamic routing, and smooth interactions throughout the
@@ -289,7 +228,7 @@ const TopProject = () => {
                 </p>
               </div>
 
-              {/* FEATURES WITH MAGNETIC EASE */}
+              {/* FEATURES */}
               <div className="mt-8">
                 {[
                   "Patient, Doctor & Admin role-based system",
@@ -298,10 +237,7 @@ const TopProject = () => {
                   "Appointment booking with admin approval & scheduling",
                   "Digital prescriptions, medical reports & family profiles",
                 ].map((feature, index) => (
-                  <div
-                    key={index}
-                    className="magnetic-feature flex items-center gap-3 py-3 transform-gpu will-change-[transform,opacity]"
-                  >
+                  <div key={index} className="flex items-center gap-3 py-3">
                     <span className="text-xs font-medium text-[var(--accent-primary)]">
                       0{index + 1}
                     </span>
@@ -314,10 +250,7 @@ const TopProject = () => {
               </div>
 
               {/* ACTIONS */}
-              <div
-                id="project-btn"
-                className="slide-text-left mt-8 flex items-center gap-6 transform-gpu will-change-[transform,clip-path,opacity]"
-              >
+              <div id="project-btn" className="mt-8 flex items-center gap-6">
                 <button
                   type="button"
                   onClick={handleNavigation}
@@ -342,8 +275,8 @@ const TopProject = () => {
         </div>
 
         {/* FOOTER */}
-        <div className="mt-14 border-t border-[var(--border-light)] pt-6 overflow-hidden">
-          <p className="slide-text-left text-xs text-center md:text-left text-[var(--text-secondary)] sm:text-sm transform-gpu will-change-[transform,clip-path,opacity]">
+        <div className="mt-14 border-t border-[var(--border-light)] pt-6">
+          <p className="text-xs text-center md:text-left text-[var(--text-secondary)] sm:text-sm">
             Interested in collaboration?{" "}
             <Link
               to="/contact"
