@@ -7,8 +7,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../slices/authSlice";
 
 const ADMIN_EMAIL = "joydeeprnp8821@gmail.com";
-const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_API_URL || "http://localhost:5000";
+const DEMO_OTP = "123456";
 
 const Auth = ({ className = "" }) => {
   const dispatch = useDispatch();
@@ -39,8 +38,8 @@ const Auth = ({ className = "" }) => {
     setError("");
   };
 
-  // Step 1: Request OTP
-  const handleSendOtp = async (e) => {
+  // Step 1: Simulate Request OTP
+  const handleSendOtp = (e) => {
     e.preventDefault();
     setError("");
 
@@ -51,55 +50,26 @@ const Auth = ({ className = "" }) => {
 
     setLoading(true);
 
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/auth/send-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim().toLowerCase() }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to send OTP.");
-      }
-
+    // Simulate a brief network delay for realism
+    setTimeout(() => {
       setLoading(false);
       setStep(2); // Move to OTP verification view
-    } catch (err) {
-      setLoading(false);
-      setError(err.message || "Network error. Please try again.");
-    }
+    }, 600);
   };
 
-  // Step 2: Verify OTP
-  const handleVerifyOtp = async (e) => {
+  // Step 2: Verify Simulated OTP
+  const handleVerifyOtp = (e) => {
     e.preventDefault();
     setError("");
 
-    if (!otp || otp.trim().length !== 6) {
-      setError("Please enter a valid 6-digit OTP.");
+    if (!otp || otp.trim() !== DEMO_OTP) {
+      setError("Invalid OTP code. (Hint: Use 123456)");
       return;
     }
 
     setLoading(true);
 
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/auth/verify-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email.trim().toLowerCase(),
-          otp: otp.trim(),
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Invalid OTP code.");
-      }
-
+    setTimeout(() => {
       // Redux authentication
       dispatch(
         login({
@@ -116,10 +86,7 @@ const Auth = ({ className = "" }) => {
       setLoading(false);
       closeModal();
       navigate("/admin/control");
-    } catch (err) {
-      setLoading(false);
-      setError(err.message || "Verification failed. Please try again.");
-    }
+    }, 600);
   };
 
   return (
@@ -222,7 +189,7 @@ const Auth = ({ className = "" }) => {
                   <div className="mb-8 pr-8">
                     <div className="mb-3 flex items-center justify-between">
                       <p className="text-[9px] font-medium uppercase tracking-[0.25em] text-[var(--text-secondary)]">
-                        {step === 1 ? "Secure Login" : "Enter OTP Code"}
+                        {step === 1 ? "Secure Login" : "Secure Login"}
                       </p>
                       <ArrowUpRight
                         size={14}
@@ -232,7 +199,7 @@ const Auth = ({ className = "" }) => {
                     <p className="text-xs leading-relaxed text-[var(--text-secondary)]/70">
                       {step === 1
                         ? "Enter your administrator email to receive an OTP code."
-                        : "Check your email inbox for the 6-digit security code."}
+                        : `One Time Password sent to ${email} .`}
                     </p>
                   </div>
 
@@ -306,7 +273,7 @@ const Auth = ({ className = "" }) => {
                             htmlFor="admin-otp"
                             className="block text-[9px] font-medium uppercase tracking-[0.2em] text-[var(--text-secondary)]"
                           >
-                            One-Time Password
+                            Enter OTP
                           </label>
                           <button
                             type="button"
