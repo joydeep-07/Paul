@@ -51,14 +51,14 @@ const App = () => {
           ),
         },
 
-        {
-          path: "/admin/messages",
-          element: (
-            <ProtectedRoute>
-              <AdminMessages />
-            </ProtectedRoute>
-          ),
-        },
+        // {
+        //   path: "/admin/messages",
+        //   element: (
+        //     <ProtectedRoute>
+        //       <AdminMessages />
+        //     </ProtectedRoute>
+        //   ),
+        // },
 
         // BLOG ROUTES
         { path: "blog/mern-architecture", element: <MernArchitectire /> },

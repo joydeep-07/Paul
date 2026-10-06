@@ -34,15 +34,15 @@ const Navbar = () => {
 
   const adminLinks = [
     {
-      name: "Admin",
+      name: "Admin Panel",
       path: "/admin/control",
       icon: <FiSettings />,
     },
-    {
-      name: "Messages",
-      path: "/admin/messages",
-      icon: <FiMessageSquare />,
-    },
+    // {
+    //   name: "Messages",
+    //   path: "/admin/messages",
+    //   icon: <FiMessageSquare />,
+    // },
   ];
 
   // Sync Navbar with admin authentication

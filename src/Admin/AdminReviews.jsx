@@ -9,6 +9,7 @@ import LeaveReview from "../Components/LeaveReview";
 import AdminSubscribers from "./AdminSubscribers";
 import { supabase } from "../supabaseClient";
 import DeleteModal from "../Components/DeleteModal";
+import AdminMessages from "./AdminMessages";
 
 const AdminReviews = () => {
   const [loading, setLoading] = useState(true);
@@ -115,23 +116,23 @@ const AdminReviews = () => {
             </p>
           </div>
 
-          {/* SUBSCRIBERS HEADING (RIGHT TOP) */}
+          {/* CONTACT MESSAGES HEADING (RIGHT TOP) */}
           <div className="lg:col-span-5 hidden md:flex flex-col pl-10 border-l border-[var(--border-light)]">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)]">
-                Admin Newsletter
+                Admin Messages
               </span>
               <span className="h-px w-12 bg-[var(--accent-primary)]" />
             </div>
 
             <h1 className="heading-font text-3xl sm:text-4xl md:text-4xl text-[var(--text-main)]">
-              Newsletter{" "}
-              <span className="text-[var(--accent-primary)]">Subscribers</span>
+              Contact Page{" "}
+              <span className="text-[var(--accent-primary)]">Messages</span>
             </h1>
 
             <p className="mt-4 max-w-md text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
-              Manage newsletter subscribers, review their details, and stay
-              organized with your latest audience updates from one place.
+              Manage contact page messages, review user inquiries, and stay
+              organized with your latest communications from one place.
             </p>
           </div>
         </div>
@@ -271,24 +272,49 @@ const AdminReviews = () => {
           <div className="lg:col-span-5 md:hidden flex flex-col">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)]">
-                Admin Newsletter
+                Admin Messages
               </span>
               <span className="h-px w-12 bg-[var(--accent-primary)]" />
             </div>
 
             <h1 className="heading-font text-3xl sm:text-4xl md:text-4xl text-[var(--text-main)]">
-              Newsletter{" "}
-              <span className="text-[var(--accent-primary)]">Subscribers</span>
+              Contact Page{" "}
+              <span className="text-[var(--accent-primary)]">Messages</span>
             </h1>
 
             <p className="mt-4 max-w-md text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
-              Manage newsletter subscribers, review their details, and stay
-              organized with your latest audience updates from one place.
+              Manage contact page messages, review user inquiries, and stay
+              organized with your latest communications from one place.
             </p>
           </div>
 
-          {/* RIGHT COLUMN: IMPORTED ADMIN SUBSCRIBERS COMPONENT */}
+          {/* RIGHT COLUMN: IMPORTED ADMIN MESSAGES COMPONENT */}
           <div className="lg:col-span-5 lg:border-l lg:border-[var(--border-light)] lg:pl-10">
+            <AdminMessages />
+          </div>
+        </div>
+
+        {/* SUBSCRIBERS SECTION - LEFT ALIGNED */}
+        <div className="mt-20 pt-16 border-t border-[var(--border-light)] flex flex-col items-start text-left">
+          <div className="flex items-center justify-start gap-3 mb-4">
+            <span className="h-px w-12 bg-[var(--accent-primary)]" />
+
+            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)]">
+              Admin Subscribers
+            </span>
+          </div>
+
+          <h1 className="heading-font text-3xl sm:text-4xl md:text-4xl text-[var(--text-main)] mb-4">
+            Newsletter{" "}
+            <span className="text-[var(--accent-primary)]">Subscribers</span>
+          </h1>
+
+          <p className="max-w-md text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed mb-10">
+            Manage your audience database, track subscription stats, and keep
+            your community engaged.
+          </p>
+
+          <div className="w-full">
             <AdminSubscribers />
           </div>
         </div>
