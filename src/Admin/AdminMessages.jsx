@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { toast } from "sonner";
 import { CircularProgress, IconButton } from "@mui/material";
-import { Trash2, Mail, User, Calendar, ChevronDown } from "lucide-react";
+import { Trash2, Mail, User, Calendar, ChevronDown, Clock } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import DeleteModal from "../Components/DeleteModal";
 import Footer from "../layout/Footer";
@@ -61,7 +61,6 @@ const AdminMessages = () => {
       <section className="w-full bg-[var(--bg-main)] flex justify-center relative">
         <div className=" w-full">
           {/* HEADERS */}
-         
 
           {/* CONTENT */}
           {loading ? (
@@ -119,11 +118,15 @@ const AdminMessages = () => {
                         </div>
 
                         <div className="flex items-center gap-3 flex-shrink-0">
+                          {/* Replaced Calendar with Clock and showing time instead of date on laptop/desktop view */}
                           <span className="text-[10px] sm:text-xs text-[var(--text-secondary)] hidden sm:flex items-center gap-1.5 mr-2">
-                            <Calendar size={12} />
                             {msg.created_at
-                              ? new Date(msg.created_at).toLocaleDateString(
-                                  "en-IN",
+                              ? new Date(msg.created_at).toLocaleTimeString(
+                                  [],
+                                  {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  },
                                 )
                               : "N/A"}
                           </span>
@@ -204,7 +207,6 @@ const AdminMessages = () => {
           </div>
         )}
       </section>
-      
     </>
   );
 };
