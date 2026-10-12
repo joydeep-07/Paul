@@ -141,11 +141,11 @@ const ProjectDetails = () => {
             </div>
 
             <div className="overflow-hidden">
-              <div className="slide-text-left hero-slide-text flex flex-wrap gap-1 pt-2">
+              <div className="slide-text-left hero-slide-text flex flex-wrap gap-2 pt-2">
                 {project.techStack.map((tech, index) => (
                   <span
                     key={index}
-                    className="text-xs sm:text-sm font-medium text-[var(--text-main)] bg-[var(--bg-secondary)]/50 px-2 py-1"
+                    className="text-xs border border-[var(--border-light)] rounded-full font-medium text-[var(--text-main)] bg-[var(--bg-secondary)]/50 px-4 py-1.5"
                   >
                     {tech}
                   </span>

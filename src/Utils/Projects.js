@@ -2,14 +2,96 @@ import lightloom from "../assets/thumbnail/lightloom.png";
 import medcare from "../assets/thumbnail/medcare.png";
 import movie from "../assets/thumbnail/movie.png";
 import img2 from "../assets/thumbnail/keepnotes.png";
-import wtsp from '../assets/thumbnail/wtsp.png'
+import wtsp from "../assets/thumbnail/wtsp.png";
 import school from "../assets/thumbnail/school.png";
 import rentease from "../assets/thumbnail/rentease.png";
 import templeImg from "../assets/thumbnail/bharat.png";
-import neurocare from "../assets/thumbnail/neurocare.png"
+import neurocare from "../assets/thumbnail/neurocare.png";
 import palettex from "../assets/thumbnail/palettex.png";
-
+import lens from "../assets/thumbnail/lens.png";
 export const projects = [
+ {
+  id: "lens-lm",
+  title: "Lens LM",
+  category: "AI Knowledge Engine & RAG Platform",
+  year: 2026,
+  thumbnail: lens,
+  navigate: "/project/lens-lm",
+  liveLink: "",
+
+  shortDescription:
+    "An enterprise-grade conversational AI application optimized with Retrieval-Augmented Generation (RAG), advanced vector search indexing, intelligent document parsing, hybrid retrieval pipelines, source citation tracking, and low-latency response streaming.",
+
+  description:
+    "Lens LM is an enterprise-ready web AI platform designed to solve Large Language Model limitations like hallucinations, outdated cutoffs, and lack of private knowledge access. By integrating Retrieval-Augmented Generation (RAG) with vector search, Lens LM transforms multi-format documents and URLs into a queryable knowledge base. It performs multi-stage semantic and keyword retrieval to ground AI responses in verified data with transparent inline citations. Featuring real-time response streaming, document chunking, conversation memory, and a modern responsive interface.",
+
+  techStack: [
+    "React.js",
+    "Javascript",
+    "Tailwind CSS",
+    "Node.js",
+    "Express JS",
+    "RAG",
+    "OpenAI API",
+    "LLM Integrations",
+    "Vector Database",
+  ],
+
+  features: [
+    "Interactive conversational workspace with markdown rendering and code syntax highlighting.",
+    "Advanced RAG engine to eliminate AI hallucinations and ground answers in custom data.",
+    "Document ingestion supporting PDFs, Word, Markdown, plain text, and web URLs.",
+    "Automated text chunking and vector embedding generation pipeline.",
+    "Low-latency vector similarity search across indexed document collections.",
+    "Hybrid search combining semantic vector lookup with BM25 keyword matching.",
+    "Cross-encoder re-ranking to filter and supply only top-quality context to the LLM.",
+    "Source attribution system with inline citations and original text references.",
+    "Real-time token streaming via Server-Sent Events (SSE) for instant responses.",
+    "Dynamic context window optimization to manage token limits and reduce latency.",
+    "Multi-turn conversation state engine for tracking dialogue history.",
+    "Adjustable retrieval parameters like Top-K thresholds and chunk sizes.",
+    "Customizable system prompts and persona configurations for tailored tasks.",
+    "Modern UI with dark/light theme support, responsive across all devices.",
+    "Secure document handling ensuring private user files remain protected.",
+  ],
+
+  strategies: [
+    {
+      title: "Problem Statement & Solution",
+      description:
+        "Standard LLMs often hallucinate and lack private data access. Lens LM solves this via a robust RAG architecture that anchors AI outputs in external, verified source documents.",
+    },
+    {
+      title: "Document Ingestion & Chunking",
+      description:
+        "Ingests multiple document formats and applies recursive text splitting with overlapping boundaries to preserve narrative context before vector embedding.",
+    },
+    {
+      title: "Vector & Hybrid Search",
+      description:
+        "Combines dense vector semantic search with sparse BM25 keyword matching to capture both high-level intent and exact terminology.",
+    },
+    {
+      title: "Re-Ranking & Context Synthesis",
+      description:
+        "Employs a cross-encoder model to score and filter retrieved chunks, ensuring only high-relevance context is passed to the LLM prompt.",
+    },
+    {
+      title: "Real-Time Streaming UX",
+      description:
+        "Uses Server-Sent Events (SSE) to stream generated tokens to the frontend instantly, paired with a clean, responsive interface state architecture.",
+    },
+    {
+      title: "Scalable Architecture",
+      description:
+        "Decouples heavy data processing tasks like parsing and embedding generation from real-time chat APIs to maintain high performance under load.",
+    },
+  ],
+
+  takeaways: [
+    "Building Lens LM significantly enhanced my expertise in AI engineering, RAG pipelines, vector databases, and full-stack web development. I gained hands-on experience optimizing document chunking, implementing hybrid search, configuring cross-encoder re-ranking, and streaming real-time LLM responses. The project strengthened my ability to architect scalable, responsive AI applications with robust data grounding and transparent source attribution.",
+  ],
+},
   {
     id: "palette-x",
     title: "Palette X",
