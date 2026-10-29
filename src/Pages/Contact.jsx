@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import me from "../assets/images/boat.jpeg";
+import me from "../assets/images/main3.png";
 import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { supabase } from "../supabaseClient";
