@@ -15,6 +15,12 @@
   --accent-primary: rgb(26, 124, 26);
   --accent-secondary: #66bb6a;
 
+  /* Google Brand Colors */
+  --google-red: #EA4335;
+  --google-blue: #4285F4;
+  --google-green: #34A853;
+  --google-yellow: #FBBC05;
+
   /* Borders */
   --border-light: #e0e0e0;
 }
@@ -33,6 +39,12 @@
   /* Accent Colors */
   --accent-primary: #66bb6a;
   --accent-secondary: #66bb6a;
+
+  /* Google Brand Colors */
+  --google-red: #EA4335;
+  --google-blue: #4285F4;
+  --google-green: #34A853;
+  --google-yellow: #FBBC05;
 
   /* Borders */
   --border-light: #1f1f1f;

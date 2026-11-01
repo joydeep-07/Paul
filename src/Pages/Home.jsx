@@ -7,10 +7,12 @@ import Reviews from "../Components/Reviews";
 import TopProject from "../Components/TopProject";
 import BlogBanner from "../blog/BlogBanner";
 import NewsletterSection from "../blog/NewsletterSection";
+import AnimeLander from "../landing/AnimeLander";
 const Home = () => {
   return (
     <div className="min-h-screen w-full pt-25">
       <Hero />
+      <AnimeLander/>
       <AboutMe />
       <TopProject />
       <Reviews />
