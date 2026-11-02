@@ -1,0 +1,266 @@
+// Dial.jsx
+import React, { useState, useEffect, useRef } from "react";
+
+const Dial = ({
+  targetContainerId = "anime-lander-container",
+  size = 480,
+  className = "",
+}) => {
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const targetProgressRef = useRef(0);
+  const currentProgressRef = useRef(0);
+  const animationFrameRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = targetContainerId
+        ? document.getElementById(targetContainerId)
+        : null;
+
+      let progress = 0;
+
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        const sectionHeight = section.offsetHeight - window.innerHeight;
+        const scrolled = -rect.top;
+
+        if (sectionHeight > 0) {
+          progress = Math.max(0, Math.min(1, scrolled / sectionHeight));
+        }
+      } else {
+        const totalHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        if (totalHeight > 0) {
+          progress = Math.max(0, Math.min(1, window.scrollY / totalHeight));
+        }
+      }
+
+      targetProgressRef.current = progress;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    // Smooth LERP animation loop
+    const render = () => {
+      currentProgressRef.current +=
+        (targetProgressRef.current - currentProgressRef.current) * 0.1;
+
+      setScrollProgress(currentProgressRef.current);
+      animationFrameRef.current = requestAnimationFrame(render);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(render);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [targetContainerId]);
+
+  // Dynamic values derived from smooth scrollProgress
+  const outerRotation = scrollProgress * 360;
+  const innerRotation = scrollProgress * -540;
+  const scaleValue = 1 + scrollProgress * 0.08;
+
+  return (
+    <div
+      className={`anime relative flex items-center justify-center p-2 ${className}`}
+      style={{ width: size, height: size }}
+    >
+      <div
+        className="outer relative flex h-full w-full items-center justify-center overflow-hidden rounded-full border-[3px] border-[var(--border-light,#e2e8f0)] bg-[var(--bg-secondary,#ffffff)] shadow-[0_0_50px_rgba(0,0,0,0.15)] transition-transform ease-out"
+        style={{
+          transform: `scale(${scaleValue}) rotate(${outerRotation * 0.2}deg)`,
+          willChange: "transform",
+        }}
+      >
+        {/* Dotted Background Grid */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-20 transition-opacity duration-300"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, var(--border-light, #94a3b8) 1.5px, transparent 1.5px)",
+            backgroundSize: "18px 18px",
+            transform: `scale(${1 + scrollProgress * 0.05})`,
+          }}
+        />
+
+        {/* SVG Vector HUD Elements */}
+        <svg
+          className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
+          viewBox="0 0 400 400"
+        >
+          <defs>
+            <filter id="hud-glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="2" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+
+          {/* 1. Precision Radial Tick Marks */}
+          {Array.from({ length: 180 }, (_, i) => {
+            const angle = (i * 2 * Math.PI) / 180;
+            const isMajor = i % 5 === 0;
+            const isAccent =
+              (i >= 10 && i <= 22) ||
+              (i >= 24 && i <= 38) ||
+              (i >= 50 && i <= 56);
+
+            const x1 = 200 + 160 * Math.cos(angle);
+            const y1 = 200 + 160 * Math.sin(angle);
+            const tickLength = isMajor ? 11 : 6;
+            const x2 = 200 + (160 + tickLength) * Math.cos(angle);
+            const y2 = 200 + (160 + tickLength) * Math.sin(angle);
+
+            let strokeColor = "var(--text-main, #0f172a)";
+            if (i >= 10 && i <= 22) strokeColor = "var(--google-red, #ea4335)";
+            else if (i >= 24 && i <= 38)
+              strokeColor = "var(--google-yellow, #fbbc05)";
+            else if (i >= 50 && i <= 56)
+              strokeColor = "var(--google-green, #34a853)";
+
+            return (
+              <line
+                key={i}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                stroke={strokeColor}
+                strokeWidth={isMajor ? 2 : 1.2}
+                strokeLinecap="round"
+                opacity={isAccent ? 1 : isMajor ? 0.75 : 0.35}
+              />
+            );
+          })}
+
+          {/* 2. Outermost Segmented Color Tracks */}
+          <circle
+            cx="200"
+            cy="200"
+            r="184"
+            fill="none"
+            stroke="var(--google-green, #34a853)"
+            strokeWidth="6"
+            strokeDasharray="140 1020"
+            strokeDashoffset={-760 - scrollProgress * 250}
+            opacity="0.85"
+          />
+          <circle
+            cx="200"
+            cy="200"
+            r="184"
+            fill="none"
+            stroke="var(--google-yellow, #fbbc05)"
+            strokeWidth="6"
+            strokeDasharray="100 1020"
+            strokeDashoffset={-640 + scrollProgress * 250}
+            opacity="0.9"
+          />
+          <circle
+            cx="200"
+            cy="200"
+            r="184"
+            fill="none"
+            stroke="var(--google-red, #ea4335)"
+            strokeWidth="6"
+            strokeDasharray="120 1020"
+            strokeDashoffset={-380 - scrollProgress * 180}
+            opacity="0.9"
+          />
+          <circle
+            cx="200"
+            cy="200"
+            r="184"
+            fill="none"
+            stroke="var(--google-yellow, #fbbc05)"
+            strokeWidth="6"
+            strokeDasharray="180 1020"
+            strokeDashoffset={-140 + scrollProgress * 300}
+            opacity="0.9"
+          />
+          <circle
+            cx="200"
+            cy="200"
+            r="184"
+            fill="none"
+            stroke="var(--google-blue, #4285f4)"
+            strokeWidth="6"
+            strokeDasharray="90 1020"
+            strokeDashoffset={-930 - scrollProgress * 150}
+            opacity="0.9"
+          />
+
+          {/* 3. Inner Counter-Rotating Technical Rings */}
+          <g
+            transform={`translate(200, 200) rotate(${innerRotation})`}
+            style={{ willChange: "transform" }}
+          >
+            <circle
+              cx="0"
+              cy="0"
+              r="135"
+              fill="none"
+              stroke="var(--text-secondary, #64748b)"
+              opacity="0.5"
+              strokeWidth="1.5"
+              strokeDasharray="6 6"
+            />
+            <circle
+              cx="0"
+              cy="0"
+              r="125"
+              fill="none"
+              stroke="var(--google-blue, #4285f4)"
+              opacity="0.3"
+              strokeWidth="1"
+              strokeDasharray="40 120"
+            />
+          </g>
+
+          <circle
+            cx="200"
+            cy="200"
+            r="110"
+            fill="none"
+            stroke="var(--text-secondary, #64748b)"
+            strokeWidth="16"
+            opacity="0.05"
+          />
+
+          {/* 4. Center Pointer / Needle with Glow Effect */}
+          <g
+            transform={`translate(200, 200) rotate(${outerRotation})`}
+            style={{ willChange: "transform" }}
+            filter="url(#hud-glow)"
+          >
+            <line
+              x1="0"
+              y1="0"
+              x2="-22"
+              y2="115"
+              stroke="var(--google-blue, #4285f4)"
+              opacity="0.9"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+            <circle
+              cx="0"
+              cy="0"
+              r="6"
+              stroke="var(--text-main, #0f172a)"
+              opacity="0.9"
+              strokeWidth="2"
+              fill="var(--bg-secondary, #ffffff)"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+export default Dial;

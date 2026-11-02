@@ -1,259 +1,112 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import Dial from "../Components/Dial";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const textContent =
+  "I am a React.js developer passionate about building modern, interactive, and user-focused web experiences. I transform ideas into responsive interfaces using clean code, reusable components, and thoughtful design. From smooth animations to performance optimization, I focus on creating digital products that feel intuitive, look refined, and work seamlessly across devices. I believe great development is where creativity, functionality, and attention to detail come together.";
 
 const AnimeLander = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const targetProgressRef = useRef(0);
-  const currentProgressRef = useRef(0);
-  const animationFrameRef = useRef(null);
+  const containerRef = useRef(null);
+  const pinnedWrapperRef = useRef(null);
+  const paragraphRef = useRef(null);
 
-  // Track raw scroll progress
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = document.getElementById("anime-lander-container");
-      if (!section) return;
+  const words = textContent.split(" ");
 
-      const rect = section.getBoundingClientRect();
-      const sectionHeight = section.offsetHeight - window.innerHeight;
-      const scrolled = -rect.top;
+  useGSAP(
+    () => {
+      if (!pinnedWrapperRef.current || !paragraphRef.current) return;
 
-      if (sectionHeight <= 0) return;
+      const letters = paragraphRef.current.querySelectorAll(".anime-char");
 
-      const progress = Math.max(0, Math.min(1, scrolled / sectionHeight));
-      targetProgressRef.current = progress;
-    };
+      gsap.set(letters, {
+        opacity: 0.2,
+      });
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: pinnedWrapperRef.current,
+          start: "top top",
+          end: "+=1400",
+          pin: true,
+          scrub: 0.8,
+          anticipatePin: 1,
+        },
+      });
 
-    // Smooth LERP animation loop for buttery-smooth interpolation
-    const render = () => {
-      currentProgressRef.current +=
-        (targetProgressRef.current - currentProgressRef.current) * 0.1;
-      setScrollProgress(currentProgressRef.current);
-      animationFrameRef.current = requestAnimationFrame(render);
-    };
-
-    animationFrameRef.current = requestAnimationFrame(render);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (animationFrameRef.current)
-        cancelAnimationFrame(animationFrameRef.current);
-    };
-  }, []);
-
-  // Dynamic rotations for multi-layered depth
-  const outerRotation = scrollProgress * 360;
-  const innerRotation = scrollProgress * -540; // Counter-rotation for depth
-  const scaleValue = 1 + scrollProgress * 0.08;
+      tl.to(letters, {
+        opacity: 1,
+        color: "var(--text-main)",
+        stagger: 0.02,
+        ease: "power2.out",
+      });
+    },
+    { scope: containerRef },
+  );
 
   return (
-    <div
-      id="anime-lander-container"
-      className="relative h-[500vh] bg-[var(--bg-primary)]"
-    >
-      <div className="sticky top-0 h-screen w-full flex justify-center items-center md:px-12 md:py-12">
-        <div className="border border-[var(--border-light)] h-[80vh] w-full flex justify-center items-center px-12 bg-[var(--bg-primary)] overflow-hidden">
-          {/* Right Side: Enhanced Anime HUD Element */}
-          <div className="anime h-[480px] w-[480px] p-2 flex justify-center items-center relative">
-            <div
-              className="outer h-full w-full border-[3px] border-[var(--border-light)] rounded-full relative flex items-center justify-center bg-[var(--bg-secondary)] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.15)] transition-transform ease-out"
-              style={{
-                transform: `scale(${scaleValue}) rotate(${outerRotation * 0.2}deg)`,
-                willChange: "transform",
-              }}
-            >
-              {/* Dotted Background Grid with subtle pulse */}
-              <div
-                className="absolute inset-0 opacity-20 pointer-events-none transition-opacity duration-300"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(circle, var(--border-light) 1.5px, transparent 1.5px)",
-                  backgroundSize: "18px 18px",
-                  transform: `scale(${1 + scrollProgress * 0.05})`,
-                }}
-              />
+    <div ref={containerRef} className="w-full relative">
+      <div
+        ref={pinnedWrapperRef}
+        className="w-full p-6 md:px-12 md:py-24 flex flex-col justify-start bg-[var(--bg-main)]"
+      >
+        <div className="overflow-hidden">
+          <h2 className="slide-text-left heading-font mt-5 font-light text-3xl leading-tight text-[var(--text-main)] sm:text-4xl md:text-[70px] transform-gpu will-change-[transform,clip-path,opacity]">
+            Crafting digital experiences that{" "}
+            <span className="text-[var(--accent-primary)]">
+              make an impact.
+            </span>
+          </h2>
+        </div>
 
-              {/* SVG Vector HUD Elements */}
-              <svg
-                className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
-                viewBox="0 0 400 400"
-              >
-                <defs>
-                  <filter
-                    id="hud-glow"
-                    x="-20%"
-                    y="-20%"
-                    width="140%"
-                    height="140%"
-                  >
-                    <feGaussianBlur stdDeviation="2" result="blur" />
-                    <feComposite
-                      in="SourceGraphic"
-                      in2="blur"
-                      operator="over"
-                    />
-                  </filter>
-                </defs>
+        <div className="flex flex-col lg:flex-row justify-between gap-8 flex-1">
+          {/* Left container */}
+          <div className="left w-full lg:w-3/5 py-6">
+            <div className="lg:col-span-7 mb-10">
+              <div className="about-label-wrapper flex items-center gap-3 mb-4 transform-gpu will-change-[transform,opacity]">
+                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)]">
+                  The developer behind the code
+                </span>
 
-                {/* 1. Precision Radial Tick Marks */}
-                {Array.from({ length: 180 }, (_, i) => {
-                  const angle = (i * 2 * Math.PI) / 180;
-                  const isMajor = i % 5 === 0;
-                  const isAccent =
-                    (i >= 10 && i <= 22) ||
-                    (i >= 24 && i <= 38) ||
-                    (i >= 50 && i <= 56);
+                <span className="about-accent-line h-px w-12 bg-[var(--accent-primary)] transform-gpu will-change-transform" />
+              </div>
 
-                  const x1 = 200 + 160 * Math.cos(angle);
-                  const y1 = 200 + 160 * Math.sin(angle);
-                  const tickLength = isMajor ? 11 : 6;
-                  const x2 = 200 + (160 + tickLength) * Math.cos(angle);
-                  const y2 = 200 + (160 + tickLength) * Math.sin(angle);
-
-                  let strokeColor = "var(--text-main)";
-                  if (i >= 10 && i <= 22) strokeColor = "var(--google-red)";
-                  else if (i >= 24 && i <= 38)
-                    strokeColor = "var(--google-yellow)";
-                  else if (i >= 50 && i <= 56)
-                    strokeColor = "var(--google-green)";
-
-                  return (
-                    <line
-                      key={i}
-                      x1={x1}
-                      y1={y1}
-                      x2={x2}
-                      y2={y2}
-                      stroke={strokeColor}
-                      strokeWidth={isMajor ? 2 : 1.2}
-                      strokeLinecap="round"
-                      opacity={isAccent ? 1 : isMajor ? 0.75 : 0.35}
-                    />
-                  );
-                })}
-
-                {/* 2. Outermost Segmented Color Tracks (Dynamic dash offsets) */}
-                <circle
-                  cx="200"
-                  cy="200"
-                  r="184"
-                  fill="none"
-                  stroke="var(--google-green)"
-                  strokeWidth="6"
-                  strokeDasharray="140 1020"
-                  strokeDashoffset={-760 - scrollProgress * 250}
-                  opacity="0.85"
-                />
-                <circle
-                  cx="200"
-                  cy="200"
-                  r="184"
-                  fill="none"
-                  stroke="var(--google-yellow)"
-                  strokeWidth="6"
-                  strokeDasharray="100 1020"
-                  strokeDashoffset={-640 + scrollProgress * 250}
-                  opacity="0.9"
-                />
-                <circle
-                  cx="200"
-                  cy="200"
-                  r="184"
-                  fill="none"
-                  stroke="var(--google-red)"
-                  strokeWidth="6"
-                  strokeDasharray="120 1020"
-                  strokeDashoffset={-380 - scrollProgress * 180}
-                  opacity="0.9"
-                />
-                <circle
-                  cx="200"
-                  cy="200"
-                  r="184"
-                  fill="none"
-                  stroke="var(--google-yellow)"
-                  strokeWidth="6"
-                  strokeDasharray="180 1020"
-                  strokeDashoffset={-140 + scrollProgress * 300}
-                  opacity="0.9"
-                />
-                <circle
-                  cx="200"
-                  cy="200"
-                  r="184"
-                  fill="none"
-                  stroke="var(--google-blue)"
-                  strokeWidth="6"
-                  strokeDasharray="90 1020"
-                  strokeDashoffset={-930 - scrollProgress * 150}
-                  opacity="0.9"
-                />
-
-                {/* 3. Inner Counter-Rotating Technical Rings */}
-                <g
-                  transform={`translate(200, 200) rotate(${innerRotation})`}
-                  style={{ willChange: "transform" }}
-                >
-                  <circle
-                    cx="0"
-                    cy="0"
-                    r="135"
-                    fill="none"
-                    stroke="var(--text-secondary)"
-                    opacity="0.5"
-                    strokeWidth="1.5"
-                    strokeDasharray="6 6"
-                  />
-                  <circle
-                    cx="0"
-                    cy="0"
-                    r="125"
-                    fill="none"
-                    stroke="var(--google-blue)"
-                    opacity="0.3"
-                    strokeWidth="1"
-                    strokeDasharray="40 120"
-                  />
-                </g>
-
-                <circle
-                  cx="200"
-                  cy="200"
-                  r="110"
-                  fill="none"
-                  stroke="var(--text-secondary)"
-                  strokeWidth="16"
-                  opacity="0.05"
-                />
-
-                {/* 4. Center Pointer / Needle with Glow Effect */}
-                <g
-                  transform={`translate(200, 200) rotate(${outerRotation})`}
-                  style={{ willChange: "transform" }}
-                  filter="url(#hud-glow)"
-                >
-                  <line
-                    x1="0"
-                    y1="0"
-                    x2="-22"
-                    y2="115"
-                    stroke="var(--google-blue)"
-                    opacity="0.9"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <circle
-                    cx="0"
-                    cy="0"
-                    r="6"
-                    stroke="var(--text-main)"
-                    opacity="0.9"
-                    strokeWidth="2"
-                    fill="var(--bg-secondary)"
-                  />
-                </g>
-              </svg>
+              <div className="overflow-hidden">
+                <p className="slide-text-left max-w-md text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed transform-gpu will-change-[transform,clip-path,opacity]">
+                  A closer look at my approach to frontend development, creative
+                  problem-solving, and building meaningful digital experiences.
+                </p>
+              </div>
             </div>
+
+            <p
+              ref={paragraphRef}
+              className="flex flex-wrap text-xl md:text-2xl leading-relaxed font-extralight"
+            >
+              {words.map((word, wordIdx) => (
+                <span
+                  key={wordIdx}
+                  className="inline-block whitespace-nowrap mr-[0.3em]"
+                >
+                  {word.split("").map((char, charIdx) => (
+                    <span
+                      key={charIdx}
+                      className="anime-char inline-block opacity-20 text-[var(--text-muted)] select-none will-change-[opacity,color]"
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </span>
+              ))}
+            </p>
+          </div>
+
+          {/* Right container */}
+          <div className="right w-full lg:w-2/5 p-6 flex items-center justify-center">
+            <Dial />
           </div>
         </div>
       </div>
