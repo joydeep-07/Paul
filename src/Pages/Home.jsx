@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <div className="min-h-screen w-full pt-25">
       <Hero />
-      <AnimeLander/>
+      {/* <AnimeLander/> */}
       <AboutMe />
       <TopProject />
       <Reviews />
