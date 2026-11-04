@@ -2,7 +2,8 @@ import React, { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-
+import me from "../assets/images/main3.png";
+import { Link } from "react-router-dom";
 gsap.registerPlugin(ScrollTrigger);
 
 const AboutMe = () => {
@@ -20,8 +21,10 @@ const AboutMe = () => {
     () => {
       gsap.config({ force3D: true });
 
-      // 1. Set Initial States
-      gsap.set(".about-label-wrapper", { y: 20, opacity: 0 });
+      gsap.set(".about-label-wrapper", {
+        y: 20,
+        opacity: 0,
+      });
 
       gsap.set(
         [".about-accent-line", ".quick-info-top-border", ".quick-info-divider"],
@@ -42,14 +45,15 @@ const AboutMe = () => {
         y: 15,
       });
 
-      // 2. ScrollTrigger Timeline Sequence
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top 75%",
           toggleActions: "play none none reverse",
         },
-        defaults: { ease: "power3.out" },
+        defaults: {
+          ease: "power3.out",
+        },
       });
 
       tl.to(".about-label-wrapper", {
@@ -66,7 +70,6 @@ const AboutMe = () => {
           },
           "-=0.4",
         )
-        // Reveal left & right headers & main copy
         .to(
           ".slide-text-left",
           {
@@ -78,7 +81,6 @@ const AboutMe = () => {
           },
           "-=0.5",
         )
-        // Draw top border of the Quick Info table
         .to(
           ".quick-info-top-border",
           {
@@ -88,7 +90,6 @@ const AboutMe = () => {
           },
           "-=0.6",
         )
-        // Stagger rows & draw row divider lines simultaneously
         .to(
           ".quick-info-row",
           {
@@ -107,7 +108,7 @@ const AboutMe = () => {
             stagger: 0.08,
             ease: "power2.inOut",
           },
-          "<", // Sync start time directly with .quick-info-row stagger
+          "<",
         );
     },
     { scope: containerRef },
@@ -118,27 +119,42 @@ const AboutMe = () => {
       ref={containerRef}
       className="w-full bg-[var(--bg-main)] flex justify-center py-16 sm:py-20 overflow-hidden transition-colors duration-300"
     >
-      <div className="max-w-8xl px-4 md:px-12 w-full">
+      <div className="max-w-8xl px-4 sm:px-6 md:px-12 w-full">
         {/* HEADERS */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 mb-10">
-          {/* ABOUT HEADING */}
+          {/* ABOUT HEADER */}
           <div className="lg:col-span-7">
-            <div className="about-label-wrapper flex items-center gap-3 mb-4 transform-gpu will-change-[transform,opacity]">
-              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)]">
-                About Me
-              </span>
-              <span className="about-accent-line h-px w-12 bg-[var(--accent-primary)] transform-gpu will-change-transform" />
-            </div>
+            <div className="flex items-start gap-4 sm:gap-6">
+              {/* RESPONSIVE PROFILE IMAGE */}
+              <Link to="/story" className="shrink-0 w-18 h-18 md:w-21 md:h-21 rounded-full p-[4px] sm:p-[5px] border-2 sm:border-3 border-[var(--accent-primary)]">
+                <img
+                  src={me}
+                  alt="Joydeep Paul"
+                  className="w-full h-full rounded-full object-cover object-center"
+                />
+              </Link>
 
-            <div className="overflow-hidden">
-              <p className="slide-text-left max-w-md text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed transform-gpu will-change-[transform,clip-path,opacity]">
-                A quick overview of who I am, what I do, and how I create
-                meaningful digital experiences.
-              </p>
+              {/* ABOUT HEADING */}
+              <div className="min-w-0 flex-1">
+                <div className="about-label-wrapper flex items-center gap-3 mb-4 transform-gpu will-change-[transform,opacity]">
+                  <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-secondary)]">
+                    About Me
+                  </span>
+
+                  <span className="about-accent-line h-px w-12 bg-[var(--accent-primary)] transform-gpu will-change-transform" />
+                </div>
+
+                <div className="overflow-hidden">
+                  <p className="slide-text-left md:max-w-md max-w-[270px] text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed transform-gpu will-change-[transform,clip-path,opacity]">
+                    A quick overview of who I am, what I do, and how I create
+                    meaningful digital experiences.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* QUICK INFO HEADING (DESKTOP) */}
+          {/* QUICK INFO HEADER */}
           <div className="lg:col-span-5 hidden md:flex flex-col lg:border-l lg:border-[var(--border-light)] lg:pl-10">
             <div className="overflow-hidden">
               <h2 className="slide-text-left heading-font text-2xl sm:text-3xl text-[var(--text-main)] transform-gpu will-change-[transform,clip-path,opacity]">
@@ -155,12 +171,12 @@ const AboutMe = () => {
           </div>
         </div>
 
-        {/* CONTENT */}
+        {/* MAIN CONTENT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
           {/* ABOUT CONTENT */}
           <div className="lg:col-span-7 space-y-6">
             <div className="overflow-hidden">
-              <p className="slide-text-left text-sm sm:text-sm text-justify text-[var(--text-main)] leading-[1.9] transform-gpu will-change-[transform,clip-path,opacity]">
+              <p className="slide-text-left text-sm text-justify text-[var(--text-main)] leading-[1.9] transform-gpu will-change-[transform,clip-path,opacity]">
                 I'm{" "}
                 <span className="font-medium text-[var(--accent-primary)]">
                   Joydeep Paul
@@ -178,7 +194,7 @@ const AboutMe = () => {
             </div>
 
             <div className="overflow-hidden">
-              <p className="slide-text-left text-sm sm:text-sm text-justify text-[var(--text-secondary)] leading-[1.9] transform-gpu will-change-[transform,clip-path,opacity]">
+              <p className="slide-text-left text-sm text-justify text-[var(--text-secondary)] leading-[1.9] transform-gpu will-change-[transform,clip-path,opacity]">
                 I enjoy turning ideas into polished, production-ready
                 applications by combining clean architecture, maintainable code,
                 intuitive user experiences, and reliable backend systems. I
@@ -191,7 +207,7 @@ const AboutMe = () => {
 
           {/* QUICK INFO CONTENT */}
           <div className="lg:col-span-5 lg:border-l lg:border-[var(--border-light)] lg:pl-10">
-            {/* QUICK INFO HEADING (MOBILE) */}
+            {/* QUICK INFO HEADER - MOBILE */}
             <div className="md:hidden flex flex-col mb-8">
               <div className="overflow-hidden">
                 <h2 className="slide-text-left heading-font text-2xl sm:text-3xl text-[var(--text-main)] transform-gpu will-change-[transform,clip-path,opacity]">
@@ -210,13 +226,14 @@ const AboutMe = () => {
 
             {/* QUICK INFO LIST */}
             <div className="relative">
-              {/* Top Animated Border Line */}
+              {/* TOP BORDER */}
               <div className="quick-info-top-border h-px w-full bg-[var(--border-light)]" />
 
               {info.map(([title, year], index) => (
                 <div key={index} className="relative">
-                  <div className="quick-info-row group flex items-center justify-between gap-6 py-3 sm:py-4 transition-colors duration-300 transform-gpu will-change-[transform,opacity]">
-                    <span className="text-xs sm:text-sm text-[var(--text-secondary)] transition-colors duration-300 group-hover:text-[var(--text-main)]">
+                  {/* INFO ROW */}
+                  <div className="quick-info-row group flex items-center justify-between gap-4 sm:gap-6 py-3 sm:py-4 transition-colors duration-300 transform-gpu will-change-[transform,opacity]">
+                    <span className="min-w-0 text-xs sm:text-sm text-[var(--text-secondary)] transition-colors duration-300 group-hover:text-[var(--text-main)]">
                       {title}
                     </span>
 
@@ -225,7 +242,7 @@ const AboutMe = () => {
                     </span>
                   </div>
 
-                  {/* Bottom Animated Divider Line */}
+                  {/* DIVIDER */}
                   <div className="quick-info-divider h-px w-full bg-[var(--border-light)]" />
                 </div>
               ))}
