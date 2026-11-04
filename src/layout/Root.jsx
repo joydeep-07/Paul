@@ -9,7 +9,7 @@ import ChatAssistant from "../Components/ChatAssistant";
 const Root = () => {
   const location = useLocation();
 
-  const isChatPage = location.pathname === "/aichat";
+  const isChatPage = location.pathname === "/aichat" || location.pathname === "/story"; 
 
   return (
     <div className="min-h-screen flex relative bg-[var(--bg-main)] text-[var(--text-main)] transition-all duration-300">
@@ -24,9 +24,11 @@ const Root = () => {
           <Outlet />
         </div>
 
-        <div className="">
-          <ChatAssistant/>
-        </div>
+        {!isChatPage && (
+          <div className="">
+            <ChatAssistant />
+          </div>
+        )}
       </div>
 
       {!isChatPage && (

@@ -16,6 +16,7 @@ import Python from "./blog/AllBlogs/Python";
 import AdminControl from "./Pages/AdminControl";
 import ProtectedRoute from "./layout/ProtectedRoute"; // Import the guard
 import AdminMessages from "./Admin/AdminMessages";
+import Story from "./Pages/Story";
 
 const App = () => {
   const { mode } = useSelector((state) => state.theme);
@@ -38,6 +39,7 @@ const App = () => {
         { path: "/contact", element: <Contact /> },
         { path: "/projects", element: <Projects /> },
         { path: "/blogs", element: <Blogs /> },
+        { path: "/story", element: <Story /> },
         { path: "/review/form", element: <ReviewForm /> },
         { path: "project/:id", element: <ProjectDetails /> },
 

@@ -13,6 +13,7 @@ import { TextField, Button, Box, Alert } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -271,15 +272,17 @@ const Contact = () => {
                         </div>
                       )}
 
-                      <img
-                        src={me}
-                        alt="Joydeep Paul"
-                        loading="lazy"
-                        onLoad={() => setImageLoaded(true)}
-                        className={`h-20 w-20 rounded-full border border-[var(--border-light)] object-cover p-1 transition-opacity duration-500 ${
-                          imageLoaded ? "opacity-100" : "opacity-0"
-                        }`}
-                      />
+                      <Link to="/story" >
+                        <img
+                          src={me}
+                          alt="Joydeep Paul"
+                          loading="lazy"
+                          onLoad={() => setImageLoaded(true)}
+                          className={`h-20 w-20 rounded-full border border-[var(--border-light)] object-cover p-1 transition-opacity duration-500 ${
+                            imageLoaded ? "opacity-100" : "opacity-0"
+                          }`}
+                        />
+                      </Link>
                     </div>
 
                     <div>
